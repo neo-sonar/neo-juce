@@ -1,0 +1,44 @@
+---
+stages:
+  - build
+
+win:msvc:release:
+  stage: build
+  tags:
+    - mc-windows
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    GIT_STRATEGY: clone
+  script:
+    - Set-Location $env:CI_PROJECT_DIR
+    - New-Item -Path cmake-build-release -ItemType Directory
+    - Set-Location cmake-build-release
+    - cmake -S ..
+    - cmake --build . --config Release
+    - Set-Location $env:CI_PROJECT_DIR
+  dependencies: [ ]
+
+mac:xcode:release:
+  stage: build
+  tags:
+    - mc-macos
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  script:
+    - cd $CI_PROJECT_DIR
+    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
+    - cmake --build cmake-build-release
+  dependencies: [ ]
+
+linux:gcc:release:
+  stage: build
+  tags:
+    - mc-linux
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    CMAKE_BUILD_PARALLEL_LEVEL: 2
+  script:
+    - cd $CI_PROJECT_DIR
+    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
+    - cmake --build cmake-build-release
+  dependencies: [ ]
