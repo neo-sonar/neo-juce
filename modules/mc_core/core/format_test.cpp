@@ -4,5 +4,8 @@
 
 TEST_CASE("mc_core: format", "[core]")
 {
-    CHECK(mc::format("test") == "test143");
+    CHECK(mc::format(juce::String {"test"}) == "test");
+    CHECK(mc::format(juce::String {"test{}"}, 143) == "test143");
+    CHECK(mc::format(juce::String {"{}test"}, 143) == "143test");
+    CHECK(mc::format(juce::String {"{0}test{0}"}, 143) == "143test143");
 }
