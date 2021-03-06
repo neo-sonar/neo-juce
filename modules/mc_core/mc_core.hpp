@@ -34,6 +34,11 @@
 #include "fmt/chrono.h"
 #include "fmt/format.h"
 
-#include "core/format.hpp"
+#include "image/image_utils.hpp"
+#include "javascript/json_utils.hpp"
+#include "text/format.hpp"
+#include "thread/thread_safe_queue.hpp"
+
+#include "thread/background_process.hpp"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP

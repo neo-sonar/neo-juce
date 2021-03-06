@@ -7,7 +7,7 @@ target_sources(${PROJECT_NAME}_tests
     PRIVATE
         main_test.cpp
 
-        core/format_test.cpp
+        text/format_test.cpp
 )
 
 target_compile_definitions(${PROJECT_NAME}_tests
