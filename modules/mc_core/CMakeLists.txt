@@ -1,7 +1,7 @@
 project(mc_core VERSION 0.1.0)
 
 juce_add_console_app(${PROJECT_NAME}_tests PRODUCT_NAME "${PROJECT_NAME}_tests")
-add_test(NAME ${PROJECT_NAME}_tests COMMAND ${PROJECT_NAME}_tests)
+catch_discover_tests(${PROJECT_NAME}_tests)
 
 target_sources(${PROJECT_NAME}_tests
     PRIVATE
