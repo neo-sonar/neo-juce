@@ -15,6 +15,7 @@ win:msvc:release:
     - Set-Location cmake-build-release
     - cmake -S ..
     - cmake --build . --config Release
+    - ctest
     - Set-Location $env:CI_PROJECT_DIR
   dependencies: [ ]
 
@@ -28,6 +29,9 @@ mac:xcode:release:
     - cd $CI_PROJECT_DIR
     - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
     - cmake --build cmake-build-release
+    - cd cmake-build-release
+    - ctest
+    - cd $CI_PROJECT_DIR
   dependencies: [ ]
 
 linux:gcc:release:
@@ -41,4 +45,6 @@ linux:gcc:release:
     - cd $CI_PROJECT_DIR
     - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
     - cmake --build cmake-build-release
+    - ctest
+    - cd $CI_PROJECT_DIR
   dependencies: [ ]

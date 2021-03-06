@@ -36,6 +36,8 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     FetchContent_MakeAvailable(juce)
 endif ()
 
+add_subdirectory(3rd_party/fmt)
+
 juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)

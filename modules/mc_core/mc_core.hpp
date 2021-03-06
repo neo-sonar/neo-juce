@@ -33,6 +33,7 @@
 
 #include "fmt/chrono.h"
 #include "fmt/format.h"
-#include "fmt/printf.h"
+
+#include "core/format.hpp"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP
