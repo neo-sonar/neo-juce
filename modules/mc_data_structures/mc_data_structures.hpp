@@ -24,7 +24,6 @@
 
 #include "value_tree/attachment.hpp"
 #include "value_tree/object_list.hpp"
-#include "value_tree/utils.hpp"
 #include "value_tree/value_wrapper.hpp"
 #include "value_tree/variant_converter.hpp"
 

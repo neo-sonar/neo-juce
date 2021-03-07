@@ -33,6 +33,7 @@
 #include "image/image_utils.hpp"
 #include "javascript/json_utils.hpp"
 #include "thread/thread_safe_queue.hpp"
+#include "time/time_utils.hpp"
 
 #include "thread/background_process.hpp"
 

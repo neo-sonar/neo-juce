@@ -3,36 +3,6 @@
 #include "catch2/catch_template_test_macros.hpp"
 #include "catch2/catch_test_macros.hpp"
 
-TEST_CASE("value_tree: VariantConverter<juce::Time>", "[value_tree]")
-{
-    SECTION("default")
-    {
-        auto const time = juce::Time {};
-        auto const var  = juce::VariantConverter<juce::Time>::toVar(time);
-        CHECK(time == juce::VariantConverter<juce::Time>::fromVar(var));
-    }
-
-    SECTION("constructed")
-    {
-        auto const time = juce::Time {1995, 05, 15, 0, 0, 0, 0, false};
-        auto const var  = juce::VariantConverter<juce::Time>::toVar(time);
-        CHECK(time == juce::VariantConverter<juce::Time>::fromVar(var));
-    }
-}
-
-TEST_CASE("value_tree: VariantConverter<juce::Image>", "[value_tree]")
-{
-    SECTION("rgb cleared")
-    {
-        auto const original = juce::Image {juce::Image::RGB, 2, 2, true};
-        auto const value    = juce::VariantConverter<juce::Image>::toVar(original);
-        auto const result   = juce::VariantConverter<juce::Image>::fromVar(value);
-        CHECK(original.isValid() == result.isValid());
-        CHECK(original.getBounds() == result.getBounds());
-        CHECK(original.getFormat() == result.getFormat());
-    }
-}
-
 TEST_CASE("value_tree: VariantConverter<juce::Colour>", "[value_tree]")
 {
     SECTION("black")
@@ -108,7 +78,7 @@ TEMPLATE_TEST_CASE("value_tree: VariantConverter<juce::NormalisableRange>", "[va
     }
 }
 
-//TEST_CASE("value_tree: VariantConverter<juce::NormalisableRange<float>>", "[value_tree]")
+// TEST_CASE("value_tree: VariantConverter<juce::NormalisableRange<float>>", "[value_tree]")
 //{
 //    SECTION("defaultFrequencyRange")
 //    {
