@@ -4,7 +4,7 @@
 
 #include <future>
 
-TEMPLATE_TEST_CASE("mc_data_structures/value_tree: AtomicWrapper", "[data_structures][value_tree]", int, float, double)
+TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "[data_structures][value_tree]", int, float, double)
 {
     constexpr auto iterations = 1'000;
     auto c                    = juce::ValueTree("CLIP");
@@ -19,7 +19,7 @@ TEMPLATE_TEST_CASE("mc_data_structures/value_tree: AtomicWrapper", "[data_struct
     CHECK(static_cast<TestType>(start.get()) == iterations);
 }
 
-TEMPLATE_TEST_CASE("mc_data_structures/value_tree: ConstrainerWrapper", "[data_structures][value_tree]", int, float,
+TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "[data_structures][value_tree]", int, float,
                    double)
 {
     struct StartTimeConstrainer

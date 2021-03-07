@@ -2,7 +2,7 @@
 
 #include "catch2/catch_template_test_macros.hpp"
 
-TEMPLATE_TEST_CASE("mc_graphics/geometry: VariantConverter<juce::Point>", "[graphics][geometry]", int, float, double)
+TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Point>", "[graphics][geometry]", int, float, double)
 {
     auto convert = [](auto const& value) -> juce::Point<TestType> {
         auto const var = juce::VariantConverter<juce::Point<TestType>>::toVar(value);
@@ -22,7 +22,7 @@ TEMPLATE_TEST_CASE("mc_graphics/geometry: VariantConverter<juce::Point>", "[grap
     CHECK(negative == convert(negative));
 }
 
-TEMPLATE_TEST_CASE("mc_graphics/geometry: VariantConverter<juce::Line>", "[graphics][geometry]", int, float, double)
+TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Line>", "[graphics][geometry]", int, float, double)
 {
     auto convert = [](auto const& value) -> juce::Line<TestType> {
         auto const var = juce::VariantConverter<juce::Line<TestType>>::toVar(value);
@@ -39,8 +39,7 @@ TEMPLATE_TEST_CASE("mc_graphics/geometry: VariantConverter<juce::Line>", "[graph
     CHECK(negative == convert(negative));
 }
 
-TEMPLATE_TEST_CASE("mc_graphics/geometry: VariantConverter<juce::Rectangle>", "[graphics][geometry]", int, float,
-                   double)
+TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Rectangle>", "[graphics][geometry]", int, float, double)
 {
     auto convert = [](auto const& value) -> juce::Rectangle<TestType> {
         auto const var = juce::VariantConverter<juce::Rectangle<TestType>>::toVar(value);

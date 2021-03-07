@@ -2,7 +2,7 @@
 
 #include "catch2/catch_test_macros.hpp"
 
-TEST_CASE("mc_core/time: VariantConverter<juce::Time>", "[core][time]")
+TEST_CASE("core/time: VariantConverter<juce::Time>", "[core][time]")
 {
     SECTION("default")
     {

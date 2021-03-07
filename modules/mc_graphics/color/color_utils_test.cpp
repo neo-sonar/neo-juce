@@ -2,7 +2,7 @@
 
 #include "catch2/catch_test_macros.hpp"
 
-TEST_CASE("mc_graphics/color: VariantConverter<juce::Colour>", "[graphics][color]")
+TEST_CASE("graphics/color: VariantConverter<juce::Colour>", "[graphics][color]")
 {
     SECTION("black")
     {
