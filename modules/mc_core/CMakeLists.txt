@@ -7,6 +7,7 @@ target_sources(${PROJECT_NAME}_tests
     PRIVATE
         main_test.cpp
 
+        container/flat_map_test.cpp
         text/format_test.cpp
 )
 

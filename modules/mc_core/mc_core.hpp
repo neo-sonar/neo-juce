@@ -34,6 +34,8 @@
 #include "fmt/chrono.h"
 #include "fmt/format.h"
 
+#include "container/flat_map.hpp"
+
 #include "image/image_utils.hpp"
 #include "javascript/json_utils.hpp"
 #include "text/format.hpp"
