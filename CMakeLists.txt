@@ -42,6 +42,7 @@ add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
 juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_data_structures ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_graphics ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_gui_basics ALIAS_NAMESPACE mc)
 
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -62,12 +63,14 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_core/text/format_test.cpp
             modules/mc_core/time/time_utils_test.cpp
 
-            modules/mc_data_structures/value_tree/attachment_test.cpp
             modules/mc_data_structures/value_tree/value_wrapper_test.cpp
 
             modules/mc_graphics/color/color_utils_test.cpp
             modules/mc_graphics/geometry/geometry_utils_test.cpp
             modules/mc_graphics/images/image_utils_test.cpp
+
+            modules/mc_gui_basics/attachment/label_attachment_test.cpp
+            modules/mc_gui_basics/attachment/slider_attachment_test.cpp
     )
 
     target_compile_definitions(${PROJECT_NAME}_tests
@@ -81,6 +84,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             mc::mc_core
             mc::mc_data_structures
             mc::mc_graphics
+            mc::mc_gui_basics
             Catch2::Catch2
             fmt::fmt
             juce::juce_recommended_config_flags

@@ -4,9 +4,9 @@
  ID:            mc_core
  vendor:        mc
  version:       0.1.0
- name:          Core
+ name:          Modern Circuits JUCE Core module
  description:   Core JUCE extensions and utilities.
- dependencies:  juce_gui_extra, juce_events, juce_dsp
+ dependencies:  juce_core, juce_events
 
  END_JUCE_MODULE_DECLARATION
  */
@@ -18,9 +18,8 @@
 #define USE_MC_CORE 1
 #endif
 
-#include <juce_dsp/juce_dsp.h>
 #include <juce_events/juce_events.h>
-#include <juce_gui_extra/juce_gui_extra.h>
+#include <juce_core/juce_core.h>
 
 #include "fmt/chrono.h"
 #include "fmt/format.h"
