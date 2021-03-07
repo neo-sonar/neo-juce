@@ -52,7 +52,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(CTest)
     include(Catch)
 
-    juce_add_console_app(${PROJECT_NAME}_tests PRODUCT_NAME "${PROJECT_NAME}_tests")
+    juce_add_console_app(${PROJECT_NAME}_tests PRODUCT_NAME "${PROJECT_NAME}_tests" NEEDS_CURL TRUE)
     catch_discover_tests(${PROJECT_NAME}_tests)
 
     target_sources(${PROJECT_NAME}_tests
@@ -60,6 +60,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             main_test.cpp
 
             modules/mc_core/container/flat_map_test.cpp
+            modules/mc_core/javascript/json_utils_test.cpp
             modules/mc_core/math/range_utils_test.cpp
             modules/mc_core/text/format_test.cpp
             modules/mc_core/time/time_utils_test.cpp
@@ -80,7 +81,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     target_compile_definitions(${PROJECT_NAME}_tests
         PRIVATE
             JUCE_WEB_BROWSER=0
-            JUCE_USE_CURL=0
     )
 
     target_link_libraries(${PROJECT_NAME}_tests
