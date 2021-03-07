@@ -40,6 +40,44 @@ public:
     FlatMap() = default;
 
     /**
+     * @brief
+     */
+    explicit FlatMap(key_compare const& cmp, allocator_type const& alloc = allocator_type())
+        : compare_(cmp), container_(alloc)
+    {
+    }
+
+    /**
+     * @brief Defaulted copy constructor
+     */
+    FlatMap(FlatMap const& other) = default;
+
+    /**
+     * @brief Defaulted move constructor
+     */
+    FlatMap(FlatMap&& other) = default;
+
+    /**
+     * @brief Copy assignment
+     */
+    FlatMap& operator=(FlatMap const& other)
+    {
+        compare_   = other.compare_;
+        container_ = other.container_;
+        return *this;
+    }
+
+    /**
+     * @brief Move assignment
+     */
+    FlatMap& operator=(FlatMap&& other)
+    {
+        compare_   = std::move(other.compare_);
+        container_ = std::move(other.container_);
+        return *this;
+    }
+
+    /**
      * @brief Returns an iterator to the first element of the underlying container.
      */
     [[nodiscard]] auto begin() noexcept -> iterator { return container_.begin(); }
@@ -97,6 +135,118 @@ public:
     [[nodiscard]] auto size() const noexcept -> size_type { return container_.size(); }
     [[nodiscard]] auto max_size() const noexcept -> size_type { return container_.max_size(); }
 
+    auto reserve(size_type count) -> void { return container_.reserve(count); }
+
+    [[nodiscard]] auto capacity() const noexcept -> size_type { return container_.capacity(); }
+
+    auto clear() noexcept -> void { container_.clear(); }
+
+    [[nodiscard]] auto lower_bound(key_type const& k) -> iterator
+    {
+        return std::lower_bound(container_.begin(), container_.end(), k, compare_);
+    }
+
+    [[nodiscard]] auto lower_bound(key_type const& k) const -> const_iterator
+    {
+        return std::lower_bound(container_.begin(), container_.end(), k, compare_);
+    }
+
+    [[nodiscard]] auto find(key_type const& k) -> iterator
+    {
+        auto i = lower_bound(k);
+        if (i != end() && !compare_(k, *i)) return i;
+
+        return end();
+    }
+
+    [[nodiscard]] auto find(key_type const& k) const -> const_iterator
+    {
+        auto i = lower_bound(k);
+        if (i != end() && !compare_(k, *i)) return i;
+
+        return end();
+    }
+
+    [[nodiscard]] auto count(key_type const& k) const -> size_type { return find(k) == end() ? 0 : 1; }
+
+    template<typename P>
+    [[nodiscard]] auto insert(P&& val) -> std::pair<iterator, bool>
+    {
+        auto i = lower_bound(val.first);
+        if (i != end() && !compare_(val.first, *i)) { return {i, false}; }
+
+        return {container_.emplace(i, std::forward<P>(val)), true};
+    }
+
+    [[nodiscard]] auto insert(value_type const& val) -> std::pair<iterator, bool>
+    {
+        auto i = lower_bound(val.first);
+        if (i != end() && !compare_(val.first, *i)) { return {i, false}; }
+
+        return {container_.emplace(i, val), true};
+    }
+
+    template<typename... Args>
+    [[nodiscard]] auto emplace(Args&&... args) -> std::pair<iterator, bool>
+    {
+        value_type val(std::forward<Args>(args)...);
+        return insert(std::move(val));
+    }
+
+    auto erase(const_iterator pos) -> iterator { return container_.erase(pos); }
+
+    auto erase(key_type const& k) -> size_type
+    {
+        if (auto i = find(k); i != end())
+        {
+            erase(i);
+            return 1;
+        }
+        return 0;
+    }
+
+    [[nodiscard]] auto operator[](key_type const& k) -> mapped_type&
+    {
+        auto i = lower_bound(k);
+        if (i != end() && !compare_(k, *i)) { return i->second; }
+
+        i = container_.emplace(i, k, mapped_type());
+        return i->second;
+    }
+
+    [[nodiscard]] auto operator[](key_type&& k) -> mapped_type&
+    {
+        auto i = lower_bound(k);
+        if (i != end() && !compare_(k, *i)) { return i->second; }
+
+        i = container_.emplace(i, std::forward<key_type>(k), mapped_type());
+        return i->second;
+    }
+
+    [[nodiscard]] auto at(key_type const& k) -> mapped_type&
+    {
+        auto i = lower_bound(k);
+        if (i == end() || compare_(*i, k)) { throw std::out_of_range("mc::FlatMap out of range"); }
+
+        return i->second;
+    }
+
+    [[nodiscard]] auto at(key_type const& k) const -> mapped_type const&
+    {
+        auto i = lower_bound(k);
+        if (i == end() || compare_(*i, k)) { throw std::out_of_range("mc::FlatMap out of range"); }
+
+        return i->second;
+    }
+
+    auto swap(FlatMap& x) -> void
+    {
+        std::swap(compare_, x.compare_);
+        container_.swap(x.container_);
+    }
+
+    [[nodiscard]] auto container() const noexcept -> container_type const& { return container_; }
+
 private:
     struct PairCompare
     {
@@ -111,6 +261,21 @@ private:
     PairCompare compare_ {};
     container_type container_ {};
 };
+
+template<typename Key, typename T, typename Compare, typename Container>
+[[nodiscard]] auto operator==(FlatMap<Key, T, Compare, Container> const& lhs,
+                              FlatMap<Key, T, Compare, Container> const& rhs) -> bool
+{
+    return lhs.container() == rhs.container();
+}
+
+template<typename Key, typename T, typename Compare, typename Container>
+[[nodiscard]] auto operator!=(FlatMap<Key, T, Compare, Container> const& lhs,
+                              FlatMap<Key, T, Compare, Container> const& rhs) -> bool
+{
+    return lhs.container() != rhs.container();
+}
+
 }  // namespace mc
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_FLAT_MAP_HPP
