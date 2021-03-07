@@ -1,12 +1,5 @@
-#ifndef MC_JUCE_BUNDLE_VALE_TREE_VARIANT_CONVERTER_HPP
-#define MC_JUCE_BUNDLE_VALE_TREE_VARIANT_CONVERTER_HPP
-
-template<>
-struct juce::VariantConverter<juce::Colour>
-{
-    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Colour { return Colour::fromString(v.toString()); }
-    [[nodiscard]] static auto toVar(juce::Colour const& c) -> juce::var { return c.toString(); }
-};
+#ifndef MODERN_CIRCUITS_JUCE_MODULES_GEOMETRY_UTILS_HPP
+#define MODERN_CIRCUITS_JUCE_MODULES_GEOMETRY_UTILS_HPP
 
 template<typename ValueType>
 struct juce::VariantConverter<juce::Point<ValueType>>
@@ -63,4 +56,4 @@ struct juce::VariantConverter<juce::Rectangle<ValueType>>
     }
 };
 
-#endif  // MC_JUCE_BUNDLE_VALE_TREE_VARIANT_CONVERTER_HPP
+#endif  // MODERN_CIRCUITS_JUCE_MODULES_GEOMETRY_UTILS_HPP

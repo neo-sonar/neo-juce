@@ -25,6 +25,5 @@
 #include "value_tree/attachment.hpp"
 #include "value_tree/object_list.hpp"
 #include "value_tree/value_wrapper.hpp"
-#include "value_tree/variant_converter.hpp"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_DATA_STRUCTURES_HPP
