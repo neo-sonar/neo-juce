@@ -1,4 +1,4 @@
-#include "mc_core/mc_core.hpp"
+#include <juce_events/juce_events.h>
 
 #include "catch2/catch_session.hpp"
 

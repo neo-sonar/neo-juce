@@ -1,23 +1,14 @@
 /*
- ==============================================================================
  BEGIN_JUCE_MODULE_DECLARATION
 
  ID:            mc_core
- vendor:        Modern Circuits
+ vendor:        mc
  version:       0.1.0
  name:          Core
  description:   Core JUCE extensions and utilities.
  dependencies:  juce_gui_extra, juce_events, juce_dsp
- website:       https://modern-circuits.com
- license:       Copyright 2019-2021 Modern Circuits. All rights reserved.
 
  END_JUCE_MODULE_DECLARATION
-
- ==============================================================================
-
- @defgroup mc_core
-
- ==============================================================================
  */
 
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP

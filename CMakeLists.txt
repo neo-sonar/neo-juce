@@ -29,6 +29,8 @@ add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
 
 juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_data_structures ALIAS_NAMESPACE mc)
+
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/Catch2/extras")
@@ -36,5 +38,30 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(CTest)
     include(Catch)
 
-    add_subdirectory(modules/mc_core)
+    juce_add_console_app(${PROJECT_NAME}_tests PRODUCT_NAME "${PROJECT_NAME}_tests")
+    catch_discover_tests(${PROJECT_NAME}_tests)
+
+    target_sources(${PROJECT_NAME}_tests
+        PRIVATE
+            main_test.cpp
+
+            modules/mc_core/container/flat_map_test.cpp
+            modules/mc_core/text/format_test.cpp
+    )
+
+    target_compile_definitions(${PROJECT_NAME}_tests
+        PRIVATE
+            JUCE_WEB_BROWSER=0
+            JUCE_USE_CURL=0
+    )
+
+    target_link_libraries(${PROJECT_NAME}_tests
+        PRIVATE
+            mc::mc_core
+            mc::mc_data_structures
+            Catch2::Catch2
+            fmt::fmt
+            juce::juce_recommended_config_flags
+            # juce::juce_recommended_warning_flags
+    )
 endif()
