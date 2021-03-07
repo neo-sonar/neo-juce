@@ -14,17 +14,30 @@ public:
 
     virtual ~Modulator() = default;
 
-    [[nodiscard]] virtual auto getName() const -> juce::String                                        = 0;
-    virtual auto prepareToPlay(double sampleRate, int maxSamplesPerBlock) -> void                     = 0;
-    virtual auto processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiBuffer) -> void = 0;
-    virtual auto releaseResources() -> void                                                           = 0;
+    [[nodiscard]] virtual auto getName() const -> juce::String { return {}; }
 
-    [[nodiscard]] virtual auto getValueTree() -> juce::ValueTree& { return valueTree_; }
-    [[nodiscard]] virtual auto getUndoManager() const -> juce::UndoManager* { return undoManager_; }
+    virtual auto prepareToPlay(double sampleRate, int maxSamplesPerBlock) -> void
+    {
+        juce::ignoreUnused(sampleRate, maxSamplesPerBlock);
+    }
+
+    virtual auto processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiBuffer) -> void
+    {
+        juce::ignoreUnused(buffer, midiBuffer);
+    }
+
+    virtual auto releaseResources() -> void { }
+
+    [[nodiscard]] auto getValueTree() -> juce::ValueTree& { return valueTree_; }
+    [[nodiscard]] auto getUndoManager() const -> juce::UndoManager* { return undoManager_; }
+
+    auto setPlayHead(juce::AudioPlayHead* playHead) -> void { playHead_ = playHead; }
+    [[nodiscard]] auto getPlayHead() const noexcept -> juce::AudioPlayHead* { return playHead_; }
 
 private:
     juce::ValueTree valueTree_;
     juce::UndoManager* undoManager_;
+    juce::AudioPlayHead* playHead_ = nullptr;
 };
 }  // namespace mc
 
