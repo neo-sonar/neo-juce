@@ -3,6 +3,12 @@ cmake_policy(VERSION 3.15)
 
 project(modern-circuits-juce-modules VERSION 0.1.0)
 
+option(MODERN_CIRCUITS_BUILD_COVERAGE "Build with coverage enabled" OFF)
+option(MODERN_CIRCUITS_BUILD_ASAN "Build with address sanitizer enabled" OFF)
+option(MODERN_CIRCUITS_BUILD_UBSAN "Build with undefined behavior sanitizer enabled" OFF)
+option(MODERN_CIRCUITS_BUILD_TSAN "Build with thread sanitizer enabled" OFF)
+option(MODERN_CIRCUITS_BUILD_MSAN "Build with memory sanitizer enabled" OFF)
+
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(CMAKE_C_STANDARD 11)
     set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -23,6 +29,11 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
         set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
     endif ()
 endif ()
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(mcCompilerOptions)
+include(mcCompilerWarnings)
+include(mcCodeCoverage)
 
 add_subdirectory(3rd_party/fmt EXCLUDE_FROM_ALL)
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
@@ -67,5 +78,8 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             fmt::fmt
             juce::juce_recommended_config_flags
             # juce::juce_recommended_warning_flags
+            ModernCircuits::CompilerOptions
+            ModernCircuits::CompilerWarnings
+            ModernCircuits::CodeCoverage
     )
 endif()

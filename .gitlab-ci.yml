@@ -34,13 +34,15 @@ mac:xcode:release:
     - cd $CI_PROJECT_DIR
   dependencies: [ ]
 
-linux:gcc:release:
+linux:clang:release:
   stage: build
   tags:
     - mc-linux
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
     CMAKE_BUILD_PARALLEL_LEVEL: 2
+    CC: clang
+    CXX: clang++
   script:
     - cd $CI_PROJECT_DIR
     - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
@@ -48,3 +50,22 @@ linux:gcc:release:
     - ctest
     - cd $CI_PROJECT_DIR
   dependencies: [ ]
+
+linux:gcc:coverage:
+  stage: build
+  only:
+    - main
+  tags:
+    - mc-linux
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    CMAKE_BUILD_PARALLEL_LEVEL: 2
+  script:
+    - make coverage
+    - bash <(curl -s https://codecov.io/bash) -f cmake-build-coverage/cov.info
+    - find . -type f -executable -iname "*_Test*" -exec sh -c "{} -r junit -o {}-results.xml" \;
+  dependencies: [ ]
+  artifacts:
+    when: always
+    reports:
+      junit: cmake-build-coverage/**/*-results.xml
