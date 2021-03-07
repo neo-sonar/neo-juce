@@ -58,7 +58,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             main_test.cpp
 
             modules/mc_core/container/flat_map_test.cpp
-            modules/mc_core/image/image_utils_test.cpp
             modules/mc_core/math/range_utils_test.cpp
             modules/mc_core/text/format_test.cpp
             modules/mc_core/time/time_utils_test.cpp
@@ -68,6 +67,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
             modules/mc_graphics/color/color_utils_test.cpp
             modules/mc_graphics/geometry/geometry_utils_test.cpp
+            modules/mc_graphics/images/image_utils_test.cpp
     )
 
     target_compile_definitions(${PROJECT_NAME}_tests

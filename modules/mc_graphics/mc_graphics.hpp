@@ -23,5 +23,6 @@
 
 #include "color/color_utils.hpp"
 #include "geometry/geometry_utils.hpp"
+#include "images/image_utils.hpp"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_GRAPHICS_HPP

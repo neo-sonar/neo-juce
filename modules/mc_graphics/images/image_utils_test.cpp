@@ -1,8 +1,8 @@
-#include "mc_core/mc_core.hpp"
+#include "mc_graphics/mc_graphics.hpp"
 
 #include "catch2/catch_test_macros.hpp"
 
-TEST_CASE("core/image: VariantConverter<juce::Image>", "[core][image]")
+TEST_CASE("graphics/images: VariantConverter<juce::Image>", "[graphics][images]")
 {
     SECTION("rgb cleared")
     {
