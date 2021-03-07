@@ -15,7 +15,11 @@ public:
     auto processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiBuffer) -> void override;
     auto releaseResources() -> void override;
 
+    auto setGain(float newGain) -> void;
+    [[nodiscard]] auto getGain() const -> float;
+
 private:
+    CachedAtomicFloat gain_;
 };
 
 }  // namespace mc
