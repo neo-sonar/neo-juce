@@ -43,6 +43,7 @@ juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_data_structures ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_graphics ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_gui_basics ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_modulation ALIAS_NAMESPACE mc)
 
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -71,6 +72,8 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
             modules/mc_gui_basics/attachment/label_attachment_test.cpp
             modules/mc_gui_basics/attachment/slider_attachment_test.cpp
+
+            modules/mc_modulation/modulator/modulator_macro_test.cpp
     )
 
     target_compile_definitions(${PROJECT_NAME}_tests
@@ -85,6 +88,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             mc::mc_data_structures
             mc::mc_graphics
             mc::mc_gui_basics
+            mc::mc_modulation
             Catch2::Catch2
             fmt::fmt
             juce::juce_recommended_config_flags
