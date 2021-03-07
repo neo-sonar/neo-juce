@@ -2,7 +2,7 @@
 
 #include "catch2/catch_template_test_macros.hpp"
 
-TEMPLATE_TEST_CASE("mc_core: FlatMap::FlatMap()", "[core][container]", char, short, int, long long, float, double)
+TEMPLATE_TEST_CASE("mc_core/container: FlatMap::FlatMap()", "[core][container]", char, short, int, long long, float, double)
 {
     SECTION("int key")
     {
@@ -32,7 +32,7 @@ struct int_wrap
     };
 };
 
-TEST_CASE("mc_core: FlatMap", "[core][container]")
+TEST_CASE("mc_core/container: FlatMap", "[core][container]")
 {
 
     mc::FlatMap<int, float> ifmap;

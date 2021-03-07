@@ -2,7 +2,7 @@
 
 #include "catch2/catch_test_macros.hpp"
 
-TEST_CASE("mc_core: format", "[core]")
+TEST_CASE("mc_core/text: format", "[core][text]")
 {
     CHECK(mc::format(juce::String {"test"}) == "test");
     CHECK(mc::format(juce::String {"test{}"}, 143) == "test143");

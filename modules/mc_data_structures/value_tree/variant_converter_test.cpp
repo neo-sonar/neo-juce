@@ -3,7 +3,7 @@
 #include "catch2/catch_template_test_macros.hpp"
 #include "catch2/catch_test_macros.hpp"
 
-TEST_CASE("value_tree: VariantConverter<juce::Colour>", "[value_tree]")
+TEST_CASE("mc_data_structures/value_tree: VariantConverter<juce::Colour>", "[data_structures][value_tree]")
 {
     SECTION("black")
     {
@@ -27,8 +27,8 @@ TEST_CASE("value_tree: VariantConverter<juce::Colour>", "[value_tree]")
     }
 }
 
-
-TEMPLATE_TEST_CASE("value_tree: VariantConverter<juce::Point>", "[value_tree]", int, float, double)
+TEMPLATE_TEST_CASE("mc_data_structures/value_tree: VariantConverter<juce::Point>", "[data_structures][value_tree]", int,
+                   float, double)
 {
     auto convert = [](auto const& value) -> juce::Point<TestType> {
         auto const var = juce::VariantConverter<juce::Point<TestType>>::toVar(value);
@@ -48,7 +48,8 @@ TEMPLATE_TEST_CASE("value_tree: VariantConverter<juce::Point>", "[value_tree]", 
     CHECK(negative == convert(negative));
 }
 
-TEMPLATE_TEST_CASE("value_tree: VariantConverter<juce::Line>", "[value_tree]", int, float, double)
+TEMPLATE_TEST_CASE("mc_data_structures/value_tree: VariantConverter<juce::Line>", "[data_structures][value_tree]", int,
+                   float, double)
 {
     auto convert = [](auto const& value) -> juce::Line<TestType> {
         auto const var = juce::VariantConverter<juce::Line<TestType>>::toVar(value);
@@ -65,7 +66,8 @@ TEMPLATE_TEST_CASE("value_tree: VariantConverter<juce::Line>", "[value_tree]", i
     CHECK(negative == convert(negative));
 }
 
-TEMPLATE_TEST_CASE("value_tree: VariantConverter<juce::Rectangle>", "[value_tree]", int, float, double)
+TEMPLATE_TEST_CASE("mc_data_structures/value_tree: VariantConverter<juce::Rectangle>", "[data_structures][value_tree]",
+                   int, float, double)
 {
     auto convert = [](auto const& value) -> juce::Rectangle<TestType> {
         auto const var = juce::VariantConverter<juce::Rectangle<TestType>>::toVar(value);

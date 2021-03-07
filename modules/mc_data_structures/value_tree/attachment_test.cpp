@@ -3,7 +3,7 @@
 //#include "catch2/catch_approx.hpp"
 //#include "catch2/catch_template_test_macros.hpp"
 
-//TEST_CASE("value_tree: SliderValueTreeAttachment", "[value_tree]")
+// TEST_CASE("mc_data_structures/value_tree: SliderValueTreeAttachment", "[data_structures][value_tree]")
 //{
 //    auto undoManager = juce::UndoManager {};
 //    auto macro       = mc::MacroModulator {juce::ValueTree(mc::ids::MACRO_MODULATOR), &undoManager};
@@ -32,7 +32,7 @@
 //    slider.stoppedDragging();
 //}
 //
-//TEST_CASE("value_tree: LabelValueTreeAttachment", "[value_tree]")
+// TEST_CASE("mc_data_structures/value_tree: LabelValueTreeAttachment", "[data_structures][value_tree]")
 //{
 //    auto um       = juce::UndoManager {};
 //    auto metadata = mc::PluginMetadata {juce::Identifier {"test_plugin"}, juce::ValueTree("test_plugin")};

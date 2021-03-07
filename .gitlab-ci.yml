@@ -40,13 +40,13 @@ linux:clang:release:
     - mc-linux
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
-    CMAKE_BUILD_PARALLEL_LEVEL: 2
     CC: clang
     CXX: clang++
   script:
     - cd $CI_PROJECT_DIR
     - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
     - cmake --build cmake-build-release
+    - cd cmake-build-release
     - ctest
     - cd $CI_PROJECT_DIR
   dependencies: [ ]
@@ -59,7 +59,6 @@ linux:gcc:coverage:
     - mc-linux
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
-    CMAKE_BUILD_PARALLEL_LEVEL: 2
   script:
     - make coverage
     - bash <(curl -s https://codecov.io/bash) -f cmake-build-coverage/cov.info
