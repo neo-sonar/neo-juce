@@ -23,6 +23,6 @@
 
 #include "modulator/modulator.hpp"
 
-#include "modulator/modulator_macro.hpp"
+#include "modulator/macro.hpp"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_MODULATION_HPP

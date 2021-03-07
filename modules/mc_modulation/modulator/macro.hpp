@@ -3,11 +3,16 @@
 
 namespace mc
 {
+struct ModulatorMacroIDs
+{
+    inline static const juce::Identifier type = "MACRO";
+    inline static const juce::Identifier gain = "gain";
+};
 
 class ModulatorMacro final : public Modulator
 {
 public:
-    ModulatorMacro(juce::ValueTree valueTree, juce::UndoManager* undoManager = nullptr);
+    explicit ModulatorMacro(juce::ValueTree valueTree, juce::UndoManager* undoManager = nullptr);
     ~ModulatorMacro() = default;
 
     [[nodiscard]] auto getName() const -> juce::String override;
