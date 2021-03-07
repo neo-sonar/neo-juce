@@ -47,6 +47,10 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
             modules/mc_core/container/flat_map_test.cpp
             modules/mc_core/text/format_test.cpp
+
+            modules/mc_data_structures/value_tree/attachment_test.cpp
+            modules/mc_data_structures/value_tree/value_wrapper_test.cpp
+            modules/mc_data_structures/value_tree/variant_converter_test.cpp
     )
 
     target_compile_definitions(${PROJECT_NAME}_tests

@@ -27,9 +27,11 @@
 
 #include "container/flat_map.hpp"
 
+#include "text/format.hpp"
+#include "text/string_utils.hpp"
+
 #include "image/image_utils.hpp"
 #include "javascript/json_utils.hpp"
-#include "text/format.hpp"
 #include "thread/thread_safe_queue.hpp"
 
 #include "thread/background_process.hpp"
