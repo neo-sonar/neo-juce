@@ -63,6 +63,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_core/javascript/json_utils_test.cpp
             modules/mc_core/math/range_utils_test.cpp
             modules/mc_core/text/format_test.cpp
+            modules/mc_core/thread/thread_safe_queue_test.cpp
             modules/mc_core/time/time_utils_test.cpp
 
             modules/mc_data_structures/value_tree/value_wrapper_test.cpp
