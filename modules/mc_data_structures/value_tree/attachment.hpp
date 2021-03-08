@@ -17,6 +17,7 @@ public:
                         juce::UndoManager* undoManager = nullptr)
         : state_ {state}, id_ {id}, undoManager_(undoManager), setValue_(std::move(parameterChangedCallback))
     {
+        jassert(state_.isValid());
         state_.addListener(this);
     }
 
