@@ -41,6 +41,7 @@ add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
 
 juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_data_structures ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_dsp ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_graphics ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_gui_basics ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_modulation ALIAS_NAMESPACE mc)
@@ -68,6 +69,9 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
             modules/mc_data_structures/value_tree/value_wrapper_test.cpp
 
+            modules/mc_dsp/container/audio_buffer_utils_test.cpp
+            modules/mc_dsp/processor/multi_mono_iir_test.cpp
+
             modules/mc_graphics/color/color_utils_test.cpp
             modules/mc_graphics/geometry/geometry_utils_test.cpp
             modules/mc_graphics/images/image_utils_test.cpp
@@ -88,6 +92,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
         PRIVATE
             mc::mc_core
             mc::mc_data_structures
+            mc::mc_dsp
             mc::mc_graphics
             mc::mc_gui_basics
             mc::mc_modulation
