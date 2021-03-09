@@ -1,8 +1,18 @@
 namespace
 {
 
-template<typename SampleType>
-[[nodiscard]] auto containsNANsInternal(juce::AudioBuffer<SampleType> const& buffer) noexcept -> bool
+template<typename FloatT>
+auto fillInternal(juce::AudioBuffer<FloatT>& buffer, FloatT value) noexcept -> void
+{
+    for (auto ch = 0; ch < buffer.getNumChannels(); ++ch)
+    {
+        auto* const samples = buffer.getWritePointer(ch);
+        for (int i = 0; i < buffer.getNumSamples(); ++i) { samples[i] = value; }
+    }
+}
+
+template<typename FloatT>
+[[nodiscard]] auto containsNANsInternal(juce::AudioBuffer<FloatT> const& buffer) noexcept -> bool
 {
     for (auto channel = 0; channel < buffer.getNumChannels(); ++channel)
     {
@@ -16,8 +26,8 @@ template<typename SampleType>
     return false;
 }
 
-template<typename SampleType>
-[[nodiscard]] auto containsINFsInternal(juce::AudioBuffer<SampleType> const& buffer) noexcept -> bool
+template<typename FloatT>
+[[nodiscard]] auto containsINFsInternal(juce::AudioBuffer<FloatT> const& buffer) noexcept -> bool
 {
     for (auto channel = 0; channel < buffer.getNumChannels(); ++channel)
     {
@@ -31,9 +41,9 @@ template<typename SampleType>
     return false;
 }
 
-template<typename SampleType>
-[[nodiscard]] auto equalInternal(juce::AudioBuffer<SampleType> const& lhs,
-                                 juce::AudioBuffer<SampleType> const& rhs) noexcept -> bool
+template<typename FloatT>
+[[nodiscard]] auto equalInternal(juce::AudioBuffer<FloatT> const& lhs, juce::AudioBuffer<FloatT> const& rhs) noexcept
+    -> bool
 {
     if (lhs.getNumChannels() != rhs.getNumChannels()) { return false; }
     if (lhs.getNumSamples() != rhs.getNumSamples()) { return false; }
@@ -52,6 +62,16 @@ template<typename SampleType>
 
 namespace mc
 {
+
+auto AudioBufferUtils::fill(juce::AudioBuffer<float>& buffer, float value) noexcept -> void
+{
+    ::fillInternal(buffer, value);
+}
+auto AudioBufferUtils::fill(juce::AudioBuffer<double>& buffer, double value) noexcept -> void
+{
+    ::fillInternal(buffer, value);
+}
+
 auto AudioBufferUtils::containsNANs(juce::AudioBuffer<float> const& buffer) noexcept -> bool
 {
     return ::containsNANsInternal(buffer);

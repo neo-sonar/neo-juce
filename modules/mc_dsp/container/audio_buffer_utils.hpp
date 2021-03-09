@@ -10,6 +10,9 @@ struct AudioBufferUtils
     template<typename FloatT>
     [[nodiscard]] static auto createNoiseBuffer(int channels, int size, FloatT gain = 1.0) -> juce::AudioBuffer<FloatT>;
 
+    static auto fill(juce::AudioBuffer<float>& buffer, float value) noexcept -> void;
+    static auto fill(juce::AudioBuffer<double>& buffer, double value) noexcept -> void;
+
     [[nodiscard]] static auto containsNANs(juce::AudioBuffer<float> const& buffer) noexcept -> bool;
     [[nodiscard]] static auto containsNANs(juce::AudioBuffer<double> const& buffer) noexcept -> bool;
 
