@@ -22,10 +22,15 @@
 #include <juce_dsp/juce_dsp.h>
 #include <mc_data_structures/mc_data_structures.hpp>
 
+#include "container/audio_buffer_queue.hpp"
 #include "container/audio_buffer_utils.hpp"
 
-#include "processor/multi_mono_iir.hpp"
-
 #include "util/buses_layout_utils.hpp"
+
+#include "analyzer/oscilloscope_source.hpp"
+#include "analyzer/spectrum_source.hpp"
+
+#include "processor/multi_mono_iir.hpp"
+#include "processor/stereo_width.hpp"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP
