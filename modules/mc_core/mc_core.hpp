@@ -18,8 +18,8 @@
 #define USE_MC_CORE 1
 #endif
 
-#include <juce_events/juce_events.h>
 #include <juce_core/juce_core.h>
+#include <juce_events/juce_events.h>
 
 #include "fmt/chrono.h"
 #include "fmt/format.h"

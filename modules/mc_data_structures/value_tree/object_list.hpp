@@ -10,7 +10,10 @@ template<typename ObjectType, typename CriticalSectionType = juce::DummyCritical
 class ValueTreeObjectList : public juce::ValueTree::Listener
 {
 public:
-    explicit ValueTreeObjectList(juce::ValueTree  parentTree) : parent_(std::move(parentTree)) { parent_.addListener(this); }
+    explicit ValueTreeObjectList(juce::ValueTree parentTree) : parent_(std::move(parentTree))
+    {
+        parent_.addListener(this);
+    }
 
     ~ValueTreeObjectList() override
     {
@@ -21,7 +24,7 @@ public:
 
     [[nodiscard]] virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
     virtual auto makeObject(juce::ValueTree const&) -> ObjectType*                  = 0;
-    virtual void deleteObject(ObjectType*)                                  = 0;
+    virtual void deleteObject(ObjectType*)                                          = 0;
 
     virtual void objectAdded(ObjectType*)   = 0;
     virtual void objectRemoved(ObjectType*) = 0;
@@ -140,10 +143,16 @@ private:
         }
     }
 
-    void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/, juce::Identifier const& /*property*/) override { }
+    void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/,
+                                  juce::Identifier const& /*property*/) override
+    {
+    }
     void valueTreeParentChanged(juce::ValueTree& /*treeWhoseParentHasChanged*/) override { }
 
-    void valueTreeRedirected(juce::ValueTree& /*treeWhichHasBeenChanged*/) override { jassertfalse; }  // may need to add handling if this is hit
+    void valueTreeRedirected(juce::ValueTree& /*treeWhichHasBeenChanged*/) override
+    {
+        jassertfalse;
+    }  // may need to add handling if this is hit
 
     void sortArray()
     {

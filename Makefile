@@ -32,3 +32,15 @@ coverage:
 .PHONY: report
 report:
 	cd cmake-build-coverage && genhtml cov.info --output-directory lcov
+
+.PHONY: stats
+stats:
+	@cloc -by-file-by-lang --exclude-dir=3rd_party --exclude-ext=svg --vcs=git .
+
+.PHONY: format
+format:
+	@find modules -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
+
+.PHONY: format-check
+format-check:
+	@find modules -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
