@@ -11,26 +11,32 @@ struct AtomicWrapper
     AtomicWrapper() = default;
 
     template<typename OtherType>
-    AtomicWrapper(OtherType const& other)
+    AtomicWrapper(OtherType const& other)  // NOLINT(hicpp-explicit-conversions)
     {
         value.store(other);
     }
 
     AtomicWrapper(const AtomicWrapper& other) { value.store(other.value); }
 
-    AtomicWrapper& operator=(const AtomicWrapper& other) noexcept
+    auto operator=(const AtomicWrapper& other) noexcept -> AtomicWrapper&
     {
         value.store(other.value);
         return *this;
     }
 
-    bool operator==(const AtomicWrapper& other) const noexcept { return value.load() == other.value.load(); }
+    auto operator==(const AtomicWrapper& other) const noexcept -> bool { return value.load() == other.value.load(); }
 
-    bool operator!=(const AtomicWrapper& other) const noexcept { return value.load() != other.value.load(); }
+    auto operator!=(const AtomicWrapper& other) const noexcept -> bool { return value.load() != other.value.load(); }
 
-    operator juce::var() const noexcept { return value.load(); }
+    operator juce::var() const noexcept  // NOLINT(hicpp-explicit-conversions)
+    {
+        return value.load();
+    }
 
-    operator Type() const noexcept { return value.load(); }
+    operator Type() const noexcept  // NOLINT(hicpp-explicit-conversions)
+    {
+        return value.load();
+    }
 
     std::atomic<Type> value {Type()};
 };
@@ -41,24 +47,30 @@ struct ConstrainerWrapper
     ConstrainerWrapper() = default;
 
     template<typename OtherType>
-    ConstrainerWrapper(const OtherType& other)
+    ConstrainerWrapper(const OtherType& other)  // NOLINT(hicpp-explicit-conversions)
     {
         value = Constrainer::constrain(other);
     }
 
     ConstrainerWrapper(const ConstrainerWrapper& other) { value = other.value; }
 
-    ConstrainerWrapper& operator=(const ConstrainerWrapper& other) noexcept
+    auto operator=(const ConstrainerWrapper& other) noexcept -> ConstrainerWrapper&
     {
         value = Constrainer::constrain(other.value);
         return *this;
     }
 
-    bool operator==(const ConstrainerWrapper& other) const noexcept { return value == other.value; }
-    bool operator!=(const ConstrainerWrapper& other) const noexcept { return value != other.value; }
+    auto operator==(const ConstrainerWrapper& other) const noexcept -> bool { return value == other.value; }
+    auto operator!=(const ConstrainerWrapper& other) const noexcept -> bool { return value != other.value; }
 
-    operator juce::var() const noexcept { return Constrainer::constrain(value); }
-    operator Type() const noexcept { return Constrainer::constrain(value); }
+    operator juce::var() const noexcept  // NOLINT(hicpp-explicit-conversions)
+    {
+        return Constrainer::constrain(value);
+    }
+    operator Type() const noexcept  // NOLINT(hicpp-explicit-conversions)
+    {
+        return Constrainer::constrain(value);
+    }
 
     Type value = Type();
 };

@@ -15,7 +15,7 @@ public:
     ValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id,
                         std::function<void(value_type)> parameterChangedCallback,
                         juce::UndoManager* undoManager = nullptr)
-        : state_ {state}, id_ {id}, undoManager_(undoManager), setValue_(std::move(parameterChangedCallback))
+        : state_ {std::move(state)}, id_ {id}, undoManager_(undoManager), setValue_(std::move(parameterChangedCallback))
     {
         jassert(state_.isValid());
         state_.addListener(this);
@@ -59,7 +59,7 @@ private:
     template<typename Callback>
     void callIfValueChanged(value_type newValue, Callback&& callback)
     {
-        if (getValue() != newValue) callback(newValue);
+        if (getValue() != newValue) { callback(newValue); }
     }
 
     void valueTreePropertyChanged(juce::ValueTree& tree, juce::Identifier const& property) override
