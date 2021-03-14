@@ -24,8 +24,6 @@
 #include "fmt/chrono.h"
 #include "fmt/format.h"
 
-#include "container/flat_map.hpp"
-
 #include "text/format.hpp"
 #include "text/string_utils.hpp"
 
