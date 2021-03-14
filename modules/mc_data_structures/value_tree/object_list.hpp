@@ -18,7 +18,7 @@ public:
     ~ValueTreeObjectList() override
     {
         // must call freeObjects() in the subclass destructor!
-        [[maybe_unused]] auto const wasReset = objects_.size() == 0;
+        [[maybe_unused]] auto const wasReset = objects_.empty();
         jassert(wasReset);
     }
 
@@ -35,7 +35,7 @@ public:
      */
     void rebuildObjects()
     {
-        jassert(objects_.size() == 0);  // must only call this method once at construction
+        jassert(objects_.empty());  // must only call this method once at construction
 
         for (const auto& v : parent_)
         {
@@ -167,7 +167,7 @@ private:
         return index1 - index2;
     }
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ValueTreeObjectList)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ValueTreeObjectList)  // NOLINT
 };
 
 }  // namespace mc
