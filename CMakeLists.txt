@@ -70,6 +70,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
             modules/mc_dsp/container/audio_buffer_utils_test.cpp
             modules/mc_dsp/processor/multi_mono_iir_test.cpp
+            modules/mc_dsp/util/buses_layout_utils_test.cpp
 
             modules/mc_graphics/color/color_utils_test.cpp
             modules/mc_graphics/geometry/geometry_utils_test.cpp
