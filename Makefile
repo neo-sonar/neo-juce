@@ -1,3 +1,14 @@
+BUILD_DIR ?= cmake-build-debug
+
+.PHONY: tidy-check
+tidy-check:
+	 ./scripts/run-clang-tidy.py -clang-tidy-binary clang-tidy-12 -clang-apply-replacements-binary clang-apply-replacements-12 -j $(shell nproc) -quiet -p $(BUILD_DIR) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
+
+.PHONY: tidy-fix
+tidy-fix:
+	 ./scripts/run-clang-tidy.py -clang-tidy-binary clang-tidy-12 -clang-apply-replacements-binary clang-apply-replacements-12 -j $(shell nproc) -fix -quiet -p $(BUILD_DIR) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
+
+
 .PHONY: coverage
 coverage:
 	cmake -S. -GNinja -Bcmake-build-coverage -DCMAKE_BUILD_TYPE=Debug -DMODERN_CIRCUITS_BUILD_COVERAGE=TRUE

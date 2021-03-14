@@ -4,7 +4,7 @@ namespace mc
 
 BackgroundProcess::BackgroundProcess(juce::ThreadPool* threadPool) : threadPool_ {threadPool} { }
 
-auto BackgroundProcess::startProcess(juce::String command) -> void
+auto BackgroundProcess::startProcess(const juce::String& command) -> void
 {
     if (threadPool_ != nullptr)
     {

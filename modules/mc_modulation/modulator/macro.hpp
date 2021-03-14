@@ -13,7 +13,7 @@ class ModulatorMacro final : public Modulator
 {
 public:
     explicit ModulatorMacro(juce::ValueTree valueTree, juce::UndoManager* undoManager = nullptr);
-    ~ModulatorMacro() = default;
+    ~ModulatorMacro() override = default;
 
     [[nodiscard]] auto getName() const -> juce::String override;
     auto prepareToPlay(double sampleRate, int maxSamplesPerBlock) -> void override;

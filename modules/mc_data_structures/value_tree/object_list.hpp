@@ -1,3 +1,5 @@
+#include <utility>
+
 #ifndef MC_JUCE_BUNDLE_VALUE_TREE_OBJECT_LIST_HPP
 #define MC_JUCE_BUNDLE_VALUE_TREE_OBJECT_LIST_HPP
 
@@ -8,7 +10,7 @@ template<typename ObjectType, typename CriticalSectionType = juce::DummyCritical
 class ValueTreeObjectList : public juce::ValueTree::Listener
 {
 public:
-    explicit ValueTreeObjectList(juce::ValueTree const& parentTree) : parent_(parentTree) { parent_.addListener(this); }
+    explicit ValueTreeObjectList(juce::ValueTree  parentTree) : parent_(std::move(parentTree)) { parent_.addListener(this); }
 
     ~ValueTreeObjectList() override
     {
@@ -17,8 +19,8 @@ public:
         jassert(wasReset);
     }
 
-    [[nodiscard]] virtual bool isSuitableType(juce::ValueTree const&) const = 0;
-    virtual ObjectType* makeObject(juce::ValueTree const&)                  = 0;
+    [[nodiscard]] virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
+    virtual auto makeObject(juce::ValueTree const&) -> ObjectType*                  = 0;
     virtual void deleteObject(ObjectType*)                                  = 0;
 
     virtual void objectAdded(ObjectType*)   = 0;
@@ -66,9 +68,9 @@ protected:
         objects_.clear();
     }
 
-    bool isChildTree(juce::ValueTree& v) const { return isSuitableType(v) && v.getParent() == parent_; }
+    auto isChildTree(juce::ValueTree& v) const -> bool { return isSuitableType(v) && v.getParent() == parent_; }
 
-    [[nodiscard]] int indexOf(juce::ValueTree const& v) const noexcept
+    [[nodiscard]] auto indexOf(juce::ValueTree const& v) const noexcept -> int
     {
         for (std::size_t i = 0; i < objects_.size(); ++i)
         {
@@ -125,7 +127,7 @@ private:
         }
     }
 
-    void valueTreeChildOrderChanged(juce::ValueTree& tree, int, int) override
+    void valueTreeChildOrderChanged(juce::ValueTree& tree, int /*oldIndex*/, int /*newIndex*/) override
     {
         if (tree == parent_)
         {
@@ -138,10 +140,10 @@ private:
         }
     }
 
-    void valueTreePropertyChanged(juce::ValueTree&, juce::Identifier const&) override { }
-    void valueTreeParentChanged(juce::ValueTree&) override { }
+    void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/, juce::Identifier const& /*property*/) override { }
+    void valueTreeParentChanged(juce::ValueTree& /*treeWhoseParentHasChanged*/) override { }
 
-    void valueTreeRedirected(juce::ValueTree&) override { jassertfalse; }  // may need to add handling if this is hit
+    void valueTreeRedirected(juce::ValueTree& /*treeWhichHasBeenChanged*/) override { jassertfalse; }  // may need to add handling if this is hit
 
     void sortArray()
     {
@@ -149,7 +151,7 @@ private:
         std::sort(std::begin(objects_), std::end(objects_), compare);
     }
 
-    int compareElements(ObjectType* first, ObjectType* second) const
+    auto compareElements(ObjectType* first, ObjectType* second) const -> int
     {
         auto const index1 = parent_.indexOf(first->getValueTree());
         auto const index2 = parent_.indexOf(second->getValueTree());

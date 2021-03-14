@@ -24,7 +24,7 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "[data_stru
 {
     struct StartTimeConstrainer
     {
-        static TestType constrain(const TestType& v) { return juce::Range<TestType>(0.0, 42.0).clipValue(v); }
+        static auto constrain(const TestType& v) -> TestType { return juce::Range<TestType>(0.0, 42.0).clipValue(v); }
     };
 
     struct CachedValueClip : public juce::ReferenceCountedObject

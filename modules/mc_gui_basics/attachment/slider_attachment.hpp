@@ -8,7 +8,7 @@ class SliderValueTreeAttachment : private juce::Slider::Listener
 public:
     SliderValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, juce::Slider& slider,
                               juce::UndoManager* undoManager = nullptr)
-        : slider_ {slider}, attachment_ {state, id, [this](auto f) { setValue(f); }, undoManager}
+        : slider_ {slider}, attachment_ {std::move(state), id, [this](auto f) { setValue(f); }, undoManager}
     {
         sendInitialUpdate();
         slider_.valueChanged();

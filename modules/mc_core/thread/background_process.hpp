@@ -19,7 +19,7 @@ public:
     explicit BackgroundProcess(juce::ThreadPool* threadPool);
     ~BackgroundProcess() override = default;
 
-    auto startProcess(juce::String command) -> void;
+    auto startProcess(const juce::String& command) -> void;
     auto addListener(Listener* listener) -> void;
     auto removeListener(Listener* listener) -> void;
 

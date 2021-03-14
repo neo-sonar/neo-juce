@@ -19,10 +19,10 @@ public:
     ~ThreadSafeQueue() = default;
 
     ThreadSafeQueue(ThreadSafeQueue const&) = delete;
-    ThreadSafeQueue& operator=(ThreadSafeQueue const&) = delete;
+    auto operator=(ThreadSafeQueue const&) -> ThreadSafeQueue& = delete;
 
     ThreadSafeQueue(ThreadSafeQueue&& other) = delete;
-    ThreadSafeQueue& operator=(ThreadSafeQueue&&) = delete;
+    auto operator=(ThreadSafeQueue&&) -> ThreadSafeQueue& = delete;
 
     [[nodiscard]] auto pop() -> std::optional<value_type>
     {

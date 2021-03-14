@@ -14,7 +14,7 @@ TEST_CASE("modulation/modulator: Modulator", "[modulation][modulator]")
     struct TestPlayHead : juce::AudioPlayHead
     {
         ~TestPlayHead() override = default;
-        auto getCurrentPosition(juce::AudioPlayHead::CurrentPositionInfo&) -> bool override { return false; }
+        auto getCurrentPosition(juce::AudioPlayHead::CurrentPositionInfo& /*result*/) -> bool override { return false; }
         auto canControlTransport() -> bool override { return false; }
     };
 

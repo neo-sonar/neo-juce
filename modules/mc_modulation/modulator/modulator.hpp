@@ -7,7 +7,7 @@ namespace mc
 class Modulator
 {
 public:
-    Modulator(juce::ValueTree valueTree, juce::UndoManager* undoManager = nullptr)
+    explicit Modulator(juce::ValueTree valueTree, juce::UndoManager* undoManager = nullptr)
         : valueTree_ {std::move(valueTree)}, undoManager_ {undoManager}
     {
     }
