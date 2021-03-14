@@ -14,7 +14,6 @@ linux:clang:tidy:
   script:
     - cd $CI_PROJECT_DIR
     - cmake -S. -GNinja -Bcmake-build-tidy -DCMAKE_BUILD_TYPE=Release
-    - cmake --build cmake-build-tidy --target ZentraleBinaryData
     - BUILD_DIR=cmake-build-tidy make tidy-check
   dependencies: [ ]
 
