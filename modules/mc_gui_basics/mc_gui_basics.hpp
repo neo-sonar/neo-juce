@@ -24,4 +24,6 @@
 #include "attachment/label_attachment.hpp"
 #include "attachment/slider_attachment.hpp"
 
+#include "mouse/mouse_utils.hpp"
+
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP
