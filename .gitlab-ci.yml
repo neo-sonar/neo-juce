@@ -1,8 +1,22 @@
 ---
 stages:
+  - lint
   - build
   - sanitize
   - coverage
+
+linux:clang:tidy:
+  stage: lint
+  tags:
+    - mc-linux
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  script:
+    - cd $CI_PROJECT_DIR
+    - cmake -S. -GNinja -Bcmake-build-tidy -DCMAKE_BUILD_TYPE=Release
+    - cmake --build cmake-build-tidy --target ZentraleBinaryData
+    - BUILD_DIR=cmake-build-tidy make tidy-check
+  dependencies: [ ]
 
 win:msvc:release:
   stage: build
