@@ -26,4 +26,8 @@
 
 #include "mouse/mouse_utils.hpp"
 
+#include "widget/bipolar_filter.hpp"
+#include "widget/text_box_slider.hpp"
+#include "widget/xy_pad.hpp"
+
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP

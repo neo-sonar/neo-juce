@@ -40,7 +40,7 @@ inline auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<Float
     do {                                                                                                               \
     } while (false)
 
-TEMPLATE_TEST_CASE("dsp: StereoWidth", "[dsp]", float, double)
+TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "[dsp][processor]", float, double)
 {
     SECTION("width: 1.0 (no change)")
     {

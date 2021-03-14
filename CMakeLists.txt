@@ -80,6 +80,9 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_gui_basics/attachment/label_attachment_test.cpp
             modules/mc_gui_basics/attachment/slider_attachment_test.cpp
 
+            modules/mc_gui_basics/widget/text_box_slider_test.cpp
+            modules/mc_gui_basics/widget/xy_pad_test.cpp
+
             modules/mc_modulation/modulator/modulator_test.cpp
             modules/mc_modulation/modulator/macro_test.cpp
     )

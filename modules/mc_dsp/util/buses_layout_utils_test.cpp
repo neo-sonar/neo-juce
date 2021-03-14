@@ -2,7 +2,7 @@
 
 #include "catch2/catch_test_macros.hpp"
 
-TEST_CASE("util: BusesLayoutUtils::isSameInOut", "[util]")
+TEST_CASE("dsp/util: BusesLayoutUtils::isSameInOut", "[dsp][util]")
 {
     SECTION("mono/stereo")
     {
@@ -34,7 +34,7 @@ TEST_CASE("util: BusesLayoutUtils::isSameInOut", "[util]")
     }
 }
 
-TEST_CASE("util: BusesLayoutUtils::isStereoInOut", "[util]")
+TEST_CASE("dsp/util: BusesLayoutUtils::isStereoInOut", "[dsp][util]")
 {
     SECTION("mono/stereo")
     {
