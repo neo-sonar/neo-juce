@@ -54,8 +54,18 @@ stats:
 
 .PHONY: format
 format:
-	@find modules -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
+	@find modules/mc_core            -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
+	@find modules/mc_data_structures -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
+	@find modules/mc_dsp             -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
+	@find modules/mc_graphics        -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
+	@find modules/mc_gui_basics      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
+	@find modules/mc_modulation      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
 
 .PHONY: format-check
 format-check:
-	@find modules -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
+	@find modules/mc_core            -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
+	@find modules/mc_data_structures -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
+	@find modules/mc_dsp             -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
+	@find modules/mc_graphics        -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
+	@find modules/mc_gui_basics      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
+	@find modules/mc_modulation      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
