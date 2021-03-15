@@ -50,13 +50,12 @@ juce_add_module(modules/mc_graphics ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_gui_basics ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_modulation ALIAS_NAMESPACE mc)
 
+list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/Catch2/extras")
+enable_testing()
+include(CTest)
+include(Catch)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/Catch2/extras")
-    enable_testing()
-    include(CTest)
-    include(Catch)
-
     juce_add_console_app(${PROJECT_NAME}_tests PRODUCT_NAME "${PROJECT_NAME}_tests" NEEDS_CURL TRUE)
     catch_discover_tests(${PROJECT_NAME}_tests)
 

@@ -16,9 +16,9 @@ else ()
                     -Wextra
                     -Wpedantic
                     -Wcast-align
-                    -Wno-shadow
-                    -Wno-conversion
-                    -Wno-sign-conversion
+                    -Wshadow
+                    -Wunused-parameter
+                    -Wnarrowing
                     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
                         #-Weverything
                     >
