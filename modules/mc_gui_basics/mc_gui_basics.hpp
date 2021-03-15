@@ -24,6 +24,8 @@
 #include "attachment/label_attachment.hpp"
 #include "attachment/slider_attachment.hpp"
 
+#include "button/button_utils.hpp"
+
 #include "mouse/mouse_utils.hpp"
 
 #include "widget/bipolar_filter.hpp"
