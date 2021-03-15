@@ -1,4 +1,4 @@
-#include <mc_bundle/mc_bundle.hpp>
+#include <mc_core/mc_core.hpp>
 
 #include "catch2/catch_approx.hpp"
 #include "catch2/catch_test_macros.hpp"
