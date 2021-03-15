@@ -1,13 +1,28 @@
 BUILD_DIR ?= cmake-build-debug
 
+CLANG_TIDY_ARGS += -clang-tidy-binary clang-tidy-12
+CLANG_TIDY_ARGS += -clang-apply-replacements-binary clang-apply-replacements-12
+CLANG_TIDY_ARGS += -j $(shell nproc)
+CLANG_TIDY_ARGS += -quiet
+CLANG_TIDY_ARGS += -p $(BUILD_DIR)
+
 .PHONY: tidy-check
 tidy-check:
-	 ./scripts/run-clang-tidy.py -clang-tidy-binary clang-tidy-12 -clang-apply-replacements-binary clang-apply-replacements-12 -j $(shell nproc) -quiet -p $(BUILD_DIR) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
+	 ./scripts/run-clang-tidy.py $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_core) $(shell realpath ./modules/mc_core)
+	 ./scripts/run-clang-tidy.py $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_data_structures) $(shell realpath ./modules/mc_data_structures)
+	 ./scripts/run-clang-tidy.py $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_dsp) $(shell realpath ./modules/mc_dsp)
+	 ./scripts/run-clang-tidy.py $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_graphics) $(shell realpath ./modules/mc_graphics)
+	 ./scripts/run-clang-tidy.py $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_gui_basics) $(shell realpath ./modules/mc_gui_basics)
+	 ./scripts/run-clang-tidy.py $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_modulation) $(shell realpath ./modules/mc_modulation)
 
 .PHONY: tidy-fix
 tidy-fix:
-	 ./scripts/run-clang-tidy.py -clang-tidy-binary clang-tidy-12 -clang-apply-replacements-binary clang-apply-replacements-12 -j $(shell nproc) -fix -quiet -p $(BUILD_DIR) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
-
+	 ./scripts/run-clang-tidy.py -fix $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_core) $(shell realpath ./modules/mc_core)
+	 ./scripts/run-clang-tidy.py -fix $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_data_structures) $(shell realpath ./modules/mc_data_structures)
+	 ./scripts/run-clang-tidy.py -fix $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_dsp) $(shell realpath ./modules/mc_dsp)
+	 ./scripts/run-clang-tidy.py -fix $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_graphics) $(shell realpath ./modules/mc_graphics)
+	 ./scripts/run-clang-tidy.py -fix $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_gui_basics) $(shell realpath ./modules/mc_gui_basics)
+	 ./scripts/run-clang-tidy.py -fix $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_modulation) $(shell realpath ./modules/mc_modulation)
 
 .PHONY: coverage
 coverage:
