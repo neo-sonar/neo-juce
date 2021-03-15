@@ -104,7 +104,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             mc::mc_gui_basics
             mc::mc_modulation
             Catch2::Catch2
-            fmt::fmt
             juce::juce_recommended_config_flags
             # juce::juce_recommended_warning_flags
             ModernCircuits::CompilerOptions

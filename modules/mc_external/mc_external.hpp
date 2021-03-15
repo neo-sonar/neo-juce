@@ -18,6 +18,7 @@
 #define USE_MC_EXTERNAL 1
 #endif
 
+#define FMT_HEADER_ONLY 1
 #include "fmt/chrono.h"
 #include "fmt/format.h"
 
