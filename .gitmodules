@@ -7,3 +7,6 @@
 [submodule "modules/mc_external/3rd_party/GSL"]
 	path = modules/mc_external/3rd_party/GSL
 	url = https://github.com/microsoft/GSL
+[submodule "modules/mc_external/3rd_party/fmt"]
+	path = modules/mc_external/3rd_party/fmt
+	url = https://github.com/fmtlib/fmt

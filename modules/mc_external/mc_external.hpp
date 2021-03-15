@@ -6,7 +6,7 @@
  version:       0.1.0
  name:          3rd party code
  description:   Modern Circuits 3rd party header only libraries
- searchpaths:   3rd_party/GSL/include
+ searchpaths:   3rd_party/GSL/include, 3rd_party/fmt/include
 
  END_JUCE_MODULE_DECLARATION
  */

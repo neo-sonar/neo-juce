@@ -35,7 +35,6 @@ include(mcCompilerOptions)
 include(mcCompilerWarnings)
 include(mcCodeCoverage)
 
-add_subdirectory(3rd_party/fmt EXCLUDE_FROM_ALL)
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
 
