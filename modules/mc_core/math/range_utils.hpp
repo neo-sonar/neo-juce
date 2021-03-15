@@ -1,6 +1,58 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_RANGE_UTILS_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_RANGE_UTILS_HPP
 
+namespace mc
+{
+/**
+ * @brief Collection of preconfigured ranges.
+ */
+class RangeUtils
+{
+public:
+    /**
+     * @brief Deleted constructor. Static class.
+     */
+    RangeUtils() = delete;
+
+    /**
+     * @brief Returns a normalized range.
+     */
+    static auto defaultNormalizedRange() noexcept -> juce::NormalisableRange<float>
+    {
+        auto range = juce::NormalisableRange<float> {0.0f, 1.0f, 0.01f};
+        return range;
+    }
+
+    /**
+     * @brief Returns a range for gain parameters.
+     */
+    static auto defaultGainRange() noexcept -> juce::NormalisableRange<float>
+    {
+        auto range = juce::NormalisableRange<float> {0.0f, 4.0f, 0.01f};
+        range.setSkewForCentre(1.0f);
+        return range;
+    }
+
+    /**
+     * @brief Returns a range for full range frequency parameters.
+     */
+    static auto defaultFrequencyRange() noexcept -> juce::NormalisableRange<float>
+    {
+        auto range = juce::NormalisableRange<float> {20.0f, 22'000.0f, 1.0f};
+        range.setSkewForCentre(3'000.0f);
+        return range;
+    }
+
+    static auto defaultTimeRange() noexcept -> juce::NormalisableRange<float>
+    {
+        auto range = juce::NormalisableRange<float> {0.0f, 2000.0f, 0.1f};
+        range.setSkewForCentre(100.f);
+        return range;
+    }
+};
+
+}  // namespace mc
+
 template<typename ValueType>
 struct juce::VariantConverter<juce::Range<ValueType>>
 {

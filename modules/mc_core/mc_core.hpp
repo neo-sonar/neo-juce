@@ -28,6 +28,7 @@
 #include "text/string_utils.hpp"
 
 #include "javascript/json_utils.hpp"
+#include "math/constants.hpp"
 #include "math/range_utils.hpp"
 #include "thread/thread_safe_queue.hpp"
 #include "time/time_utils.hpp"
