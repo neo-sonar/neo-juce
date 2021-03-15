@@ -23,8 +23,17 @@
 
 #include <mc_external/mc_external.hpp>
 
+#include "system/platform.hpp"
+
+#include "system/assert.hpp"
+#include "system/crtp.hpp"
+
 #include "text/format.hpp"
 #include "text/string_utils.hpp"
+
+#include "container/registry.hpp"
+#include "container/variant.hpp"
+#include "container/vector.hpp"
 
 #include "javascript/json_utils.hpp"
 #include "math/constants.hpp"

@@ -64,6 +64,8 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
         PRIVATE
             main_test.cpp
 
+            modules/mc_core/container/registry_test.cpp
+            modules/mc_core/container/variant_test.cpp
             modules/mc_core/javascript/json_utils_test.cpp
             modules/mc_core/math/constants_test.cpp
             modules/mc_core/math/range_utils_test.cpp
