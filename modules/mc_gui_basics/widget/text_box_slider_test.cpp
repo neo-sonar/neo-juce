@@ -125,49 +125,49 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::getTextFromValue", "[gui_basics][wi
     CHECK(slider.getTextFromValue(2.0) == "test");
 }
 
-// namespace
-//{
-//
-// struct TestListenerValueChanged : mc::TextBoxSlider::Listener
-//{
-//    bool wasCalled {false};
-//    boost::optional<double> value {};
-//
-//    ~TestListenerValueChanged() override = default;
-//    auto textBoxSliderDragStarted(mc::TextBoxSlider* /*s*/) -> void override { }
-//    auto textBoxSliderDragEnded(mc::TextBoxSlider* /*s*/) -> void override { }
-//    auto textBoxSliderValueChanged(mc::TextBoxSlider* s) -> void override
-//    {
-//        wasCalled = true;
-//        value     = s->getValue();
-//    }
-//};
-//
-//}  // namespace
-//
-// TEST_CASE("gui_basics/widget: TextBoxSlider::Listener::textBoxSliderValueChanged", "[gui_basics][widget]")
-//{
-//    auto listener = TestListenerValueChanged {};
-//    auto slider   = mc::TextBoxSlider {};
-//    CHECK_FALSE(listener.wasCalled);
-//    CHECK_FALSE(listener.value.has_value());
-//
-//    slider.addListener(&listener);
-//    slider.setValue(2.0);
-//    CHECK(listener.wasCalled);
-//    CHECK(listener.value.has_value());
-//    CHECK(listener.value.value() == 2.0);
-//
-//    slider.setValue(3.0);
-//    CHECK(listener.wasCalled);
-//    CHECK(listener.value.has_value());
-//    CHECK(listener.value.value() == 3.0);
-//
-//    listener.wasCalled = false;
-//    listener.value     = {};
-//    slider.removeListener(&listener);
-//    slider.setValue(3.0);
-//    CHECK_FALSE(listener.wasCalled);
-//    CHECK_FALSE(listener.value.has_value());
-//    CHECK(slider.getValue() == 3.0);
-//}
+namespace
+{
+
+struct TestListenerValueChanged : mc::TextBoxSlider::Listener
+{
+    bool wasCalled {false};
+    boost::optional<double> value {};
+
+    ~TestListenerValueChanged() override = default;
+    auto textBoxSliderDragStarted(mc::TextBoxSlider* /*s*/) -> void override { }
+    auto textBoxSliderDragEnded(mc::TextBoxSlider* /*s*/) -> void override { }
+    auto textBoxSliderValueChanged(mc::TextBoxSlider* s) -> void override
+    {
+        wasCalled = true;
+        value     = s->getValue();
+    }
+};
+
+}  // namespace
+
+TEST_CASE("gui_basics/widget: TextBoxSlider::Listener::textBoxSliderValueChanged", "[gui_basics][widget]")
+{
+    auto listener = TestListenerValueChanged {};
+    auto slider   = mc::TextBoxSlider {};
+    CHECK_FALSE(listener.wasCalled);
+    CHECK_FALSE(listener.value.has_value());
+
+    slider.addListener(&listener);
+    slider.setValue(2.0);
+    CHECK(listener.wasCalled);
+    CHECK(listener.value.has_value());
+    CHECK(listener.value.value() == 2.0);
+
+    slider.setValue(3.0);
+    CHECK(listener.wasCalled);
+    CHECK(listener.value.has_value());
+    CHECK(listener.value.value() == 3.0);
+
+    listener.wasCalled = false;
+    listener.value     = {};
+    slider.removeListener(&listener);
+    slider.setValue(3.0);
+    CHECK_FALSE(listener.wasCalled);
+    CHECK_FALSE(listener.value.has_value());
+    CHECK(slider.getValue() == 3.0);
+}

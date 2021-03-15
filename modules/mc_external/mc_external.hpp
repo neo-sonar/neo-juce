@@ -24,4 +24,6 @@
 
 #include <gsl/gsl>
 
+#include <boost/optional.hpp>
+
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_EXTERNAL_HPP
