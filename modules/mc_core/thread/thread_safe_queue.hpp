@@ -2,7 +2,6 @@
 #define MODERN_CIRCUITS_APP_ZENTRALE_THREAD_SAFE_QUEUE_HPP
 
 #include <mutex>
-#include <optional>
 #include <queue>
 
 namespace mc
@@ -24,10 +23,10 @@ public:
     ThreadSafeQueue(ThreadSafeQueue&& other) = delete;
     auto operator=(ThreadSafeQueue&&) -> ThreadSafeQueue& = delete;
 
-    [[nodiscard]] auto pop() -> std::optional<value_type>
+    [[nodiscard]] auto pop() -> boost::optional<value_type>
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if (queue_.empty()) { return std::nullopt; }
+        if (queue_.empty()) { return boost::none; }
         value_type tmp = queue_.front();
         queue_.pop();
         return tmp;
