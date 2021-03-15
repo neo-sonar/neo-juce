@@ -39,6 +39,8 @@ add_subdirectory(3rd_party/fmt EXCLUDE_FROM_ALL)
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
 
+juce_add_module(modules/mc_external ALIAS_NAMESPACE mc)
+
 juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_data_structures ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_dsp ALIAS_NAMESPACE mc)

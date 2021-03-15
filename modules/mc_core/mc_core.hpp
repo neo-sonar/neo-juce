@@ -6,7 +6,7 @@
  version:       0.1.0
  name:          Modern Circuits JUCE Core module
  description:   Core JUCE extensions and utilities.
- dependencies:  juce_core, juce_events
+ dependencies:  juce_core, juce_events, mc_external
 
  END_JUCE_MODULE_DECLARATION
  */
@@ -21,8 +21,7 @@
 #include <juce_core/juce_core.h>
 #include <juce_events/juce_events.h>
 
-#include "fmt/chrono.h"
-#include "fmt/format.h"
+#include <mc_external/mc_external.hpp>
 
 #include "text/format.hpp"
 #include "text/string_utils.hpp"
