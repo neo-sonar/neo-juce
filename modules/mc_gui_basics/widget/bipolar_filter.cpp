@@ -1,6 +1,8 @@
 namespace mc
 {
 
+BipolarFilter::BipolarFilter(juce::String const& name) : juce::Component {name} { }
+
 auto BipolarFilter::setValue(double newValue) -> void
 {
     currentValue_ = range_.clipValue(newValue);
@@ -9,6 +11,16 @@ auto BipolarFilter::setValue(double newValue) -> void
 }
 
 auto BipolarFilter::getValue() const noexcept -> double { return currentValue_; }
+
+auto BipolarFilter::setDoubleClickReturnValue(bool shouldDoubleClickBeEnabled, double valueToSetOnDoubleClick) -> void
+{
+    doubleClickToResetIsEnabled_ = shouldDoubleClickBeEnabled;
+    defaultValue_                = valueToSetOnDoubleClick;
+}
+
+auto BipolarFilter::getDoubleClickReturnValue() const noexcept -> double { return defaultValue_; }
+
+auto BipolarFilter::isDoubleClickReturnEnabled() const noexcept -> bool { return doubleClickToResetIsEnabled_; }
 
 auto BipolarFilter::paint(juce::Graphics& g) -> void
 {
@@ -29,6 +41,10 @@ auto BipolarFilter::paint(juce::Graphics& g) -> void
     g.setColour(juce::Colours::green);
     g.fillEllipse(thumbArea_);
 }
+
+auto BipolarFilter::addListener(Listener* const listener) -> void { listeners_.add(listener); }
+
+auto BipolarFilter::removeListener(Listener* const listener) -> void { listeners_.remove(listener); }
 
 auto BipolarFilter::resized() -> void { }
 
