@@ -102,7 +102,8 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::getValueFromText", "[gui_basics][wi
     CHECK(slider.getValueFromText("2.0") == Catch::Approx(2.0));
     CHECK(slider.getValueFromText("1.43") == Catch::Approx(1.43));
 
-    slider.valueFromText = [](auto const& text) -> double {
+    slider.valueFromText = [](auto const& text) -> double
+    {
         juce::ignoreUnused(text);
         return 1.0;
     };
@@ -117,7 +118,8 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::getTextFromValue", "[gui_basics][wi
     CHECK(slider.getTextFromValue(1.0) == "1.0");
     CHECK(slider.getTextFromValue(2.0) == "2.0");
 
-    slider.textFromValue = [](auto value) -> juce::String {
+    slider.textFromValue = [](auto value) -> juce::String
+    {
         juce::ignoreUnused(value);
         return "test";
     };

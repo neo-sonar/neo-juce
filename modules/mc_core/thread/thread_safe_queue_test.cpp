@@ -29,9 +29,11 @@ TEMPLATE_TEST_CASE("core/thread: ThreadSafeQueue", "[core][thread]", int, float,
     {
         auto iterations = 10'000;
         auto queue      = mc::ThreadSafeQueue<TestType> {};
-        auto thread     = std::thread([&queue, iterations] {
-            for (auto i = 0; i < iterations; ++i) { queue.push(TestType {}); }
-        });
+        auto thread     = std::thread(
+            [&queue, iterations]
+            {
+                for (auto i = 0; i < iterations; ++i) { queue.push(TestType {}); }
+            });
 
         auto counter = 0;
         while (counter != iterations)

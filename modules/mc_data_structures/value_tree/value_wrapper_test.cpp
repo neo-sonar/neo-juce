@@ -11,9 +11,11 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "[data_structure
     juce::CachedValue<mc::AtomicWrapper<TestType>> start;
     start.referTo(c, "start", nullptr);
 
-    auto read = std::async(std::launch::async, [&] {
-        for (int i = 0; i < iterations; ++i) { start = start.get() + TestType {1}; }
-    });
+    auto read = std::async(std::launch::async,
+                           [&]
+                           {
+                               for (int i = 0; i < iterations; ++i) { start = start.get() + TestType {1}; }
+                           });
 
     read.wait();
     CHECK(static_cast<TestType>(start.get()) == iterations);

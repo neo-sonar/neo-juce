@@ -1,7 +1,11 @@
 BUILD_DIR ?= cmake-build-debug
 
-CLANG_TIDY_ARGS += -clang-tidy-binary clang-tidy-12
-CLANG_TIDY_ARGS += -clang-apply-replacements-binary clang-apply-replacements-12
+CLANG_FORMAT_BINARY ?= clang-format-12
+CLANG_TIDY_BINARY ?= clang-tidy-12
+CLANG_APPLY_BINARY ?= clang-apply-replacements-12
+
+CLANG_TIDY_ARGS += -clang-tidy-binary ${CLANG_TIDY_BINARY}
+CLANG_TIDY_ARGS += -clang-apply-replacements-binary ${CLANG_APPLY_BINARY}
 CLANG_TIDY_ARGS += -j $(shell nproc)
 CLANG_TIDY_ARGS += -quiet
 CLANG_TIDY_ARGS += -p $(BUILD_DIR)
@@ -54,18 +58,18 @@ stats:
 
 .PHONY: format
 format:
-	@find modules/mc_core            -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
-	@find modules/mc_data_structures -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
-	@find modules/mc_dsp             -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
-	@find modules/mc_graphics        -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
-	@find modules/mc_gui_basics      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
-	@find modules/mc_modulation      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs clang-format-11 -i
+	@find modules/mc_core            -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs ${CLANG_FORMAT_BINARY} -i
+	@find modules/mc_data_structures -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs ${CLANG_FORMAT_BINARY} -i
+	@find modules/mc_dsp             -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs ${CLANG_FORMAT_BINARY} -i
+	@find modules/mc_graphics        -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs ${CLANG_FORMAT_BINARY} -i
+	@find modules/mc_gui_basics      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs ${CLANG_FORMAT_BINARY} -i
+	@find modules/mc_modulation      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs ${CLANG_FORMAT_BINARY} -i
 
 .PHONY: format-check
 format-check:
-	@find modules/mc_core            -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
-	@find modules/mc_data_structures -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
-	@find modules/mc_dsp             -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
-	@find modules/mc_graphics        -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
-	@find modules/mc_gui_basics      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
-	@find modules/mc_modulation      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-11 -style=file {} | diff - {}'
+	@find modules/mc_core            -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c '${CLANG_FORMAT_BINARY} -style=file {} | diff - {}'
+	@find modules/mc_data_structures -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c '${CLANG_FORMAT_BINARY} -style=file {} | diff - {}'
+	@find modules/mc_dsp             -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c '${CLANG_FORMAT_BINARY} -style=file {} | diff - {}'
+	@find modules/mc_graphics        -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c '${CLANG_FORMAT_BINARY} -style=file {} | diff - {}'
+	@find modules/mc_gui_basics      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c '${CLANG_FORMAT_BINARY} -style=file {} | diff - {}'
+	@find modules/mc_modulation      -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c '${CLANG_FORMAT_BINARY} -style=file {} | diff - {}'

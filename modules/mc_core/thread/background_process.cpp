@@ -8,27 +8,29 @@ auto BackgroundProcess::startProcess(const juce::String& command) -> void
 {
     if (threadPool_ != nullptr)
     {
-        threadPool_->addJob([command, this] {
-            if (auto proc = juce::ChildProcess {}; proc.start(command))
+        threadPool_->addJob(
+            [command, this]
             {
-                this->processHasStarted_.store(true);
-
-                auto buffer = std::vector<std::byte>(1024 * 16, std::byte {});
-                while (proc.isRunning())
+                if (auto proc = juce::ChildProcess {}; proc.start(command))
                 {
-                    std::fill(std::begin(buffer), std::end(buffer), std::byte {});
-                    auto* const data   = static_cast<void*>(buffer.data());
-                    auto const maxSize = static_cast<int>(buffer.size());
-                    if (auto num = proc.readProcessOutput(data, maxSize); num != 0)
-                    {
-                        queue_.push(juce::String::createStringFromData(static_cast<void*>(buffer.data()), num));
-                    }
-                }
+                    this->processHasStarted_.store(true);
 
-                this->processExitCode_.store(proc.getExitCode());
-                this->processHasFinished_.store(true);
-            }
-        });
+                    auto buffer = std::vector<std::byte>(1024 * 16, std::byte {});
+                    while (proc.isRunning())
+                    {
+                        std::fill(std::begin(buffer), std::end(buffer), std::byte {});
+                        auto* const data   = static_cast<void*>(buffer.data());
+                        auto const maxSize = static_cast<int>(buffer.size());
+                        if (auto num = proc.readProcessOutput(data, maxSize); num != 0)
+                        {
+                            queue_.push(juce::String::createStringFromData(static_cast<void*>(buffer.data()), num));
+                        }
+                    }
+
+                    this->processExitCode_.store(proc.getExitCode());
+                    this->processHasFinished_.store(true);
+                }
+            });
 
         startTimerHz(5);
         return;

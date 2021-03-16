@@ -5,7 +5,18 @@ stages:
   - sanitize
   - coverage
 
-linux:clang:tidy:
+clang-format:
+  stage: lint
+  tags:
+    - mc-linux
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  script:
+    - cd $CI_PROJECT_DIR
+    - make format-check
+  dependencies: [ ]
+
+clang-tidy:
   stage: lint
   tags:
     - mc-linux

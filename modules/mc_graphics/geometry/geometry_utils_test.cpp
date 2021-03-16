@@ -4,7 +4,8 @@
 
 TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Point>", "[graphics][geometry]", int, float, double)
 {
-    auto convert = [](auto const& value) -> juce::Point<TestType> {
+    auto convert = [](auto const& value) -> juce::Point<TestType>
+    {
         auto const var = juce::VariantConverter<juce::Point<TestType>>::toVar(value);
         return juce::VariantConverter<juce::Point<TestType>>::fromVar(var);
     };
@@ -24,7 +25,8 @@ TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Point>", "[graphic
 
 TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Line>", "[graphics][geometry]", int, float, double)
 {
-    auto convert = [](auto const& value) -> juce::Line<TestType> {
+    auto convert = [](auto const& value) -> juce::Line<TestType>
+    {
         auto const var = juce::VariantConverter<juce::Line<TestType>>::toVar(value);
         return juce::VariantConverter<juce::Line<TestType>>::fromVar(var);
     };
@@ -41,7 +43,8 @@ TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Line>", "[graphics
 
 TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Rectangle>", "[graphics][geometry]", int, float, double)
 {
-    auto convert = [](auto const& value) -> juce::Rectangle<TestType> {
+    auto convert = [](auto const& value) -> juce::Rectangle<TestType>
+    {
         auto const var = juce::VariantConverter<juce::Rectangle<TestType>>::toVar(value);
         return juce::VariantConverter<juce::Rectangle<TestType>>::fromVar(var);
     };
