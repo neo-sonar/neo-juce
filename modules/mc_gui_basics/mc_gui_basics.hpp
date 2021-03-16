@@ -29,6 +29,7 @@
 #include "widget/text_box_slider.hpp"
 #include "widget/xy_pad.hpp"
 
+#include "attachment/bipolar_filter_attachment.hpp"
 #include "attachment/label_attachment.hpp"
 #include "attachment/slider_attachment.hpp"
 #include "attachment/text_box_slider_attachment.hpp"

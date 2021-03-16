@@ -84,6 +84,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_graphics/geometry/geometry_utils_test.cpp
             modules/mc_graphics/images/image_utils_test.cpp
 
+            modules/mc_gui_basics/attachment/bipolar_filter_attachment_test.cpp
             modules/mc_gui_basics/attachment/label_attachment_test.cpp
             modules/mc_gui_basics/attachment/slider_attachment_test.cpp
             modules/mc_gui_basics/attachment/text_box_slider_attachment_test.cpp

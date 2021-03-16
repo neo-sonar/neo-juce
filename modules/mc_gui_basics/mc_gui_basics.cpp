@@ -1,5 +1,6 @@
 #include "mc_gui_basics/mc_gui_basics.hpp"
 
+#include "attachment/bipolar_filter_attachment.cpp"   // NOLINT(bugprone-suspicious-include)
 #include "attachment/slider_attachment.cpp"           // NOLINT(bugprone-suspicious-include)
 #include "attachment/text_box_slider_attachment.cpp"  // NOLINT(bugprone-suspicious-include)
 #include "button/button_utils.cpp"                    // NOLINT(bugprone-suspicious-include)
