@@ -19,8 +19,9 @@ TextBoxSlider::TextBoxSlider(juce::String const& name) : juce::Component {name}
     addAndMakeVisible(text_);
 }
 
-auto TextBoxSlider::setValue(double const newValue) -> void
+auto TextBoxSlider::setValue(double const newValue, juce::NotificationType notification) -> void
 {
+    juce::ignoreUnused(notification);
     if (auto const clipped = range_.clipValue(newValue); clipped != value_)
     {
         value_ = clipped;

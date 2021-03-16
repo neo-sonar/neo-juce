@@ -61,7 +61,7 @@ public:
     /**
      * @brief Changes the slider's current value.
      */
-    auto setValue(double newValue) -> void;
+    auto setValue(double newValue, juce::NotificationType notification = juce::sendNotificationAsync) -> void;
 
     /**
      * @brief Returns the slider's current value.
