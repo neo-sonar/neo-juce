@@ -15,11 +15,10 @@ public:
         parent_.addListener(this);
     }
 
-    ~ValueTreeObjectList() override
+    ~ValueTreeObjectList() override  // NOLINT
     {
         // must call freeObjects() in the subclass destructor!
-        [[maybe_unused]] auto const wasReset = objects_.empty();
-        jassert(wasReset);
+        jassert(objects_.empty());
     }
 
     [[nodiscard]] virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
@@ -57,12 +56,13 @@ public:
 
     [[nodiscard]] auto getObjects() -> std::vector<ObjectType*>& { return objects_; }
     [[nodiscard]] auto getObjects() const -> std::vector<ObjectType*> const& { return objects_; }
+    [[nodiscard]] auto getValueTree() noexcept -> juce::ValueTree& { return parent_; }
 
 protected:
     using ScopedLockType = typename CriticalSectionType::ScopedLockType;
     CriticalSectionType objectsMutex_;
-    std::vector<ObjectType*> objects_;
-    juce::ValueTree parent_;
+    std::vector<ObjectType*> objects_ {};
+    juce::ValueTree parent_ {};
 
     void deleteAllObjects()
     {
