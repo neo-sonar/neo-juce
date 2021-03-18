@@ -22,6 +22,7 @@
 #include <juce_dsp/juce_dsp.h>
 #include <mc_data_structures/mc_data_structures.hpp>
 
+#include "container/audio_buffer_pool.hpp"
 #include "container/audio_buffer_queue.hpp"
 #include "container/audio_buffer_utils.hpp"
 
