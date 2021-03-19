@@ -62,6 +62,17 @@ public:
             if (e.second) { f(*e.second); }
         }
     }
+    /**
+     * @brief Apply a functor to all elements.
+     */
+    template<typename F>
+    auto forEach(F f) -> void
+    {
+        for (auto& e : map_)
+        {
+            if (e.second) { f(*e.second); }
+        }
+    }
 
     /**
      * @brief Apply a functor to the element with the given ticket.
