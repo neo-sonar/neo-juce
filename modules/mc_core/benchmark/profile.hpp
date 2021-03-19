@@ -124,12 +124,12 @@ private:
 class InstrumentationTimer
 {
 public:
-    InstrumentationTimer(const char* name) : name_(name), stopped_(false)
+    explicit InstrumentationTimer(const char* name) : name_(name), stopped_(false)
     {
         startTimepoint_ = std::chrono::steady_clock::now();
     }
 
-    ~InstrumentationTimer()
+    ~InstrumentationTimer()  // NOLINT(bugprone-exception-escape)
     {
         if (!stopped_) { Stop(); }
     }
