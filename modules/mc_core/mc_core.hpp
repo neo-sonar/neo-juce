@@ -45,4 +45,6 @@
 
 #include "thread/background_process.hpp"
 
+#include "benchmark/profile.hpp"
+
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP

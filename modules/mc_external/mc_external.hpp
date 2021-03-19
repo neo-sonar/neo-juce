@@ -21,6 +21,7 @@
 #define FMT_HEADER_ONLY 1
 #include "fmt/chrono.h"
 #include "fmt/format.h"
+#include "fmt/ostream.h"
 
 #include <gsl/gsl>
 
