@@ -30,7 +30,7 @@ struct InstrumentationSession
     std::string Name;
 };
 
-class Instrumentor
+class Profiler
 {
 private:
     std::mutex mutex_;
@@ -39,7 +39,7 @@ private:
     std::vector<std::string> buffer_;
 
 public:
-    Instrumentor() = default;
+    Profiler() = default;
 
     void BeginSession(std::string const& name, std::string const& filepath = "results.json")
     {
@@ -57,7 +57,7 @@ public:
         }
         else
         {
-            DBG(mc::format("Instrumentor could not open results file '{0}'.", filepath));
+            DBG(mc::format("Profiler could not open results file '{0}'.", filepath));
         }
     }
 
@@ -84,9 +84,9 @@ public:
         if (currentSession_ != nullptr) { buffer_.push_back(json); }
     }
 
-    static auto Get() -> Instrumentor&
+    static auto Get() -> Profiler&
     {
-        static Instrumentor instance;
+        static Profiler instance;
         return instance;
     }
 
@@ -121,15 +121,15 @@ private:
     }
 };
 
-class InstrumentationTimer
+class ProfileTimer
 {
 public:
-    explicit InstrumentationTimer(const char* name) : name_(name), stopped_(false)
+    explicit ProfileTimer(const char* name) : name_(name), stopped_(false)
     {
         startTimepoint_ = std::chrono::steady_clock::now();
     }
 
-    ~InstrumentationTimer()  // NOLINT(bugprone-exception-escape)
+    ~ProfileTimer()  // NOLINT(bugprone-exception-escape)
     {
         if (!stopped_) { Stop(); }
     }
@@ -142,7 +142,7 @@ public:
             = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch()
               - std::chrono::time_point_cast<std::chrono::microseconds>(startTimepoint_).time_since_epoch();
 
-        Instrumentor::Get().WriteProfile({name_, highResStart, elapsedTime, std::this_thread::get_id()});
+        Profiler::Get().WriteProfile({name_, highResStart, elapsedTime, std::this_thread::get_id()});
 
         stopped_ = true;
     }
@@ -154,16 +154,16 @@ private:
 };
 }  // namespace mc
 
-#if MOCI_PROFILE
-#define MOCI_PROFILE_BEGIN_SESSION(name, filepath) ::mc::Instrumentor::Get().BeginSession(name, filepath)
-#define MOCI_PROFILE_END_SESSION() ::mc::Instrumentor::Get().EndSession()
-#define MOCI_PROFILE_SCOPE(name) ::mc::InstrumentationTimer MOCI_ANONYMOUS_VARIABLE(timer)(name);
-#define MOCI_PROFILE_FUNCTION() MOCI_PROFILE_SCOPE(MOCI_FUNC_SIG)
+#if MC_PROFILE
+#define MC_PROFILE_BEGIN_SESSION(name, filepath) ::mc::Profiler::Get().BeginSession(name, filepath)
+#define MC_PROFILE_END_SESSION() ::mc::Profiler::Get().EndSession()
+#define MC_PROFILE_SCOPE(name) ::mc::ProfileTimer MC_ANONYMOUS_VARIABLE(timer)(name);
+#define MC_PROFILE_FUNCTION() MC_PROFILE_SCOPE(MC_FUNC_SIG)
 #else
-#define MOCI_PROFILE_BEGIN_SESSION(name, filepath)
-#define MOCI_PROFILE_END_SESSION()
-#define MOCI_PROFILE_SCOPE(name)
-#define MOCI_PROFILE_FUNCTION()
+#define MC_PROFILE_BEGIN_SESSION(name, filepath)
+#define MC_PROFILE_END_SESSION()
+#define MC_PROFILE_SCOPE(name)
+#define MC_PROFILE_FUNCTION()
 #endif
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_PROFILE_HPP
