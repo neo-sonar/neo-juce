@@ -66,8 +66,8 @@ linux:clang:release:
     - mc-linux
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
-    CC: clang
-    CXX: clang++
+    CC: clang-12
+    CXX: clang++-12
   script:
     - cd $CI_PROJECT_DIR
     - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release
