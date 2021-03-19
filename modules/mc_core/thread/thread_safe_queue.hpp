@@ -26,7 +26,7 @@ public:
     [[nodiscard]] auto pop() -> boost::optional<value_type>
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if (queue_.empty()) { return boost::none; }
+        if (queue_.empty()) { return boost::make_optional(false, value_type {}); }
         value_type tmp = queue_.front();
         queue_.pop();
         return tmp;
