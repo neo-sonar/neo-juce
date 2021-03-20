@@ -154,7 +154,6 @@ private:
 };
 }  // namespace mc
 
-#define MC_PROFILE 1
 #if MC_PROFILE
 #define MC_PROFILE_BEGIN_SESSION(name, filepath) ::mc::Profiler::Get().BeginSession(name, filepath)
 #define MC_PROFILE_END_SESSION() ::mc::Profiler::Get().EndSession()
