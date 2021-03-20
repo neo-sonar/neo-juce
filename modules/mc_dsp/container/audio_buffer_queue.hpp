@@ -22,19 +22,19 @@ public:
         auto size1  = 0;
         auto start2 = 0;
         auto size2  = 0;
-        abstractFifo.prepareToWrite(1, start1, size1, start2, size2);
+        abstractFifo_.prepareToWrite(1, start1, size1, start2, size2);
 
         jassert(size1 <= 1);
         jassert(size2 == 0);
 
         if (size1 > 0)
         {
-            auto* const dest = buffers[static_cast<std::size_t>(start1)].data();
+            auto* const dest = buffers_[static_cast<std::size_t>(start1)].data();
             auto const num   = static_cast<int>(juce::jmin(bufferSize, numSamples));
             juce::FloatVectorOperations::copy(dest, dataToPush, num);
         }
 
-        abstractFifo.finishedWrite(size1);
+        abstractFifo_.finishedWrite(size1);
     }
 
     void pop(SampleType* outputBuffer)
@@ -43,23 +43,23 @@ public:
         auto size1  = 0;
         auto start2 = 0;
         auto size2  = 0;
-        abstractFifo.prepareToRead(1, start1, size1, start2, size2);
+        abstractFifo_.prepareToRead(1, start1, size1, start2, size2);
 
         jassert(size1 <= 1);
         jassert(size2 == 0);
 
         if (size1 > 0)
         {
-            auto const* const src = buffers[(std::size_t)start1].data();
+            auto const* const src = buffers_[(std::size_t)start1].data();
             juce::FloatVectorOperations::copy(outputBuffer, src, static_cast<int>(bufferSize));
         }
 
-        abstractFifo.finishedRead(size1);
+        abstractFifo_.finishedRead(size1);
     }
 
 private:
-    juce::AbstractFifo abstractFifo {numBuffers};
-    std::array<std::array<SampleType, bufferSize>, numBuffers> buffers {};
+    juce::AbstractFifo abstractFifo_ {numBuffers};
+    std::array<std::array<SampleType, bufferSize>, numBuffers> buffers_ {};
 
     JUCE_DECLARE_NON_COPYABLE(AudioBufferQueue)  // NOLINT
 };

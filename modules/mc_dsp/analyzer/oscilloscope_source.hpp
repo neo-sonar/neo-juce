@@ -26,7 +26,7 @@ private:
             {
                 auto currentSample = *data++;
 
-                if (currentSample >= triggerLevel_ && prevSample_ < triggerLevel_)
+                if (currentSample >= triggerLevel && prevSample_ < triggerLevel)
                 {
                     numCollected_ = 0;
                     state_        = State::collecting;
@@ -59,7 +59,7 @@ private:
     std::size_t numCollected_ {};
     double prevSample_ = 100.0;
 
-    static constexpr auto triggerLevel_ = 0.05;
+    static constexpr auto triggerLevel = 0.05;
 
     enum class State
     {

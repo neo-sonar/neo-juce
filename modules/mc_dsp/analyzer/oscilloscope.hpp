@@ -30,7 +30,7 @@ private:
     void timerCallback() override;
 
     OscilloscopeSource& oscilloscopeSource_;
-    std::array<double, AudioBufferQueue<double>::bufferSize> sampleData {};
+    std::array<double, AudioBufferQueue<double>::bufferSize> sampleData_ {};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Oscilloscope)  // NOLINT
 };

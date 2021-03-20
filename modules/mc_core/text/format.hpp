@@ -4,7 +4,7 @@
 namespace juce
 {
 
-inline auto to_string_view(juce::String const& string) -> ::fmt::string_view
+inline auto to_string_view(juce::String const& string) -> ::fmt::string_view  // NOLINT(readability-identifier-naming)
 {
     return ::fmt::string_view {string.begin(), static_cast<std::size_t>(string.length())};
 }
@@ -15,9 +15,9 @@ namespace mc
 {
 
 template<typename... Args>
-[[nodiscard]] inline auto format(juce::String const& format_str, Args&&... args) -> juce::String
+[[nodiscard]] inline auto format(juce::String const& formatStr, Args&&... args) -> juce::String
 {
-    return juce::String {::fmt::format(format_str, args...)};
+    return juce::String {::fmt::format(formatStr, args...)};
 }
 
 }  // namespace mc

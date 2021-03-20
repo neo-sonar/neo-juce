@@ -27,17 +27,17 @@ public:
     /**
      * @brief Returns true if the process is enabled.
      */
-    [[nodiscard]] auto isEnabled() const noexcept -> bool { return enabled; }
+    [[nodiscard]] auto isEnabled() const noexcept -> bool { return enabled_; }
 
     /**
      * @brief Enables/disables the process.
      */
-    void setEnabled(bool newValue) noexcept { enabled = newValue; }
+    void setEnabled(bool newValue) noexcept { enabled_ = newValue; }
 
     /**
      * @brief Returns the process's current parameters.
      */
-    [[nodiscard]] auto getParameters() const noexcept -> Parameters { return parameters; }
+    [[nodiscard]] auto getParameters() const noexcept -> Parameters { return parameters_; }
 
     /**
      * @brief Applies a new set of parameters to the process.
@@ -46,7 +46,7 @@ public:
      * so if you call this in parallel with
      * the process method, you may get artifacts.
      */
-    void setParameters(Parameters const& newParams) { parameters = newParams; }
+    void setParameters(Parameters const& newParams) { parameters_ = newParams; }
 
     /**
      * @brief Initialises the process.
@@ -79,7 +79,7 @@ public:
         auto* const left  = outputBlock.getChannelPointer(0);
         auto* const right = outputBlock.getChannelPointer(1);
 
-        auto const coef = parameters.width * 0.5f;
+        auto const coef = parameters_.width * 0.5f;
 
         for (size_t sample = 0; sample < numSamples; ++sample)
         {
@@ -98,8 +98,8 @@ public:
     }
 
 private:
-    bool enabled          = true;
-    Parameters parameters = {1.0f};
+    bool enabled_          = true;
+    Parameters parameters_ = {1.0f};
 };
 
 }  // namespace mc::dsp
