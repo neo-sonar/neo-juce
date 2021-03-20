@@ -40,7 +40,7 @@ find_package(Boost 1.71 REQUIRED)
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
 
-juce_add_module(modules/mc_external ALIAS_NAMESPACE mc)
+juce_add_module(3rd_party/mc_external ALIAS_NAMESPACE mc)
 target_link_libraries(mc_external INTERFACE Boost::headers)
 
 juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
