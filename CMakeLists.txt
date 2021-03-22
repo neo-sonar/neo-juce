@@ -3,11 +3,12 @@ cmake_policy(VERSION 3.15)
 
 project(modern-circuits-juce-modules VERSION 0.1.0)
 
-option(MODERN_CIRCUITS_BUILD_COVERAGE "Build with coverage enabled" OFF)
-option(MODERN_CIRCUITS_BUILD_ASAN "Build with address sanitizer enabled" OFF)
-option(MODERN_CIRCUITS_BUILD_UBSAN "Build with undefined behavior sanitizer enabled" OFF)
-option(MODERN_CIRCUITS_BUILD_TSAN "Build with thread sanitizer enabled" OFF)
-option(MODERN_CIRCUITS_BUILD_MSAN "Build with memory sanitizer enabled" OFF)
+option(MODERN_CIRCUITS_BUILD_COVERAGE   "Build with coverage enabled"                       OFF)
+option(MODERN_CIRCUITS_BUILD_ASAN       "Build with address sanitizer enabled"              OFF)
+option(MODERN_CIRCUITS_BUILD_UBSAN      "Build with undefined behavior sanitizer enabled"   OFF)
+option(MODERN_CIRCUITS_BUILD_TSAN       "Build with thread sanitizer enabled"               OFF)
+option(MODERN_CIRCUITS_BUILD_MSAN       "Build with memory sanitizer enabled"               OFF)
+option(MODERN_CIRCUITS_BUILD_WERROR     "Build with warnings as errors"                     OFF)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(CMAKE_C_STANDARD 11)
@@ -101,6 +102,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     target_compile_definitions(${PROJECT_NAME}_tests
         PRIVATE
             JUCE_WEB_BROWSER=0
+            JUCE_USE_OGGVORBIS=0
     )
 
     target_link_libraries(${PROJECT_NAME}_tests
