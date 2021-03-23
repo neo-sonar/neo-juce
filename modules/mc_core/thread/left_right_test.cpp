@@ -2,9 +2,6 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include <map>
-#include <string>
-
 TEST_CASE("core/thread: LeftRight - in-place construct", "[core][thread]")
 {
     using lrstring = mc::LeftRight<std::string>;
@@ -75,3 +72,55 @@ struct unsafe_reader_registry
 // unsafe_reader_registry are not noexcept
 template class mc::BasicLeftRight<int, unsafe_reader_registry>;
 */
+
+TEST_CASE("core/thread: LeftRight<struct Data>", "[core][thread]")
+{
+    struct Data
+    {
+        std::uint64_t w {};
+        std::uint64_t x {};
+        std::uint64_t y {};
+        std::uint64_t z {};
+
+        Data() noexcept = default;
+        Data(std::uint64_t w_, std::uint64_t x_, std::uint64_t y_, std::uint64_t z_) noexcept
+            : w {w_}, x {x_}, y {y_}, z {z_}
+        {
+        }
+    };
+    using LeftRightData = mc::LeftRight<Data>;
+
+    constexpr auto iterations = 100'000;
+    LeftRightData data(mc::InPlace, 1, 2, 3, 4);
+
+    std::thread backgroundThread(
+        [&data, iterations]
+        {
+            for (auto i = 0; i < iterations; ++i)
+            {
+                data.modify(
+                    [](LeftRightData::reference writeData) noexcept
+                    {
+                        writeData.w = 1;
+                        writeData.x = 2;
+                        writeData.y = 3;
+                        writeData.z = 4;
+                    });
+            }
+        });
+
+    for (auto i = 0; i < iterations; ++i)
+    {
+        data.observe(
+            [](LeftRightData::const_reference readData)
+            {
+                CHECK(readData.w == 1);
+                CHECK(readData.x == 2);
+                CHECK(readData.y == 3);
+                CHECK(readData.z == 4);
+            });
+    }
+
+    CHECK(backgroundThread.joinable());
+    backgroundThread.join();
+}
