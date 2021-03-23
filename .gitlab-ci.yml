@@ -28,7 +28,7 @@ win:msvc:release:
     - Set-Location $env:CI_PROJECT_DIR
     - New-Item -Path cmake-build-release -ItemType Directory
     - Set-Location cmake-build-release
-    - cmake -S ..
+    - cmake -S .. -DMODERN_CIRCUITS_BUILD_WERROR=ON
     - if(!$?) { Exit $LASTEXITCODE }
     - cmake --build . --config Release
     - if(!$?) { Exit $LASTEXITCODE }
