@@ -93,32 +93,26 @@ TEST_CASE("core/thread: LeftRight<struct Data>", "[core][thread]")
     constexpr auto iterations = 100'000;
     LeftRightData data(mc::InPlace, 1, 2, 3, 4);
 
-    std::thread backgroundThread(
-        [&data]
+    std::thread backgroundThread([&data] {
+        for (auto i = 0; i < iterations; ++i)
         {
-            for (auto i = 0; i < iterations; ++i)
-            {
-                data.modify(
-                    [](LeftRightData::reference writeData) noexcept
-                    {
-                        writeData.w = 1;
-                        writeData.x = 2;
-                        writeData.y = 3;
-                        writeData.z = 4;
-                    });
-            }
-        });
+            data.modify([](LeftRightData::reference writeData) noexcept {
+                writeData.w = 1;
+                writeData.x = 2;
+                writeData.y = 3;
+                writeData.z = 4;
+            });
+        }
+    });
 
     for (auto i = 0; i < iterations; ++i)
     {
-        data.observe(
-            [](LeftRightData::const_reference readData)
-            {
-                CHECK(readData.w == 1);
-                CHECK(readData.x == 2);
-                CHECK(readData.y == 3);
-                CHECK(readData.z == 4);
-            });
+        data.observe([](LeftRightData::const_reference readData) {
+            CHECK(readData.w == 1);
+            CHECK(readData.x == 2);
+            CHECK(readData.y == 3);
+            CHECK(readData.z == 4);
+        });
     }
 
     CHECK(backgroundThread.joinable());

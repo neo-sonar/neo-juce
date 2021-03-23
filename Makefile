@@ -1,6 +1,6 @@
 BUILD_DIR ?= cmake-build-debug
 
-CLANG_FORMAT_BINARY ?= clang-format-12
+CLANG_FORMAT_BINARY ?= clang-format-11
 CLANG_TIDY_BINARY ?= clang-tidy-12
 CLANG_APPLY_BINARY ?= clang-apply-replacements-12
 

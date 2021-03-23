@@ -31,13 +31,11 @@ public:
 
     void setValueAsCompleteGesture(value_type value)
     {
-        callIfValueChanged(value,
-                           [this](value_type f)
-                           {
-                               beginGesture();
-                               state_.setProperty(id_, f, undoManager_);
-                               endGesture();
-                           });
+        callIfValueChanged(value, [this](value_type f) {
+            beginGesture();
+            state_.setProperty(id_, f, undoManager_);
+            endGesture();
+        });
     }
 
     void beginGesture()
