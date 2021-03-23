@@ -13,7 +13,7 @@ struct AtomicWrapper
     template<typename OtherType>
     AtomicWrapper(OtherType const& other)  // NOLINT(hicpp-explicit-conversions)
     {
-        value.store(other);
+        value.store(static_cast<Type>(other));
     }
 
     AtomicWrapper(const AtomicWrapper& other) { value.store(other.value); }
@@ -49,7 +49,7 @@ struct ConstrainerWrapper
     template<typename OtherType>
     ConstrainerWrapper(const OtherType& other)  // NOLINT(hicpp-explicit-conversions)
     {
-        value = Constrainer::constrain(other);
+        value = Constrainer::constrain(static_cast<Type>(other));
     }
 
     ConstrainerWrapper(const ConstrainerWrapper& other) { value = other.value; }
