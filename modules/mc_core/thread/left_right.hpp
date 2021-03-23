@@ -109,7 +109,7 @@ public:
      *             typename std::result_of<F(T&)>::type>::type;
      */
     template<typename F>
-    auto modify(F f) -> std::result_of_t<F(value_type&)>
+    auto modify(F f) -> std::invoke_result_t<F, value_type&>
     {
         static_assert(noexcept(f(std::declval<T&>())), "Modify functor must be noexcept");
 
@@ -138,7 +138,7 @@ public:
      */
     template<typename F>
     auto observe(F f) const noexcept(noexcept(f(std::declval<value_type const&>())))
-        -> std::result_of_t<F(value_type const&)>
+        -> std::invoke_result_t<F, value_type const&>
     {
         std::size_t idx = registryIndex_.load(std::memory_order_acquire);
         ScopedReadIndication sri(readerRegistries_[idx]);
