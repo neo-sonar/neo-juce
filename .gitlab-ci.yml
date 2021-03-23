@@ -16,18 +16,6 @@ clang-format:
     - make format-check
   dependencies: [ ]
 
-clang-tidy:
-  stage: lint
-  tags:
-    - mc-linux
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-  script:
-    - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-tidy -DCMAKE_BUILD_TYPE=Release
-    - BUILD_DIR=cmake-build-tidy make tidy-check
-  dependencies: [ ]
-
 win:msvc:release:
   stage: build
   tags:
@@ -75,6 +63,18 @@ linux:clang:release:
     - cd cmake-build-release
     - ctest
     - cd $CI_PROJECT_DIR
+  dependencies: [ ]
+
+linux:clang-tidy:
+  stage: build
+  tags:
+    - mc-linux
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  script:
+    - cd $CI_PROJECT_DIR
+    - cmake -S. -GNinja -Bcmake-build-tidy -DCMAKE_BUILD_TYPE=Release
+    - BUILD_DIR=cmake-build-tidy make tidy-check
   dependencies: [ ]
 
 linux:gcc:asan:
