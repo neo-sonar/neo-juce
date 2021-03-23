@@ -5,7 +5,7 @@
 #include <map>
 #include <string>
 
-TEST_CASE("core: LeftRight - in-place construct", "[core][thread]")
+TEST_CASE("core/thread: LeftRight - in-place construct", "[core][thread]")
 {
     using lrstring = mc::LeftRight<std::string>;
 
@@ -13,7 +13,7 @@ TEST_CASE("core: LeftRight - in-place construct", "[core][thread]")
     lrs.observe([](lrstring::const_reference str) { CHECK(str == "***"); });
 }
 
-TEST_CASE("core: LeftRight - modify read modify read", "[core][thread]")
+TEST_CASE("core/thread: LeftRight - modify read modify read", "[core][thread]")
 {
     using lrmap = mc::LeftRight<std::map<int, int>>;
     lrmap lrm;
@@ -28,7 +28,7 @@ TEST_CASE("core: LeftRight - modify read modify read", "[core][thread]")
     CHECK(2 == value);
 }
 
-TEST_CASE("core: LeftRight - distributed modify read modify read", "[core][thread]")
+TEST_CASE("core/thread: LeftRight - distributed modify read modify read", "[core][thread]")
 {
     using lrmap = mc::BasicLeftRight<std::map<int, int>, mc::DistributedAtomicReaderRegistry<4>>;
     lrmap lrm;
@@ -43,7 +43,7 @@ TEST_CASE("core: LeftRight - distributed modify read modify read", "[core][threa
     CHECK(2 == value);
 }
 
-TEST_CASE("core: LeftRight - noexcept specs", "[core][thread]")
+TEST_CASE("core/thread: LeftRight - noexcept specs", "[core][thread]")
 {
     using lrint = mc::LeftRight<int>;
     lrint lri {0};
