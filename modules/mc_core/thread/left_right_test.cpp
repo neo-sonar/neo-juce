@@ -90,11 +90,10 @@ TEST_CASE("core/thread: LeftRight<struct Data>", "[core][thread]")
     };
     using LeftRightData = mc::LeftRight<Data>;
 
-    constexpr auto iterations = 100'000;
     LeftRightData data(mc::InPlace, 1, 2, 3, 4);
 
     std::thread backgroundThread([&data] {
-        for (auto i = 0; i < iterations; ++i)
+        for (auto i = 0; i < 100'000; ++i)
         {
             data.modify([](LeftRightData::reference writeData) noexcept {
                 writeData.w = 1;
@@ -105,7 +104,7 @@ TEST_CASE("core/thread: LeftRight<struct Data>", "[core][thread]")
         }
     });
 
-    for (auto i = 0; i < iterations; ++i)
+    for (auto i = 0; i < 100'000; ++i)
     {
         data.observe([](LeftRightData::const_reference readData) {
             CHECK(readData.w == 1);

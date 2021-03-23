@@ -29,11 +29,11 @@ win:msvc:release:
     - New-Item -Path cmake-build-release -ItemType Directory
     - Set-Location cmake-build-release
     - cmake -S ..
-    - if(!$?) { Write-Host "Failed" } else { Write-Host "Success" }
+    - if(!$?) { Exit $LASTEXITCODE }
     - cmake --build . --config Release
-    - if(!$?) { Write-Host "Failed" } else { Write-Host "Success" }
+    - if(!$?) { Exit $LASTEXITCODE }
     - ctest
-    - if(!$?) { Write-Host "Failed" } else { Write-Host "Success" }
+    - if(!$?) { Exit $LASTEXITCODE }
     - Set-Location $env:CI_PROJECT_DIR
   dependencies: [ ]
 
