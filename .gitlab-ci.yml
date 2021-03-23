@@ -21,6 +21,7 @@ win:msvc:release:
   tags:
     - mc-windows
   variables:
+    ErrorActionPreference: stop
     GIT_SUBMODULE_STRATEGY: recursive
     GIT_STRATEGY: clone
   script:
@@ -28,8 +29,11 @@ win:msvc:release:
     - New-Item -Path cmake-build-release -ItemType Directory
     - Set-Location cmake-build-release
     - cmake -S ..
+    - if(!$?) { Write-Host "Failed" } else { Write-Host "Success" }
     - cmake --build . --config Release
+    - if(!$?) { Write-Host "Failed" } else { Write-Host "Success" }
     - ctest
+    - if(!$?) { Write-Host "Failed" } else { Write-Host "Success" }
     - Set-Location $env:CI_PROJECT_DIR
   dependencies: [ ]
 
