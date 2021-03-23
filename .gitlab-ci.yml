@@ -21,28 +21,17 @@ win:msvc:release:
   tags:
     - mc-windows
   variables:
-#    GIT_SUBMODULE_STRATEGY: recursive
+    ErrorActionPreference: Stop
+    GIT_SUBMODULE_STRATEGY: recursive
     GIT_STRATEGY: clone
   script:
     - |
-      function Invoke-Call {
-        param (
-          [scriptblock]$ScriptBlock,
-          [string]$ErrorAction = $ErrorActionPreference
-        )
-        & @ScriptBlock
-        if (($lastexitcode -ne 0) -and $ErrorAction -eq "Stop") {
-          exit $lastexitcode
-        }
-      }
-
       Set-Location $env:CI_PROJECT_DIR
       New-Item -Path cmake-build-release -ItemType Directory
       Set-Location cmake-build-release
-      Invoke-Call -ScriptBlock { fail_hard_and_fast } -ErrorAction Stop
-      Invoke-Call -ScriptBlock { cmake -S .. -DMODERN_CIRCUITS_BUILD_WERROR=ON } -ErrorAction Stop
-      Invoke-Call -ScriptBlock { cmake --build . --config Release } -ErrorAction Stop
-      Invoke-Call -ScriptBlock { ctest } -ErrorAction Stop
+      cmake -S .. -DMODERN_CIRCUITS_BUILD_WERROR=ON
+      cmake --build . --config Release
+      ctest
       Set-Location $env:CI_PROJECT_DIR
   dependencies: [ ]
 
