@@ -157,9 +157,11 @@ private:
     };
 
     template<typename Lock>
-    void toggleReaderRegistry(Lock& l) noexcept
+    void toggleReaderRegistry(Lock& lock) noexcept
     {
-        jassert(l.owns_lock());
+        jassert(lock.owns_lock());
+        juce::ignoreUnused(lock);
+
         const std::size_t current = registryIndex_.load(std::memory_order_acquire);
         const std::size_t next    = (current + 1) & 0x1;
 
