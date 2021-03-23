@@ -24,6 +24,14 @@
 
 #include <mc_external/mc_external.hpp>
 
+#include <algorithm>
+#include <array>
+#include <atomic>
+#include <cstdint>
+#include <mutex>
+#include <thread>
+#include <type_traits>
+
 #include "system/platform.hpp"
 
 #include "system/assert.hpp"
@@ -44,6 +52,7 @@
 #include "time/time_utils.hpp"
 
 #include "thread/background_process.hpp"
+#include "thread/left_right.hpp"
 
 #include "benchmark/profile.hpp"
 

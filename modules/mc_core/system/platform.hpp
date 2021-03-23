@@ -132,4 +132,11 @@
 #endif
 #endif
 
+namespace mc
+{
+
+inline constexpr std::size_t HardwareCacheLineSize = 64;
+
+}
+
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP

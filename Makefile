@@ -21,7 +21,7 @@ tidy-fix:
 .PHONY: coverage
 coverage:
 	cmake -S. -GNinja -Bcmake-build-coverage -DCMAKE_BUILD_TYPE=Debug -DMODERN_CIRCUITS_BUILD_COVERAGE=TRUE
-	cmake --build cmake-build-coverage -- -j6
+	cmake --build cmake-build-coverage
 	cd cmake-build-coverage && lcov -c -i -d . --base-directory . -o base_cov.info
 	cd cmake-build-coverage && ctest -j
 	cd cmake-build-coverage && lcov -c -d . --base-directory . -o test_cov.info

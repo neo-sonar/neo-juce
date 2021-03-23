@@ -71,6 +71,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_core/math/range_utils_test.cpp
             modules/mc_core/text/format_test.cpp
             modules/mc_core/text/text_value_converter_test.cpp
+            modules/mc_core/thread/left_right_test.cpp
             modules/mc_core/thread/thread_safe_queue_test.cpp
             modules/mc_core/time/time_utils_test.cpp
 
