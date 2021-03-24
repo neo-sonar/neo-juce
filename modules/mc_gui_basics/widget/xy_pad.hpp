@@ -37,8 +37,8 @@ private:
     juce::Point<float> position_;
     juce::NormalisableRange<float> xRange_;
     juce::NormalisableRange<float> yRange_;
-    juce::Rectangle<int> thumb_ {0, 0, 25, 25};
-    juce::Colour thumbColor_ = juce::Colours::green;
+    juce::Rectangle<int> thumb_ {0, 0, 8, 8};
+    juce::Colour thumbColor_ = juce::Colours::grey;
     juce::Rectangle<int> bounds_ {};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(XYPad)  // NOLINT

@@ -4,25 +4,38 @@ XYPad::XYPad() : position_ {0.0f, 0.0f} { }
 
 auto XYPad::paint(juce::Graphics& g) -> void
 {
-    g.fillAll(juce::Colours::pink);
+    bounds_                        = getLocalBounds();
+    static constexpr auto numLines = 6;
 
-    auto bounds = getLocalBounds();
+    // grid
+    auto const colour = juce::Colours::darkgrey;
+    auto const light  = colour.withAlpha(0.01f);
+    g.setColour(colour);
 
-    g.setColour(juce::Colours::black.withAlpha(0.8f));
+    auto const intervalWidth  = bounds_.getWidth() / numLines;
+    auto halfWidth            = bounds_.toFloat().getWidth() / 2.f;
+    auto const intervalHeight = bounds_.getHeight() / numLines;
+    auto halfHeight           = bounds_.toFloat().getHeight() / 2.f;
 
-    static constexpr auto numLines = 12;
+    auto const topGradient    = juce::ColourGradient::vertical(light, bounds_.getY(), colour, halfHeight);
+    auto const bottomGradient = juce::ColourGradient::vertical(colour, halfHeight, light, bounds_.getBottom());
 
-    for (int i = 0; i < numLines; i++)
+    auto const leftGradient  = juce::ColourGradient::horizontal(light, bounds_.getX(), colour, halfWidth);
+    auto const rightGradient = juce::ColourGradient::horizontal(colour, halfWidth, light, bounds_.getRight());
+
+    for (int i = 1; i < numLines; i++)
     {
-        auto const lineX        = bounds.getX() + (bounds.getWidth() / numLines * i);
-        auto const lineVertical = juce::Line<int> {lineX, bounds.getY(), lineX, bounds.getBottom()};
-        g.drawLine(lineVertical.toFloat(), 1.0f);
-
-        auto const lineY          = bounds.getY() + (bounds.getHeight() / numLines * i);
-        auto const lineHorizontal = juce::Line<int> {bounds.getX(), lineY, bounds.getRight(), lineY};
-        g.drawLine(lineHorizontal.toFloat(), 1.0f);
+        g.setGradientFill(topGradient);
+        g.drawVerticalLine(bounds_.getX() + intervalWidth * i, bounds_.toFloat().getY(), halfHeight);
+        g.setGradientFill(bottomGradient);
+        g.drawVerticalLine(bounds_.getX() + intervalWidth * i, halfHeight, bounds_.toFloat().getBottom());
+        g.setGradientFill(leftGradient);
+        g.drawHorizontalLine(bounds_.getY() + intervalHeight * i, bounds_.toFloat().getX(), halfWidth);
+        g.setGradientFill(rightGradient);
+        g.drawHorizontalLine(bounds_.getY() + intervalHeight * i, halfWidth, bounds_.toFloat().getRight());
     }
 
+    // thumb
     g.setColour(thumbColor_);
     auto const x = getPixelFromValue(position_.x, true);
     auto const y = getPixelFromValue(position_.y, false);
@@ -58,7 +71,7 @@ auto XYPad::setYRange(juce::NormalisableRange<float> const& newRange) noexcept -
 
 auto XYPad::mouseMove(juce::MouseEvent const& event) -> void
 {
-    thumbColor_ = thumbHitTest(event) ? juce::Colours::yellow : juce::Colours::green;
+    thumbColor_ = thumbHitTest(event) ? juce::Colours::white : juce::Colours::grey;
     repaint();
 }
 
@@ -66,6 +79,7 @@ auto XYPad::mouseDown(juce::MouseEvent const& event) -> void
 {
     position_.x = getValueFromPixel(event.x, true);
     position_.y = getValueFromPixel(event.y, false);
+    thumbColor_ = juce::Colours::white;
     repaint();
 }
 
