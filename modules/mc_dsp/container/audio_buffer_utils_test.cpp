@@ -2,6 +2,26 @@
 
 #include "catch2/catch_template_test_macros.hpp"
 
+TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::sumToMono", "[dsp][container]", float, double)
+{
+    auto src = juce::AudioBuffer<TestType> {2, 512};
+    auto dst = juce::AudioBuffer<TestType> {1, 512};
+
+    mc::AudioBufferUtils::fill(src, TestType {0.5});
+    mc::AudioBufferUtils::sumToMono(src, dst);
+    CHECK(mc::AudioBufferUtils::allOf(dst, TestType {0.5}));
+}
+
+TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::split", "[dsp][container]", float, double)
+{
+    auto src = juce::AudioBuffer<TestType> {1, 512};
+    auto dst = juce::AudioBuffer<TestType> {4, 512};
+
+    mc::AudioBufferUtils::fill(src, TestType {2.0});
+    mc::AudioBufferUtils::split(src, dst);
+    CHECK(mc::AudioBufferUtils::allOf(dst, TestType {2.0}));
+}
+
 TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::containsNANs", "[dsp][container]", float, double)
 {
     auto buffer = juce::AudioBuffer<TestType> {2, 512};

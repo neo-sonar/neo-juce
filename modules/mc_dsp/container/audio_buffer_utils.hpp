@@ -13,11 +13,20 @@ struct AudioBufferUtils
     static auto fill(juce::AudioBuffer<float>& buffer, float value) noexcept -> void;
     static auto fill(juce::AudioBuffer<double>& buffer, double value) noexcept -> void;
 
+    static auto split(juce::AudioBuffer<float> const& src, juce::AudioBuffer<float>& dst) noexcept -> void;
+    static auto split(juce::AudioBuffer<double> const& src, juce::AudioBuffer<double>& dst) noexcept -> void;
+
+    static auto sumToMono(juce::AudioBuffer<float> const& src, juce::AudioBuffer<float>& dst) noexcept -> void;
+    static auto sumToMono(juce::AudioBuffer<double> const& src, juce::AudioBuffer<double>& dst) noexcept -> void;
+
     [[nodiscard]] static auto containsNANs(juce::AudioBuffer<float> const& buffer) noexcept -> bool;
     [[nodiscard]] static auto containsNANs(juce::AudioBuffer<double> const& buffer) noexcept -> bool;
 
     [[nodiscard]] static auto containsINFs(juce::AudioBuffer<float> const& buffer) noexcept -> bool;
     [[nodiscard]] static auto containsINFs(juce::AudioBuffer<double> const& buffer) noexcept -> bool;
+
+    [[nodiscard]] static auto allOf(juce::AudioBuffer<float> const& buffer, float value) noexcept -> bool;
+    [[nodiscard]] static auto allOf(juce::AudioBuffer<double> const& buffer, double value) noexcept -> bool;
 
     [[nodiscard]] static auto equal(juce::AudioBuffer<float> const& lhs, juce::AudioBuffer<float> const& rhs) -> bool;
     [[nodiscard]] static auto equal(juce::AudioBuffer<double> const& lhs, juce::AudioBuffer<double> const& rhs) -> bool;
