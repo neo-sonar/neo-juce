@@ -4,9 +4,8 @@ XYPad::XYPad() : position_ {0.0f, 0.0f} { }
 
 auto XYPad::paint(juce::Graphics& g) -> void
 {
-    static constexpr auto numLines = 6;
-
-    auto const bounds = bounds_.toFloat();
+    auto const numLines = 6;
+    auto const bounds   = bounds_.toFloat();
 
     // grid
     auto const colour = juce::Colours::darkgrey;
@@ -14,9 +13,9 @@ auto XYPad::paint(juce::Graphics& g) -> void
     g.setColour(colour);
 
     auto const intervalWidth  = bounds.getWidth() / numLines;
-    auto halfWidth            = bounds.getWidth() / 2.0f;
+    auto const halfWidth      = bounds.getWidth() / 2.0f;
     auto const intervalHeight = bounds.getHeight() / numLines;
-    auto halfHeight           = bounds.getHeight() / 2.0f;
+    auto const halfHeight     = bounds.getHeight() / 2.0f;
 
     auto const topGradient    = juce::ColourGradient::vertical(light, bounds.getY(), colour, halfHeight);
     auto const bottomGradient = juce::ColourGradient::vertical(colour, halfHeight, light, bounds.getBottom());
@@ -26,16 +25,21 @@ auto XYPad::paint(juce::Graphics& g) -> void
 
     for (int i = 1; i < numLines; i++)
     {
-        auto const idx = static_cast<float>(i);
+        auto const idx          = static_cast<float>(i);
+        auto const widthOffset  = intervalWidth * idx;
+        auto const heightOffset = intervalHeight * idx;
 
         g.setGradientFill(topGradient);
-        g.drawVerticalLine(bounds.getX() + intervalWidth * idx, bounds.getY(), halfHeight);
+        g.drawVerticalLine(static_cast<int>(bounds.getX() + widthOffset), bounds.getY(), halfHeight);
+
         g.setGradientFill(bottomGradient);
-        g.drawVerticalLine(bounds.getX() + intervalWidth * idx, halfHeight, bounds.getBottom());
+        g.drawVerticalLine(static_cast<int>(bounds.getX() + widthOffset), halfHeight, bounds.getBottom());
+
         g.setGradientFill(leftGradient);
-        g.drawHorizontalLine(bounds.getY() + intervalHeight * idx, bounds.toFloat().getX(), halfWidth);
+        g.drawHorizontalLine(static_cast<int>(bounds.getY() + heightOffset), bounds.toFloat().getX(), halfWidth);
+
         g.setGradientFill(rightGradient);
-        g.drawHorizontalLine(bounds.getY() + intervalHeight * idx, halfWidth, bounds.toFloat().getRight());
+        g.drawHorizontalLine(static_cast<int>(bounds.getY() + heightOffset), halfWidth, bounds.toFloat().getRight());
     }
 
     // thumb
