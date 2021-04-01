@@ -50,6 +50,7 @@ juce_add_module(modules/mc_dsp ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_graphics ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_gui_basics ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_modulation ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_meters ALIAS_NAMESPACE mc)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/Catch2/extras")
@@ -114,6 +115,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             mc::mc_graphics
             mc::mc_gui_basics
             mc::mc_modulation
+            mc::mc_meters
             Catch2::Catch2
             juce::juce_recommended_config_flags
             # juce::juce_recommended_warning_flags
