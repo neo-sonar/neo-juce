@@ -12,11 +12,11 @@ CLANG_TIDY_ARGS += -p $(BUILD_DIR)
 
 .PHONY: tidy-check
 tidy-check:
-	 ./scripts/run-clang-tidy.py $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
+	 ./scripts/run-clang-tidy.py $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_meters) $(shell realpath ./modules/mc_meters)
 
 .PHONY: tidy-fix
 tidy-fix:
-	 ./scripts/run-clang-tidy.py -fix $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
+	 ./scripts/run-clang-tidy.py -fix $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules/mc_meters) $(shell realpath ./modules/mc_meters)
 
 .PHONY: coverage
 coverage:

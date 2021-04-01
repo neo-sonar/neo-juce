@@ -25,7 +25,7 @@ class OutlineBuffer
         int fraction_        = 0;
         int samplesPerBlock_ = 128;
 
-        JUCE_LEAK_DETECTOR(ChannelData)
+        JUCE_LEAK_DETECTOR(ChannelData)  // NOLINT
     public:
         ChannelData() { setSize(1024); }
 
@@ -130,7 +130,7 @@ class OutlineBuffer
     std::vector<ChannelData> channelDatas_;
     int samplesPerBlock_ = 128;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OutlineBuffer)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OutlineBuffer)  // NOLINT
 public:
     OutlineBuffer() = default;
 

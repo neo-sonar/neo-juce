@@ -95,7 +95,7 @@ private:
     float margin_ = 5.0f;
     float border_ = 2.0f;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(StereoFieldComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(StereoFieldComponent)  // NOLINT
 };
 /*@}*/
 }  // namespace foleys
