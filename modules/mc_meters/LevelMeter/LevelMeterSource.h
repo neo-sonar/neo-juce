@@ -28,7 +28,7 @@ private:
             , clip(false)
             , reduction(1.0f)
             , hold_(0)
-            , rmsHistory((size_t)rmsWindow, 0.0)
+            , rmsHistory_((size_t)rmsWindow, 0.0)
             , rmsSum_(0.0)
 
         {
@@ -40,9 +40,9 @@ private:
             , clip(other.clip.load())
             , reduction(other.reduction.load())
             , hold_(other.hold_.load())
-            , rmsHistory(8, 0.0)
+            , rmsHistory_(8, 0.0)
             , rmsSum_(0.0)
-            , rmsPtr(0)
+
         {
         }
 
@@ -53,9 +53,9 @@ private:
             clip.store(other.clip.load());
             reduction.store(other.reduction.load());
             hold_.store(other.hold_.load());
-            rmsHistory.resize(other.rmsHistory.size(), 0.0);
+            rmsHistory_.resize(other.rmsHistory_.size(), 0.0);
             rmsSum_ = 0.0;
-            rmsPtr  = 0;
+            rmsPtr_ = 0;
             return (*this);
         }
 
@@ -66,10 +66,10 @@ private:
 
         [[nodiscard]] auto getAvgRMS() const -> float
         {
-            if (!rmsHistory.empty())
+            if (!rmsHistory_.empty())
             {
-                return std::sqrt(std::accumulate(rmsHistory.begin(), rmsHistory.end(), 0.0f)
-                                 / static_cast<float>(rmsHistory.size()));
+                return std::sqrt(std::accumulate(rmsHistory_.begin(), rmsHistory_.end(), 0.0)
+                                 / static_cast<float>(rmsHistory_.size()));
             }
 
             return float(std::sqrt(rmsSum_));
@@ -94,12 +94,12 @@ private:
 
         void setRMSsize(const size_t numBlocks)
         {
-            rmsHistory.assign(numBlocks, 0.0);
+            rmsHistory_.assign(numBlocks, 0.0);
             rmsSum_ = 0.0;
-            if (numBlocks > 1) { rmsPtr %= rmsHistory.size(); }
+            if (numBlocks > 1) { rmsPtr_ %= rmsHistory_.size(); }
             else
             {
-                rmsPtr = 0;
+                rmsPtr_ = 0;
             }
         }
 
@@ -107,10 +107,10 @@ private:
         void pushNextRMS(const float newRMS)
         {
             const double squaredRMS = std::min(newRMS * newRMS, 1.0f);
-            if (!rmsHistory.empty())
+            if (!rmsHistory_.empty())
             {
-                rmsHistory[(size_t)rmsPtr] = squaredRMS;
-                rmsPtr                     = (rmsPtr + 1) % rmsHistory.size();
+                rmsHistory_[(size_t)rmsPtr_] = squaredRMS;
+                rmsPtr_                      = (rmsPtr_ + 1) % rmsHistory_.size();
             }
             else
             {
@@ -119,9 +119,9 @@ private:
         }
 
         std::atomic<juce::int64> hold_;
-        std::vector<double> rmsHistory;
+        std::vector<double> rmsHistory_;
         std::atomic<double> rmsSum_;
-        size_t rmsPtr {0};
+        size_t rmsPtr_ {0};
     };
 
 public:
@@ -141,8 +141,8 @@ public:
      */
     void resize(const int channels, const int rmsWindow)
     {
-        levels.resize(size_t(channels), ChannelData(size_t(rmsWindow)));
-        for (ChannelData& l : levels) { l.setRMSsize(size_t(rmsWindow)); }
+        levels_.resize(size_t(channels), ChannelData(size_t(rmsWindow)));
+        for (ChannelData& l : levels_) { l.setRMSsize(size_t(rmsWindow)); }
 
         newDataFlag_ = true;
     }
@@ -154,15 +154,15 @@ public:
     void measureBlock(const juce::AudioBuffer<FloatType>& buffer)
     {
         lastMeasurement_ = juce::Time::currentTimeMillis();
-        if (!suspended)
+        if (!suspended_)
         {
             const int numChannels = buffer.getNumChannels();
             const int numSamples  = buffer.getNumSamples();
 
-            for (int channel = 0; channel < std::min(numChannels, int(levels.size())); ++channel)
+            for (int channel = 0; channel < std::min(numChannels, int(levels_.size())); ++channel)
             {
-                levels[size_t(channel)].setLevels(lastMeasurement_, buffer.getMagnitude(channel, 0, numSamples),
-                                                  buffer.getRMSLevel(channel, 0, numSamples), holdMSecs);
+                levels_[size_t(channel)].setLevels(lastMeasurement_, buffer.getMagnitude(channel, 0, numSamples),
+                                                   buffer.getRMSLevel(channel, 0, numSamples), holdMSecs_);
             }
         }
 
@@ -179,9 +179,9 @@ public:
         if (time - lastMeasurement_ < 100) { return; }
 
         lastMeasurement_ = time;
-        for (auto& level : levels)
+        for (auto& level : levels_)
         {
-            level.setLevels(lastMeasurement_, 0.0f, 0.0f, holdMSecs);
+            level.setLevels(lastMeasurement_, 0.0f, 0.0f, holdMSecs_);
             level.reduction = 1.0f;
         }
 
@@ -196,9 +196,9 @@ public:
      */
     void setReductionLevel(const int channel, const float reduction)
     {
-        if (juce::isPositiveAndBelow(channel, static_cast<int>(levels.size())))
+        if (juce::isPositiveAndBelow(channel, static_cast<int>(levels_.size())))
         {
-            levels[size_t(channel)].reduction = reduction;
+            levels_[size_t(channel)].reduction = reduction;
         }
     }
 
@@ -209,14 +209,14 @@ public:
      */
     void setReductionLevel(const float reduction)
     {
-        for (auto& channel : levels) { channel.reduction = reduction; }
+        for (auto& channel : levels_) { channel.reduction = reduction; }
     }
 
     /**
      Set the timeout, how long the peak line will be displayed, before it resets to the
      current peak
      */
-    void setMaxHoldMS(const juce::int64 millis) { holdMSecs = millis; }
+    void setMaxHoldMS(const juce::int64 millis) { holdMSecs_ = millis; }
 
     /**
      Returns the reduction level. This value is not computed but can be set
@@ -224,9 +224,9 @@ public:
      */
     [[nodiscard]] auto getReductionLevel(const int channel) const -> float
     {
-        if (juce::isPositiveAndBelow(channel, static_cast<int>(levels.size())))
+        if (juce::isPositiveAndBelow(channel, static_cast<int>(levels_.size())))
         {
-            return levels[size_t(channel)].reduction;
+            return levels_[size_t(channel)].reduction;
         }
 
         return -1.0f;
@@ -236,7 +236,7 @@ public:
      This is the max level as displayed by the little line above the RMS bar.
      It is reset by \see setMaxHoldMS.
      */
-    [[nodiscard]] auto getMaxLevel(const int channel) const -> float { return levels.at(size_t(channel)).max; }
+    [[nodiscard]] auto getMaxLevel(const int channel) const -> float { return levels_.at(size_t(channel)).max; }
 
     /**
      This is the max level as displayed under the bar as number.
@@ -244,53 +244,53 @@ public:
      */
     [[nodiscard]] auto getMaxOverallLevel(const int channel) const -> float
     {
-        return levels.at(size_t(channel)).maxOverall;
+        return levels_.at(size_t(channel)).maxOverall;
     }
 
     /**
      This is the RMS level that the bar will indicate. It is
      summed over rmsWindow number of blocks/measureBlock calls.
      */
-    [[nodiscard]] auto getRMSLevel(const int channel) const -> float { return levels.at(size_t(channel)).getAvgRMS(); }
+    [[nodiscard]] auto getRMSLevel(const int channel) const -> float { return levels_.at(size_t(channel)).getAvgRMS(); }
 
     /**
      Returns the status of the clip flag.
      */
-    [[nodiscard]] auto getClipFlag(const int channel) const -> bool { return levels.at(size_t(channel)).clip; }
+    [[nodiscard]] auto getClipFlag(const int channel) const -> bool { return levels_.at(size_t(channel)).clip; }
 
     /**
      Reset the clip flag to reset the indicator in the meter
      */
-    void clearClipFlag(const int channel) { levels.at(size_t(channel)).clip = false; }
+    void clearClipFlag(const int channel) { levels_.at(size_t(channel)).clip = false; }
 
     void clearAllClipFlags()
     {
-        for (ChannelData& l : levels) { l.clip = false; }
+        for (ChannelData& l : levels_) { l.clip = false; }
     }
 
     /**
      Reset the max number to minus infinity
      */
-    void clearMaxNum(const int channel) { levels.at(size_t(channel)).maxOverall = infinity; }
+    void clearMaxNum(const int channel) { levels_.at(size_t(channel)).maxOverall = infinity; }
 
     /**
      Reset all max numbers
      */
     void clearAllMaxNums()
     {
-        for (ChannelData& l : levels) { l.maxOverall = infinity; }
+        for (ChannelData& l : levels_) { l.maxOverall = infinity; }
     }
 
     /**
      Get the number of channels to be displayed
      */
-    [[nodiscard]] auto getNumChannels() const -> int { return static_cast<int>(levels.size()); }
+    [[nodiscard]] auto getNumChannels() const -> int { return static_cast<int>(levels_.size()); }
 
     /**
      The measure can be suspended, e.g. to save CPU when no meter is displayed.
      In this case, the \see measureBlock will return immediately
      */
-    void setSuspended(const bool shouldBeSuspended) { suspended = shouldBeSuspended; }
+    void setSuspended(const bool shouldBeSuspended) { suspended_ = shouldBeSuspended; }
 
     [[nodiscard]] auto checkNewDataFlag() const -> bool { return newDataFlag_; }
 
@@ -298,20 +298,21 @@ public:
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LevelMeterSource)  // NOLINT
-    juce::WeakReference<LevelMeterSource>::Master masterReference;
+    juce::WeakReference<LevelMeterSource>::Master masterReference;  // NOLINT(readability-identifier-naming)
+
     friend class juce::WeakReference<LevelMeterSource>;
 
     constexpr static float infinity = -100.0f;
 
-    std::vector<ChannelData> levels;
+    std::vector<ChannelData> levels_;
 
-    juce::int64 holdMSecs {500};
+    juce::int64 holdMSecs_ {500};
 
     std::atomic<juce::int64> lastMeasurement_;
 
     bool newDataFlag_ = true;
 
-    bool suspended {false};
+    bool suspended_ {false};
 };
 
 /*@}*/

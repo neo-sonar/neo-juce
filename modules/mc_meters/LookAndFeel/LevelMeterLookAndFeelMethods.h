@@ -43,18 +43,14 @@ void updateMeterGradients() override
 {
     if ((meterType & foleys::LevelMeter::SingleChannel) != 0) { return bounds; }
 
-    if (meterType & foleys::LevelMeter::Horizontal)
+    if ((meterType & foleys::LevelMeter::Horizontal) != 0)
     {
         const float h = bounds.getHeight() / numChannels;
         return bounds.withHeight(h).withY(bounds.getY() + channel * h);
     }
-    else
-    {
-        const float w = bounds.getWidth() / numChannels;
-        return bounds.withWidth(w).withX(bounds.getX() + channel * w);
-    }
 
-    return juce::Rectangle<float>();
+    const float w = bounds.getWidth() / numChannels;
+    return bounds.withWidth(w).withX(bounds.getX() + channel * w);
 }
 
 /** Override this callback to define the placement of the actual meter bar. */
@@ -124,16 +120,12 @@ void updateMeterGradients() override
         const auto right  = bounds.getRight() - (4.0f * margin + h * 0.5f);
         return juce::Rectangle<float>(bounds.getX() + left, bounds.getCentreY() + margin, right - left, h);
     }
-    else
-    {
-        const auto margin = bounds.getWidth() * 0.05f;
-        const auto w      = bounds.getWidth() * 0.45f;
-        const auto top    = bounds.getY() + 2.0f * margin + w * 0.5f + 2.0f;
-        const auto bottom = bounds.getBottom() - (2.0f * margin + 25.0f + 2.0f);
-        return juce::Rectangle<float>(bounds.getCentreX(), top, w, bottom - top);
-    }
 
-    return juce::Rectangle<float>();
+    const auto margin = bounds.getWidth() * 0.05f;
+    const auto w      = bounds.getWidth() * 0.45f;
+    const auto top    = bounds.getY() + 2.0f * margin + w * 0.5f + 2.0f;
+    const auto bottom = bounds.getBottom() - (2.0f * margin + 25.0f + 2.0f);
+    return juce::Rectangle<float>(bounds.getCentreX(), top, w, bottom - top);
 }
 
 /** Override this callback to define the placement of the clip indicator light.
@@ -155,24 +147,17 @@ void updateMeterGradients() override
         const auto w      = bounds.getWidth() - margin * 2.0f;
         return juce::Rectangle<float>(bounds.getX() + margin, bounds.getY() + margin, w, w * 0.5f);
     }
-    else if ((meterType & foleys::LevelMeter::Vintage) != 0)
+    if ((meterType & foleys::LevelMeter::Vintage) != 0) { return bounds; }
+    if ((meterType & foleys::LevelMeter::Horizontal) != 0)
     {
-        return bounds;
+        const auto margin = bounds.getHeight() * 0.05f;
+        const auto h      = bounds.getHeight() * 0.5f - 2.0f * margin;
+        return juce::Rectangle<float>(bounds.getRight() - (margin + h * 0.5f), bounds.getY() + margin, h * 0.5f, h);
     }
-    else
-    {
-        if ((meterType & foleys::LevelMeter::Horizontal) != 0)
-        {
-            const auto margin = bounds.getHeight() * 0.05f;
-            const auto h      = bounds.getHeight() * 0.5f - 2.0f * margin;
-            return juce::Rectangle<float>(bounds.getRight() - (margin + h * 0.5f), bounds.getY() + margin, h * 0.5f, h);
-        }
 
-        const auto margin = bounds.getWidth() * 0.05f;
-        const auto w      = bounds.getWidth() * 0.45f;
-        return juce::Rectangle<float>(bounds.getX() + margin, bounds.getY() + margin, w, w * 0.5f);
-    }
-    return juce::Rectangle<float>();
+    const auto margin = bounds.getWidth() * 0.05f;
+    const auto w      = bounds.getWidth() * 0.45f;
+    return juce::Rectangle<float>(bounds.getX() + margin, bounds.getY() + margin, w, w * 0.5f);
 }
 
 /** Override this callback to define the placement of the max level.
@@ -197,28 +182,21 @@ void updateMeterGradients() override
             const auto h      = w * 0.6f;
             return juce::Rectangle<float>(bounds.getX() + margin, bounds.getBottom() - (margin + h), w, h);
         }
-        else
-        {
-            return juce::Rectangle<float>();
-        }
-    }
-    else if ((meterType & foleys::LevelMeter::Vintage) != 0)
-    {
-        return bounds;
-    }
-    else
-    {
-        if ((meterType & foleys::LevelMeter::Horizontal) != 0)
-        {
-            const auto margin = bounds.getHeight() * 0.05f;
-            return juce::Rectangle<float>(bounds.getX() + margin, bounds.getCentreY() + margin, 60,
-                                          bounds.getHeight() * 0.5f - margin * 2.0f);
-        }
 
-        const auto margin = bounds.getWidth() * 0.05f;
-        return juce::Rectangle<float>(bounds.getX() + margin, bounds.getBottom() - (margin + 25),
-                                      bounds.getWidth() - 2 * margin, 25.0);
+        return juce::Rectangle<float>();
     }
+    if ((meterType & foleys::LevelMeter::Vintage) != 0) { return bounds; }
+
+    if ((meterType & foleys::LevelMeter::Horizontal) != 0)
+    {
+        const auto margin = bounds.getHeight() * 0.05f;
+        return juce::Rectangle<float>(bounds.getX() + margin, bounds.getCentreY() + margin, 60,
+                                      bounds.getHeight() * 0.5f - margin * 2.0f);
+    }
+
+    const auto margin = bounds.getWidth() * 0.05f;
+    return juce::Rectangle<float>(bounds.getX() + margin, bounds.getBottom() - (margin + 25),
+                                  bounds.getWidth() - 2 * margin, 25.0);
 }
 
 auto drawBackground(juce::Graphics& g, foleys::LevelMeter::MeterFlags meterType, juce::Rectangle<float> bounds)

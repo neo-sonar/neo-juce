@@ -149,13 +149,13 @@ void LevelMeter::lookAndFeelChanged()
     if (auto* lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()))
     {
         lmLookAndFeel_ = lnf;
-        fallbackLookAndFeel.reset();
+        fallbackLookAndFeel_.reset();
     }
     else
     {
-        if (fallbackLookAndFeel == nullptr) { fallbackLookAndFeel = std::make_unique<LevelMeterLookAndFeel>(); }
+        if (fallbackLookAndFeel_ == nullptr) { fallbackLookAndFeel_ = std::make_unique<LevelMeterLookAndFeel>(); }
 
-        lmLookAndFeel_ = fallbackLookAndFeel.get();
+        lmLookAndFeel_ = fallbackLookAndFeel_.get();
     }
 }
 
