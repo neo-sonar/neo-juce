@@ -29,7 +29,7 @@ win:msvc:release:
       Set-Location $env:CI_PROJECT_DIR
       New-Item -Path cmake-build-release -ItemType Directory
       Set-Location cmake-build-release
-      cmake -S .. -DMODERN_CIRCUITS_BUILD_WERROR=ON
+      cmake -S ..
       cmake --build . --config Release
       ctest
       Set-Location $env:CI_PROJECT_DIR

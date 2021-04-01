@@ -68,11 +68,11 @@ private:
         {
             if (!rmsHistory_.empty())
             {
-                return std::sqrt(std::accumulate(rmsHistory_.begin(), rmsHistory_.end(), 0.0)
-                                 / static_cast<float>(rmsHistory_.size()));
+                auto const sum = std::accumulate(rmsHistory_.begin(), rmsHistory_.end(), 0.0);
+                return static_cast<float>(std::sqrt(sum / static_cast<double>(rmsHistory_.size())));
             }
 
-            return float(std::sqrt(rmsSum_));
+            return static_cast<float>(std::sqrt(rmsSum_));
         }
 
         void setLevels(const juce::int64 time, const float newMax, const float newRms, const juce::int64 newHoldMSecs)
