@@ -26,14 +26,16 @@ auto XYPad::paint(juce::Graphics& g) -> void
 
     for (int i = 1; i < numLines; i++)
     {
+        auto const idx = static_cast<float>(i);
+
         g.setGradientFill(topGradient);
-        g.drawVerticalLine(bounds.getX() + intervalWidth * i, bounds.getY(), halfHeight);
+        g.drawVerticalLine(bounds.getX() + intervalWidth * idx, bounds.getY(), halfHeight);
         g.setGradientFill(bottomGradient);
-        g.drawVerticalLine(bounds.getX() + intervalWidth * i, halfHeight, bounds.getBottom());
+        g.drawVerticalLine(bounds.getX() + intervalWidth * idx, halfHeight, bounds.getBottom());
         g.setGradientFill(leftGradient);
-        g.drawHorizontalLine(bounds.getY() + intervalHeight * i, bounds.toFloat().getX(), halfWidth);
+        g.drawHorizontalLine(bounds.getY() + intervalHeight * idx, bounds.toFloat().getX(), halfWidth);
         g.setGradientFill(rightGradient);
-        g.drawHorizontalLine(bounds.getY() + intervalHeight * i, halfWidth, bounds.toFloat().getRight());
+        g.drawHorizontalLine(bounds.getY() + intervalHeight * idx, halfWidth, bounds.toFloat().getRight());
     }
 
     // thumb
