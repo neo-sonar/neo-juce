@@ -24,7 +24,6 @@ else ()
                     >
                     $<$<CXX_COMPILER_ID:AppleClang>:
                         -Wno-poison-system-directories
-
                     >
                     $<$<CXX_COMPILER_ID:GNU>:
                         #-Wlogical-op

@@ -118,7 +118,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             mc::mc_meters
             Catch2::Catch2
             juce::juce_recommended_config_flags
-            # juce::juce_recommended_warning_flags
             ModernCircuits::CompilerOptions
             ModernCircuits::CompilerWarnings
             ModernCircuits::CodeCoverage
