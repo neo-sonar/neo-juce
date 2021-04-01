@@ -1,17 +1,23 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP
 
-#if defined(_WIN32) || defined(_WIN64)
-#define MC_WIN32 1
+#if defined(_WIN32) or defined(_WIN64)
+#ifndef MC_WINDOWS
 #define MC_WINDOWS 1
-#elif defined(MC_ANDROID)
-#undef MC_ANDROID
+#endif
+#elif defined(__ANDROID__)
+#ifndef MC_ANDROID
 #define MC_ANDROID 1
-#elif defined(__FreeBSD__) || (__OpenBSD__)
+#endif
+#elif defined(__FreeBSD__) or (__OpenBSD__)
+#ifndef MC_BSD
 #define MC_BSD 1
-#elif defined(LINUX) || defined(__linux__)
+#endif
+#elif defined(__linux__) && !defined(__ANDROID__)
+#ifndef MC_LINUX
 #define MC_LINUX 1
-#elif defined(__APPLE_CPP__) || defined(__APPLE_CC__)
+#endif
+#elif defined(__APPLE_CPP__) or defined(__APPLE_CC__)
 #include <CoreFoundation/CoreFoundation.h>  // (needed to find out what platform we're using)
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -52,23 +58,15 @@
  * @brief Compiler type macros.
  */
 #if defined(__clang__)
-#define MOCI_COMPILER_CLANG 1
-
+#define MC_COMPILER_CLANG 1
 #elif defined(__GNUC__)
-#define MOCI_COMPILER_GCC 1
-
+#define MC_COMPILER_GCC 1
 #elif defined(_MSC_VER)
-#define MOCI_COMPILER_MSVC 1
-
+#define MC_COMPILER_MSVC 1
 #elif defined(__INTEL_COMPILER)
-#define MOCI_COMPILER_INTEL 1
-
-#elif defined(__BORLANDC__)
-#define MOCI_COMPILER_BORLAND 1
-
-#elif defined(__IBMCPP__)
-#define MOCI_COMPILER_IBM 1
-
+#define MC_COMPILER_INTEL 1
+#elif defined(__EMSCRIPTEN__)
+#define MC_COMPILER_EMSCRIPTEN 1
 #else
 #error "unknown compiler"
 #endif
@@ -132,11 +130,42 @@
 #endif
 #endif
 
+/**
+ * Cache line sizes for ARM values are not strictly correct since cache
+ * line sizes depend on implementations, not architectures.  There are even
+ * implementations with cache line sizes configurable at boot time.
+ */
+#if defined(__aarch64__)
+#define MC_CACHE_LINE_SIZE 64
+#elif defined(__ARM_ARCH_5T__)
+#define MC_CACHE_LINE_SIZE 32
+#elif defined(__ARM_ARCH_7A__)
+#define MC_CACHE_LINE_SIZE 64
+#elif defined(__PPC64__)
+#define MC_CACHE_LINE_SIZE 128
+#elif defined(__i386__) || defined(__x86_64__)
+#define MC_CACHE_LINE_SIZE 64
+#else
+#define MC_CACHE_LINE_SIZE alignof(max_align_t)
+#endif
+
 namespace mc
 {
 
-inline constexpr std::size_t HardwareCacheLineSize = 64;
+inline constexpr std::size_t HardwareCacheLineSize = MC_CACHE_LINE_SIZE;
 
 }
+
+#if defined(MC_COMPILER_GCC) or defined(MC_COMPILER_CLANG)
+#ifndef MC_ALIGNAS
+#define MC_ALIGNAS(bytes) __attribute__((aligned(bytes)))
+#endif
+#elif defined(MC_COMPILER_MSVC)
+#ifndef MC_ALIGNAS
+#define MC_ALIGNAS(bytes) __declspec(align(bytes))
+#endif
+#else
+#error "Unsupported Compiler for MC_ALIGNAS"
+#endif
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP

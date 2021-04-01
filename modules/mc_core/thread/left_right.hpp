@@ -184,8 +184,8 @@ private:
 
     std::atomic<ReadPosition> readPosition_ {ReadPosition::Left};
 
-    value_type leftValue_ alignas(HardwareCacheLineSize);
-    value_type rightValue_ alignas(HardwareCacheLineSize);
+    MC_ALIGNAS(HardwareCacheLineSize) value_type leftValue_;
+    MC_ALIGNAS(HardwareCacheLineSize) value_type rightValue_;
     std::mutex writeMutex_ {};
 };
 
@@ -195,7 +195,7 @@ private:
  * This implementation is wait-free but readers will contend
  * on a single cache line due to the use of a shared counter.
  */
-class alignas(HardwareCacheLineSize) AtomicReaderRegistry
+class AtomicReaderRegistry
 {
 public:
     void arrive() noexcept { counter_.fetch_add(1, std::memory_order_acq_rel); }
@@ -204,7 +204,7 @@ public:
 
 private:
     std::atomic_uint_fast32_t counter_ {0};
-};
+} MC_ALIGNAS(HardwareCacheLineSize);
 
 /**
  * Distributed implementation of ReaderRegistry
@@ -218,7 +218,7 @@ private:
  * arrive() and depart() will perform better if N is a power of two.
  */
 template<std::size_t N, typename HashFunc = std::hash<std::thread::id>>
-class alignas(HardwareCacheLineSize) DistributedAtomicReaderRegistry
+class DistributedAtomicReaderRegistry
 {
 public:
     void arrive() noexcept
@@ -241,7 +241,7 @@ public:
     }
 
 private:
-    class alignas(HardwareCacheLineSize) Counter
+    class Counter
     {
     public:
         void incr() noexcept { value_.fetch_add(1, std::memory_order_acq_rel); }
@@ -253,10 +253,10 @@ private:
 
     private:
         std::atomic_uint_fast32_t value_ {0};
-    };
+    } MC_ALIGNAS(HardwareCacheLineSize);
 
     std::array<Counter, N> counters_ {};
-};
+} MC_ALIGNAS(HardwareCacheLineSize);
 
 /**
  * Default LeftRight uses the simpler reader registry; prefer
