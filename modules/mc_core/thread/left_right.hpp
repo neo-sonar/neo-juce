@@ -256,7 +256,7 @@ private:
     } MC_ALIGNAS(HardwareCacheLineSize);
 
     std::array<Counter, N> counters_ {};
-} MC_ALIGNAS(HardwareCacheLineSize);
+};
 
 /**
  * Default LeftRight uses the simpler reader registry; prefer
