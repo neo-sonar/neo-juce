@@ -156,7 +156,7 @@ inline constexpr std::size_t HardwareCacheLineSize = MC_CACHE_LINE_SIZE;
 
 }
 
-#if defined(MC_COMPILER_GCC) or defined(MC_COMPILER_CLANG)
+#if (defined(MC_COMPILER_GCC) or defined(MC_COMPILER_CLANG)) and !defined(MC_MAC)
 #ifndef MC_ALIGNAS
 #define MC_ALIGNAS(bytes) __attribute__((aligned(bytes)))
 #endif
@@ -165,7 +165,7 @@ inline constexpr std::size_t HardwareCacheLineSize = MC_CACHE_LINE_SIZE;
 #define MC_ALIGNAS(bytes) __declspec(align(bytes))
 #endif
 #else
-#error "Unsupported Compiler for MC_ALIGNAS"
+#define MC_ALIGNAS(bytes)
 #endif
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP
