@@ -117,12 +117,12 @@ linux:gcc:coverage:
     - mc-linux
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
-  script:
-    - make coverage
-    - bash <(curl -s https://codecov.io/bash) -f cmake-build-coverage/cov.info
-    - find . -type f -executable -iname "*_Test*" -exec sh -c "{} -r junit -o {}-results.xml" \;
   dependencies: [ ]
+  script:
+    - make coverage-xml
+  coverage: /^\s*lines:\s*\d+.\d+\%/
   artifacts:
-    when: always
+    name: ${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+    expire_in: 2 days
     reports:
-      junit: cmake-build-coverage/**/*-results.xml
+      cobertura: cmake-build-coverage/coverage.xml
