@@ -3,6 +3,7 @@ cmake_policy(VERSION 3.15)
 
 project(modern-circuits-juce-modules VERSION 0.1.0)
 
+option(MODERN_CIRCUITS_BUILD_CONAN      "Build with dependencies build from conan"          OFF)
 option(MODERN_CIRCUITS_BUILD_COVERAGE   "Build with coverage enabled"                       OFF)
 option(MODERN_CIRCUITS_BUILD_ASAN       "Build with address sanitizer enabled"              OFF)
 option(MODERN_CIRCUITS_BUILD_UBSAN      "Build with undefined behavior sanitizer enabled"   OFF)
@@ -30,9 +31,16 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     if (CCACHE)
         set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
     endif ()
+
+    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+    if(MODERN_CIRCUITS_BUILD_CONAN)
+        list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
+        list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
+        include(mcConan)
+    endif()
 endif ()
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(mcCompilerOptions)
 include(mcCompilerWarnings)
 include(mcCodeCoverage)
