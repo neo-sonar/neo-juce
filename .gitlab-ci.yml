@@ -85,6 +85,7 @@ linux:gcc:asan:
     - mc-linux
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
+    CMAKE_BUILD_PARALLEL_LEVEL: 2
   script:
     - cd $CI_PROJECT_DIR
     - cmake -S. -GNinja -Bcmake-build-asan -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_ASAN=ON
@@ -100,6 +101,7 @@ linux:gcc:tsan:
     - mc-linux
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
+    CMAKE_BUILD_PARALLEL_LEVEL: 2
   script:
     - cd $CI_PROJECT_DIR
     - cmake -S. -GNinja -Bcmake-build-tsan -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_TSAN=ON
@@ -117,6 +119,7 @@ linux:gcc:coverage:
     - mc-linux
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
+    CMAKE_BUILD_PARALLEL_LEVEL: 2
   dependencies: [ ]
   script:
     - make coverage-xml
