@@ -29,7 +29,7 @@ win:msvc:release:
     - Set-Location $env:CI_PROJECT_DIR
     - New-Item -Path cmake-build-release -ItemType Directory
     - Set-Location cmake-build-release
-    - cmake -S .. -DMODERN_CIRCUITS_BUILD_WERROR=ON
+    - cmake -S .. -DMC_BUILD_WERROR=ON
     - cmake --build . --config Release
     - ctest
     - Set-Location $env:CI_PROJECT_DIR
@@ -43,7 +43,7 @@ mac:xcode:release:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
     - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DMODERN_CIRCUITS_BUILD_WERROR=ON
+    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_WERROR=ON
     - cmake --build cmake-build-release
     - cd cmake-build-release
     - ctest
@@ -60,7 +60,7 @@ linux:clang:release:
     CXX: clang++-12
   script:
     - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DMODERN_CIRCUITS_BUILD_WERROR=ON
+    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_WERROR=ON
     - cmake --build cmake-build-release
     - cd cmake-build-release
     - ctest
@@ -87,7 +87,7 @@ linux:gcc:asan:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
     - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-asan -DCMAKE_BUILD_TYPE=Release -DMODERN_CIRCUITS_BUILD_ASAN=ON
+    - cmake -S. -GNinja -Bcmake-build-asan -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_ASAN=ON
     - cmake --build cmake-build-asan
     - cd cmake-build-asan
     - ctest
@@ -102,7 +102,7 @@ linux:gcc:tsan:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
     - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-tsan -DCMAKE_BUILD_TYPE=Release -DMODERN_CIRCUITS_BUILD_TSAN=ON
+    - cmake -S. -GNinja -Bcmake-build-tsan -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_TSAN=ON
     - cmake --build cmake-build-tsan
     - cd cmake-build-tsan
     - ctest

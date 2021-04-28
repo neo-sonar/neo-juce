@@ -2,14 +2,14 @@ add_library(compiler_warnings INTERFACE)
 add_library(ModernCircuits::CompilerWarnings ALIAS compiler_warnings)
 
 if (MSVC)
-    if (MODERN_CIRCUITS_BUILD_WERROR)
+    if (MC_BUILD_WERROR)
         target_compile_options(compiler_warnings INTERFACE /WX)
-    endif (MODERN_CIRCUITS_BUILD_WERROR)
+    endif (MC_BUILD_WERROR)
     target_compile_options(compiler_warnings INTERFACE /W3)
 else ()
-    if (MODERN_CIRCUITS_BUILD_WERROR)
+    if (MC_BUILD_WERROR)
         target_compile_options(compiler_warnings INTERFACE -Werror)
-    endif (MODERN_CIRCUITS_BUILD_WERROR)
+    endif (MC_BUILD_WERROR)
     target_compile_options(compiler_warnings
             INTERFACE
                     -Wall

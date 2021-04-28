@@ -20,7 +20,7 @@ tidy-fix:
 
 .PHONY: coverage
 coverage:
-	cmake -S. -GNinja -Bcmake-build-coverage -DCMAKE_BUILD_TYPE=Debug -DMODERN_CIRCUITS_BUILD_COVERAGE=TRUE
+	cmake -S. -GNinja -Bcmake-build-coverage -DCMAKE_BUILD_TYPE=Debug -DMC_BUILD_COVERAGE=TRUE
 	cmake --build cmake-build-coverage
 	cd cmake-build-coverage && ctest -j ${shell nproc}
 
