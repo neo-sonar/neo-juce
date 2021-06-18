@@ -37,4 +37,7 @@
 #include "analyzer/oscilloscope.hpp"
 #include "analyzer/spectrum.hpp"
 
+#include "airwindows/mc_AirWindowsCoils2.hpp"
+//#include "airwindows/mc_AirWindowsVerbity.hpp"
+
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP
