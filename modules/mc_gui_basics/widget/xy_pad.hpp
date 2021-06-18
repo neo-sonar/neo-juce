@@ -9,7 +9,9 @@ struct XYPad : juce::Component
     {
         virtual ~Listener() = default;
 
-        virtual auto xyPadChanged(XYPad* source, juce::Point<float> position) -> void = 0;
+        virtual auto xypadChanged(XYPad* pad, juce::Point<float> position) -> void = 0;
+        virtual auto xypadDragStarted(XYPad* pad) -> void                          = 0;
+        virtual auto xypadDragEnded(XYPad* pad) -> void                            = 0;
     };
 
     XYPad();
@@ -37,6 +39,7 @@ struct XYPad : juce::Component
 private:
     auto mouseMove(juce::MouseEvent const& event) -> void override;
     auto mouseDown(juce::MouseEvent const& event) -> void override;
+    auto mouseUp(juce::MouseEvent const& event) -> void override;
     auto mouseDrag(juce::MouseEvent const& event) -> void override;
 
     [[nodiscard]] auto getValueFromPixel(int pixel, bool isXAxis) const -> float;

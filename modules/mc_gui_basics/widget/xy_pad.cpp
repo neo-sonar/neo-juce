@@ -68,7 +68,7 @@ auto XYPad::setNormalisedXPosition(float x) noexcept -> void
 {
     position_.x = x;
     listeners_.call([this](Listener& listener) {
-        listener.xyPadChanged(this, {getNormalisedXPosition(), getNormalisedXPosition()});
+        listener.xypadChanged(this, {getNormalisedXPosition(), getNormalisedXPosition()});
     });
 }
 
@@ -76,7 +76,7 @@ auto XYPad::setNormalisedYPosition(float y) noexcept -> void
 {
     position_.y = y;
     listeners_.call([this](Listener& listener) {
-        listener.xyPadChanged(this, {getNormalisedXPosition(), getNormalisedXPosition()});
+        listener.xypadChanged(this, {getNormalisedXPosition(), getNormalisedXPosition()});
     });
 }
 
@@ -98,7 +98,15 @@ auto XYPad::mouseDown(juce::MouseEvent const& event) -> void
 {
     setXPosition(getValueFromPixel(event.x, true));
     setYPosition(getValueFromPixel(event.y, true));
+    listeners_.call([this](Listener& listener) { listener.xypadDragStarted(this); });
     thumbColor_ = juce::Colours::white;
+    repaint();
+}
+
+auto XYPad::mouseUp(juce::MouseEvent const& event) -> void
+{
+    juce::ignoreUnused(event);
+    listeners_.call([this](Listener& listener) { listener.xypadDragEnded(this); });
     repaint();
 }
 

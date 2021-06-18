@@ -35,7 +35,10 @@ struct XYPadAttachment final : XYPad::Listener
     void sendInitialUpdate();
 
 private:
-    auto xyPadChanged(XYPad* source, juce::Point<float> position) -> void override;
+    auto xypadChanged(XYPad* pad, juce::Point<float> position) -> void override;
+    auto xypadDragStarted(XYPad* pad) -> void override;
+    auto xypadDragEnded(XYPad* pad) -> void override;
+
     auto setPosition(float newValue, bool isX) -> void;
 
     XYPad& pad_;
