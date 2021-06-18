@@ -3,14 +3,23 @@
 
 namespace mc
 {
-class XYPad : public juce::Component
+struct XYPad : juce::Component
 {
-public:
+    struct Listener
+    {
+        virtual ~Listener() = default;
+
+        virtual auto xyPadChanged(XYPad* source, juce::Point<float> position) -> void = 0;
+    };
+
     XYPad();
     ~XYPad() override = default;
 
     auto paint(juce::Graphics& g) -> void override;
     auto resized() -> void override;
+
+    auto addListener(Listener* listener) -> void { listeners_.add(listener); }
+    auto removeListener(Listener* listener) -> void { listeners_.remove(listener); }
 
     [[nodiscard]] auto getXPosition() const noexcept -> float;
     [[nodiscard]] auto getYPosition() const noexcept -> float;
@@ -40,6 +49,8 @@ private:
     juce::Rectangle<int> thumb_ {0, 0, 8, 8};
     juce::Colour thumbColor_ = juce::Colours::grey;
     juce::Rectangle<int> bounds_ {};
+
+    juce::ListenerList<Listener> listeners_ {};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(XYPad)  // NOLINT
 };

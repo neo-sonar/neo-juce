@@ -60,13 +60,25 @@ auto XYPad::getNormalisedXPosition() const noexcept -> float { return position_.
 
 auto XYPad::getNormalisedYPosition() const noexcept -> float { return position_.y; }
 
-auto XYPad::setXPosition(float x) noexcept -> void { position_.x = xRange_.convertTo0to1(x); }
+auto XYPad::setXPosition(float x) noexcept -> void { setNormalisedXPosition(xRange_.convertTo0to1(x)); }
 
-auto XYPad::setYPosition(float y) noexcept -> void { position_.y = yRange_.convertTo0to1(y); }
+auto XYPad::setYPosition(float y) noexcept -> void { setNormalisedYPosition(yRange_.convertTo0to1(y)); }
 
-auto XYPad::setNormalisedXPosition(float x) noexcept -> void { position_.x = x; }
+auto XYPad::setNormalisedXPosition(float x) noexcept -> void
+{
+    position_.x = x;
+    listeners_.call([this](Listener& listener) {
+        listener.xyPadChanged(this, {getNormalisedXPosition(), getNormalisedXPosition()});
+    });
+}
 
-auto XYPad::setNormalisedYPosition(float y) noexcept -> void { position_.y = y; }
+auto XYPad::setNormalisedYPosition(float y) noexcept -> void
+{
+    position_.y = y;
+    listeners_.call([this](Listener& listener) {
+        listener.xyPadChanged(this, {getNormalisedXPosition(), getNormalisedXPosition()});
+    });
+}
 
 auto XYPad::getXRange() const noexcept -> juce::NormalisableRange<float> { return xRange_; }
 
@@ -84,21 +96,21 @@ auto XYPad::mouseMove(juce::MouseEvent const& event) -> void
 
 auto XYPad::mouseDown(juce::MouseEvent const& event) -> void
 {
-    position_.x = getValueFromPixel(event.x, true);
-    position_.y = getValueFromPixel(event.y, false);
+    setXPosition(getValueFromPixel(event.x, true));
+    setYPosition(getValueFromPixel(event.y, true));
     thumbColor_ = juce::Colours::white;
     repaint();
 }
 
 auto XYPad::mouseDrag(juce::MouseEvent const& event) -> void
 {
-    position_.x = getValueFromPixel(event.x, true);
-    position_.y = getValueFromPixel(event.y, false);
+    setXPosition(getValueFromPixel(event.x, true));
+    setYPosition(getValueFromPixel(event.y, true));
 
-    if (event.x >= bounds_.getRight()) { position_.x = getValueFromPixel(bounds_.getRight(), true); }
-    if (event.x <= bounds_.getX()) { position_.x = getValueFromPixel(bounds_.getX(), true); }
-    if (event.y >= bounds_.getBottom()) { position_.y = getValueFromPixel(bounds_.getBottom(), false); }
-    if (event.y <= bounds_.getY()) { position_.y = getValueFromPixel(bounds_.getY(), false); }
+    if (event.x >= bounds_.getRight()) { setXPosition(getValueFromPixel(bounds_.getRight(), true)); }
+    if (event.x <= bounds_.getX()) { setXPosition(getValueFromPixel(bounds_.getX(), true)); }
+    if (event.y >= bounds_.getBottom()) { setYPosition(getValueFromPixel(bounds_.getBottom(), false)); }
+    if (event.y <= bounds_.getY()) { setYPosition(getValueFromPixel(bounds_.getY(), false)); }
     repaint();
 }
 
