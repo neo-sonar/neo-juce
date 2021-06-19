@@ -46,12 +46,13 @@ private:
     [[nodiscard]] auto getPixelFromValue(float value, bool x) const -> int;
     [[nodiscard]] auto thumbHitTest(juce::MouseEvent const& event) const -> bool;
 
-    juce::Point<float> position_;
-    juce::NormalisableRange<float> xRange_;
-    juce::NormalisableRange<float> yRange_;
+    juce::Point<float> position_ {};
+    juce::NormalisableRange<float> xRange_ {};
+    juce::NormalisableRange<float> yRange_ {};
     juce::Rectangle<int> thumb_ {0, 0, 8, 8};
-    juce::Colour thumbColor_ = juce::Colours::grey;
+    juce::Colour thumbColor_ {juce::Colours::grey};
     juce::Rectangle<int> bounds_ {};
+    bool isDragging_ {false};
 
     juce::ListenerList<Listener> listeners_ {};
 

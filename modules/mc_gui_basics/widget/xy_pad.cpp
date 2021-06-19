@@ -67,13 +67,15 @@ auto XYPad::setYPosition(float y) noexcept -> void { setNormalisedYPosition(yRan
 auto XYPad::setNormalisedXPosition(float x) noexcept -> void
 {
     position_.x = x;
-    listeners_.call([this](Listener& listener) { listener.xypadChanged(this, {getXPosition(), getXPosition()}); });
+    listeners_.call([this](Listener& listener) { listener.xypadChanged(this, {getXPosition(), getYPosition()}); });
+    repaint();
 }
 
 auto XYPad::setNormalisedYPosition(float y) noexcept -> void
 {
     position_.y = y;
-    listeners_.call([this](Listener& listener) { listener.xypadChanged(this, {getXPosition(), getXPosition()}); });
+    listeners_.call([this](Listener& listener) { listener.xypadChanged(this, {getXPosition(), getYPosition()}); });
+    repaint();
 }
 
 auto XYPad::getXRange() const noexcept -> juce::NormalisableRange<float> { return xRange_; }
@@ -94,7 +96,6 @@ auto XYPad::mouseDown(juce::MouseEvent const& event) -> void
 {
     setXPosition(getValueFromPixel(event.x, true));
     setYPosition(getValueFromPixel(event.y, true));
-    listeners_.call([this](Listener& listener) { listener.xypadDragStarted(this); });
     thumbColor_ = juce::Colours::white;
     repaint();
 }
@@ -102,12 +103,19 @@ auto XYPad::mouseDown(juce::MouseEvent const& event) -> void
 auto XYPad::mouseUp(juce::MouseEvent const& event) -> void
 {
     juce::ignoreUnused(event);
+    isDragging_ = false;
     listeners_.call([this](Listener& listener) { listener.xypadDragEnded(this); });
     repaint();
 }
 
 auto XYPad::mouseDrag(juce::MouseEvent const& event) -> void
 {
+    if (!isDragging_)
+    {
+        listeners_.call([this](Listener& listener) { listener.xypadDragStarted(this); });
+        isDragging_ = true;
+    }
+
     setXPosition(getValueFromPixel(event.x, true));
     setYPosition(getValueFromPixel(event.y, true));
 
