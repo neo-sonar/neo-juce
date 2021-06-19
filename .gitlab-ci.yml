@@ -67,49 +67,49 @@ linux:clang:release:
     - cd $CI_PROJECT_DIR
   dependencies: [ ]
 
-linux:clang-tidy:
-  stage: build
-  tags:
-    - mc-linux
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-  script:
-    - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-tidy -DCMAKE_BUILD_TYPE=Release
-    - BUILD_DIR=cmake-build-tidy make tidy-check
-  dependencies: [ ]
+# linux:clang-tidy:
+#   stage: build
+#   tags:
+#     - mc-linux
+#   variables:
+#     GIT_SUBMODULE_STRATEGY: recursive
+#   script:
+#     - cd $CI_PROJECT_DIR
+#     - cmake -S. -GNinja -Bcmake-build-tidy -DCMAKE_BUILD_TYPE=Release
+#     - BUILD_DIR=cmake-build-tidy make tidy-check
+#   dependencies: [ ]
 
-linux:gcc:asan:
-  stage: sanitize
-  tags:
-    - mc-linux
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-    CMAKE_BUILD_PARALLEL_LEVEL: 2
-  script:
-    - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-asan -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_ASAN=ON
-    - cmake --build cmake-build-asan
-    - cd cmake-build-asan
-    - ctest
-    - cd $CI_PROJECT_DIR
-  dependencies: [ ]
+# linux:gcc:asan:
+#   stage: sanitize
+#   tags:
+#     - mc-linux
+#   variables:
+#     GIT_SUBMODULE_STRATEGY: recursive
+#     CMAKE_BUILD_PARALLEL_LEVEL: 2
+#   script:
+#     - cd $CI_PROJECT_DIR
+#     - cmake -S. -GNinja -Bcmake-build-asan -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_ASAN=ON
+#     - cmake --build cmake-build-asan
+#     - cd cmake-build-asan
+#     - ctest
+#     - cd $CI_PROJECT_DIR
+#   dependencies: [ ]
 
-linux:gcc:tsan:
-  stage: sanitize
-  tags:
-    - mc-linux
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-    CMAKE_BUILD_PARALLEL_LEVEL: 2
-  script:
-    - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-tsan -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_TSAN=ON
-    - cmake --build cmake-build-tsan
-    - cd cmake-build-tsan
-    - ctest
-    - cd $CI_PROJECT_DIR
-  dependencies: [ ]
+# linux:gcc:tsan:
+#   stage: sanitize
+#   tags:
+#     - mc-linux
+#   variables:
+#     GIT_SUBMODULE_STRATEGY: recursive
+#     CMAKE_BUILD_PARALLEL_LEVEL: 2
+#   script:
+#     - cd $CI_PROJECT_DIR
+#     - cmake -S. -GNinja -Bcmake-build-tsan -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_TSAN=ON
+#     - cmake --build cmake-build-tsan
+#     - cd cmake-build-tsan
+#     - ctest
+#     - cd $CI_PROJECT_DIR
+#   dependencies: [ ]
 
 linux:gcc:coverage:
   stage: coverage
