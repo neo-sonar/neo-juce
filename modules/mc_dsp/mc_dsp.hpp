@@ -38,7 +38,7 @@
 #include "analyzer/oscilloscope.hpp"
 #include "analyzer/spectrum.hpp"
 
-#include "airwindows/mc_AirWindowsCoils2.hpp"
+// #include "airwindows/mc_AirWindowsCoils2.hpp"
 //#include "airwindows/mc_AirWindowsVerbity.hpp"
 
 #include "attachment/mc_XYPadAttachment.hpp"
