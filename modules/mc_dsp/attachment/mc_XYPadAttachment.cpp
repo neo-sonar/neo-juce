@@ -7,10 +7,10 @@ XYPadAttachment::XYPadAttachment(juce::RangedAudioParameter& parameterX, juce::R
     , attachmentX_ {parameterX, [this](float val) { setPosition(val, true); }, um}
     , attachmentY_ {parameterY, [this](float val) { setPosition(val, false); }, um}
 {
+    pad_.addListener(this);
     pad_.setXRange(parameterX.getNormalisableRange());
     pad_.setYRange(parameterY.getNormalisableRange());
     sendInitialUpdate();
-    pad_.addListener(this);
 }
 
 XYPadAttachment::~XYPadAttachment()
@@ -30,8 +30,8 @@ auto XYPadAttachment::xypadChanged(XYPad* pad, juce::Point<float> position) -> v
     juce::ignoreUnused(pad);
     jassert(pad == &pad_);
     if (ignoreCallbacks_) { return; }
-    if (lastPosition_.x != position.x) { attachmentX_.setValueAsCompleteGesture(position.x); }
-    if (lastPosition_.y != position.y) { attachmentY_.setValueAsCompleteGesture(position.y); }
+    if (lastPosition_.x != position.x) { attachmentX_.setValueAsPartOfGesture(position.x); }
+    if (lastPosition_.y != position.y) { attachmentY_.setValueAsPartOfGesture(position.y); }
     lastPosition_ = position;
 }
 
