@@ -14,6 +14,13 @@ struct XYPad : juce::Component
         virtual auto xypadDragEnded(XYPad* pad) -> void                            = 0;
     };
 
+    struct LookAndFeelMethods
+    {
+        virtual ~LookAndFeelMethods() = default;
+
+        virtual auto drawXYPad(juce::Graphics& g, juce::Rectangle<int> bounds, XYPad& pad) -> void = 0;
+    };
+
     XYPad();
     ~XYPad() override = default;
 

@@ -4,50 +4,13 @@ XYPad::XYPad() : normalizedValues_ {0.0f, 0.0f} { }
 
 auto XYPad::paint(juce::Graphics& g) -> void
 {
-    auto const numLines = 6;
-    auto const bounds   = bounds_.toFloat();
-
-    // grid
-    auto const colour = juce::Colours::darkgrey;
-    auto const light  = colour.withAlpha(0.01f);
-    g.setColour(colour);
-
-    auto const intervalWidth  = bounds.getWidth() / numLines;
-    auto const halfWidth      = bounds.getWidth() / 2.0f;
-    auto const intervalHeight = bounds.getHeight() / numLines;
-    auto const halfHeight     = bounds.getHeight() / 2.0f;
-
-    auto const topGradient    = juce::ColourGradient::vertical(light, bounds.getY(), colour, halfHeight);
-    auto const bottomGradient = juce::ColourGradient::vertical(colour, halfHeight, light, bounds.getBottom());
-
-    auto const leftGradient  = juce::ColourGradient::horizontal(light, bounds.getX(), colour, halfWidth);
-    auto const rightGradient = juce::ColourGradient::horizontal(colour, halfWidth, light, bounds.getRight());
-
-    for (int i = 1; i < numLines; i++)
+    if (auto* lnf = dynamic_cast<XYPad::LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr)
     {
-        auto const idx          = static_cast<float>(i);
-        auto const widthOffset  = intervalWidth * idx;
-        auto const heightOffset = intervalHeight * idx;
-
-        g.setGradientFill(topGradient);
-        g.drawVerticalLine(static_cast<int>(bounds.getX() + widthOffset), bounds.getY(), halfHeight);
-
-        g.setGradientFill(bottomGradient);
-        g.drawVerticalLine(static_cast<int>(bounds.getX() + widthOffset), halfHeight, bounds.getBottom());
-
-        g.setGradientFill(leftGradient);
-        g.drawHorizontalLine(static_cast<int>(bounds.getY() + heightOffset), bounds.toFloat().getX(), halfWidth);
-
-        g.setGradientFill(rightGradient);
-        g.drawHorizontalLine(static_cast<int>(bounds.getY() + heightOffset), halfWidth, bounds.toFloat().getRight());
+        lnf->drawXYPad(g, getLocalBounds(), *this);
+        return;
     }
 
-    // thumb
-    g.setColour(thumbColor_);
-    auto const x = getPixelFromNormalizedValue(normalizedValues_.x, true);
-    auto const y = getPixelFromNormalizedValue(normalizedValues_.y, false);
-    thumb_       = thumb_.withCentre({static_cast<int>(x), static_cast<int>(y)});
-    g.fillEllipse(thumb_.toFloat());
+    jassertfalse;
 }
 
 auto XYPad::resized() -> void { bounds_ = getLocalBounds(); }
@@ -139,8 +102,11 @@ auto XYPad::getPixelFromNormalizedValue(float value, bool x) const -> int
 
 auto XYPad::thumbHitTest(juce::MouseEvent const& event) const -> bool
 {
-    auto const isInXPosition = event.x >= thumb_.getX() && event.x <= thumb_.getRight();
-    auto const isInYPosition = event.y >= thumb_.getY() && event.y <= thumb_.getBottom();
+    auto const x             = getPixelFromNormalizedValue(normalizedValues_.x, true);
+    auto const y             = getPixelFromNormalizedValue(normalizedValues_.y, false);
+    auto const thumb         = juce::Rectangle {0, 0, 8, 8}.withCentre({static_cast<int>(x), static_cast<int>(y)});
+    auto const isInXPosition = event.x >= thumb.getX() && event.x <= thumb.getRight();
+    auto const isInYPosition = event.y >= thumb.getY() && event.y <= thumb.getBottom();
     return isInXPosition && isInYPosition;
 }
 
