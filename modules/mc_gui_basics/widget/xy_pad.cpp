@@ -67,17 +67,13 @@ auto XYPad::setYPosition(float y) noexcept -> void { setNormalisedYPosition(yRan
 auto XYPad::setNormalisedXPosition(float x) noexcept -> void
 {
     position_.x = x;
-    listeners_.call([this](Listener& listener) {
-        listener.xypadChanged(this, {getNormalisedXPosition(), getNormalisedXPosition()});
-    });
+    listeners_.call([this](Listener& listener) { listener.xypadChanged(this, {getXPosition(), getXPosition()}); });
 }
 
 auto XYPad::setNormalisedYPosition(float y) noexcept -> void
 {
     position_.y = y;
-    listeners_.call([this](Listener& listener) {
-        listener.xypadChanged(this, {getNormalisedXPosition(), getNormalisedXPosition()});
-    });
+    listeners_.call([this](Listener& listener) { listener.xypadChanged(this, {getXPosition(), getXPosition()}); });
 }
 
 auto XYPad::getXRange() const noexcept -> juce::NormalisableRange<float> { return xRange_; }

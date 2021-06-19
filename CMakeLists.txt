@@ -86,6 +86,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
             modules/mc_data_structures/value_tree/value_wrapper_test.cpp
 
+            modules/mc_dsp/attachment/mc_XYPadAttachment_Test.cpp
             modules/mc_dsp/container/audio_buffer_pool_test.cpp
             modules/mc_dsp/container/audio_buffer_utils_test.cpp
             modules/mc_dsp/processor/multi_mono_iir_test.cpp
