@@ -130,4 +130,14 @@ auto TextBoxSlider::stopDrag() -> void
     if (static_cast<bool>(onDragEnd)) { onDragEnd(); }
 }
 
+TextBoxSliderV2::TextBoxSliderV2() : juce::Slider {juce::Slider::LinearBarVertical, juce::Slider::TextBoxBelow}
+{
+    setTextBoxIsEditable(false);
+    setColour(juce::Label::backgroundColourId, juce::Colours::transparentBlack);
+    setColour(juce::Label::outlineColourId, juce::Colours::transparentBlack);
+    setColour(juce::Slider::backgroundColourId, juce::Colours::transparentBlack);
+    setColour(juce::Slider::trackColourId, juce::Colours::transparentBlack);
+    setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::transparentBlack);
+}
+
 }  // namespace mc

@@ -201,6 +201,21 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TextBoxSlider)  // NOLINT
 };
 
+/// \brief A text box slider control for changing a value via dragging or scrolling.
+class TextBoxSliderV2 : public juce::Slider
+{
+public:
+    /// \brief Creates a text box slider.
+    /// \details When created, you can set up the text box slider's range with setRange(), etc.
+    TextBoxSliderV2();
+
+    /// \brief Destructor.
+    ~TextBoxSliderV2() noexcept override = default;
+
+private:
+    JUCE_LEAK_DETECTOR(TextBoxSliderV2)  // NOLINT
+};
+
 }  // namespace mc
 
 #endif  // MODERN_CIRCUITS_PLUGINS_TEXT_BOX_SLIDER_HPP
