@@ -29,23 +29,42 @@ auto XYPadAttachment::xypadChanged(XYPad* pad, juce::Point<float> position) -> v
 {
     juce::ignoreUnused(pad);
     jassert(pad == &pad_);
+
     if (ignoreCallbacks_) { return; }
-    if (lastPosition_.x != position.x) { attachmentX_.setValueAsPartOfGesture(position.x); }
-    if (lastPosition_.y != position.y) { attachmentY_.setValueAsPartOfGesture(position.y); }
+
+    if (isDragging_)
+    {
+        if (lastPosition_.x != position.x) { attachmentX_.setValueAsPartOfGesture(position.x); }
+        if (lastPosition_.y != position.y) { attachmentY_.setValueAsPartOfGesture(position.y); }
+    }
+    else
+    {
+        if (lastPosition_.x != position.x) { attachmentX_.setValueAsCompleteGesture(position.x); }
+        if (lastPosition_.y != position.y) { attachmentY_.setValueAsCompleteGesture(position.y); }
+    }
+
     lastPosition_ = position;
 }
 
 auto XYPadAttachment::xypadDragStarted(XYPad* pad) -> void
 {
     juce::ignoreUnused(pad);
-    attachmentX_.beginGesture();
-    attachmentY_.beginGesture();
+    if (!isDragging_)
+    {
+        attachmentX_.beginGesture();
+        attachmentY_.beginGesture();
+        isDragging_ = true;
+    }
 }
 auto XYPadAttachment::xypadDragEnded(XYPad* pad) -> void
 {
     juce::ignoreUnused(pad);
-    attachmentX_.endGesture();
-    attachmentY_.endGesture();
+    if (isDragging_)
+    {
+        attachmentX_.endGesture();
+        attachmentY_.endGesture();
+        isDragging_ = false;
+    }
 }
 
 auto XYPadAttachment::setPosition(float newValue, bool isX) -> void

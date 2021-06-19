@@ -1,6 +1,6 @@
 namespace mc
 {
-XYPad::XYPad() : position_ {0.0f, 0.0f} { }
+XYPad::XYPad() : normalizedValues_ {0.0f, 0.0f} { }
 
 auto XYPad::paint(juce::Graphics& g) -> void
 {
@@ -44,21 +44,21 @@ auto XYPad::paint(juce::Graphics& g) -> void
 
     // thumb
     g.setColour(thumbColor_);
-    auto const x = getPixelFromValue(position_.x, true);
-    auto const y = getPixelFromValue(position_.y, false);
+    auto const x = getPixelFromNormalizedValue(normalizedValues_.x, true);
+    auto const y = getPixelFromNormalizedValue(normalizedValues_.y, false);
     thumb_       = thumb_.withCentre({static_cast<int>(x), static_cast<int>(y)});
     g.fillEllipse(thumb_.toFloat());
 }
 
 auto XYPad::resized() -> void { bounds_ = getLocalBounds(); }
 
-auto XYPad::getXPosition() const noexcept -> float { return xRange_.convertFrom0to1(position_.x); }
+auto XYPad::getXPosition() const noexcept -> float { return xRange_.convertFrom0to1(normalizedValues_.x); }
 
-auto XYPad::getYPosition() const noexcept -> float { return yRange_.convertFrom0to1(position_.y); }
+auto XYPad::getYPosition() const noexcept -> float { return yRange_.convertFrom0to1(normalizedValues_.y); }
 
-auto XYPad::getNormalisedXPosition() const noexcept -> float { return position_.x; }
+auto XYPad::getNormalisedXPosition() const noexcept -> float { return normalizedValues_.x; }
 
-auto XYPad::getNormalisedYPosition() const noexcept -> float { return position_.y; }
+auto XYPad::getNormalisedYPosition() const noexcept -> float { return normalizedValues_.y; }
 
 auto XYPad::setXPosition(float x) noexcept -> void { setNormalisedXPosition(xRange_.convertTo0to1(x)); }
 
@@ -66,14 +66,14 @@ auto XYPad::setYPosition(float y) noexcept -> void { setNormalisedYPosition(yRan
 
 auto XYPad::setNormalisedXPosition(float x) noexcept -> void
 {
-    position_.x = x;
+    normalizedValues_.x = x;
     listeners_.call([this](Listener& listener) { listener.xypadChanged(this, {getXPosition(), getYPosition()}); });
     repaint();
 }
 
 auto XYPad::setNormalisedYPosition(float y) noexcept -> void
 {
-    position_.y = y;
+    normalizedValues_.y = y;
     listeners_.call([this](Listener& listener) { listener.xypadChanged(this, {getXPosition(), getYPosition()}); });
     repaint();
 }
@@ -95,7 +95,7 @@ auto XYPad::mouseMove(juce::MouseEvent const& event) -> void
 auto XYPad::mouseDown(juce::MouseEvent const& event) -> void
 {
     setXPosition(getValueFromPixel(event.x, true));
-    setYPosition(getValueFromPixel(event.y, true));
+    setYPosition(getValueFromPixel(event.y, false));
     thumbColor_ = juce::Colours::white;
     repaint();
 }
@@ -103,26 +103,20 @@ auto XYPad::mouseDown(juce::MouseEvent const& event) -> void
 auto XYPad::mouseUp(juce::MouseEvent const& event) -> void
 {
     juce::ignoreUnused(event);
-    isDragging_ = false;
-    listeners_.call([this](Listener& listener) { listener.xypadDragEnded(this); });
+    stopDragging();
     repaint();
 }
 
 auto XYPad::mouseDrag(juce::MouseEvent const& event) -> void
 {
-    if (!isDragging_)
-    {
-        listeners_.call([this](Listener& listener) { listener.xypadDragStarted(this); });
-        isDragging_ = true;
-    }
+    if (!isDragging_) { startDragging(); }
 
-    setXPosition(getValueFromPixel(event.x, true));
-    setYPosition(getValueFromPixel(event.y, true));
+    auto p = juce::Point<float> {};
+    p.x    = std::clamp<float>(event.x, bounds_.getX(), bounds_.getRight());
+    p.y    = std::clamp<float>(event.y, bounds_.getY(), bounds_.getBottom());
+    setXPosition(getValueFromPixel(p.x, true));
+    setYPosition(getValueFromPixel(p.y, false));
 
-    if (event.x >= bounds_.getRight()) { setXPosition(getValueFromPixel(bounds_.getRight(), true)); }
-    if (event.x <= bounds_.getX()) { setXPosition(getValueFromPixel(bounds_.getX(), true)); }
-    if (event.y >= bounds_.getBottom()) { setYPosition(getValueFromPixel(bounds_.getBottom(), false)); }
-    if (event.y <= bounds_.getY()) { setYPosition(getValueFromPixel(bounds_.getY(), false)); }
     repaint();
 }
 
@@ -133,11 +127,11 @@ auto XYPad::getValueFromPixel(int pixel, bool isXAxis) const -> float
     auto const right  = static_cast<float>(bounds_.getRight());
     auto const bottom = static_cast<float>(bounds_.getBottom());
 
-    if (isXAxis) { return juce::jmap<float>(static_cast<float>(pixel), x, right, 0.0f, 1.0f); }
-    return juce::jmap<float>(static_cast<float>(pixel), y, bottom, 0.0f, 1.0f);
+    if (isXAxis) { return juce::jmap<float>(static_cast<float>(pixel), x, right, xRange_.start, xRange_.end); }
+    return juce::jmap<float>(static_cast<float>(pixel), y, bottom, yRange_.start, yRange_.end);
 }
 
-auto XYPad::getPixelFromValue(float value, bool x) const -> int
+auto XYPad::getPixelFromNormalizedValue(float value, bool x) const -> int
 {
     if (x) { return static_cast<int>(bounds_.getX() + (value * bounds_.getWidth())); }
     return static_cast<int>(bounds_.getY() + value * bounds_.getHeight());
@@ -148,6 +142,18 @@ auto XYPad::thumbHitTest(juce::MouseEvent const& event) const -> bool
     auto const isInXPosition = event.x >= thumb_.getX() && event.x <= thumb_.getRight();
     auto const isInYPosition = event.y >= thumb_.getY() && event.y <= thumb_.getBottom();
     return isInXPosition && isInYPosition;
+}
+
+auto XYPad::startDragging() -> void
+{
+    listeners_.call([this](Listener& listener) { listener.xypadDragStarted(this); });
+    isDragging_ = true;
+}
+
+auto XYPad::stopDragging() -> void
+{
+    isDragging_ = false;
+    listeners_.call([this](Listener& listener) { listener.xypadDragEnded(this); });
 }
 
 }  // namespace mc

@@ -43,10 +43,13 @@ private:
     auto mouseDrag(juce::MouseEvent const& event) -> void override;
 
     [[nodiscard]] auto getValueFromPixel(int pixel, bool isXAxis) const -> float;
-    [[nodiscard]] auto getPixelFromValue(float value, bool x) const -> int;
+    [[nodiscard]] auto getPixelFromNormalizedValue(float value, bool x) const -> int;
     [[nodiscard]] auto thumbHitTest(juce::MouseEvent const& event) const -> bool;
 
-    juce::Point<float> position_ {};
+    auto startDragging() -> void;
+    auto stopDragging() -> void;
+
+    juce::Point<float> normalizedValues_ {};
     juce::NormalisableRange<float> xRange_ {};
     juce::NormalisableRange<float> yRange_ {};
     juce::Rectangle<int> thumb_ {0, 0, 8, 8};

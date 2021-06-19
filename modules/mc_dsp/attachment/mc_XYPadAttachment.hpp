@@ -46,5 +46,6 @@ private:
     juce::ParameterAttachment attachmentY_;
     juce::Point<float> lastPosition_ {};
     bool ignoreCallbacks_ = false;
+    bool isDragging_ {false};
 };
 }  // namespace mc
