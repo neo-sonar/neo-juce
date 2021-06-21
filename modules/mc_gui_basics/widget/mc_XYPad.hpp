@@ -39,6 +39,8 @@ struct XYPad : juce::Component
     auto setXRange(juce::NormalisableRange<float> const& newRange) -> void;
     auto setYRange(juce::NormalisableRange<float> const& newRange) -> void;
 
+    [[nodiscard]] auto getDirectionX() const noexcept -> bool;
+    [[nodiscard]] auto getDirectionY() const noexcept -> bool;
     auto setDirectionX(bool startShouldBeOnLeft) -> void;
     auto setDirectionY(bool startShouldBeOnTop) -> void;
 

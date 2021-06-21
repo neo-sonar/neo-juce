@@ -45,7 +45,12 @@ auto XYPad::getXRange() const noexcept -> juce::NormalisableRange<float> { retur
 
 auto XYPad::getYRange() const noexcept -> juce::NormalisableRange<float> { return yRange_; }
 
+auto XYPad::getDirectionX() const noexcept -> bool { return startShouldBeOnLeft_; }
+
+auto XYPad::getDirectionY() const noexcept -> bool { return startShouldBeOnTop_; }
+
 auto XYPad::setDirectionX(bool startShouldBeOnLeft) -> void { startShouldBeOnLeft_ = startShouldBeOnLeft; }
+
 auto XYPad::setDirectionY(bool startShouldBeOnTop) -> void { startShouldBeOnTop_ = startShouldBeOnTop; }
 
 auto XYPad::setXRange(juce::NormalisableRange<float> const& newRange) -> void { xRange_ = newRange; }
