@@ -22,14 +22,14 @@ win:msvc:release:
     - mc-windows
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
-    GIT_STRATEGY: clone
+    # GIT_STRATEGY: clone
     ErrorActionPreference: stop
   script:
     - $ErrorActionPreference = "Stop"
     - Set-Location $env:CI_PROJECT_DIR
     - New-Item -Path cmake-build-release -ItemType Directory
     - Set-Location cmake-build-release
-    - cmake -S .. -DMC_BUILD_WERROR=ON -DMC_BUILD_CONAN=ON -DCMAKE_BUILT_TYPE=Release
+    - cmake -S .. -DMC_BUILD_WERROR=ON -DMC_BUILD_CONAN=ON -DCMAKE_BUILD_TYPE=Release
     - cmake --build . --config Release
     - ctest -C Release
     - Set-Location $env:CI_PROJECT_DIR
