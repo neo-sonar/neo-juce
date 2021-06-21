@@ -39,8 +39,8 @@ include(mcCompilerWarnings)
 include(mcCodeCoverage)
 
 if(MC_BUILD_CONAN)
-    list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
-    list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
+    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR})
+    list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR})
     include(mcConan)
 endif()
 
