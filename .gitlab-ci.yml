@@ -21,37 +21,16 @@ win:msvc:release:
   tags:
     - mc-windows
   variables:
-    CMAKE_BUILD_PARALLEL_LEVEL: 4
     GIT_SUBMODULE_STRATEGY: recursive
     ErrorActionPreference: stop
-  script:
-    - $ErrorActionPreference = "Stop"
-    - Set-Location $env:CI_PROJECT_DIR
-    - New-Item -Path cmake-build-release -ItemType Directory
-    - Set-Location cmake-build-release
-    - cmake -S .. -DMC_BUILD_WERROR=ON -DMC_BUILD_CONAN=ON -DCMAKE_BUILD_TYPE=Release
-    - cmake --build . --config Release
-    - ctest -C Release
-    - Set-Location $env:CI_PROJECT_DIR
-  dependencies: [ ]
-
-win:clangcl:release:
-  stage: build
-  tags:
-    - mc-windows
-  variables:
-    CMAKE_BUILD_PARALLEL_LEVEL: 4
-    GIT_SUBMODULE_STRATEGY: recursive
-    ErrorActionPreference: stop
-  script:
-    - $ErrorActionPreference = "Stop"
-    - Set-Location $env:CI_PROJECT_DIR
-    - New-Item -Path cmake-build-clangcl -ItemType Directory
-    - Set-Location cmake-build-clangcl
-    - cmake -S .. -T ClangCL -DMC_BUILD_WERROR=ON -DMC_BUILD_CONAN=ON -DCMAKE_BUILD_TYPE=Release
-    - cmake --build . --config Release
-    - ctest -C Release
-    - Set-Location $env:CI_PROJECT_DIR
+  script: |
+    $ErrorActionPreference = "Stop"
+    Set-Location $env:CI_PROJECT_DIR
+    New-Item -Path cmake-build-release -ItemType Directory
+    Set-Location cmake-build-release
+    cmake -S .. -DMC_BUILD_WERROR=ON -DMC_BUILD_CONAN=ON -DCMAKE_BUILD_TYPE=Release
+    cmake --build . --config Release --parallel 4
+    ctest -C Release
   dependencies: [ ]
 
 mac:xcode:release:
@@ -66,7 +45,6 @@ mac:xcode:release:
     - cmake --build cmake-build-release
     - cd cmake-build-release
     - ctest
-    - cd $CI_PROJECT_DIR
   dependencies: [ ]
 
 linux:clang:release:
@@ -83,7 +61,6 @@ linux:clang:release:
     - cmake --build cmake-build-release
     - cd cmake-build-release
     - ctest
-    - cd $CI_PROJECT_DIR
   dependencies: [ ]
 
 # linux:clang-tidy:
@@ -111,7 +88,6 @@ linux:clang:release:
 #     - cmake --build cmake-build-asan
 #     - cd cmake-build-asan
 #     - ctest
-#     - cd $CI_PROJECT_DIR
 #   dependencies: [ ]
 
 # linux:gcc:tsan:
@@ -127,7 +103,6 @@ linux:clang:release:
 #     - cmake --build cmake-build-tsan
 #     - cd cmake-build-tsan
 #     - ctest
-#     - cd $CI_PROJECT_DIR
 #   dependencies: [ ]
 
 linux:gcc:coverage:
