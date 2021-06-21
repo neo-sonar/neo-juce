@@ -17,7 +17,7 @@ namespace mc
 template<typename... Args>
 [[nodiscard]] inline auto format(juce::String const& formatStr, Args&&... args) -> juce::String
 {
-    return juce::String {::fmt::format(formatStr, args...)};
+    return juce::String {::fmt::format(to_string_view(formatStr), args...)};
 }
 
 }  // namespace mc
