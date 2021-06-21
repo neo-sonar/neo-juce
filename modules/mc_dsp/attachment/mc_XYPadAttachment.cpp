@@ -70,8 +70,8 @@ auto XYPadAttachment::xypadDragEnded(XYPad* pad) -> void
 auto XYPadAttachment::setPosition(float newValue, bool isX) -> void
 {
     auto const svs = juce::ScopedValueSetter<bool> {ignoreCallbacks_, true};
-    if (isX) { pad_.setXPosition(newValue); }
-    if (!isX) { pad_.setYPosition(newValue); }
+    if (isX) { pad_.setValueX(newValue); }
+    if (!isX) { pad_.setValueY(newValue); }
 }
 
 }  // namespace mc

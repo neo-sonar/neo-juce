@@ -24,24 +24,26 @@ struct XYPad : juce::Component
     XYPad();
     ~XYPad() override = default;
 
-    auto paint(juce::Graphics& g) -> void override;
-    auto resized() -> void override;
+    [[nodiscard]] auto getValueX() const noexcept -> float;
+    [[nodiscard]] auto getValueY() const noexcept -> float;
+    auto setValueX(float x) -> void;
+    auto setValueY(float y) -> void;
+
+    [[nodiscard]] auto getNormalizedX() const noexcept -> float;
+    [[nodiscard]] auto getNormalizedY() const noexcept -> float;
+    auto setNormalizedX(float x) -> void;
+    auto setNormalizedY(float y) -> void;
+
+    [[nodiscard]] auto getXRange() const noexcept -> juce::NormalisableRange<float>;
+    [[nodiscard]] auto getYRange() const noexcept -> juce::NormalisableRange<float>;
+    auto setXRange(juce::NormalisableRange<float> const& newRange) -> void;
+    auto setYRange(juce::NormalisableRange<float> const& newRange) -> void;
 
     auto addListener(Listener* listener) -> void { listeners_.add(listener); }
     auto removeListener(Listener* listener) -> void { listeners_.remove(listener); }
 
-    [[nodiscard]] auto getXPosition() const noexcept -> float;
-    [[nodiscard]] auto getYPosition() const noexcept -> float;
-    [[nodiscard]] auto getNormalisedXPosition() const noexcept -> float;
-    [[nodiscard]] auto getNormalisedYPosition() const noexcept -> float;
-    auto setXPosition(float x) noexcept -> void;
-    auto setYPosition(float y) noexcept -> void;
-    auto setNormalisedXPosition(float x) noexcept -> void;
-    auto setNormalisedYPosition(float y) noexcept -> void;
-    [[nodiscard]] auto getXRange() const noexcept -> juce::NormalisableRange<float>;
-    [[nodiscard]] auto getYRange() const noexcept -> juce::NormalisableRange<float>;
-    auto setXRange(juce::NormalisableRange<float> const& newRange) noexcept -> void;
-    auto setYRange(juce::NormalisableRange<float> const& newRange) noexcept -> void;
+    auto paint(juce::Graphics& g) -> void override;
+    auto resized() -> void override;
 
 private:
     auto mouseMove(juce::MouseEvent const& event) -> void override;
