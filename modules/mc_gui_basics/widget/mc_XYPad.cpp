@@ -45,6 +45,9 @@ auto XYPad::getXRange() const noexcept -> juce::NormalisableRange<float> { retur
 
 auto XYPad::getYRange() const noexcept -> juce::NormalisableRange<float> { return yRange_; }
 
+auto XYPad::setDirectionX(bool startShouldBeOnLeft) -> void { startShouldBeOnLeft_ = startShouldBeOnLeft; }
+auto XYPad::setDirectionY(bool startShouldBeOnTop) -> void { startShouldBeOnTop_ = startShouldBeOnTop; }
+
 auto XYPad::setXRange(juce::NormalisableRange<float> const& newRange) -> void { xRange_ = newRange; }
 
 auto XYPad::setYRange(juce::NormalisableRange<float> const& newRange) -> void { yRange_ = newRange; }
@@ -90,14 +93,32 @@ auto XYPad::getValueFromPixel(int pixel, bool isXAxis) const -> float
     auto const right  = static_cast<float>(bounds_.getRight());
     auto const bottom = static_cast<float>(bounds_.getBottom());
 
-    if (isXAxis) { return juce::jmap<float>(static_cast<float>(pixel), x, right, xRange_.start, xRange_.end); }
-    return juce::jmap<float>(static_cast<float>(pixel), y, bottom, yRange_.start, yRange_.end);
+    if (isXAxis)
+    {
+        auto const startX = startShouldBeOnLeft_ ? xRange_.start : xRange_.end;
+        auto const endX   = startShouldBeOnLeft_ ? xRange_.end : xRange_.start;
+        return juce::jmap<float>(static_cast<float>(pixel), x, right, startX, endX);
+    }
+
+    auto const startY = startShouldBeOnTop_ ? yRange_.start : yRange_.end;
+    auto const endY   = startShouldBeOnTop_ ? yRange_.end : yRange_.start;
+    return juce::jmap<float>(static_cast<float>(pixel), y, bottom, startY, endY);
 }
 
 auto XYPad::getPixelFromNormalizedValue(float value, bool x) const -> int
 {
-    if (x) { return static_cast<int>(bounds_.getX() + (value * bounds_.getWidth())); }
-    return static_cast<int>(bounds_.getY() + value * bounds_.getHeight());
+    if (x)
+    {
+        auto const direction  = startShouldBeOnLeft_ ? 1.0f : -1.0f;
+        auto const start      = startShouldBeOnLeft_ ? bounds_.getX() : bounds_.getRight();
+        auto const proportion = bounds_.getWidth() * value;
+        return static_cast<int>(start + (proportion * direction));
+    }
+
+    auto const direction  = startShouldBeOnTop_ ? 1.0f : -1.0f;
+    auto const start      = startShouldBeOnTop_ ? bounds_.getY() : bounds_.getBottom();
+    auto const proportion = bounds_.getHeight() * value;
+    return static_cast<int>(start + (proportion * direction));
 }
 
 auto XYPad::thumbHitTest(juce::MouseEvent const& event) const -> bool

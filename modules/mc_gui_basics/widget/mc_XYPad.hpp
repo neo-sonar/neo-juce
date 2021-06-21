@@ -39,6 +39,9 @@ struct XYPad : juce::Component
     auto setXRange(juce::NormalisableRange<float> const& newRange) -> void;
     auto setYRange(juce::NormalisableRange<float> const& newRange) -> void;
 
+    auto setDirectionX(bool startShouldBeOnLeft) -> void;
+    auto setDirectionY(bool startShouldBeOnTop) -> void;
+
     auto addListener(Listener* listener) -> void { listeners_.add(listener); }
     auto removeListener(Listener* listener) -> void { listeners_.remove(listener); }
 
@@ -61,6 +64,9 @@ private:
     juce::Point<float> normalizedValues_ {};
     juce::NormalisableRange<float> xRange_ {};
     juce::NormalisableRange<float> yRange_ {};
+    bool startShouldBeOnLeft_ {true};
+    bool startShouldBeOnTop_ {true};
+
     juce::Rectangle<int> thumb_ {0, 0, 8, 8};
     juce::Colour thumbColor_ {juce::Colours::grey};
     juce::Rectangle<int> bounds_ {};
