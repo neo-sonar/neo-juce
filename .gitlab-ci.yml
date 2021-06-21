@@ -22,7 +22,6 @@ win:msvc:release:
     - mc-windows
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
-    # GIT_STRATEGY: clone
     ErrorActionPreference: stop
   script:
     - $ErrorActionPreference = "Stop"
@@ -30,7 +29,25 @@ win:msvc:release:
     - New-Item -Path cmake-build-release -ItemType Directory
     - Set-Location cmake-build-release
     - cmake -S .. -DMC_BUILD_WERROR=ON -DMC_BUILD_CONAN=ON -DCMAKE_BUILD_TYPE=Release
-    - cmake --build . --config Release
+    - cmake --build . --config Release -parallel 4
+    - ctest -C Release
+    - Set-Location $env:CI_PROJECT_DIR
+  dependencies: [ ]
+
+win:clangcl:release:
+  stage: build
+  tags:
+    - mc-windows
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    ErrorActionPreference: stop
+  script:
+    - $ErrorActionPreference = "Stop"
+    - Set-Location $env:CI_PROJECT_DIR
+    - New-Item -Path cmake-build-clangcl -ItemType Directory
+    - Set-Location cmake-build-clangcl
+    - cmake -S .. -T ClangCL -DMC_BUILD_WERROR=ON -DMC_BUILD_CONAN=ON -DCMAKE_BUILD_TYPE=Release
+    - cmake --build . --config Release -parallel 4
     - ctest -C Release
     - Set-Location $env:CI_PROJECT_DIR
   dependencies: [ ]
