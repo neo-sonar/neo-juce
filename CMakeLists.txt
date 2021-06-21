@@ -71,43 +71,43 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
     target_sources(${PROJECT_NAME}_tests
         PRIVATE
-            main_test.cpp
+            MainTest.cpp
 
-            modules/mc_core/container/registry_test.cpp
-            modules/mc_core/container/variant_test.cpp
-            modules/mc_core/javascript/json_utils_test.cpp
-            modules/mc_core/math/constants_test.cpp
-            modules/mc_core/math/range_utils_test.cpp
-            modules/mc_core/text/format_test.cpp
-            modules/mc_core/text/text_value_converter_test.cpp
-            modules/mc_core/thread/left_right_test.cpp
-            modules/mc_core/thread/thread_safe_queue_test.cpp
-            modules/mc_core/time/time_utils_test.cpp
+            modules/mc_core/container/mc_Registry_Test.cpp
+            modules/mc_core/container/mc_Variant_Test.cpp
+            modules/mc_core/javascript/mc_JSONUtils_Test.cpp
+            modules/mc_core/math/mc_Constants_Test.cpp
+            modules/mc_core/math/mc_RangeUtils_Test.cpp
+            modules/mc_core/text/mc_Format_Test.cpp
+            modules/mc_core/text/mc_TextValueConverters_Test.cpp
+            modules/mc_core/thread/mc_LeftRight_Test.cpp
+            modules/mc_core/thread/mc_ThreadSafeQueue_Test.cpp
+            modules/mc_core/time/mc_TimeUtils_Test.cpp
 
-            modules/mc_data_structures/value_tree/value_wrapper_test.cpp
+            modules/mc_data_structures/value_tree/mc_ValueWrapper_Test.cpp
 
             modules/mc_dsp/attachment/mc_XYPadAttachment_Test.cpp
-            modules/mc_dsp/container/audio_buffer_pool_test.cpp
-            modules/mc_dsp/container/audio_buffer_utils_test.cpp
-            modules/mc_dsp/processor/multi_mono_iir_test.cpp
-            modules/mc_dsp/processor/stereo_width_test.cpp
-            modules/mc_dsp/util/buses_layout_utils_test.cpp
+            modules/mc_dsp/container/mc_AudioBufferPool_Test.cpp
+            modules/mc_dsp/container/mc_AudioBufferUtils_Test.cpp
+            modules/mc_dsp/processor/mc_MultiMonoIIR_Test.cpp
+            modules/mc_dsp/processor/mc_StereoWidth_Test.cpp
+            modules/mc_dsp/util/mc_BusesLayoutUtils_Test.cpp
 
-            modules/mc_graphics/color/color_utils_test.cpp
-            modules/mc_graphics/geometry/geometry_utils_test.cpp
-            modules/mc_graphics/images/image_utils_test.cpp
+            modules/mc_graphics/color/mc_ColorUtils_Test.cpp
+            modules/mc_graphics/geometry/mc_GeometryUtils_Test.cpp
+            modules/mc_graphics/images/mc_ImageUtils_Test.cpp
 
-            modules/mc_gui_basics/attachment/bipolar_filter_attachment_test.cpp
-            modules/mc_gui_basics/attachment/label_attachment_test.cpp
-            modules/mc_gui_basics/attachment/slider_attachment_test.cpp
-            modules/mc_gui_basics/attachment/text_box_slider_attachment_test.cpp
+            modules/mc_gui_basics/attachment/mc_BipolarFilterAttachment_Test.cpp
+            modules/mc_gui_basics/attachment/mc_LabelAttachment_Test.cpp
+            modules/mc_gui_basics/attachment/mc_SliderAttachment_Test.cpp
+            modules/mc_gui_basics/attachment/mc_TextBoxSliderAttachment_Test.cpp
 
-            modules/mc_gui_basics/widget/bipolar_filter_test.cpp
-            modules/mc_gui_basics/widget/text_box_slider_test.cpp
-            modules/mc_gui_basics/widget/xy_pad_test.cpp
+            modules/mc_gui_basics/widget/mc_BipolarFilter_Test.cpp
+            modules/mc_gui_basics/widget/mc_TextBoxSlider_Test.cpp
+            modules/mc_gui_basics/widget/mc_XYPad_Test.cpp
 
-            modules/mc_modulation/modulator/macro_test.cpp
-            modules/mc_modulation/modulator/modulator_test.cpp
+            modules/mc_modulation/modulator/mc_Macro_Test.cpp
+            modules/mc_modulation/modulator/mc_Modulator_Test.cpp
     )
 
     target_compile_definitions(${PROJECT_NAME}_tests

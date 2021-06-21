@@ -1,3 +1,3 @@
 #include "mc_graphics/mc_graphics.hpp"
 
-#include "images/image_utils.cpp"  // NOLINT(bugprone-suspicious-include)
+#include "images/mc_ImageUtils.cpp"  // NOLINT(bugprone-suspicious-include)

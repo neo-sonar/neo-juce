@@ -21,8 +21,8 @@
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <mc_data_structures/mc_data_structures.hpp>
 
-#include "modulator/modulator.hpp"
+#include "modulator/mc_Modulator.hpp"
 
-#include "modulator/macro.hpp"
+#include "modulator/mc_Macro.hpp"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_MODULATION_HPP

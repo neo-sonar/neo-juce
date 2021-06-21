@@ -32,28 +32,28 @@
 #include <thread>
 #include <type_traits>
 
-#include "system/platform.hpp"
+#include "system/mc_Platform.hpp"
 
-#include "system/assert.hpp"
-#include "system/crtp.hpp"
+#include "system/mc_Assert.hpp"
+#include "system/mc_CRTP.hpp"
 
-#include "text/format.hpp"
-#include "text/string_utils.hpp"
-#include "text/text_value_converter.hpp"
+#include "text/mc_Format.hpp"
+#include "text/mc_StringUtils.hpp"
+#include "text/mc_TextValueConverters.hpp"
 
-#include "container/registry.hpp"
-#include "container/variant.hpp"
-#include "container/vector.hpp"
+#include "container/mc_Registry.hpp"
+#include "container/mc_Variant.hpp"
+#include "container/mc_Vector.hpp"
 
-#include "javascript/json_utils.hpp"
-#include "math/constants.hpp"
-#include "math/range_utils.hpp"
-#include "thread/thread_safe_queue.hpp"
-#include "time/time_utils.hpp"
+#include "javascript/mc_JSONUtils.hpp"
+#include "math/mc_Constants.hpp"
+#include "math/mc_RangeUtils.hpp"
+#include "thread/mc_ThreadSafeQueue.hpp"
+#include "time/mc_TimeUtils.hpp"
 
-#include "thread/background_process.hpp"
-#include "thread/left_right.hpp"
+#include "thread/mc_BackgroundProcess.hpp"
+#include "thread/mc_LeftRight.hpp"
 
-#include "benchmark/profile.hpp"
+#include "benchmark/mc_Profile.hpp"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP

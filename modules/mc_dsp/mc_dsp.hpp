@@ -23,20 +23,20 @@
 #include <mc_data_structures/mc_data_structures.hpp>
 #include <mc_gui_basics/mc_gui_basics.hpp>
 
-#include "container/audio_buffer_pool.hpp"
-#include "container/audio_buffer_queue.hpp"
-#include "container/audio_buffer_utils.hpp"
+#include "container/mc_AudioBufferPool.hpp"
+#include "container/mc_AudioBufferQueue.hpp"
+#include "container/mc_AudioBufferUtils.hpp"
 
-#include "util/buses_layout_utils.hpp"
+#include "util/mc_BusesLayoutUtils.hpp"
 
-#include "processor/multi_mono_iir.hpp"
-#include "processor/stereo_width.hpp"
+#include "processor/mc_MultiMonoIIR.hpp"
+#include "processor/mc_StereoWidth.hpp"
 
-#include "analyzer/oscilloscope_source.hpp"
-#include "analyzer/spectrum_source.hpp"
+#include "analyzer/mc_OscilloscopeSource.hpp"
+#include "analyzer/mc_SpectrumSource.hpp"
 
-#include "analyzer/oscilloscope.hpp"
-#include "analyzer/spectrum.hpp"
+#include "analyzer/mc_Oscilloscope.hpp"
+#include "analyzer/mc_Spectrum.hpp"
 
 // #include "airwindows/mc_AirWindowsCoils2.hpp"
 //#include "airwindows/mc_AirWindowsVerbity.hpp"

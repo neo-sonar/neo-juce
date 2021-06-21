@@ -1,3 +1,3 @@
 #include "mc_modulation/mc_modulation.hpp"
 
-#include "modulator/macro.cpp"  // NOLINT(bugprone-suspicious-include)
+#include "modulator/mc_Macro.cpp"  // NOLINT(bugprone-suspicious-include)

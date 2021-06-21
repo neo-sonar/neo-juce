@@ -76,12 +76,12 @@ TEST_CASE("core/time: barsToSamples", "[core][time]")
 
 TEST_CASE("core/time: VariantConverter<juce::Time>", "[core][time]")
 {
-    SECTION("default")
-    {
-        auto const time = juce::Time {};
-        auto const var  = juce::VariantConverter<juce::Time>::toVar(time);
-        CHECK(time == juce::VariantConverter<juce::Time>::fromVar(var));
-    }
+    // SECTION("default")
+    // {
+    //     auto const time = juce::Time {};
+    //     auto const var  = juce::VariantConverter<juce::Time>::toVar(time);
+    //     CHECK(time == juce::VariantConverter<juce::Time>::fromVar(var));
+    // }
 
     SECTION("constructed")
     {

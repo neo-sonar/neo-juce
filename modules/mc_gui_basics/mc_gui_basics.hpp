@@ -21,17 +21,17 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <mc_data_structures/mc_data_structures.hpp>
 
-#include "button/button_utils.hpp"
+#include "button/mc_ButtonUtils.hpp"
 
-#include "mouse/mouse_utils.hpp"
+#include "mouse/mc_MouseUtils.hpp"
 
-#include "widget/bipolar_filter.hpp"
-#include "widget/text_box_slider.hpp"
-#include "widget/xy_pad.hpp"
+#include "widget/mc_BipolarFilter.hpp"
+#include "widget/mc_TextBoxSlider.hpp"
+#include "widget/mc_XYPad.hpp"
 
-#include "attachment/bipolar_filter_attachment.hpp"
-#include "attachment/label_attachment.hpp"
-#include "attachment/slider_attachment.hpp"
-#include "attachment/text_box_slider_attachment.hpp"
+#include "attachment/mc_BipolarFilterAttachment.hpp"
+#include "attachment/mc_LabelAttachment.hpp"
+#include "attachment/mc_SliderAttachment.hpp"
+#include "attachment/mc_TextBoxSliderAttachment.hpp"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP

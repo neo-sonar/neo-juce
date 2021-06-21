@@ -1,9 +1,9 @@
 #include "mc_dsp/mc_dsp.hpp"
 
-#include "analyzer/oscilloscope.cpp"          // NOLINT(bugprone-suspicious-include)
-#include "analyzer/oscilloscope_source.cpp"   // NOLINT(bugprone-suspicious-include)
-#include "analyzer/spectrum.cpp"              // NOLINT(bugprone-suspicious-include)
-#include "analyzer/spectrum_source.cpp"       // NOLINT(bugprone-suspicious-include)
-#include "attachment/mc_XYPadAttachment.cpp"  // NOLINT(bugprone-suspicious-include)
-#include "container/audio_buffer_utils.cpp"   // NOLINT(bugprone-suspicious-include)
-#include "util/buses_layout_utils.cpp"        // NOLINT(bugprone-suspicious-include)
+#include "analyzer/mc_Oscilloscope.cpp"        // NOLINT(bugprone-suspicious-include)
+#include "analyzer/mc_OscilloscopeSource.cpp"  // NOLINT(bugprone-suspicious-include)
+#include "analyzer/mc_Spectrum.cpp"            // NOLINT(bugprone-suspicious-include)
+#include "analyzer/mc_SpectrumSource.cpp"      // NOLINT(bugprone-suspicious-include)
+#include "attachment/mc_XYPadAttachment.cpp"   // NOLINT(bugprone-suspicious-include)
+#include "container/mc_AudioBufferUtils.cpp"   // NOLINT(bugprone-suspicious-include)
+#include "util/mc_BusesLayoutUtils.cpp"        // NOLINT(bugprone-suspicious-include)
