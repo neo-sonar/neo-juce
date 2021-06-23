@@ -6,11 +6,11 @@ namespace mc
 class BipolarFilter : public juce::Component
 {
 public:
-    enum ColorIDs
+    enum ColourIds
     {
-        backgroundColor,
-        lineColor,
-        thumbColor,
+        backgroundColor = 0x1330001,
+        lineColor       = 0x1330002,
+        thumbColor      = 0x1330003,
     };
 
     struct Listener
