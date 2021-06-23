@@ -5,6 +5,15 @@ namespace mc
 {
 struct XYPad : juce::Component
 {
+    enum ColourIds
+    {
+        backgroundColor  = 0x1330101,
+        outlineColor     = 0x1330102,
+        thumbNormalColor = 0x1330103,
+        thumbOverColor   = 0x1330104,
+        thumbDownColor   = 0x1330105,
+    };
+
     struct Listener
     {
         virtual ~Listener() = default;

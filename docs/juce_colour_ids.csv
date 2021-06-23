@@ -159,3 +159,8 @@ mc        ,BipolarFilter                     ,thumbColor                        
 mc        ,Spectrum                          ,plot                              ,0x1331600
 mc        ,Spectrum                          ,grid                              ,0x1331601
 mc        ,Spectrum                          ,labels                            ,0x1331602
+mc        ,XYPad                             ,backgroundColor                   ,0x1330101
+mc        ,XYPad                             ,outlineColor                      ,0x1330102
+mc        ,XYPad                             ,thumbNormalColor                  ,0x1330103
+mc        ,XYPad                             ,thumbOverColor                    ,0x1330104
+mc        ,XYPad                             ,thumbDownColor                    ,0x1330105

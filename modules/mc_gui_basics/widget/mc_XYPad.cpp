@@ -131,14 +131,16 @@ auto XYPad::thumbHitTest(juce::MouseEvent const& event) const -> bool
 
 auto XYPad::startDragging() -> void
 {
-    listeners_.call([this](Listener& listener) { listener.xypadDragStarted(this); });
     isDragging_ = true;
+    listeners_.call([this](Listener& listener) { listener.xypadDragStarted(this); });
+    repaint();
 }
 
 auto XYPad::stopDragging() -> void
 {
     isDragging_ = false;
     listeners_.call([this](Listener& listener) { listener.xypadDragEnded(this); });
+    repaint();
 }
 
 auto XYPad::updatePosition() -> void
