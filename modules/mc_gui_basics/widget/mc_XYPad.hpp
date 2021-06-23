@@ -18,7 +18,8 @@ struct XYPad : juce::Component
     {
         virtual ~LookAndFeelMethods() = default;
 
-        virtual auto drawXYPad(juce::Graphics& g, juce::Rectangle<int> bounds, XYPad& pad) -> void = 0;
+        virtual auto drawXYPad(juce::Graphics& g, juce::Rectangle<float> thumbBounds, XYPad& pad) -> void = 0;
+        virtual auto getXYPadThumbDiameter(XYPad& pad) -> int                                             = 0;
     };
 
     XYPad();
@@ -44,13 +45,16 @@ struct XYPad : juce::Component
     auto setDirectionX(bool startShouldBeOnLeft) -> void;
     auto setDirectionY(bool startShouldBeOnTop) -> void;
 
+    [[nodiscard]] auto isOverThumb() const noexcept -> bool;
+    [[nodiscard]] auto isDragging() const noexcept -> bool;
+
     auto addListener(Listener* listener) -> void { listeners_.add(listener); }
     auto removeListener(Listener* listener) -> void { listeners_.remove(listener); }
 
+private:
     auto paint(juce::Graphics& g) -> void override;
     auto resized() -> void override;
 
-private:
     auto mouseMove(juce::MouseEvent const& event) -> void override;
     auto mouseDown(juce::MouseEvent const& event) -> void override;
     auto mouseUp(juce::MouseEvent const& event) -> void override;
@@ -59,6 +63,8 @@ private:
     [[nodiscard]] auto getValueFromPixel(int pixel, bool isXAxis) const -> float;
     [[nodiscard]] auto getPixelFromNormalizedValue(float value, bool x) const -> int;
     [[nodiscard]] auto thumbHitTest(juce::MouseEvent const& event) const -> bool;
+
+    auto updatePosition() -> void;
 
     auto startDragging() -> void;
     auto stopDragging() -> void;
@@ -73,6 +79,7 @@ private:
     juce::Colour thumbColor_ {juce::Colours::grey};
     juce::Rectangle<int> bounds_ {};
     bool isDragging_ {false};
+    bool isOverThumb_ {false};
 
     juce::ListenerList<Listener> listeners_ {};
 
