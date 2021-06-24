@@ -1,7 +1,7 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP
 
-#if defined(_WIN32) or defined(_WIN64)
+#if defined(_WIN32) || defined(_WIN64)
 #ifndef MC_WINDOWS
 #define MC_WINDOWS 1
 #endif
@@ -9,7 +9,7 @@
 #ifndef MC_ANDROID
 #define MC_ANDROID 1
 #endif
-#elif defined(__FreeBSD__) or (__OpenBSD__)
+#elif defined(__FreeBSD__) || (__OpenBSD__)
 #ifndef MC_BSD
 #define MC_BSD 1
 #endif
@@ -17,7 +17,7 @@
 #ifndef MC_LINUX
 #define MC_LINUX 1
 #endif
-#elif defined(__APPLE_CPP__) or defined(__APPLE_CC__)
+#elif defined(__APPLE_CPP__) || defined(__APPLE_CC__)
 #include <CoreFoundation/CoreFoundation.h>  // (needed to find out what platform we're using)
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -156,7 +156,7 @@ inline constexpr std::size_t HardwareCacheLineSize = MC_CACHE_LINE_SIZE;
 
 }
 
-#if (defined(MC_COMPILER_GCC) or defined(MC_COMPILER_CLANG)) and !defined(MC_MAC)
+#if (defined(MC_COMPILER_GCC) || defined(MC_COMPILER_CLANG)) && !defined(MC_MAC)
 #ifndef MC_ALIGNAS
 #define MC_ALIGNAS(bytes) __attribute__((aligned(bytes)))
 #endif
