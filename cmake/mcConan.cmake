@@ -9,6 +9,6 @@ endif()
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 
 conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
-conan_cmake_configure(REQUIRES boost/1.75.0 GENERATORS cmake_find_package)
+conan_cmake_configure(REQUIRES boost/1.75.0 easy_profiler/2.1.0 GENERATORS cmake_find_package)
 conan_cmake_autodetect(settings)
 conan_cmake_install(PATH_OR_REFERENCE . BUILD missing REMOTE conan-center SETTINGS ${settings})
