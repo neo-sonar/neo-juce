@@ -43,13 +43,20 @@ auto SpectrumSource::createPath(juce::Path& p, juce::Rectangle<float> const& bou
     const auto factor   = bounds.getWidth() / 10.0f;
 
     p.startNewSubPath(bounds.getX() + factor * indexToX(0, minFreq), binToY(fftData[0], bounds));
+    p.preallocateSpace(averager_.getNumSamples());
+    auto lastX = -100.0;
     for (int i = 0; i < averager_.getNumSamples(); ++i)
     {
         const auto x = bounds.getX() + factor * indexToX(static_cast<float>(i), minFreq);
         const auto y = binToY(fftData[i], bounds);
-
-        p.lineTo(static_cast<float>(x), static_cast<float>(y));
+        if (lastX + 6 < x)
+        {
+            p.lineTo(static_cast<float>(x), static_cast<float>(y));
+            lastX = x;
+        }
     }
+
+    p = p.createPathWithRoundedCorners(3.0f);
 }
 
 auto SpectrumSource::checkForNewData() -> bool
