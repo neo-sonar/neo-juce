@@ -55,8 +55,6 @@ auto SpectrumSource::createPath(juce::Path& p, juce::Rectangle<float> const& bou
             lastX = x;
         }
     }
-
-    p = p.createPathWithRoundedCorners(3.0f);
 }
 
 auto SpectrumSource::checkForNewData() -> bool
@@ -109,8 +107,9 @@ auto SpectrumSource::indexToX(float const index, float const minFreq) const -> f
 
 auto SpectrumSource::binToY(float const bin, juce::Rectangle<float> const& bounds) -> float
 {
-    auto const infinity = -80.0f;
-    auto const db       = juce::Decibels::gainToDecibels(bin, infinity);
-    return juce::jmap(db, infinity, 0.0f, bounds.getBottom(), bounds.getY());
+    auto const infinity   = -60.0f;
+    auto const topPadding = bounds.getHeight() * 0.05f;
+    auto const db         = juce::Decibels::gainToDecibels(bin, infinity);
+    return juce::jmap(db, infinity, 0.0f, bounds.getBottom(), bounds.getY() + topPadding);
 }
 }  // namespace mc
