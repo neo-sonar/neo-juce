@@ -155,8 +155,8 @@ private:
 }  // namespace mc
 
 #if MC_PROFILE
-#define MC_PROFILE_BEGIN_SESSION(name, filepath) ::mc::Profiler::Get().BeginSession(name, filepath)
-#define MC_PROFILE_END_SESSION() ::mc::Profiler::Get().EndSession()
+#define MC_PROFILE_BEGIN_SESSION(name, filepath) ::mc::Profiler::get().beginSession(name, filepath)
+#define MC_PROFILE_END_SESSION() ::mc::Profiler::get().endSession()
 #define MC_PROFILE_SCOPE(name) ::mc::ProfileTimer MC_ANONYMOUS_VARIABLE(timer)(name);
 #define MC_PROFILE_FUNCTION() MC_PROFILE_SCOPE(MC_FUNC_SIG)
 #else

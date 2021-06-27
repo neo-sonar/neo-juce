@@ -95,7 +95,7 @@ auto SpectrumSource::run() -> void
             newDataAvailable_.store(true);
         }
 
-        if (abstractFifo_.getNumReady() < fft_.getSize()) { waitForData_.wait(100); }
+        if (abstractFifo_.getNumReady() < fft_.getSize()) { waitForData_.wait(20); }
     }
 }
 
