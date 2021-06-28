@@ -3,7 +3,7 @@
 #include "catch2/catch_approx.hpp"
 #include "catch2/catch_test_macros.hpp"
 
-TEST_CASE("modulation/modulator: Modulator", "[modulation][modulator]")
+TEST_CASE("modulation/core: Modulator", "[modulation][core]")
 {
     struct TestModulator : mc::Modulator
     {
@@ -26,15 +26,14 @@ TEST_CASE("modulation/modulator: Modulator", "[modulation][modulator]")
     CHECK(modulator.getPlayHead() == nullptr);
 
     // default impl should not change the buffer
-    auto midiBuffer = juce::MidiBuffer {};
-    auto buffer     = juce::AudioBuffer<float> {1, 32};
+    auto buffer = juce::AudioBuffer<float> {1, 32};
     buffer.clear();
 
-    modulator.prepareToPlay(44'100.0, 32);
-    modulator.processBlock(buffer, midiBuffer);
+    modulator.prepare(44'100.0, 32);
+    modulator.process(buffer);
     auto* const output = buffer.getWritePointer(0);
     for (auto i = 0; i < buffer.getNumSamples(); ++i) { CHECK(output[i] == 0.0f); }
-    modulator.releaseResources();
+    modulator.reset();
 
     // play head
     auto playHead = TestPlayHead {};

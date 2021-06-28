@@ -13,20 +13,19 @@ TEST_CASE("modulation/modulator: ModulatorMacro", "[modulation][modulator]")
     macro.setGain(2.0f);
     CHECK(macro.getGain() == Catch::Approx(2.0f));
 
-    auto midiBuffer = juce::MidiBuffer {};
-    auto buffer     = juce::AudioBuffer<float> {1, 32};
+    auto buffer = juce::AudioBuffer<float> {1, 32};
     buffer.clear();
 
-    macro.prepareToPlay(44'100.0, 32);
-    macro.processBlock(buffer, midiBuffer);
+    macro.prepare(44'100.0, 32);
+    macro.process(buffer);
 
     auto* const output = buffer.getWritePointer(0);
     for (auto i = 0; i < buffer.getNumSamples(); ++i) { CHECK(output[i] == Catch::Approx(2.0f)); }
 
     macro.setGain(1.0f);
     buffer.clear();
-    macro.processBlock(buffer, midiBuffer);
+    macro.process(buffer);
     for (auto i = 0; i < buffer.getNumSamples(); ++i) { CHECK(output[i] == Catch::Approx(1.0f)); }
 
-    macro.releaseResources();
+    macro.reset();
 }

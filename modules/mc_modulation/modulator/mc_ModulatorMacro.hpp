@@ -9,16 +9,15 @@ struct ModulatorMacroIDs
     inline static const juce::Identifier gain = "gain";
 };
 
-class ModulatorMacro final : public Modulator
+struct ModulatorMacro final : Modulator
 {
-public:
     explicit ModulatorMacro(juce::ValueTree valueTree, juce::UndoManager* undoManager = nullptr);
     ~ModulatorMacro() override = default;
 
     [[nodiscard]] auto getName() const -> juce::String override;
-    auto prepareToPlay(double sampleRate, int maxSamplesPerBlock) -> void override;
-    auto processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiBuffer) -> void override;
-    auto releaseResources() -> void override;
+    auto prepare(double sampleRate, int maxSamplesPerBlock) -> void override;
+    auto process(juce::AudioBuffer<float>& buffer) -> void override;
+    auto reset() -> void override;
 
     auto setGain(float newGain) -> void;
     [[nodiscard]] auto getGain() const -> float;

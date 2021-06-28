@@ -106,8 +106,9 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_gui_basics/widget/mc_TextBoxSlider_Test.cpp
             modules/mc_gui_basics/widget/mc_XYPad_Test.cpp
 
-            modules/mc_modulation/modulator/mc_Macro_Test.cpp
-            modules/mc_modulation/modulator/mc_Modulator_Test.cpp
+            modules/mc_modulation/core/mc_ModulationMatrix_Test.cpp
+            modules/mc_modulation/core/mc_Modulator_Test.cpp
+            modules/mc_modulation/modulator/mc_ModulatorMacro_Test.cpp
     )
 
     target_compile_definitions(${PROJECT_NAME}_tests

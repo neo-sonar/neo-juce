@@ -10,14 +10,13 @@ ModulatorMacro::ModulatorMacro(juce::ValueTree valueTree, juce::UndoManager* und
 
 auto ModulatorMacro::getName() const -> juce::String { return "Macro"; }
 
-auto ModulatorMacro::prepareToPlay(double sampleRate, int maxSamplesPerBlock) -> void
+auto ModulatorMacro::prepare(double sampleRate, int maxSamplesPerBlock) -> void
 {
     juce::ignoreUnused(sampleRate, maxSamplesPerBlock);
 }
 
-auto ModulatorMacro::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiBuffer) -> void
+auto ModulatorMacro::process(juce::AudioBuffer<float>& buffer) -> void
 {
-    juce::ignoreUnused(midiBuffer);
     jassert(buffer.getNumChannels() == 1);
 
     auto const gain    = static_cast<float>(gain_.get());
@@ -25,7 +24,7 @@ auto ModulatorMacro::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBu
     for (auto i = 0; i < buffer.getNumSamples(); ++i) { output[i] = gain; }
 }
 
-auto ModulatorMacro::releaseResources() -> void { }
+auto ModulatorMacro::reset() -> void { }
 
 auto ModulatorMacro::setGain(float newGain) -> void { gain_ = newGain; }
 

@@ -21,8 +21,12 @@
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <mc_data_structures/mc_data_structures.hpp>
 
-#include "modulator/mc_Modulator.hpp"
+// clang-format off
+#include "core/mc_Modulator.hpp"
+#include "core/mc_ModulationMatrix.hpp"
 
-#include "modulator/mc_Macro.hpp"
+#include "modulator/mc_ModulatorMacro.hpp"
+
+// clang-format on
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_MODULATION_HPP
