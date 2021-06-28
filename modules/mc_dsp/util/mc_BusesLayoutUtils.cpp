@@ -13,8 +13,14 @@ auto BusesLayoutUtils::isSameInOut(juce::AudioProcessor::BusesLayout const& layo
     return inputSet == outputSet;
 }
 
+auto BusesLayoutUtils::isMonoInOut(juce::AudioProcessor::BusesLayout const& layout) noexcept -> bool
+{
+    return isSameInOut(layout) && (layout.getMainOutputChannelSet() == juce::AudioChannelSet::mono());
+}
+
 auto BusesLayoutUtils::isStereoInOut(juce::AudioProcessor::BusesLayout const& layout) noexcept -> bool
 {
     return isSameInOut(layout) && (layout.getMainOutputChannelSet() == juce::AudioChannelSet::stereo());
 }
+
 }  // namespace mc
