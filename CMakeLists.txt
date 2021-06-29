@@ -115,6 +115,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
         PRIVATE
             JUCE_WEB_BROWSER=0
             JUCE_USE_OGGVORBIS=0
+            JUCE_DISABLE_JUCE_VERSION_PRINTING=1
     )
 
     target_link_libraries(${PROJECT_NAME}_tests
