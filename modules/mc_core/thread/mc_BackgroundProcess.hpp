@@ -9,7 +9,13 @@ class BackgroundProcess : private juce::Timer
 public:
     struct Listener
     {
+        Listener()          = default;
         virtual ~Listener() = default;
+
+        Listener(const Listener& other) = delete;
+        Listener(Listener&& other)      = delete;
+        auto operator=(const Listener& rhs) -> Listener& = delete;
+        auto operator=(Listener&& rhs) -> Listener& = delete;
 
         virtual auto backgroundProcessStarted(BackgroundProcess* process) -> void                             = 0;
         virtual auto backgroundProcessFinished(BackgroundProcess* process, std::uint32_t exitCode) -> void    = 0;
@@ -18,6 +24,11 @@ public:
 
     explicit BackgroundProcess(juce::ThreadPool* threadPool);
     ~BackgroundProcess() override = default;
+
+    BackgroundProcess(const BackgroundProcess& other) = delete;
+    BackgroundProcess(BackgroundProcess&& other)      = delete;
+    auto operator=(const BackgroundProcess& rhs) -> BackgroundProcess& = delete;
+    auto operator=(BackgroundProcess&& rhs) -> BackgroundProcess& = delete;
 
     auto startProcess(const juce::String& command) -> void;
     auto addListener(Listener* listener) -> void;

@@ -50,10 +50,15 @@ namespace
 
 struct TestListenerValueChanged : mc::BipolarFilter::Listener
 {
-    bool wasCalled {false};
-    boost::optional<double> value {};
 
+    TestListenerValueChanged()           = default;
     ~TestListenerValueChanged() override = default;
+
+    TestListenerValueChanged(const TestListenerValueChanged& other) = delete;
+    TestListenerValueChanged(TestListenerValueChanged&& other)      = delete;
+    auto operator=(const TestListenerValueChanged& rhs) -> TestListenerValueChanged& = delete;
+    auto operator=(TestListenerValueChanged&& rhs) -> TestListenerValueChanged& = delete;
+
     auto bipolarFilterDragStarted(mc::BipolarFilter* /*s*/) -> void override { }
     auto bipolarFilterDragEnded(mc::BipolarFilter* /*s*/) -> void override { }
     auto bipolarFilterValueChanged(mc::BipolarFilter* s) -> void override
@@ -61,6 +66,9 @@ struct TestListenerValueChanged : mc::BipolarFilter::Listener
         wasCalled = true;
         value     = s->getValue();
     }
+
+    bool wasCalled {false};
+    boost::optional<double> value {};
 };
 
 }  // namespace

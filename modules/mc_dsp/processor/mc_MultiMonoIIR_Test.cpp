@@ -4,9 +4,7 @@
 
 TEMPLATE_TEST_CASE("dsp/processor: MultiMonoIIR", "[dsp][processor]", float, double)
 {
-    auto filter = mc::MultiMonoIIR<TestType> {};
-    CHECK(filter.getCoefficients().coefficients[0] == 0.0f);
-
+    auto filter         = mc::MultiMonoIIR<TestType> {};
     auto buffer         = mc::AudioBufferUtils::createNoiseBuffer<TestType>(2, 512);
     auto originalBuffer = buffer;
     auto ioBuffer       = juce::dsp::AudioBlock<TestType>(buffer);

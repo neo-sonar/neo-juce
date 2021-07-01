@@ -130,10 +130,14 @@ namespace
 
 struct TestListenerValueChanged : mc::TextBoxSlider::Listener
 {
-    bool wasCalled {false};
-    boost::optional<double> value {};
-
+    TestListenerValueChanged()           = default;
     ~TestListenerValueChanged() override = default;
+
+    TestListenerValueChanged(const TestListenerValueChanged& other) = delete;
+    TestListenerValueChanged(TestListenerValueChanged&& other)      = delete;
+    auto operator=(const TestListenerValueChanged& rhs) -> TestListenerValueChanged& = delete;
+    auto operator=(TestListenerValueChanged&& rhs) -> TestListenerValueChanged& = delete;
+
     auto textBoxSliderDragStarted(mc::TextBoxSlider* /*s*/) -> void override { }
     auto textBoxSliderDragEnded(mc::TextBoxSlider* /*s*/) -> void override { }
     auto textBoxSliderValueChanged(mc::TextBoxSlider* s) -> void override
@@ -141,6 +145,9 @@ struct TestListenerValueChanged : mc::TextBoxSlider::Listener
         wasCalled = true;
         value     = s->getValue();
     }
+
+    bool wasCalled {false};
+    boost::optional<double> value {};
 };
 
 }  // namespace

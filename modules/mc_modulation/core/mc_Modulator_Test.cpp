@@ -9,11 +9,23 @@ TEST_CASE("modulation/core: Modulator", "[modulation][core]")
     {
         TestModulator() : mc::Modulator {juce::ValueTree {"test"}, nullptr} { }
         ~TestModulator() override = default;
+
+        TestModulator(const TestModulator& other) = delete;
+        TestModulator(TestModulator&& other)      = delete;
+        auto operator=(const TestModulator& rhs) -> TestModulator& = delete;
+        auto operator=(TestModulator&& rhs) -> TestModulator& = delete;
     };
 
     struct TestPlayHead : juce::AudioPlayHead
     {
+        TestPlayHead()           = default;
         ~TestPlayHead() override = default;
+
+        TestPlayHead(const TestPlayHead& other) = delete;
+        TestPlayHead(TestPlayHead&& other)      = delete;
+        auto operator=(const TestPlayHead& rhs) -> TestPlayHead& = delete;
+        auto operator=(TestPlayHead&& rhs) -> TestPlayHead& = delete;
+
         auto getCurrentPosition(juce::AudioPlayHead::CurrentPositionInfo& /*result*/) -> bool override { return false; }
         auto canControlTransport() -> bool override { return false; }
     };

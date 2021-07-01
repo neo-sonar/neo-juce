@@ -134,6 +134,11 @@ public:
         if (!stopped_) { stop(); }
     }
 
+    ProfileTimer(const ProfileTimer& other) = delete;
+    ProfileTimer(ProfileTimer&& other)      = delete;
+    auto operator=(const ProfileTimer& rhs) -> ProfileTimer& = delete;
+    auto operator=(ProfileTimer&& rhs) -> ProfileTimer& = delete;
+
     void stop()
     {
         auto endTimepoint = std::chrono::steady_clock::now();
