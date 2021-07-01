@@ -9,3 +9,4 @@ build
 build_*
 cmake-build-*
 assets
+docs/doxygen/doc

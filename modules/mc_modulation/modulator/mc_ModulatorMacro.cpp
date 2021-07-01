@@ -2,10 +2,9 @@ namespace mc
 {
 
 ModulatorMacro::ModulatorMacro(juce::ValueTree valueTree, juce::UndoManager* undoManager)
-    : Modulator {std::move(valueTree), undoManager}
-    , gain_ {getValueTree(), ModulatorMacroIDs::gain, getUndoManager(), 1.0f}
+    : Modulator {std::move(valueTree), undoManager}, gain_ {state, ModulatorMacroIDs::gain, getUndoManager(), 1.0f}
 {
-    jassert(getValueTree().hasType(ModulatorMacroIDs::type));
+    jassert(state.hasType(ModulatorMacroIDs::type));
 }
 
 auto ModulatorMacro::getName() const -> juce::String { return "Macro"; }

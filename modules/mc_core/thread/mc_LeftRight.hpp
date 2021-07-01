@@ -103,14 +103,15 @@ public:
      *           as of version 5.2.1. Instead we just static_assert the
      *           noexcept-ness of the functor in the body of the function
      *
-     * template <typename F>
-     * auto modify(F f)
-     *     -> typename std::enable_if<noexcept(f(std::declval<T&>())),
-     *             typename std::result_of<F(T&)>::type>::type;
      */
     template<typename F>
     auto modify(F f) -> std::invoke_result_t<F, value_type&>
     {
+        // template <typename F>
+        // auto modify(F f)
+        //     -> typename std::enable_if<noexcept(f(std::declval<T&>())),
+        //             typename std::result_of<F(T&)>::type>::type;
+
         static_assert(noexcept(f(std::declval<T&>())), "Modify functor must be noexcept");
 
         std::unique_lock<std::mutex> lock(writeMutex_);

@@ -1,22 +1,13 @@
-/**
- * @file stereo_width.hpp
- * @copyright Copyright 2019-2020 Modern Circuits. All rights reserved.
- */
-
 #pragma once
 
 namespace mc::dsp
 {
 
-/**
- * @brief Controls the width of a stereo signal
- */
+/// @brief Controls the width of a stereo signal
 class StereoWidth
 {
 public:
-    /**
-     * @brief Holds the parameters for this processor.
-     */
+    /// @brief Holds the parameters for this processor.
     struct Parameters
     {
         float width = 1.0f;  // 0 to 2.0: 1 = Normal, 0 = Mono
@@ -24,43 +15,29 @@ public:
 
     StereoWidth() = default;
 
-    /**
-     * @brief Returns true if the process is enabled.
-     */
+    /// @brief Returns true if the process is enabled.
     [[nodiscard]] auto isEnabled() const noexcept -> bool { return enabled_; }
 
-    /**
-     * @brief Enables/disables the process.
-     */
+    /// @brief Enables/disables the process.
     void setEnabled(bool newValue) noexcept { enabled_ = newValue; }
 
-    /**
-     * @brief Returns the process's current parameters.
-     */
+    /// @brief Returns the process's current parameters.
     [[nodiscard]] auto getParameters() const noexcept -> Parameters { return parameters_; }
 
-    /**
-     * @brief Applies a new set of parameters to the process.
-     *
-     * Note that this doesn't attempt to lock the process,
-     * so if you call this in parallel with
-     * the process method, you may get artifacts.
-     */
+    /// @brief Applies a new set of parameters to the process.
+    ///
+    /// Note that this doesn't attempt to lock the process,
+    /// so if you call this in parallel with
+    /// the process method, you may get artifacts.
     void setParameters(Parameters const& newParams) { parameters_ = newParams; }
 
-    /**
-     * @brief Initialises the process.
-     */
+    /// @brief Initialises the process.
     void prepare(juce::dsp::ProcessSpec const& /*unused*/) { }
 
-    /**
-     * @brief Resets the process's internal state.
-     */
+    /// @brief Resets the process's internal state.
     void reset() noexcept { }
 
-    /**
-     * @brief Applies the process to a stereo buffer.
-     */
+    /// @brief Applies the process to a stereo buffer.
     template<typename ProcessContext>
     void process(const ProcessContext& context) noexcept
     {

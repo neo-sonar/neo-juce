@@ -20,7 +20,7 @@ TEST_CASE("modulation/core: Modulator", "[modulation][core]")
 
     // defaults
     auto modulator = TestModulator {};
-    CHECK(modulator.getValueTree().hasType("test"));
+    CHECK(modulator.state.hasType("test"));
     CHECK(modulator.getName() == juce::String {""});
     CHECK(modulator.getUndoManager() == nullptr);
     CHECK(modulator.getPlayHead() == nullptr);

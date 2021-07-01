@@ -1,10 +1,10 @@
 /*
  BEGIN_JUCE_MODULE_DECLARATION
 
- ID:            mc_modulation
+ ID:            mc_meters
  vendor:        mc
  version:       0.1.0
- name:          Modulation
+ name:          Meters
  description:   Audio modulators, routing matrix & utilities.
  dependencies:  juce_audio_basics, mc_data_structures
 

@@ -6,7 +6,7 @@
 TEST_CASE("modulation/modulator: ModulatorMacro", "[modulation][modulator]")
 {
     auto macro = mc::ModulatorMacro {juce::ValueTree {mc::ModulatorMacroIDs::type}};
-    CHECK(macro.getValueTree().hasType(mc::ModulatorMacroIDs::type));
+    CHECK(macro.state.hasType(mc::ModulatorMacroIDs::type));
     CHECK(macro.getName() == juce::String {"Macro"});
     CHECK(macro.getGain() == Catch::Approx(1.0f));
 
