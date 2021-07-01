@@ -41,7 +41,7 @@ auto AudioBufferUtils::createNoiseBuffer(int const channels, int const size, Flo
     std::uniform_real_distribution<FloatT> dist(-1.0, 1.0);
 
     // fill with noise
-    auto buffer = juce::AudioBuffer<FloatT> {channels, size};
+    auto buffer = juce::AudioBuffer<FloatT>(channels, size);
     for (auto channel = 0; channel < buffer.getNumChannels(); ++channel)
     {
         for (int i = 0; i < buffer.getNumSamples(); ++i) { buffer.setSample(channel, i, dist(e2)); }

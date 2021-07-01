@@ -1,7 +1,7 @@
 
 #pragma once
 
-namespace foleys
+namespace mc
 {
 
 /** @addtogroup ff_meters */
@@ -127,7 +127,7 @@ public:
 
         /** This callback draws an reduction from top. Only triggered, if a reduction < 1.0 is set in the
          * LevelMeterSource */
-        virtual void drawMeterReduction(juce::Graphics& g, foleys::LevelMeter::MeterFlags meterType,
+        virtual void drawMeterReduction(juce::Graphics& g, LevelMeter::MeterFlags meterType,
                                         juce::Rectangle<float> bounds, float reduction)
             = 0;
 
@@ -189,7 +189,7 @@ public:
      Set a LevelMeterSource to display. This separation is used, so the source can work in the processing and the
      GUI can display the values.
      */
-    void setMeterSource(foleys::LevelMeterSource* src);
+    void setMeterSource(LevelMeterSource* src);
 
     /**
      Set a specific channel to display. This is only useful, if MeterFlags::SingleChannel is set.
@@ -218,13 +218,13 @@ public:
      This lambda is called when the user clicks on a clip light. It is initially set to clear all clip lights
      and max level numbers.
      */
-    std::function<void(foleys::LevelMeter& meter, int channel, juce::ModifierKeys mods)> onClipLightClicked;
+    std::function<void(LevelMeter& meter, int channel, juce::ModifierKeys mods)> onClipLightClicked;
 
     /**
      This lambda is called when the user clicks on a max level display. It is initially set to clear all clip lights
      and max level numbers.
      */
-    std::function<void(foleys::LevelMeter& meter, int channel, juce::ModifierKeys mods)> onMaxLevelClicked;
+    std::function<void(LevelMeter& meter, int channel, juce::ModifierKeys mods)> onMaxLevelClicked;
 
     /**
      \internal
@@ -263,22 +263,22 @@ public:
          To allow different behaviour, e.g. resetting only one indicator or even all meters spread over the UI.
          \see clearClipIndicator, maxLevelClicked
          */
-        virtual void clipLightClicked(foleys::LevelMeter* meter, int channel, juce::ModifierKeys mods) = 0;
+        virtual void clipLightClicked(LevelMeter* meter, int channel, juce::ModifierKeys mods) = 0;
         /**
          This is called, when the user clicks a max level text. It can be used to reset the max number.
          \see clearMaxLevelDisplay, clipLightClicked
          */
-        virtual void maxLevelClicked(foleys::LevelMeter* meter, int channel, juce::ModifierKeys mods) = 0;
+        virtual void maxLevelClicked(LevelMeter* meter, int channel, juce::ModifierKeys mods) = 0;
     };
 
-    void addListener(foleys::LevelMeter::Listener* /*listener*/);
+    void addListener(LevelMeter::Listener* /*listener*/);
 
-    void removeListener(foleys::LevelMeter::Listener* /*listener*/);
+    void removeListener(LevelMeter::Listener* /*listener*/);
 
 private:
     JUCE_LEAK_DETECTOR(LevelMeter)  // NOLINT
 
-    juce::WeakReference<foleys::LevelMeterSource> source_;
+    juce::WeakReference<LevelMeterSource> source_;
 
     int selectedChannel_     = -1;
     int fixedNumChannels_    = -1;
@@ -290,7 +290,7 @@ private:
 
     LevelMeter::LookAndFeelMethods* lmLookAndFeel_ = nullptr;
 
-    juce::ListenerList<foleys::LevelMeter::Listener> listeners_;
+    juce::ListenerList<LevelMeter::Listener> listeners_;
 };
 
 inline auto operator|(LevelMeter::MeterFlags a, LevelMeter::MeterFlags b) -> LevelMeter::MeterFlags
@@ -300,4 +300,4 @@ inline auto operator|(LevelMeter::MeterFlags a, LevelMeter::MeterFlags b) -> Lev
 
 /*@}*/
 
-}  // end namespace foleys
+}  // end namespace mc

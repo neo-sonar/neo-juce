@@ -112,14 +112,14 @@ auto XYPad::getPixelFromNormalizedValue(float value, bool x) const -> int
     {
         auto const direction  = startShouldBeOnLeft_ ? 1.0f : -1.0f;
         auto const start      = startShouldBeOnLeft_ ? bounds_.getX() : bounds_.getRight();
-        auto const proportion = bounds_.getWidth() * value;
-        return static_cast<int>(start + (proportion * direction));
+        auto const proportion = static_cast<float>(bounds_.getWidth()) * value;
+        return static_cast<int>(static_cast<float>(start) + (proportion * direction));
     }
 
     auto const direction  = startShouldBeOnTop_ ? 1.0f : -1.0f;
     auto const start      = startShouldBeOnTop_ ? bounds_.getY() : bounds_.getBottom();
-    auto const proportion = bounds_.getHeight() * value;
-    return static_cast<int>(start + (proportion * direction));
+    auto const proportion = static_cast<float>(bounds_.getHeight()) * value;
+    return static_cast<int>(static_cast<float>(start) + (proportion * direction));
 }
 
 auto XYPad::thumbHitTest(juce::MouseEvent const& event) const -> bool

@@ -6,7 +6,8 @@ namespace mc
 
 struct OscilloscopeSource
 {
-    OscilloscopeSource() = default;
+    OscilloscopeSource()  = default;
+    ~OscilloscopeSource() = default;
 
     OscilloscopeSource(const OscilloscopeSource& other) = delete;
     OscilloscopeSource(OscilloscopeSource&& other)      = delete;

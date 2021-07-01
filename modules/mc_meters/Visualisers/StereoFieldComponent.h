@@ -1,6 +1,6 @@
 #pragma once
 
-namespace foleys
+namespace mc
 {
 
 /** @addtogroup ff_meters */
@@ -106,4 +106,4 @@ private:
     JUCE_LEAK_DETECTOR(StereoFieldComponent)  // NOLINT
 };
 /*@}*/
-}  // namespace foleys
+}  // namespace mc

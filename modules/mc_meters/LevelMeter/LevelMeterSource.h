@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace foleys
+namespace mc
 {
 
 /** @addtogroup ff_meters */
@@ -317,4 +317,4 @@ private:
 
 /*@}*/
 
-}  // end namespace foleys
+}  // end namespace mc

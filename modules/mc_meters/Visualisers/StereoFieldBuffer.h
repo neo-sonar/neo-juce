@@ -1,7 +1,7 @@
 
 #pragma once
 
-namespace foleys
+namespace mc
 {
 
 /** @addtogroup ff_meters */
@@ -171,4 +171,4 @@ public:
     }
 };
 /*@}*/
-}  // namespace foleys
+}  // namespace mc

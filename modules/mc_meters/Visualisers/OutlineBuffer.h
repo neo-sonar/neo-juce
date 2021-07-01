@@ -1,7 +1,7 @@
 
 #pragma once
 
-namespace foleys
+namespace mc
 {
 
 /** @addtogroup ff_meters */
@@ -201,11 +201,10 @@ public:
     void getChannelOutline(juce::Path& path, const juce::Rectangle<float> bounds, const int numSamples) const
     {
         juce::Rectangle<float> b(bounds);
-        const int numChannels = static_cast<int>(channelDatas_.size());
-        const float h         = bounds.getHeight() / numChannels;
-
+        auto const numChannels = static_cast<int>(channelDatas_.size());
+        auto const h           = bounds.getHeight() / static_cast<float>(numChannels);
         for (int i = 0; i < numChannels; ++i) { getChannelOutline(path, b.removeFromTop(h), i, numSamples); }
     }
 };
 /*@}*/
-}  // namespace foleys
+}  // namespace mc

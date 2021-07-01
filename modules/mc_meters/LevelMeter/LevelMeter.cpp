@@ -1,5 +1,5 @@
 
-namespace foleys
+namespace mc
 {
 
 LevelMeter::LevelMeter(MeterFlags type) : meterType_(type)
@@ -7,14 +7,14 @@ LevelMeter::LevelMeter(MeterFlags type) : meterType_(type)
     lookAndFeelChanged();
 
     onMaxLevelClicked
-        = [](foleys::LevelMeter& meter, [[maybe_unused]] int channel, [[maybe_unused]] juce::ModifierKeys mods) {
+        = [](mc::LevelMeter& meter, [[maybe_unused]] int channel, [[maybe_unused]] juce::ModifierKeys mods) {
               // default clear all indicators. Overwrite this lambda to change the behaviour
               meter.clearMaxLevelDisplay();
               meter.clearClipIndicator();
           };
 
     onClipLightClicked
-        = [](foleys::LevelMeter& meter, [[maybe_unused]] int channel, [[maybe_unused]] juce::ModifierKeys mods) {
+        = [](mc::LevelMeter& meter, [[maybe_unused]] int channel, [[maybe_unused]] juce::ModifierKeys mods) {
               // default clear all indicators. Overwrite this lambda to change the behaviour
               meter.clearMaxLevelDisplay();
               meter.clearClipIndicator();
@@ -154,4 +154,4 @@ void LevelMeter::lookAndFeelChanged()
     jassertfalse;
 }
 
-}  // namespace foleys
+}  // namespace mc
