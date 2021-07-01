@@ -31,21 +31,21 @@ struct ModulatorList : ValueTreeObjectListV2<Modulator>
 // , private juce::AsyncUpdater
 {
     /// \brief Creates a ModulatorList for a parent state.
-    ModulatorList(const juce::ValueTree& parent);
+    explicit ModulatorList(const juce::ValueTree& parent);
 
     /// \brief Destructor.
     ~ModulatorList() override;
 
     /// \internal
-    bool isSuitableType(const juce::ValueTree&) const override;
+    [[nodiscard]] auto isSuitableType(const juce::ValueTree& /*v*/) const -> bool override;
     /// \internal
-    Modulator* createNewObject(const juce::ValueTree&) override;
+    auto createNewObject(const juce::ValueTree& /*v*/) -> Modulator* override;
     /// \internal
     void deleteObject(Modulator* t) override;
     /// \internal
     void newObjectAdded(Modulator* t) override;
     /// \internal
-    void objectRemoved(Modulator*) override;
+    void objectRemoved(Modulator* /*unused*/) override;
     /// \internal
     void objectOrderChanged() override;
 

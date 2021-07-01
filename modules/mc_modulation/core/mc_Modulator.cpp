@@ -31,13 +31,13 @@ ModulatorList::ModulatorList(const juce::ValueTree& parentTree) : ValueTreeObjec
 
 ModulatorList::~ModulatorList() { freeObjects(); }
 
-bool ModulatorList::isSuitableType(const juce::ValueTree& v) const
+auto ModulatorList::isSuitableType(const juce::ValueTree& v) const -> bool
 {
     juce::ignoreUnused(v);
     return false;  // isModulator(v);
 }
 
-Modulator* ModulatorList::createNewObject(const juce::ValueTree& v)
+auto ModulatorList::createNewObject(const juce::ValueTree& v) -> Modulator*
 {
     jassertfalse;
     juce::ignoreUnused(v);
@@ -53,7 +53,7 @@ void ModulatorList::deleteObject(Modulator* t)
 
 void ModulatorList::newObjectAdded(Modulator* t) { juce::ignoreUnused(t); }
 
-void ModulatorList::objectRemoved(Modulator*) { }
+void ModulatorList::objectRemoved(Modulator* /*unused*/) { }
 
 void ModulatorList::objectOrderChanged() { }
 }  // namespace mc

@@ -18,7 +18,7 @@ struct XYPadAttachment final : XYPad::Listener
     /// \param pad           The XYPad to use
     /// \param undoManager   An optional juce::UndoManager
     XYPadAttachment(juce::RangedAudioParameter& parameterX, juce::RangedAudioParameter& parameterY, XYPad& pad,
-                    juce::UndoManager* undoManager = nullptr);
+                    juce::UndoManager* um = nullptr);
 
     /// \brief Destructor
     ~XYPadAttachment() override;
