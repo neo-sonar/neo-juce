@@ -33,6 +33,4 @@
 #include "Visualisers/StereoFieldBuffer.h"
 #include "Visualisers/StereoFieldComponent.h"
 
-#include "LookAndFeel/LevelMeterLookAndFeel.h"
-
 #endif

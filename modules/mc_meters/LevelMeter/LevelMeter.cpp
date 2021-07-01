@@ -149,14 +149,9 @@ void LevelMeter::lookAndFeelChanged()
     if (auto* lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()))
     {
         lmLookAndFeel_ = lnf;
-        fallbackLookAndFeel_.reset();
+        return;
     }
-    else
-    {
-        if (fallbackLookAndFeel_ == nullptr) { fallbackLookAndFeel_ = std::make_unique<LevelMeterLookAndFeel>(); }
-
-        lmLookAndFeel_ = fallbackLookAndFeel_.get();
-    }
+    jassertfalse;
 }
 
 }  // namespace foleys

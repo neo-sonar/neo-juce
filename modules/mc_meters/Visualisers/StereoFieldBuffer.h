@@ -21,7 +21,7 @@ class StereoFieldBuffer
     std::atomic<int> writePosition_   = {0};
     std::vector<FloatType> maxValues_ = {180, 0.0};
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(StereoFieldBuffer)  // NOLINT
+    JUCE_LEAK_DETECTOR(StereoFieldBuffer)  // NOLINT
 
     inline void computeDirection(std::vector<float>& directions, const FloatType left, const FloatType right) const
     {
@@ -39,7 +39,13 @@ class StereoFieldBuffer
     }
 
 public:
-    StereoFieldBuffer() = default;
+    StereoFieldBuffer()  = default;
+    ~StereoFieldBuffer() = default;
+
+    StereoFieldBuffer(const StereoFieldBuffer& other) = delete;
+    StereoFieldBuffer(StereoFieldBuffer&& other)      = delete;
+    auto operator=(const StereoFieldBuffer& rhs) -> StereoFieldBuffer& = delete;
+    auto operator=(StereoFieldBuffer&& rhs) -> StereoFieldBuffer& = delete;
 
     void setBufferSize(int newNumChannels, int newNumSamples)
     {

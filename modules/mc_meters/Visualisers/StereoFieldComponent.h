@@ -35,7 +35,13 @@ public:
     class LookAndFeelMethods
     {
     public:
+        LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
+
+        LookAndFeelMethods(const LookAndFeelMethods& other) = delete;
+        LookAndFeelMethods(LookAndFeelMethods&& other)      = delete;
+        auto operator=(const LookAndFeelMethods& rhs) -> LookAndFeelMethods& = delete;
+        auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods& = delete;
 
         virtual void setupDefaultStereoFieldColours() = 0;
 
@@ -56,6 +62,13 @@ public:
     };
 
     explicit StereoFieldComponent(StereoFieldBuffer<float>& stereo) : stereoBuffer_(stereo) { }
+
+    ~StereoFieldComponent() override = default;
+
+    StereoFieldComponent(const StereoFieldComponent& other) = delete;
+    StereoFieldComponent(StereoFieldComponent&& other)      = delete;
+    auto operator=(const StereoFieldComponent& rhs) -> StereoFieldComponent& = delete;
+    auto operator=(StereoFieldComponent&& rhs) -> StereoFieldComponent& = delete;
 
     void paint(juce::Graphics& g) override
     {
@@ -79,11 +92,6 @@ public:
         else
         {
             // This LookAndFeel is missing the StereoFieldComponent::LookAndFeelMethods.
-            // If you work with the default LookAndFeel, set an instance of
-            // LevelMeterLookAndFeel as LookAndFeel of this component.
-            //
-            // If you write a LookAndFeel from scratch, inherit also
-            // StereoFieldComponent::LookAndFeelMethods
             jassertfalse;
         }
     }
@@ -95,7 +103,7 @@ private:
     float margin_ = 5.0f;
     float border_ = 2.0f;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(StereoFieldComponent)  // NOLINT
+    JUCE_LEAK_DETECTOR(StereoFieldComponent)  // NOLINT
 };
 /*@}*/
 }  // namespace foleys

@@ -52,7 +52,7 @@ struct ModulatorList : ValueTreeObjectListV2<Modulator>
 private:
     // void handleAsyncUpdate() override;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ModulatorList)
+    JUCE_LEAK_DETECTOR(ModulatorList)  // NOLINT
 };
 
 }  // namespace mc

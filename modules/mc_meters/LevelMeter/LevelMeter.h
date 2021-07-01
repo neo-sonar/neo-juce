@@ -7,8 +7,6 @@ namespace foleys
 /** @addtogroup ff_meters */
 /*@{*/
 
-class LevelMeterLookAndFeel;
-
 //==============================================================================
 /*
  \class LevelMeter
@@ -290,7 +288,6 @@ private:
     juce::Image backgroundImage_;
     bool backgroundNeedsRepaint_ = true;
 
-    std::unique_ptr<LevelMeterLookAndFeel> fallbackLookAndFeel_;
     LevelMeter::LookAndFeelMethods* lmLookAndFeel_ = nullptr;
 
     juce::ListenerList<foleys::LevelMeter::Listener> listeners_;
