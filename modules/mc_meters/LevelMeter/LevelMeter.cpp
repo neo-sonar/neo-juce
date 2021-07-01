@@ -151,7 +151,6 @@ void LevelMeter::lookAndFeelChanged()
         lmLookAndFeel_ = lnf;
         return;
     }
-    jassertfalse;
 }
 
 }  // namespace mc
