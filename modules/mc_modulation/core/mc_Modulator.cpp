@@ -1,4 +1,4 @@
-namespace mc
+namespace mc::modulation
 {
 
 Modulator::Modulator(juce::ValueTree valueTree, juce::UndoManager* undoManager)
@@ -56,4 +56,4 @@ void ModulatorList::newObjectAdded(Modulator* t) { juce::ignoreUnused(t); }
 void ModulatorList::objectRemoved(Modulator* /*unused*/) { }
 
 void ModulatorList::objectOrderChanged() { }
-}  // namespace mc
+}  // namespace mc::modulation

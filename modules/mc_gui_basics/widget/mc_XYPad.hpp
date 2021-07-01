@@ -92,7 +92,7 @@ private:
 
     juce::ListenerList<Listener> listeners_ {};
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(XYPad)  // NOLINT
+    JUCE_LEAK_DETECTOR(XYPad)  // NOLINT
 };
 
 }  // namespace mc

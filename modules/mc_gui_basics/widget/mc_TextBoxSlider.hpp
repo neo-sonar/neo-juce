@@ -198,7 +198,7 @@ private:
 
     juce::ListenerList<Listener> listenerList_ {};
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TextBoxSlider)  // NOLINT
+    JUCE_LEAK_DETECTOR(TextBoxSlider)  // NOLINT
 };
 
 /// \brief A text box slider control for changing a value via dragging or scrolling.

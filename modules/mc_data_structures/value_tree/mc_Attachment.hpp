@@ -90,7 +90,7 @@ private:
     juce::UndoManager* undoManager_;
     std::function<void(value_type)> setValue_;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ValueTreeAttachment)  // NOLINT
+    JUCE_LEAK_DETECTOR(ValueTreeAttachment)  // NOLINT
 };
 
 }  // namespace mc

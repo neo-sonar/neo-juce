@@ -1,6 +1,6 @@
 #pragma once
 
-namespace mc
+namespace mc::modulation
 {
 struct ModulationMatrix
 {
@@ -13,4 +13,4 @@ private:
     juce::ValueTree valueTree_;
     juce::UndoManager* undoManager_;
 };
-}  // namespace mc
+}  // namespace mc::modulation

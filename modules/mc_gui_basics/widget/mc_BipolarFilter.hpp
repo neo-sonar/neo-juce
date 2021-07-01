@@ -88,7 +88,7 @@ private:
 
     juce::ListenerList<Listener> listeners_ {};
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BipolarFilter)  // NOLINT
+    JUCE_LEAK_DETECTOR(BipolarFilter)  // NOLINT
 };
 }  // namespace mc
 #endif  // MODERN_CIRCUITS_PLUGINS_mc_BipolarFilter_HPP

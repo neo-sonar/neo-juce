@@ -167,7 +167,7 @@ private:
         return index1 - index2;
     }
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ValueTreeObjectList)  // NOLINT
+    JUCE_LEAK_DETECTOR(ValueTreeObjectList)  // NOLINT
 };
 
 template<typename ObjectType, typename CriticalSectionType = juce::DummyCriticalSection>
@@ -334,7 +334,7 @@ public:
         return index1 - index2;
     }
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ValueTreeObjectListV2)  // NOLINT
+    JUCE_LEAK_DETECTOR(ValueTreeObjectListV2)  // NOLINT
 };
 
 }  // namespace mc

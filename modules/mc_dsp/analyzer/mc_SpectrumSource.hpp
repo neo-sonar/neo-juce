@@ -13,6 +13,11 @@ public:
     SpectrumSource();
     ~SpectrumSource() override = default;
 
+    SpectrumSource(const SpectrumSource& other) = delete;
+    SpectrumSource(SpectrumSource&& other)      = delete;
+    auto operator=(const SpectrumSource& rhs) -> SpectrumSource& = delete;
+    auto operator=(SpectrumSource&& rhs) -> SpectrumSource& = delete;
+
     auto addAudioData(juce::AudioBuffer<float> const& buffer, int startChannel, int numChannels) -> void;
     auto setupAnalyser(int audioFifoSize, double sampleRateToUse) -> void;
 
@@ -42,7 +47,7 @@ private:
     juce::dsp::WindowingFunction<float> windowing_ {size_t(fft_.getSize()),
                                                     juce::dsp::WindowingFunction<float>::kaiser};
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SpectrumSource)  // NOLINT
+    JUCE_LEAK_DETECTOR(SpectrumSource)  // NOLINT
 };
 }  // namespace mc
 #endif  // MODERN_CIRCUITS_PLUGINS_SPECTRUM_ANALYZER_HPP

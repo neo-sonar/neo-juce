@@ -20,8 +20,12 @@ struct XYPadAttachment final : XYPad::Listener
     XYPadAttachment(juce::RangedAudioParameter& parameterX, juce::RangedAudioParameter& parameterY, XYPad& pad,
                     juce::UndoManager* um = nullptr);
 
-    /// \brief Destructor
     ~XYPadAttachment() override;
+
+    XYPadAttachment(const XYPadAttachment& other) = delete;
+    XYPadAttachment(XYPadAttachment&& other)      = delete;
+    auto operator=(const XYPadAttachment& rhs) -> XYPadAttachment& = delete;
+    auto operator=(XYPadAttachment&& rhs) -> XYPadAttachment& = delete;
 
     /// \brief Call this after setting up your slider in the case where you
     /// need to do extra setup after constructing this attachment.

@@ -276,7 +276,7 @@ public:
     void removeListener(foleys::LevelMeter::Listener* /*listener*/);
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LevelMeter)  // NOLINT
+    JUCE_LEAK_DETECTOR(LevelMeter)  // NOLINT
 
     juce::WeakReference<foleys::LevelMeterSource> source_;
 

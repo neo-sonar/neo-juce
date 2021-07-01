@@ -297,7 +297,7 @@ public:
     void resetNewDataFlag() { newDataFlag_ = false; }
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LevelMeterSource)  // NOLINT
+    JUCE_LEAK_DETECTOR(LevelMeterSource)                            // NOLINT
     juce::WeakReference<LevelMeterSource>::Master masterReference;  // NOLINT(readability-identifier-naming)
 
     friend class juce::WeakReference<LevelMeterSource>;

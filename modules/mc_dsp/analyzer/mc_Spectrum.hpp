@@ -22,7 +22,13 @@ public:
     class LookAndFeelMethods
     {
     public:
+        LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
+
+        LookAndFeelMethods(const LookAndFeelMethods& other) = delete;
+        LookAndFeelMethods(LookAndFeelMethods&& other)      = delete;
+        auto operator=(const LookAndFeelMethods& rhs) -> LookAndFeelMethods& = delete;
+        auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods& = delete;
 
         virtual auto setAnalyzerDefaults() -> void = 0;
 
@@ -39,6 +45,11 @@ public:
     explicit Spectrum(SpectrumSource& analyser);
     ~Spectrum() override = default;
 
+    Spectrum(const Spectrum& other) = delete;
+    Spectrum(Spectrum&& other)      = delete;
+    auto operator=(const Spectrum& rhs) -> Spectrum& = delete;
+    auto operator=(Spectrum&& rhs) -> Spectrum& = delete;
+
     auto paint(juce::Graphics& g) -> void override;
     auto resized() -> void override;
 
@@ -50,7 +61,7 @@ private:
     juce::Rectangle<int> textFrame_;
     juce::Path path_;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Spectrum)  // NOLINT
+    JUCE_LEAK_DETECTOR(Spectrum)  // NOLINT
 };
 
 }  // namespace mc

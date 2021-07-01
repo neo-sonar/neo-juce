@@ -5,9 +5,9 @@
 
 TEST_CASE("modulation/core: Modulator", "[modulation][core]")
 {
-    struct TestModulator : mc::Modulator
+    struct TestModulator : mc::modulation::Modulator
     {
-        TestModulator() : mc::Modulator {juce::ValueTree {"test"}, nullptr} { }
+        TestModulator() : mc::modulation::Modulator {juce::ValueTree {"test"}, nullptr} { }
         ~TestModulator() override = default;
 
         TestModulator(const TestModulator& other) = delete;

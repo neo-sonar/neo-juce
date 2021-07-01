@@ -1,7 +1,5 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MODULATOR_MACRO_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MODULATOR_MACRO_HPP
-
-namespace mc
+#pragma once
+namespace mc::modulation
 {
 struct ModulatorMacroIDs
 {
@@ -13,6 +11,11 @@ struct ModulatorMacro final : Modulator
 {
     explicit ModulatorMacro(juce::ValueTree valueTree, juce::UndoManager* undoManager = nullptr);
     ~ModulatorMacro() override = default;
+
+    ModulatorMacro(const ModulatorMacro& other) = delete;
+    ModulatorMacro(ModulatorMacro&& other)      = delete;
+    auto operator=(const ModulatorMacro& rhs) -> ModulatorMacro& = delete;
+    auto operator=(ModulatorMacro&& rhs) -> ModulatorMacro& = delete;
 
     [[nodiscard]] auto getName() const -> juce::String override;
     auto prepare(double sampleRate, int maxSamplesPerBlock) -> void override;
@@ -26,6 +29,4 @@ private:
     CachedAtomicFloat gain_;
 };
 
-}  // namespace mc
-
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MODULATOR_MACRO_HPP
+}  // namespace mc::modulation

@@ -39,16 +39,16 @@ auto SpectrumSource::createPath(juce::Path& p, juce::Rectangle<float> const& bou
     p.clear();
 
     juce::ScopedLock lockedForReading(pathCreationLock_);
-    const auto* fftData = averager_.getReadPointer(0);
-    const auto factor   = bounds.getWidth() / 10.0f;
+    auto const* fftData = averager_.getReadPointer(0);
+    auto const factor   = bounds.getWidth() / 10.0f;
 
     p.startNewSubPath(bounds.getX() + factor * indexToX(0, minFreq), binToY(fftData[0], bounds));
     p.preallocateSpace(averager_.getNumSamples());
     auto lastX = -100.0;
     for (int i = 0; i < averager_.getNumSamples(); ++i)
     {
-        const auto x = bounds.getX() + factor * indexToX(static_cast<float>(i), minFreq);
-        const auto y = binToY(fftData[i], bounds);
+        auto const x = bounds.getX() + factor * indexToX(static_cast<float>(i), minFreq);
+        auto const y = binToY(fftData[i], bounds);
         if (lastX + 6 < x)
         {
             p.lineTo(static_cast<float>(x), static_cast<float>(y));
@@ -101,7 +101,7 @@ auto SpectrumSource::run() -> void
 
 auto SpectrumSource::indexToX(float const index, float const minFreq) const -> float
 {
-    const auto freq = (sampleRate_ * index) / fft_.getSize();
+    auto const freq = (sampleRate_ * index) / static_cast<float>(fft_.getSize());
     return (freq > 0.01f) ? std::log(freq / minFreq) / std::log(2.0f) : 0.0f;
 }
 

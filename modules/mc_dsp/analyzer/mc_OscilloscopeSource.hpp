@@ -4,10 +4,14 @@
 namespace mc
 {
 
-class OscilloscopeSource
+struct OscilloscopeSource
 {
-public:
     OscilloscopeSource() = default;
+
+    OscilloscopeSource(const OscilloscopeSource& other) = delete;
+    OscilloscopeSource(OscilloscopeSource&& other)      = delete;
+    auto operator=(const OscilloscopeSource& rhs) -> OscilloscopeSource& = delete;
+    auto operator=(OscilloscopeSource&& rhs) -> OscilloscopeSource& = delete;
 
     void process(juce::AudioBuffer<float> const& buffer);
     void process(juce::AudioBuffer<double> const& buffer);
@@ -69,7 +73,7 @@ private:
 
     State state_ {State::waitingForTrigger};
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscilloscopeSource)  // NOLINT
+    JUCE_LEAK_DETECTOR(OscilloscopeSource)  // NOLINT
 };
 
 }  // namespace mc

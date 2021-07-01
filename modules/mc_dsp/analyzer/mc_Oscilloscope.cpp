@@ -18,8 +18,10 @@ auto Oscilloscope::paint(juce::Graphics& g) -> void
     auto const area = getLocalBounds();
     if (auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr)
     {
+        auto const* data = sampleData_.data();
+        auto const size  = sampleData_.size();
         lnf->drawOscilloscopeBackground(g, area);
-        lnf->drawOscilloscopePlot(g, area, sampleData_.data(), sampleData_.size(), 1.5f, area.getHeight() / 2.0f);
+        lnf->drawOscilloscopePlot(g, area, data, size, 1.5f, static_cast<float>(area.getHeight()) / 2.0f);
     }
 }
 

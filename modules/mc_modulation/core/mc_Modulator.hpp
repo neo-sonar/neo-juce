@@ -1,7 +1,6 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MODULATOR_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MODULATOR_HPP
+#pragma once
 
-namespace mc
+namespace mc::modulation
 {
 
 struct Modulator
@@ -55,6 +54,4 @@ private:
     JUCE_LEAK_DETECTOR(ModulatorList)  // NOLINT
 };
 
-}  // namespace mc
-
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MODULATOR_HPP
+}  // namespace mc::modulation

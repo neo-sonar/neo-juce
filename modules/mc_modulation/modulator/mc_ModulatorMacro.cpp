@@ -1,4 +1,4 @@
-namespace mc
+namespace mc::modulation
 {
 
 ModulatorMacro::ModulatorMacro(juce::ValueTree valueTree, juce::UndoManager* undoManager)
@@ -29,4 +29,4 @@ auto ModulatorMacro::setGain(float newGain) -> void { gain_ = newGain; }
 
 auto ModulatorMacro::getGain() const -> float { return gain_.get(); }
 
-}  // namespace mc
+}  // namespace mc::modulation
