@@ -3,13 +3,25 @@
 #include "catch2/catch_approx.hpp"
 #include "catch2/catch_test_macros.hpp"
 
-TEST_CASE("modulation/modulator: ModulatorMacro", "[modulation][modulator]")
+TEST_CASE("modulation/modulator: ModulatorMacro::setGain", "[modulation][modulator]")
 {
     auto macro = mc::modulation::ModulatorMacro {juce::ValueTree {mc::modulation::ModulatorMacroIDs::type}};
     CHECK(macro.state.hasType(mc::modulation::ModulatorMacroIDs::type));
     CHECK(macro.getName() == juce::String {"Macro"});
     CHECK(macro.getGain() == Catch::Approx(1.0f));
 
+    macro.setGain(2.0f);
+    CHECK(macro.getGain() == Catch::Approx(2.0f));
+    macro.setGain(3.0f);
+    CHECK(macro.getGain() == Catch::Approx(3.0f));
+
+    auto macro2 = mc::modulation::ModulatorMacro {macro.state.createCopy()};
+    CHECK(macro2.getGain() == Catch::Approx(3.0f));
+}
+
+TEST_CASE("modulation/modulator: ModulatorMacro::process", "[modulation][modulator]")
+{
+    auto macro = mc::modulation::ModulatorMacro {juce::ValueTree {mc::modulation::ModulatorMacroIDs::type}};
     macro.setGain(2.0f);
     CHECK(macro.getGain() == Catch::Approx(2.0f));
 

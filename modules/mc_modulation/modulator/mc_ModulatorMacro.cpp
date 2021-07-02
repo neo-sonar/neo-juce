@@ -2,7 +2,7 @@ namespace mc::modulation
 {
 
 ModulatorMacro::ModulatorMacro(juce::ValueTree valueTree, juce::UndoManager* undoManager)
-    : Modulator {std::move(valueTree), undoManager}, gain_ {state, ModulatorMacroIDs::gain, getUndoManager(), 1.0f}
+    : Modulator {std::move(valueTree), undoManager}, gain_ {state, ModulatorMacroIDs::gain, undoManager, 1.0f}
 {
     jassert(state.hasType(ModulatorMacroIDs::type));
 }

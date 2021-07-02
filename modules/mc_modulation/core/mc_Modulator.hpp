@@ -8,21 +8,23 @@ struct Modulator
     explicit Modulator(juce::ValueTree valueTree, juce::UndoManager* undoManager = nullptr);
     virtual ~Modulator() = default;
 
+    [[nodiscard]] virtual auto getName() const -> juce::String;
+
     virtual auto prepare(double sampleRate, int maxSamplesPerBlock) -> void;
     virtual auto process(juce::AudioBuffer<float>& buffer) -> void;
     virtual auto reset() -> void;
 
-    [[nodiscard]] virtual auto getName() const -> juce::String;
-    [[nodiscard]] auto getUndoManager() const -> juce::UndoManager*;
+    /// \brief Sets a color for this modulator to use.
+    auto setColour(juce::Colour newColor) -> void;
 
-    auto setPlayHead(juce::AudioPlayHead* playHead) -> void;
-    [[nodiscard]] auto getPlayHead() const noexcept -> juce::AudioPlayHead*;
+    /// \brief Returns the color of this modulator.
+    auto getColour() const -> juce::Colour;
 
     juce::ValueTree state;
 
 private:
     juce::UndoManager* undoManager_;
-    juce::AudioPlayHead* playHead_ = nullptr;
+    juce::CachedValue<juce::Colour> color_;
 };
 
 /// \brief An iterable list of Modulator[s].
