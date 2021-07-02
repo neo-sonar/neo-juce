@@ -24,6 +24,7 @@
 
 // clang-format off
 #include "core/mc_Modulator.hpp"
+#include "core/mc_ModulatorList.hpp"
 #include "core/mc_ModulationMatrix.hpp"
 
 #include "modulator/mc_ModulatorMacro.hpp"

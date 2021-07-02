@@ -3,8 +3,11 @@
 namespace mc::modulation
 {
 
-struct Modulator
+struct Modulator : juce::ReferenceCountedObject
 {
+    using Ptr   = juce::ReferenceCountedObjectPtr<Modulator>;
+    using Array = juce::ReferenceCountedArray<Modulator>;
+
     explicit Modulator(juce::ValueTree valueTree, juce::UndoManager* undoManager = nullptr);
     virtual ~Modulator() = default;
 
@@ -25,35 +28,6 @@ struct Modulator
 private:
     juce::UndoManager* undoManager_;
     juce::CachedValue<juce::Colour> color_;
-};
-
-/// \brief An iterable list of Modulator[s].
-struct ModulatorList : ValueTreeObjectListV2<Modulator>
-// , private juce::AsyncUpdater
-{
-    /// \brief Creates a ModulatorList for a parent state.
-    explicit ModulatorList(const juce::ValueTree& parent);
-
-    /// \brief Destructor.
-    ~ModulatorList() override;
-
-    /// \internal
-    [[nodiscard]] auto isSuitableType(const juce::ValueTree& /*v*/) const -> bool override;
-    /// \internal
-    auto createNewObject(const juce::ValueTree& /*v*/) -> Modulator* override;
-    /// \internal
-    void deleteObject(Modulator* t) override;
-    /// \internal
-    void newObjectAdded(Modulator* t) override;
-    /// \internal
-    void objectRemoved(Modulator* /*unused*/) override;
-    /// \internal
-    void objectOrderChanged() override;
-
-private:
-    // void handleAsyncUpdate() override;
-
-    JUCE_LEAK_DETECTOR(ModulatorList)  // NOLINT
 };
 
 }  // namespace mc::modulation
