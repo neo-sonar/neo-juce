@@ -48,8 +48,10 @@
 #include "javascript/mc_JSONUtils.hpp"
 #include "math/mc_Constants.hpp"
 #include "math/mc_RangeUtils.hpp"
-#include "thread/mc_ThreadSafeQueue.hpp"
 #include "time/mc_TimeUtils.hpp"
+
+#include "thread/LockFreeQueue.hpp"
+#include "thread/mc_ThreadSafeQueue.hpp"
 
 #include "thread/mc_BackgroundProcess.hpp"
 #include "thread/mc_LeftRight.hpp"

@@ -10,3 +10,6 @@
 [submodule "3rd_party/mc_external/3rd_party/GSL"]
 	path = 3rd_party/mc_external/3rd_party/GSL
 	url = https://github.com/microsoft/GSL
+[submodule "3rd_party/mc_external/3rd_party/readerwriterqueue"]
+	path = 3rd_party/mc_external/3rd_party/readerwriterqueue
+	url = https://github.com/cameron314/readerwriterqueue

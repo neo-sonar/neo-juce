@@ -6,7 +6,7 @@
  version:       0.1.0
  name:          3rd party code
  description:   Modern Circuits 3rd party header only libraries
- searchpaths:   3rd_party/GSL/include, 3rd_party/fmt/include
+ searchpaths:   3rd_party/GSL/include, 3rd_party/fmt/include, 3rd_party/readerwriterqueue
 
  END_JUCE_MODULE_DECLARATION
  */
@@ -26,5 +26,8 @@
 #include <gsl/gsl>
 
 #include <boost/optional.hpp>
+
+#include "readerwritercircularbuffer.h"
+#include "readerwriterqueue.h"
 
 #endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_EXTERNAL_HPP
