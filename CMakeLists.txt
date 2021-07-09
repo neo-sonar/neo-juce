@@ -108,6 +108,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
             modules/mc_modulation/core/mc_ModulationMatrix_Test.cpp
             modules/mc_modulation/core/mc_Modulator_Test.cpp
+            modules/mc_modulation/core/mc_ModulatorList_Test.cpp
             modules/mc_modulation/modulator/mc_ModulatorMacro_Test.cpp
     )
 

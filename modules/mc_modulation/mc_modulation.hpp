@@ -6,7 +6,7 @@
  version:       0.1.0
  name:          Modulation
  description:   Audio modulators, routing matrix & utilities.
- dependencies:  juce_audio_basics, mc_data_structures
+ dependencies:  juce_audio_basics, mc_data_structures, mc_graphics
 
  END_JUCE_MODULE_DECLARATION
  */
@@ -20,9 +20,11 @@
 
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <mc_data_structures/mc_data_structures.hpp>
+#include <mc_graphics/mc_graphics.hpp>
 
 // clang-format off
 #include "core/mc_Modulator.hpp"
+#include "core/mc_ModulatorList.hpp"
 #include "core/mc_ModulationMatrix.hpp"
 
 #include "modulator/mc_ModulatorMacro.hpp"
