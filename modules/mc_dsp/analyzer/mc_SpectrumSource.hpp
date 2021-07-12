@@ -43,9 +43,8 @@ private:
     juce::WaitableEvent waitForData_;
     juce::CriticalSection pathCreationLock_;
 
-    juce::dsp::FFT fft_ {12};
-    juce::dsp::WindowingFunction<float> windowing_ {size_t(fft_.getSize()),
-                                                    juce::dsp::WindowingFunction<float>::kaiser};
+    juce::dsp::FFT fft_;
+    juce::dsp::WindowingFunction<float> windowing_;
 
     JUCE_LEAK_DETECTOR(SpectrumSource)  // NOLINT
 };

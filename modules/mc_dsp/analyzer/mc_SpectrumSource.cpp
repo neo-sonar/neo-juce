@@ -1,6 +1,11 @@
 namespace mc
 {
-SpectrumSource::SpectrumSource() : Thread("SpectrumSource") { }
+SpectrumSource::SpectrumSource()
+    : Thread("SpectrumSource")
+    , fft_ {11}
+    , windowing_ {static_cast<std::size_t>(fft_.getSize()), juce::dsp::WindowingFunction<float>::kaiser}
+{
+}
 
 auto SpectrumSource::addAudioData(juce::AudioBuffer<float> const& buffer, int startChannel, int numChannels) -> void
 {
@@ -29,7 +34,7 @@ auto SpectrumSource::setupAnalyser(int const audioFifoSize, double const sampleR
     audioFifo_.setSize(1, audioFifoSize);
     abstractFifo_.setTotalSize(audioFifoSize);
     fftBuffer_.setSize(1, fft_.getSize() * 2);
-    averager_.setSize(5, fft_.getSize() / 2, false, true);
+    averager_.setSize(3, fft_.getSize() / 2, false, true);
 
     startThread(5);
 }
