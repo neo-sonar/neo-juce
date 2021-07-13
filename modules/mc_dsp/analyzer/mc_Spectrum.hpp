@@ -30,8 +30,6 @@ public:
         auto operator=(const LookAndFeelMethods& rhs) -> LookAndFeelMethods& = delete;
         auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods& = delete;
 
-        virtual auto setAnalyzerDefaults() -> void = 0;
-
         virtual auto getAnalyserPathBounds(juce::Rectangle<int> const& area) -> juce::Rectangle<int>           = 0;
         virtual auto getAnalyserFrequencyLabelBounds(juce::Rectangle<int> const& area) -> juce::Rectangle<int> = 0;
 
