@@ -94,3 +94,16 @@ template <typename ValueType>
 }
 
 } // namespace mc
+
+template <typename T, typename R>
+struct juce::VariantConverter<std::chrono::duration<T, R>> {
+    [[nodiscard]] static auto fromVar(juce::var const& v) -> std::chrono::duration<T, R>
+    {
+        return std::chrono::duration<T, R> { static_cast<T>(v) };
+    }
+
+    [[nodiscard]] static auto toVar(std::chrono::duration<T, R> const& d) -> juce::var
+    {
+        return juce::var { d.count() };
+    }
+};
