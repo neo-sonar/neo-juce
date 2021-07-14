@@ -57,7 +57,6 @@ juce_add_module(modules/mc_data_structures ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_dsp ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_graphics ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_gui_basics ALIAS_NAMESPACE mc)
-juce_add_module(modules/mc_modulation ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_meters ALIAS_NAMESPACE mc)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
@@ -105,11 +104,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_gui_basics/widget/mc_BipolarFilter_Test.cpp
             modules/mc_gui_basics/widget/mc_TextBoxSlider_Test.cpp
             modules/mc_gui_basics/widget/mc_XYPad_Test.cpp
-
-            modules/mc_modulation/core/mc_ModulationMatrix_Test.cpp
-            modules/mc_modulation/core/mc_Modulator_Test.cpp
-            modules/mc_modulation/core/mc_ModulatorList_Test.cpp
-            modules/mc_modulation/modulator/mc_ModulatorMacro_Test.cpp
     )
 
     target_compile_definitions(${PROJECT_NAME}_tests
@@ -126,7 +120,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             mc::mc_dsp
             mc::mc_graphics
             mc::mc_gui_basics
-            mc::mc_modulation
             mc::mc_meters
             Catch2::Catch2
             juce::juce_recommended_config_flags
