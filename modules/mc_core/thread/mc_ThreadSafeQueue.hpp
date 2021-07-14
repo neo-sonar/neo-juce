@@ -4,11 +4,9 @@
 #include <mutex>
 #include <queue>
 
-namespace mc
-{
-template<typename T>
-class ThreadSafeQueue
-{
+namespace mc {
+template <typename T>
+class ThreadSafeQueue {
 
 public:
     using value_type = T;
@@ -21,12 +19,14 @@ public:
     auto operator=(ThreadSafeQueue const&) -> ThreadSafeQueue& = delete;
 
     ThreadSafeQueue(ThreadSafeQueue&& other) = delete;
-    auto operator=(ThreadSafeQueue&&) -> ThreadSafeQueue& = delete;
+    auto operator=(ThreadSafeQueue &&) -> ThreadSafeQueue& = delete;
 
     [[nodiscard]] auto pop() -> boost::optional<value_type>
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if (queue_.empty()) { return boost::make_optional(false, value_type {}); }
+        if (queue_.empty()) {
+            return boost::make_optional(false, value_type {});
+        }
         value_type tmp = queue_.front();
         queue_.pop();
         return tmp;
@@ -57,6 +57,6 @@ private:
     std::queue<value_type> queue_;
     std::mutex mutable mutex_;
 };
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_APP_ZENTRALE_THREAD_SAFE_QUEUE_HPP
+#endif // MODERN_CIRCUITS_APP_ZENTRALE_THREAD_SAFE_QUEUE_HPP

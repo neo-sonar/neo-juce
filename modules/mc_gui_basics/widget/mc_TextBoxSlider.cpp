@@ -1,5 +1,4 @@
-namespace mc
-{
+namespace mc {
 
 TextBoxSlider::TextBoxSlider()
 {
@@ -10,7 +9,8 @@ TextBoxSlider::TextBoxSlider()
     addAndMakeVisible(text_);
 }
 
-TextBoxSlider::TextBoxSlider(juce::String const& name) : juce::Component {name}
+TextBoxSlider::TextBoxSlider(juce::String const& name)
+    : juce::Component { name }
 {
     text_.setEditable(false, true);
     text_.setFont(juce::Font(11.0f));
@@ -22,12 +22,13 @@ TextBoxSlider::TextBoxSlider(juce::String const& name) : juce::Component {name}
 auto TextBoxSlider::setValue(double const newValue, juce::NotificationType notification) -> void
 {
     juce::ignoreUnused(notification);
-    if (auto const clipped = range_.clipValue(newValue); clipped != value_)
-    {
+    if (auto const clipped = range_.clipValue(newValue); clipped != value_) {
         value_ = clipped;
         text_.setText(getTextFromValue(clipped), juce::dontSendNotification);
         listenerList_.call([self = this](auto& listener) { listener.textBoxSliderValueChanged(self); });
-        if (static_cast<bool>(onValueChange)) { onValueChange(); }
+        if (static_cast<bool>(onValueChange)) {
+            onValueChange();
+        }
     }
 }
 
@@ -63,14 +64,18 @@ auto TextBoxSlider::isTextBoxEditable() const noexcept -> bool { return text_.is
 
 auto TextBoxSlider::getValueFromText(juce::String const& text) const -> double
 {
-    if (static_cast<bool>(valueFromText)) { return valueFromText(text); }
+    if (static_cast<bool>(valueFromText)) {
+        return valueFromText(text);
+    }
     return text.getFloatValue();
 }
 
 auto TextBoxSlider::getTextFromValue(double const value) const -> juce::String
 {
-    if (static_cast<bool>(textFromValue)) { return textFromValue(value); }
-    return juce::String {value, 1};
+    if (static_cast<bool>(textFromValue)) {
+        return textFromValue(value);
+    }
+    return juce::String { value, 1 };
 }
 
 auto TextBoxSlider::setJustificationType(juce::Justification const justification) -> void
@@ -91,7 +96,9 @@ auto TextBoxSlider::resized() -> void { text_.setBounds(getLocalBounds()); }
 
 auto TextBoxSlider::mouseDrag(juce::MouseEvent const& event) -> void
 {
-    if (!isDragging_) { startDrag(); }
+    if (!isDragging_) {
+        startDrag();
+    }
     auto const direction = event.getDistanceFromDragStartY() > 0 ? -1.0 : 1.0;
     setValue(getValue() + interval_ * direction);
 }
@@ -99,13 +106,17 @@ auto TextBoxSlider::mouseDrag(juce::MouseEvent const& event) -> void
 auto TextBoxSlider::mouseUp(juce::MouseEvent const& event) -> void
 {
     juce::ignoreUnused(event);
-    if (isDragging_) { stopDrag(); }
+    if (isDragging_) {
+        stopDrag();
+    }
 }
 
 auto TextBoxSlider::mouseDoubleClick(juce::MouseEvent const& event) -> void
 {
     juce::ignoreUnused(event);
-    if (doubleClickToResetIsEnabled_) { setValue(defaultValue_); }
+    if (doubleClickToResetIsEnabled_) {
+        setValue(defaultValue_);
+    }
 }
 
 auto TextBoxSlider::mouseWheelMove(juce::MouseEvent const& event, juce::MouseWheelDetails const& wheel) -> void
@@ -120,17 +131,22 @@ auto TextBoxSlider::startDrag() -> void
 {
     isDragging_ = true;
     listenerList_.call([self = this](Listener& listener) { listener.textBoxSliderDragStarted(self); });
-    if (static_cast<bool>(onDragStart)) { onDragStart(); }
+    if (static_cast<bool>(onDragStart)) {
+        onDragStart();
+    }
 }
 
 auto TextBoxSlider::stopDrag() -> void
 {
     isDragging_ = false;
     listenerList_.call([self = this](Listener& listener) { listener.textBoxSliderDragEnded(self); });
-    if (static_cast<bool>(onDragEnd)) { onDragEnd(); }
+    if (static_cast<bool>(onDragEnd)) {
+        onDragEnd();
+    }
 }
 
-TextBoxSliderV2::TextBoxSliderV2() : juce::Slider {juce::Slider::LinearBarVertical, juce::Slider::TextBoxBelow}
+TextBoxSliderV2::TextBoxSliderV2()
+    : juce::Slider { juce::Slider::LinearBarVertical, juce::Slider::TextBoxBelow }
 {
     setTextBoxIsEditable(false);
     setColour(juce::Label::backgroundColourId, juce::Colours::transparentBlack);
@@ -140,4 +156,4 @@ TextBoxSliderV2::TextBoxSliderV2() : juce::Slider {juce::Slider::LinearBarVertic
     setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::transparentBlack);
 }
 
-}  // namespace mc
+} // namespace mc

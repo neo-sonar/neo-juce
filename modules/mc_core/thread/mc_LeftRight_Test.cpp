@@ -43,7 +43,7 @@ TEST_CASE("core/thread: LeftRight - distributed modify read modify read", "[core
 TEST_CASE("core/thread: LeftRight - noexcept specs", "[core][thread]")
 {
     using lrint = mc::LeftRight<int>;
-    lrint lri {0};
+    lrint lri { 0 };
 
     auto nullObserver         = [](lrint::const_reference i) { return i; };
     auto noexceptNullObserver = [](lrint::const_reference i) noexcept { return i; };
@@ -75,8 +75,7 @@ template class mc::BasicLeftRight<int, unsafe_reader_registry>;
 
 TEST_CASE("core/thread: LeftRight<struct Data>", "[core][thread]")
 {
-    struct Data
-    {
+    struct Data {
         std::uint64_t w {};
         std::uint64_t x {};
         std::uint64_t y {};
@@ -84,7 +83,7 @@ TEST_CASE("core/thread: LeftRight<struct Data>", "[core][thread]")
 
         Data() noexcept = default;
         Data(std::uint64_t wInit, std::uint64_t xInit, std::uint64_t yInit, std::uint64_t zInit) noexcept
-            : w {wInit}, x {xInit}, y {yInit}, z {zInit}
+            : w { wInit }, x { xInit }, y { yInit }, z { zInit }
         {
         }
     };
@@ -93,8 +92,7 @@ TEST_CASE("core/thread: LeftRight<struct Data>", "[core][thread]")
     LeftRightData data(mc::InPlace, 1, 2, 3, 4);
 
     std::thread backgroundThread([&data] {
-        for (auto i = 0; i < 100'000; ++i)
-        {
+        for (auto i = 0; i < 100'000; ++i) {
             data.modify([](LeftRightData::reference writeData) noexcept {
                 writeData.w = 1;
                 writeData.x = 2;
@@ -104,8 +102,7 @@ TEST_CASE("core/thread: LeftRight<struct Data>", "[core][thread]")
         }
     });
 
-    for (auto i = 0; i < 100'000; ++i)
-    {
+    for (auto i = 0; i < 100'000; ++i) {
         data.observe([](LeftRightData::const_reference readData) {
             CHECK(readData.w == 1);
             CHECK(readData.x == 2);

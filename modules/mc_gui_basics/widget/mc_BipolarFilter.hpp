@@ -1,20 +1,16 @@
 #ifndef MODERN_CIRCUITS_PLUGINS_mc_BipolarFilter_HPP
 #define MODERN_CIRCUITS_PLUGINS_mc_BipolarFilter_HPP
 
-namespace mc
-{
-class BipolarFilter : public juce::Component
-{
+namespace mc {
+class BipolarFilter : public juce::Component {
 public:
-    enum ColourIds
-    {
+    enum ColourIds {
         backgroundColor = 0x1330001,
         lineColor       = 0x1330002,
         thumbColor      = 0x1330003,
     };
 
-    struct Listener
-    {
+    struct Listener {
         virtual ~Listener() = default;
 
         virtual auto bipolarFilterValueChanged(BipolarFilter* bipolarFilter) -> void = 0;
@@ -78,17 +74,17 @@ private:
     auto startDragging() -> void;
     auto stopDragging() -> void;
 
-    juce::Range<double> range_ {-1.0, 1.0};
-    double currentValue_ {0.0};
-    double defaultValue_ {0.0};
-    bool doubleClickToResetIsEnabled_ {true};
+    juce::Range<double> range_ { -1.0, 1.0 };
+    double currentValue_ { 0.0 };
+    double defaultValue_ { 0.0 };
+    bool doubleClickToResetIsEnabled_ { true };
 
     juce::Rectangle<float> thumbArea_ {};
-    bool isDragging_ {false};
+    bool isDragging_ { false };
 
     juce::ListenerList<Listener> listeners_ {};
 
-    JUCE_LEAK_DETECTOR(BipolarFilter)  // NOLINT
+    JUCE_LEAK_DETECTOR(BipolarFilter) // NOLINT
 };
-}  // namespace mc
-#endif  // MODERN_CIRCUITS_PLUGINS_mc_BipolarFilter_HPP
+} // namespace mc
+#endif // MODERN_CIRCUITS_PLUGINS_mc_BipolarFilter_HPP

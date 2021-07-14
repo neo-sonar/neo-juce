@@ -1,5 +1,4 @@
-namespace mc
-{
+namespace mc {
 
 auto ButtonUtils::mapSVG(juce::DrawableButton& button, char const* svgData, size_t svgSize, juce::Colour color) -> void
 {
@@ -9,4 +8,4 @@ auto ButtonUtils::mapSVG(juce::DrawableButton& button, char const* svgData, size
     button.setImages(drawable.get());
 }
 
-}  // namespace mc
+} // namespace mc

@@ -5,16 +5,16 @@
 
 TEST_CASE("core/time: toMilliseconds", "[core][time]")
 {
-    CHECK(mc::toMilliseconds(mc::Seconds {1.0}) == mc::Seconds {1.0});
-    CHECK(mc::toMilliseconds(mc::Seconds {1.0}) == mc::Milliseconds {1'000.0});
-    CHECK(mc::toMilliseconds(mc::Seconds {0.5}) == mc::Milliseconds {500.0});
+    CHECK(mc::toMilliseconds(mc::Seconds { 1.0 }) == mc::Seconds { 1.0 });
+    CHECK(mc::toMilliseconds(mc::Seconds { 1.0 }) == mc::Milliseconds { 1'000.0 });
+    CHECK(mc::toMilliseconds(mc::Seconds { 0.5 }) == mc::Milliseconds { 500.0 });
 }
 
 TEST_CASE("core/time: toSeconds", "[core][time]")
 {
-    CHECK(mc::toSeconds(mc::Seconds {1.0}) == mc::Seconds {1.0});
-    CHECK(mc::toSeconds(mc::Milliseconds {1'000.0}) == mc::Seconds {1.0});
-    CHECK(mc::toSeconds(mc::Milliseconds {500.0}) == mc::Seconds {0.5});
+    CHECK(mc::toSeconds(mc::Seconds { 1.0 }) == mc::Seconds { 1.0 });
+    CHECK(mc::toSeconds(mc::Milliseconds { 1'000.0 }) == mc::Seconds { 1.0 });
+    CHECK(mc::toSeconds(mc::Milliseconds { 500.0 }) == mc::Seconds { 0.5 });
 }
 
 TEMPLATE_TEST_CASE("core/time: samplesToMicroseconds", "[core][time]", int, float, double)
@@ -90,9 +90,9 @@ TEST_CASE("core/time: barsToSamples", "[core][time]")
 
 TEST_CASE("core/time: barsToSeconds", "[core][time]")
 {
-    CHECK(mc::barsToSeconds(120.0, 2.0, 1.0) == mc::Seconds {4.0});
-    CHECK(mc::barsToSeconds(120.0, 1.0, 1.0) == mc::Seconds {2.0});
-    CHECK(mc::barsToSeconds(120.0, 1.0, 4.0) == mc::Seconds {0.5});
+    CHECK(mc::barsToSeconds(120.0, 2.0, 1.0) == mc::Seconds { 4.0 });
+    CHECK(mc::barsToSeconds(120.0, 1.0, 1.0) == mc::Seconds { 2.0 });
+    CHECK(mc::barsToSeconds(120.0, 1.0, 4.0) == mc::Seconds { 0.5 });
 }
 
 TEST_CASE("core/time: bpmToHertz", "[core][time]")

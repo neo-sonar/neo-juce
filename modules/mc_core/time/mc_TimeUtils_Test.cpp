@@ -14,7 +14,7 @@ TEST_CASE("core/time: VariantConverter<juce::Time>", "[core][time]")
 
     SECTION("constructed")
     {
-        auto const time = juce::Time {1995, 05, 15, 0, 0, 0, 0, false};
+        auto const time = juce::Time { 1995, 05, 15, 0, 0, 0, 0, false };
         auto const var  = juce::VariantConverter<juce::Time>::toVar(time);
         CHECK(time == juce::VariantConverter<juce::Time>::fromVar(var));
     }

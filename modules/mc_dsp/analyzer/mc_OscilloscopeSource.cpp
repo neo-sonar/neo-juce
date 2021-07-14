@@ -1,5 +1,4 @@
-namespace mc
-{
+namespace mc {
 
 void OscilloscopeSource::process(juce::AudioBuffer<float> const& buffer)
 {
@@ -17,4 +16,4 @@ void OscilloscopeSource::process(juce::AudioBuffer<double> const& buffer)
 
 auto OscilloscopeSource::getQueue() -> AudioBufferQueue<double>& { return audioBufferQueue_; }
 
-}  // namespace mc
+} // namespace mc

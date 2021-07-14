@@ -1,14 +1,11 @@
 #ifndef MODERN_CIRCUITS_APP_ZENTRALE_BACKGROUND_PROCESS_HPP
 #define MODERN_CIRCUITS_APP_ZENTRALE_BACKGROUND_PROCESS_HPP
 
-namespace mc
-{
+namespace mc {
 
-class BackgroundProcess : private juce::Timer
-{
+class BackgroundProcess : private juce::Timer {
 public:
-    struct Listener
-    {
+    struct Listener {
         Listener()          = default;
         virtual ~Listener() = default;
 
@@ -39,12 +36,12 @@ private:
 
     juce::ListenerList<Listener> listeners_ {};
     ThreadSafeQueue<juce::String> queue_ {};
-    juce::ThreadPool* threadPool_ {nullptr};
-    std::atomic<bool> processHasStarted_ {false};
-    std::atomic<bool> processHasFinished_ {false};
-    std::atomic<uint32_t> processExitCode_ {0};
+    juce::ThreadPool* threadPool_ { nullptr };
+    std::atomic<bool> processHasStarted_ { false };
+    std::atomic<bool> processHasFinished_ { false };
+    std::atomic<uint32_t> processExitCode_ { 0 };
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_APP_ZENTRALE_BACKGROUND_PROCESS_HPP
+#endif // MODERN_CIRCUITS_APP_ZENTRALE_BACKGROUND_PROCESS_HPP

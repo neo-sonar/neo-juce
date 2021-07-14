@@ -1,11 +1,9 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_OSCILLOSCOPE_SOURCE_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_OSCILLOSCOPE_SOURCE_HPP
 
-namespace mc
-{
+namespace mc {
 
-struct OscilloscopeSource
-{
+struct OscilloscopeSource {
     OscilloscopeSource()  = default;
     ~OscilloscopeSource() = default;
 
@@ -20,19 +18,16 @@ struct OscilloscopeSource
     [[nodiscard]] auto getQueue() -> AudioBufferQueue<double>&;
 
 private:
-    template<typename SampleType>
+    template <typename SampleType>
     void processInternal(SampleType const* data, std::size_t numSamples)
     {
         std::size_t index = 0;
 
-        if (state_ == State::waitingForTrigger)
-        {
-            while (index++ < numSamples)
-            {
+        if (state_ == State::waitingForTrigger) {
+            while (index++ < numSamples) {
                 auto currentSample = *data++;
 
-                if (currentSample >= triggerLevel && prevSample_ < triggerLevel)
-                {
+                if (currentSample >= triggerLevel && prevSample_ < triggerLevel) {
                     numCollected_ = 0;
                     state_        = State::collecting;
                     break;
@@ -42,14 +37,11 @@ private:
             }
         }
 
-        if (state_ == State::collecting)
-        {
-            while (index++ < numSamples)
-            {
+        if (state_ == State::collecting) {
+            while (index++ < numSamples) {
                 buffer_.at(numCollected_++) = *data++;
 
-                if (numCollected_ == buffer_.size())
-                {
+                if (numCollected_ == buffer_.size()) {
                     audioBufferQueue_.push(buffer_.data(), buffer_.size());
                     state_      = State::waitingForTrigger;
                     prevSample_ = 100.0;
@@ -66,17 +58,16 @@ private:
 
     static constexpr auto triggerLevel = 0.05;
 
-    enum class State
-    {
+    enum class State {
         waitingForTrigger,
         collecting
     };
 
-    State state_ {State::waitingForTrigger};
+    State state_ { State::waitingForTrigger };
 
-    JUCE_LEAK_DETECTOR(OscilloscopeSource)  // NOLINT
+    JUCE_LEAK_DETECTOR(OscilloscopeSource) // NOLINT
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_OSCILLOSCOPE_SOURCE_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_OSCILLOSCOPE_SOURCE_HPP

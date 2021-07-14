@@ -18,7 +18,7 @@
 #define MC_LINUX 1
 #endif
 #elif defined(__APPLE_CPP__) || defined(__APPLE_CC__)
-#include <CoreFoundation/CoreFoundation.h>  // (needed to find out what platform we're using)
+#include <CoreFoundation/CoreFoundation.h> // (needed to find out what platform we're using)
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #define MC_IPHONE 1
@@ -74,7 +74,7 @@
 /**
  * @brief Resolve which function signature macro will be used.
  */
-#if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600))         \
+#if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600)) \
     || defined(__ghs__)
 #define MC_FUNC_SIG __PRETTY_FUNCTION__
 #elif defined(__DMC__) && (__DMC__ >= 0x810)
@@ -149,8 +149,7 @@
 #define MC_CACHE_LINE_SIZE alignof(max_align_t)
 #endif
 
-namespace mc
-{
+namespace mc {
 
 inline constexpr std::size_t HardwareCacheLineSize = MC_CACHE_LINE_SIZE;
 
@@ -168,4 +167,4 @@ inline constexpr std::size_t HardwareCacheLineSize = MC_CACHE_LINE_SIZE;
 #define MC_ALIGNAS(bytes)
 #endif
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP

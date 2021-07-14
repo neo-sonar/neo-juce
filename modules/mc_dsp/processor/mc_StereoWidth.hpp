@@ -1,16 +1,13 @@
 #pragma once
 
-namespace mc::dsp
-{
+namespace mc::dsp {
 
 /// @brief Controls the width of a stereo signal
-class StereoWidth
-{
+class StereoWidth {
 public:
     /// @brief Holds the parameters for this processor.
-    struct Parameters
-    {
-        float width = 1.0f;  // 0 to 2.0: 1 = Normal, 0 = Mono
+    struct Parameters {
+        float width = 1.0f; // 0 to 2.0: 1 = Normal, 0 = Mono
     };
 
     StereoWidth() = default;
@@ -38,7 +35,7 @@ public:
     void reset() noexcept { }
 
     /// @brief Applies the process to a stereo buffer.
-    template<typename ProcessContext>
+    template <typename ProcessContext>
     void process(const ProcessContext& context) noexcept
     {
         auto const& inputBlock                     = context.getInputBlock();
@@ -58,8 +55,7 @@ public:
 
         auto const coef = parameters_.width * 0.5f;
 
-        for (size_t sample = 0; sample < numSamples; ++sample)
-        {
+        for (size_t sample = 0; sample < numSamples; ++sample) {
             auto const inLeft  = left[sample];
             auto const inRight = right[sample];
 
@@ -76,7 +72,7 @@ public:
 
 private:
     bool enabled_          = true;
-    Parameters parameters_ = {1.0f};
+    Parameters parameters_ = { 1.0f };
 };
 
-}  // namespace mc::dsp
+} // namespace mc::dsp

@@ -11,7 +11,7 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::TextBoxSlider()", "[gui_basics][wid
 
 TEST_CASE("gui_basics/widget: TextBoxSlider::TextBoxSlider(componentName)", "[gui_basics][widget]")
 {
-    mc::TextBoxSlider slider {"slider"};
+    mc::TextBoxSlider slider { "slider" };
     CHECK(slider.getName() == "slider");
 }
 
@@ -39,7 +39,7 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::Range", "[gui_basics][widget]")
     CHECK(slider.getMaximum() == Catch::Approx(10.0));
     CHECK(slider.getInterval() == Catch::Approx(0.1));
 
-    slider.setRange({0.0, 4.0}, 0.01);
+    slider.setRange({ 0.0, 4.0 }, 0.01);
     CHECK(slider.getRange().getStart() == Catch::Approx(0.0));
     CHECK(slider.getRange().getEnd() == Catch::Approx(4.0));
     CHECK(slider.getMinimum() == Catch::Approx(0.0));
@@ -125,11 +125,9 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::getTextFromValue", "[gui_basics][wi
     CHECK(slider.getTextFromValue(2.0) == "test");
 }
 
-namespace
-{
+namespace {
 
-struct TestListenerValueChanged : mc::TextBoxSlider::Listener
-{
+struct TestListenerValueChanged : mc::TextBoxSlider::Listener {
     TestListenerValueChanged()           = default;
     ~TestListenerValueChanged() override = default;
 
@@ -138,19 +136,19 @@ struct TestListenerValueChanged : mc::TextBoxSlider::Listener
     auto operator=(const TestListenerValueChanged& rhs) -> TestListenerValueChanged& = delete;
     auto operator=(TestListenerValueChanged&& rhs) -> TestListenerValueChanged& = delete;
 
-    auto textBoxSliderDragStarted(mc::TextBoxSlider* /*s*/) -> void override { }
-    auto textBoxSliderDragEnded(mc::TextBoxSlider* /*s*/) -> void override { }
+    auto textBoxSliderDragStarted(mc::TextBoxSlider * /*s*/) -> void override { }
+    auto textBoxSliderDragEnded(mc::TextBoxSlider * /*s*/) -> void override { }
     auto textBoxSliderValueChanged(mc::TextBoxSlider* s) -> void override
     {
         wasCalled = true;
         value     = s->getValue();
     }
 
-    bool wasCalled {false};
+    bool wasCalled { false };
     boost::optional<double> value {};
 };
 
-}  // namespace
+} // namespace
 
 TEST_CASE("gui_basics/widget: TextBoxSlider::Listener::textBoxSliderValueChanged", "[gui_basics][widget]")
 {

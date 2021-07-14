@@ -1,16 +1,13 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_OSCILLOSCOPE_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_OSCILLOSCOPE_HPP
 
-namespace mc
-{
+namespace mc {
 
 class Oscilloscope
-    : public juce::Component
-    , private juce::Timer
-{
+    : public juce::Component,
+      private juce::Timer {
 public:
-    class LookAndFeelMethods
-    {
+    class LookAndFeelMethods {
     public:
         LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
@@ -22,7 +19,7 @@ public:
 
         virtual auto drawOscilloscopeBackground(juce::Graphics& g, juce::Rectangle<int> bounds) -> void = 0;
         virtual auto drawOscilloscopePlot(juce::Graphics& g, juce::Rectangle<int> bounds, double const* data,
-                                          std::size_t numSamples, float scaler = 1.0f, float offset = 0.0f) -> void
+            std::size_t numSamples, float scaler = 1.0f, float offset = 0.0f) -> void
             = 0;
     };
 
@@ -44,9 +41,9 @@ private:
     OscilloscopeSource& oscilloscopeSource_;
     std::array<double, AudioBufferQueue<double>::bufferSize> sampleData_ {};
 
-    JUCE_LEAK_DETECTOR(Oscilloscope)  // NOLINT
+    JUCE_LEAK_DETECTOR(Oscilloscope) // NOLINT
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_OSCILLOSCOPE_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_OSCILLOSCOPE_HPP

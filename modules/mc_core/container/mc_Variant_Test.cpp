@@ -4,6 +4,6 @@
 
 TEST_CASE("core/container: variant", "[core][container]")
 {
-    auto v = mc::variant<int, float> {143.0f};
+    auto v = mc::variant<int, float> { 143.0f };
     CHECK(mc::get<float>(v) == 143.0f);
 }

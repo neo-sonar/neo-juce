@@ -6,7 +6,7 @@ TEST_CASE("graphics/images: VariantConverter<juce::Image>", "[graphics][images]"
 {
     SECTION("rgb cleared")
     {
-        auto const original = juce::Image {juce::Image::RGB, 2, 2, true};
+        auto const original = juce::Image { juce::Image::RGB, 2, 2, true };
         auto const value    = juce::VariantConverter<juce::Image>::toVar(original);
         auto const result   = juce::VariantConverter<juce::Image>::fromVar(value);
         CHECK(original.isValid() == result.isValid());

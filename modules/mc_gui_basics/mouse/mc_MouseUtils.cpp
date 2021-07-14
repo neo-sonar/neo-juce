@@ -1,5 +1,4 @@
-namespace mc
-{
+namespace mc {
 
 auto MouseEventUtils::hitTest(juce::MouseEvent const& event, juce::Rectangle<float> bounds) -> bool
 {
@@ -11,4 +10,4 @@ auto MouseEventUtils::hitTest(juce::MouseEvent const& event, juce::Point<float> 
     return event.position.getDistanceFrom(point) <= radius;
 }
 
-}  // namespace mc
+} // namespace mc

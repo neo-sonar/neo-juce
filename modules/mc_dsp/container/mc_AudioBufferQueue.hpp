@@ -1,12 +1,10 @@
 #ifndef MODERN_CIRCUITS_PLUGINS_AUDIO_BUFFER_QUEUE_HPP
 #define MODERN_CIRCUITS_PLUGINS_AUDIO_BUFFER_QUEUE_HPP
 
-namespace mc
-{
+namespace mc {
 
-template<typename SampleType>
-class AudioBufferQueue
-{
+template <typename SampleType>
+class AudioBufferQueue {
 public:
     AudioBufferQueue() = default;
 
@@ -27,8 +25,7 @@ public:
         jassert(size1 <= 1);
         jassert(size2 == 0);
 
-        if (size1 > 0)
-        {
+        if (size1 > 0) {
             auto* const dest = buffers_[static_cast<std::size_t>(start1)].data();
             auto const num   = static_cast<int>(juce::jmin(bufferSize, numSamples));
             juce::FloatVectorOperations::copy(dest, dataToPush, num);
@@ -48,8 +45,7 @@ public:
         jassert(size1 <= 1);
         jassert(size2 == 0);
 
-        if (size1 > 0)
-        {
+        if (size1 > 0) {
             auto const* const src = buffers_[(std::size_t)start1].data();
             juce::FloatVectorOperations::copy(outputBuffer, src, static_cast<int>(bufferSize));
         }
@@ -58,10 +54,10 @@ public:
     }
 
 private:
-    juce::AbstractFifo abstractFifo_ {numBuffers};
+    juce::AbstractFifo abstractFifo_ { numBuffers };
     std::array<std::array<SampleType, bufferSize>, numBuffers> buffers_ {};
 
-    JUCE_DECLARE_NON_COPYABLE(AudioBufferQueue)  // NOLINT
+    JUCE_DECLARE_NON_COPYABLE(AudioBufferQueue) // NOLINT
 };
-}  // namespace mc
-#endif  // MODERN_CIRCUITS_PLUGINS_AUDIO_BUFFER_QUEUE_HPP
+} // namespace mc
+#endif // MODERN_CIRCUITS_PLUGINS_AUDIO_BUFFER_QUEUE_HPP

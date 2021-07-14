@@ -1,7 +1,7 @@
-namespace mc
-{
+namespace mc {
 
-Oscilloscope::Oscilloscope(OscilloscopeSource& source) : oscilloscopeSource_(source)
+Oscilloscope::Oscilloscope(OscilloscopeSource& source)
+    : oscilloscopeSource_(source)
 {
     sampleData_.fill(double(0));
     setFramesPerSecond(30);
@@ -16,8 +16,7 @@ auto Oscilloscope::setFramesPerSecond(int framesPerSecond) -> void
 auto Oscilloscope::paint(juce::Graphics& g) -> void
 {
     auto const area = getLocalBounds();
-    if (auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr)
-    {
+    if (auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr) {
         auto const* data = sampleData_.data();
         auto const size  = sampleData_.size();
         lnf->drawOscilloscopeBackground(g, area);
@@ -32,4 +31,4 @@ auto Oscilloscope::timerCallback() -> void
     repaint();
 }
 
-}  // namespace mc
+} // namespace mc

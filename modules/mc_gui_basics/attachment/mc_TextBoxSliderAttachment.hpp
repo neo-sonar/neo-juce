@@ -1,13 +1,11 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_TEXT_BOX_SLIDER_ATTACHMENT_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_TEXT_BOX_SLIDER_ATTACHMENT_HPP
 
-namespace mc
-{
-class TextBoxSliderValueTreeAttachment : private TextBoxSlider::Listener
-{
+namespace mc {
+class TextBoxSliderValueTreeAttachment : private TextBoxSlider::Listener {
 public:
     TextBoxSliderValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, TextBoxSlider& slider,
-                                     juce::UndoManager* undoManager = nullptr);
+        juce::UndoManager* undoManager = nullptr);
 
     ~TextBoxSliderValueTreeAttachment() override;
     void sendInitialUpdate();
@@ -22,6 +20,6 @@ private:
     ValueTreeAttachment<float> attachment_;
     bool ignoreCallbacks_ = false;
 };
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_TEXT_BOX_SLIDER_ATTACHMENT_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_TEXT_BOX_SLIDER_ATTACHMENT_HPP

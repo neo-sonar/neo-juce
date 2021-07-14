@@ -43,4 +43,4 @@
 
 #include "attachment/mc_XYPadAttachment.hpp"
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP

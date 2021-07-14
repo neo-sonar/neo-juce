@@ -12,13 +12,13 @@ TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::Range>", "[core][math]", i
     }
     SECTION("0.0 - 10.0")
     {
-        auto const range = juce::Range<TestType> {0, 10};
+        auto const range = juce::Range<TestType> { 0, 10 };
         auto const var   = juce::VariantConverter<juce::Range<TestType>>::toVar(range);
         CHECK(range == juce::VariantConverter<juce::Range<TestType>>::fromVar(var));
     }
     SECTION("-10.0 - 10.0")
     {
-        auto const range = juce::Range<TestType> {-10, 10};
+        auto const range = juce::Range<TestType> { -10, 10 };
         auto const var   = juce::VariantConverter<juce::Range<TestType>>::toVar(range);
         CHECK(range == juce::VariantConverter<juce::Range<TestType>>::fromVar(var));
     }
@@ -41,7 +41,7 @@ TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::NormalisableRange>", "[cor
 
     SECTION("0.0 - 10.0")
     {
-        auto const expected = juce::NormalisableRange<TestType> {0, 10};
+        auto const expected = juce::NormalisableRange<TestType> { 0, 10 };
         auto const var      = juce::VariantConverter<juce::NormalisableRange<TestType>>::toVar(expected);
         auto const testCase = juce::VariantConverter<juce::NormalisableRange<TestType>>::fromVar(var);
 

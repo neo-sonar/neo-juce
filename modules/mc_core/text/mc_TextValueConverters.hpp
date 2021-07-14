@@ -1,13 +1,11 @@
 #ifndef MODERN_CIRCUITS_PLUGINS_TEXT_VALUE_CONVERTER_HPP
 #define MODERN_CIRCUITS_PLUGINS_TEXT_VALUE_CONVERTER_HPP
 
-namespace mc
-{
+namespace mc {
 /**
  * @brief Text & float converter for active/bypass.
  */
-struct ActiveTextConverter
-{
+struct ActiveTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
@@ -23,8 +21,7 @@ struct ActiveTextConverter
 /**
  * @brief Text & float converter for frequency.
  */
-struct FrequencyTextConverter
-{
+struct FrequencyTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
@@ -41,8 +38,7 @@ struct FrequencyTextConverter
 /**
  * @brief Text & float converter for filter quality.
  */
-struct QualityTextConverter
-{
+struct QualityTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
 
@@ -56,8 +52,7 @@ struct QualityTextConverter
 /**
  * @brief Text & float converter for percentages.
  */
-struct PercentTextConverter
-{
+struct PercentTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
@@ -73,8 +68,7 @@ struct PercentTextConverter
 /**
  * @brief Text & float converter for durations based on seconds.
  */
-struct TimeSecondsTextConverter
-{
+struct TimeSecondsTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
@@ -90,8 +84,7 @@ struct TimeSecondsTextConverter
 /**
  * @brief Text & float converter for durations based on seconds.
  */
-struct TimeMillisecondsTextConverter
-{
+struct TimeMillisecondsTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
@@ -107,8 +100,7 @@ struct TimeMillisecondsTextConverter
 /**
  * @brief Text & float converter for gain.
  */
-struct GainTextConverter
-{
+struct GainTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
@@ -124,8 +116,7 @@ struct GainTextConverter
 /**
  * @brief Text & float converter for phase invert.
  */
-struct InvertPhaseTextConverter
-{
+struct InvertPhaseTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
@@ -135,8 +126,7 @@ struct InvertPhaseTextConverter
     [[nodiscard]] auto operator()(juce::String const& text) const -> float { return text == "Normal" ? 0.0f : 1.0f; }
 };
 
-struct InvertPhaseBoolTextConverter
-{
+struct InvertPhaseBoolTextConverter {
 public:
     [[nodiscard]] auto operator()(bool value, int maxStringLength = 0) const -> juce::String
     {
@@ -147,15 +137,18 @@ public:
     [[nodiscard]] auto operator()(juce::String const& text) const -> bool { return text != "Normal"; }
 };
 
-struct RatioCompTextConverter
-{
+struct RatioCompTextConverter {
 public:
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
 
-        if (value > 30.f) { return "Limiter"; }
-        if (value < 10.f) { return "1:" + juce::String(value, 1); }
+        if (value > 30.f) {
+            return "Limiter";
+        }
+        if (value < 10.f) {
+            return "1:" + juce::String(value, 1);
+        }
 
         return "1:" + juce::String(static_cast<int>(value));
     }
@@ -163,15 +156,18 @@ public:
     [[nodiscard]] auto operator()(juce::String const& text) const -> float { return text.substring(2).getFloatValue(); }
 };
 
-struct RatioExpTextConverter
-{
+struct RatioExpTextConverter {
 public:
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
 
-        if (value == 21.f) { return "Gate"; }
-        if (value < 10.f) { return juce::String(value, 1) + ":1"; }
+        if (value == 21.f) {
+            return "Gate";
+        }
+        if (value < 10.f) {
+            return juce::String(value, 1) + ":1";
+        }
 
         return juce::String(static_cast<int>(value)) + ":1";
     }
@@ -182,6 +178,6 @@ public:
     }
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_PLUGINS_TEXT_VALUE_CONVERTER_HPP
+#endif // MODERN_CIRCUITS_PLUGINS_TEXT_VALUE_CONVERTER_HPP

@@ -1,12 +1,9 @@
 #ifndef MODERN_CIRCUITS_PLUGINS_XY_PAD_HPP
 #define MODERN_CIRCUITS_PLUGINS_XY_PAD_HPP
 
-namespace mc
-{
-struct XYPad : juce::Component
-{
-    enum ColourIds
-    {
+namespace mc {
+struct XYPad : juce::Component {
+    enum ColourIds {
         backgroundColor  = 0x1330101,
         outlineColor     = 0x1330102,
         thumbNormalColor = 0x1330103,
@@ -14,8 +11,7 @@ struct XYPad : juce::Component
         thumbDownColor   = 0x1330105,
     };
 
-    struct Listener
-    {
+    struct Listener {
         virtual ~Listener() = default;
 
         virtual auto xypadChanged(XYPad* pad, juce::Point<float> position) -> void = 0;
@@ -23,8 +19,7 @@ struct XYPad : juce::Component
         virtual auto xypadDragEnded(XYPad* pad) -> void                            = 0;
     };
 
-    struct LookAndFeelMethods
-    {
+    struct LookAndFeelMethods {
         virtual ~LookAndFeelMethods() = default;
 
         virtual auto drawXYPad(juce::Graphics& g, juce::Rectangle<float> thumbBounds, XYPad& pad) -> void = 0;
@@ -81,20 +76,20 @@ private:
     juce::Point<float> normalizedValues_ {};
     juce::NormalisableRange<float> xRange_ {};
     juce::NormalisableRange<float> yRange_ {};
-    bool startShouldBeOnLeft_ {true};
-    bool startShouldBeOnTop_ {true};
+    bool startShouldBeOnLeft_ { true };
+    bool startShouldBeOnTop_ { true };
 
-    juce::Rectangle<int> thumb_ {0, 0, 8, 8};
-    juce::Colour thumbColor_ {juce::Colours::grey};
+    juce::Rectangle<int> thumb_ { 0, 0, 8, 8 };
+    juce::Colour thumbColor_ { juce::Colours::grey };
     juce::Rectangle<int> bounds_ {};
-    bool isDragging_ {false};
-    bool isOverThumb_ {false};
+    bool isDragging_ { false };
+    bool isOverThumb_ { false };
 
     juce::ListenerList<Listener> listeners_ {};
 
-    JUCE_LEAK_DETECTOR(XYPad)  // NOLINT
+    JUCE_LEAK_DETECTOR(XYPad) // NOLINT
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_PLUGINS_XY_PAD_HPP
+#endif // MODERN_CIRCUITS_PLUGINS_XY_PAD_HPP

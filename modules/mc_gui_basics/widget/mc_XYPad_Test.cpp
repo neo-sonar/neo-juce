@@ -15,7 +15,7 @@ TEST_CASE("gui_basics/widget: XYPad", "[gui_basics][widgets]")
     SECTION("setX")
     {
         auto pad = mc::XYPad {};
-        pad.setXRange(juce::NormalisableRange {20.0f, 20'000.0f, 1.0f});
+        pad.setXRange(juce::NormalisableRange { 20.0f, 20'000.0f, 1.0f });
         CHECK(pad.getValueX() == Catch::Approx(20.0f));
         CHECK(pad.getNormalizedX() == Catch::Approx(0.0f));
         pad.setValueX(578.0f);
@@ -28,7 +28,7 @@ TEST_CASE("gui_basics/widget: XYPad", "[gui_basics][widgets]")
     SECTION("setY")
     {
         auto pad = mc::XYPad {};
-        pad.setYRange(juce::NormalisableRange {100.0f, 15'000.0f, 1.0f});
+        pad.setYRange(juce::NormalisableRange { 100.0f, 15'000.0f, 1.0f });
         CHECK(pad.getValueY() == 100.0f);
         CHECK(pad.getNormalizedY() == 0.0f);
         pad.setValueY(3244.0f);

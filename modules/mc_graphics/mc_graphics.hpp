@@ -25,4 +25,4 @@
 #include "geometry/mc_GeometryUtils.hpp"
 #include "images/mc_ImageUtils.hpp"
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_GRAPHICS_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_GRAPHICS_HPP

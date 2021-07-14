@@ -1,9 +1,8 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_TIME_UTILS_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_TIME_UTILS_HPP
 
-template<>
-struct juce::VariantConverter<juce::Time>
-{
+template <>
+struct juce::VariantConverter<juce::Time> {
     [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Time
     {
         return juce::Time::fromISO8601(v.toString());
@@ -16,4 +15,4 @@ struct juce::VariantConverter<juce::Time>
     }
 };
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_TIME_UTILS_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_TIME_UTILS_HPP

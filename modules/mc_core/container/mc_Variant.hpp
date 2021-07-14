@@ -3,11 +3,10 @@
 
 #include <boost/variant2/variant.hpp>
 
-namespace mc
-{
+namespace mc {
 
 using namespace boost::variant2;
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_VARIANT_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_VARIANT_HPP

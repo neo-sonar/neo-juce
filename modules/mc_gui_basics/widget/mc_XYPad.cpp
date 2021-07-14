@@ -1,11 +1,10 @@
-namespace mc
-{
-XYPad::XYPad() : normalizedValues_ {0.0f, 0.0f} { }
+namespace mc {
+XYPad::XYPad()
+    : normalizedValues_ { 0.0f, 0.0f } { }
 
 auto XYPad::paint(juce::Graphics& g) -> void
 {
-    if (auto* lnf = dynamic_cast<XYPad::LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr)
-    {
+    if (auto* lnf = dynamic_cast<XYPad::LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr) {
         lnf->drawXYPad(g, thumb_.toFloat(), *this);
         return;
     }
@@ -78,7 +77,9 @@ auto XYPad::mouseUp(juce::MouseEvent const& event) -> void
 
 auto XYPad::mouseDrag(juce::MouseEvent const& event) -> void
 {
-    if (!isDragging_) { startDragging(); }
+    if (!isDragging_) {
+        startDragging();
+    }
 
     auto p = juce::Point<int> {};
     p.x    = std::clamp<int>(event.x, bounds_.getX(), bounds_.getRight());
@@ -94,8 +95,7 @@ auto XYPad::getValueFromPixel(int pixel, bool isXAxis) const -> float
     auto const right  = static_cast<float>(bounds_.getRight());
     auto const bottom = static_cast<float>(bounds_.getBottom());
 
-    if (isXAxis)
-    {
+    if (isXAxis) {
         auto const startX = startShouldBeOnLeft_ ? xRange_.start : xRange_.end;
         auto const endX   = startShouldBeOnLeft_ ? xRange_.end : xRange_.start;
         return juce::jmap<float>(static_cast<float>(pixel), x, right, startX, endX);
@@ -108,8 +108,7 @@ auto XYPad::getValueFromPixel(int pixel, bool isXAxis) const -> float
 
 auto XYPad::getPixelFromNormalizedValue(float value, bool x) const -> int
 {
-    if (x)
-    {
+    if (x) {
         auto const direction  = startShouldBeOnLeft_ ? 1.0f : -1.0f;
         auto const start      = startShouldBeOnLeft_ ? bounds_.getX() : bounds_.getRight();
         auto const proportion = static_cast<float>(bounds_.getWidth()) * value;
@@ -148,13 +147,12 @@ auto XYPad::updatePosition() -> void
     auto const x  = getPixelFromNormalizedValue(normalizedValues_.x, true);
     auto const y  = getPixelFromNormalizedValue(normalizedValues_.y, false);
     auto diameter = 8;
-    if (auto* lnf = dynamic_cast<XYPad::LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr)
-    {
+    if (auto* lnf = dynamic_cast<XYPad::LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr) {
         diameter = lnf->getXYPadThumbDiameter(*this);
     }
 
-    thumb_ = juce::Rectangle {0, 0, diameter, diameter}.withCentre({static_cast<int>(x), static_cast<int>(y)});
-    listeners_.call([this](Listener& listener) { listener.xypadChanged(this, {getValueX(), getValueY()}); });
+    thumb_ = juce::Rectangle { 0, 0, diameter, diameter }.withCentre({ static_cast<int>(x), static_cast<int>(y) });
+    listeners_.call([this](Listener& listener) { listener.xypadChanged(this, { getValueX(), getValueY() }); });
     repaint();
 }
-}  // namespace mc
+} // namespace mc

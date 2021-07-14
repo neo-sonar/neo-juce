@@ -1,7 +1,7 @@
-namespace mc
-{
+namespace mc {
 
-BipolarFilter::BipolarFilter(juce::String const& name) : juce::Component {name} { }
+BipolarFilter::BipolarFilter(juce::String const& name)
+    : juce::Component { name } { }
 
 auto BipolarFilter::setValue(double newValue) -> void
 {
@@ -32,11 +32,11 @@ auto BipolarFilter::paint(juce::Graphics& g) -> void
     auto thumbX     = juce::jmap<float>(static_cast<float>(currentValue_), -1.0f, 1.0f, area.getX(), area.getRight());
     auto thumbY     = area.getY() + (area.getHeight() / 10.0f) * 3.5f;
     auto thumbWidth = std::min(area.getWidth() / 5.0f, area.getHeight() / 5.0f);
-    thumbArea_      = juce::Rectangle {0.0f, 0.0f, thumbWidth, thumbWidth}.withCentre({thumbX, thumbY});
+    thumbArea_      = juce::Rectangle { 0.0f, 0.0f, thumbWidth, thumbWidth }.withCentre({ thumbX, thumbY });
 
     g.setColour(juce::Colours::blue);
-    g.drawLine({thumbArea_.getCentre(), area.getBottomLeft()}, 3.0f);
-    g.drawLine({thumbArea_.getCentre(), area.getBottomRight()}, 3.0f);
+    g.drawLine({ thumbArea_.getCentre(), area.getBottomLeft() }, 3.0f);
+    g.drawLine({ thumbArea_.getCentre(), area.getBottomRight() }, 3.0f);
 
     g.setColour(juce::Colours::green);
     g.fillEllipse(thumbArea_);
@@ -50,13 +50,14 @@ auto BipolarFilter::resized() -> void { }
 
 auto BipolarFilter::mouseDown(juce::MouseEvent const& mouseEvent) -> void
 {
-    if (MouseEventUtils::hitTest(mouseEvent, thumbArea_)) { startDragging(); }
+    if (MouseEventUtils::hitTest(mouseEvent, thumbArea_)) {
+        startDragging();
+    }
 }
 
 auto BipolarFilter::mouseDrag(juce::MouseEvent const& mouseEvent) -> void
 {
-    if (isDragging_)
-    {
+    if (isDragging_) {
         auto const left     = static_cast<double>(getLocalBounds().getX());
         auto const right    = static_cast<double>(getLocalBounds().getRight());
         auto const screenX  = static_cast<double>(mouseEvent.position.x);
@@ -79,11 +80,10 @@ auto BipolarFilter::startDragging() -> void
 
 auto BipolarFilter::stopDragging() -> void
 {
-    if (isDragging_)
-    {
+    if (isDragging_) {
         isDragging_ = false;
         listeners_.call([this](Listener& listener) { listener.bipolarFilterDragEnded(this); });
     }
 }
 
-}  // namespace mc
+} // namespace mc

@@ -4,7 +4,7 @@
 #include <mc_dsp/mc_dsp.hpp>
 #include <mc_gui_basics/mc_gui_basics.hpp>
 
-TEST_CASE("dsp/attachment: XYPadAttachment", "[dsp][attachment]")  // NOLINT
+TEST_CASE("dsp/attachment: XYPadAttachment", "[dsp][attachment]") // NOLINT
 {
     auto xypad = mc::XYPad {};
     CHECK(xypad.getXRange().start == Catch::Approx(0.0f));
@@ -18,10 +18,10 @@ TEST_CASE("dsp/attachment: XYPadAttachment", "[dsp][attachment]")  // NOLINT
     CHECK(xypad.getValueX() == Catch::Approx(0.5f));
     CHECK(xypad.getValueY() == Catch::Approx(0.75f));
 
-    auto paramA = juce::AudioParameterFloat {"a", "a", 0.0f, 100.0f, 0.0f};
-    auto paramB = juce::AudioParameterFloat {"b", "b", 0.0f, 50.0f, 0.0f};
+    auto paramA = juce::AudioParameterFloat { "a", "a", 0.0f, 100.0f, 0.0f };
+    auto paramB = juce::AudioParameterFloat { "b", "b", 0.0f, 50.0f, 0.0f };
 
-    auto attachment = mc::XYPadAttachment {paramA, paramB, xypad, nullptr};
+    auto attachment = mc::XYPadAttachment { paramA, paramB, xypad, nullptr };
     CHECK(xypad.getXRange().start == Catch::Approx(0.0f));
     CHECK(xypad.getXRange().end == Catch::Approx(100.0f));
     CHECK(xypad.getYRange().start == Catch::Approx(0.0f));

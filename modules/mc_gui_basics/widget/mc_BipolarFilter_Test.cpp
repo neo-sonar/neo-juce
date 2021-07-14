@@ -11,7 +11,7 @@ TEST_CASE("gui_basics/widget: BipolarFilter::BipolarFilter()", "[gui_basics][wid
 
 TEST_CASE("gui_basics/widget: BipolarFilter::BipolarFilter(componentName)", "[gui_basics][widget]")
 {
-    mc::BipolarFilter filter {"filter"};
+    mc::BipolarFilter filter { "filter" };
     CHECK(filter.getName() == "filter");
 }
 
@@ -45,11 +45,9 @@ TEST_CASE("gui_basics/widget: BipolarFilter::doubleClickReturn", "[gui_basics][w
     CHECK(filter.getDoubleClickReturnValue() == Catch::Approx(1.0));
 }
 
-namespace
-{
+namespace {
 
-struct TestListenerValueChanged : mc::BipolarFilter::Listener
-{
+struct TestListenerValueChanged : mc::BipolarFilter::Listener {
 
     TestListenerValueChanged()           = default;
     ~TestListenerValueChanged() override = default;
@@ -59,19 +57,19 @@ struct TestListenerValueChanged : mc::BipolarFilter::Listener
     auto operator=(const TestListenerValueChanged& rhs) -> TestListenerValueChanged& = delete;
     auto operator=(TestListenerValueChanged&& rhs) -> TestListenerValueChanged& = delete;
 
-    auto bipolarFilterDragStarted(mc::BipolarFilter* /*s*/) -> void override { }
-    auto bipolarFilterDragEnded(mc::BipolarFilter* /*s*/) -> void override { }
+    auto bipolarFilterDragStarted(mc::BipolarFilter * /*s*/) -> void override { }
+    auto bipolarFilterDragEnded(mc::BipolarFilter * /*s*/) -> void override { }
     auto bipolarFilterValueChanged(mc::BipolarFilter* s) -> void override
     {
         wasCalled = true;
         value     = s->getValue();
     }
 
-    bool wasCalled {false};
+    bool wasCalled { false };
     boost::optional<double> value {};
 };
 
-}  // namespace
+} // namespace
 
 TEST_CASE("gui_basics/widget: BipolarFilter::Listener::textBoxSliderValueChanged", "[gui_basics][widget]")
 {

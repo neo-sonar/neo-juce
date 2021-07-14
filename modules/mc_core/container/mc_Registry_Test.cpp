@@ -4,14 +4,12 @@
 
 #include <functional>
 
-namespace
-{
-struct SomeStruct
-{
+namespace {
+struct SomeStruct {
     float x, y, z;
     int a, b;
 };
-}  // namespace
+} // namespace
 
 TEMPLATE_TEST_CASE("core/container: Registry::Construct", "[core][container]", char, int, float, SomeStruct)
 {
@@ -24,7 +22,7 @@ TEMPLATE_TEST_CASE("core/container: Registry::Construct", "[core][container]", c
 
     SECTION("reserve capacity")
     {
-        auto reg = mc::Registry<TestType> {1024};
+        auto reg = mc::Registry<TestType> { 1024 };
         CHECK(reg.size() == 0);
         CHECK(reg.capacity() == 1024);
     }

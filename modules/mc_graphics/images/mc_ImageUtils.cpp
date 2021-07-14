@@ -1,5 +1,4 @@
-namespace mc
-{
+namespace mc {
 auto ImageUtils::loadFromURL(juce::URL const& url) -> juce::Image
 {
     auto response = url.createInputStream(false);
@@ -8,4 +7,4 @@ auto ImageUtils::loadFromURL(juce::URL const& url) -> juce::Image
     auto mis = juce::MemoryInputStream(block, false);
     return juce::ImageFileFormat::loadFrom(mis);
 }
-}  // namespace mc
+} // namespace mc

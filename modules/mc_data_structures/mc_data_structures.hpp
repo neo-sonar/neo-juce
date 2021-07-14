@@ -26,4 +26,4 @@
 #include "value_tree/mc_ObjectList.hpp"
 #include "value_tree/mc_ValueWrapper.hpp"
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_DATA_STRUCTURES_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DATA_STRUCTURES_HPP

@@ -5,15 +5,13 @@
 #include <cstdint>
 #include <vector>
 
-namespace mc
-{
+namespace mc {
 
 /// \brief Registry
 /// \details Original design by Sean Parent. CppCon 2019: Sean Parent “Better Code: Relationships”
 /// https://youtu.be/ejF6qqohp3M
-template<class T>
-class Registry
-{
+template <class T>
+class Registry {
 public:
     using value_type  = T;
     using ticket_type = std::size_t;
@@ -23,7 +21,8 @@ public:
     Registry() noexcept = default;
 
     /// \brief Construct with given capacity.
-    explicit Registry(size_type capacity) : map_ {capacity}
+    explicit Registry(size_type capacity)
+        : map_ { capacity }
     {
         MC_ENSURES(size() == 0);
         MC_ENSURES(map_.capacity() == capacity);
@@ -39,21 +38,23 @@ public:
     [[nodiscard]] auto capacity() const noexcept -> size_type { return map_.capacity(); }
 
     /// \brief Apply a functor to all elements.
-    template<typename F>
+    template <typename F>
     auto forEach(F f) const -> void
     {
-        for (auto const& e : map_)
-        {
-            if (e.second) { f(*e.second); }
+        for (auto const& e : map_) {
+            if (e.second) {
+                f(*e.second);
+            }
         }
     }
     /// \brief Apply a functor to all elements.
-    template<typename F>
+    template <typename F>
     auto forEach(F f) -> void
     {
-        for (auto& e : map_)
-        {
-            if (e.second) { f(*e.second); }
+        for (auto& e : map_) {
+            if (e.second) {
+                f(*e.second);
+            }
         }
     }
 
@@ -61,17 +62,18 @@ public:
     ///
     /// \details Returns true if the ticket was valid and the functor was called.
     /// False otherwise.
-    template<typename F>
+    template <typename F>
     [[nodiscard]] auto forID(ticket_type ticket, F f) const -> bool
     {
         MC_EXPECTS(ticket < id_ && "ID must be in range for this registry");
 
         auto compare = [](auto const& a, auto const& b) { return a.first < b; };
         auto p       = std::lower_bound(begin(map_), end(map_), ticket, compare);
-        if (p == end(map_) || p->first != ticket) { return false; }
+        if (p == end(map_) || p->first != ticket) {
+            return false;
+        }
 
-        if (p->second)
-        {
+        if (p->second) {
             f(*p->second);
             return true;
         }
@@ -95,12 +97,16 @@ public:
 
         auto compare = [](auto const& a, auto const& b) { return a.first < b; };
         auto p       = std::lower_bound(begin(map_), end(map_), id, compare);
-        if (p == end(map_) || p->first != id) { return; }
+        if (p == end(map_) || p->first != id) {
+            return;
+        }
 
         p->second.reset();
         --size_;
 
-        if (size_ < (map_.size() / 2)) { shrinkToFit(); }
+        if (size_ < (map_.size() / 2)) {
+            shrinkToFit();
+        }
     }
 
     /// \brief Releases unused memory. Afterwards size() == capacity().
@@ -116,6 +122,6 @@ private:
     ticket_type id_ = 0;
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_REGISTRY_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_REGISTRY_HPP

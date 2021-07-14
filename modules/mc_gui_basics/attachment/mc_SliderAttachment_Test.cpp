@@ -5,14 +5,14 @@
 
 TEST_CASE("gui_basics/attachment: SliderValueTreeAttachment", "[gui_basics][attachment]")
 {
-    auto const id    = juce::Identifier {"value"};
+    auto const id    = juce::Identifier { "value" };
     auto undoManager = juce::UndoManager {};
-    auto valueTree   = juce::ValueTree {"test"};
-    auto value       = mc::CachedAtomicFloat {valueTree, id, &undoManager};
+    auto valueTree   = juce::ValueTree { "test" };
+    auto value       = mc::CachedAtomicFloat { valueTree, id, &undoManager };
     value            = 2.0f;
 
-    auto slider     = juce::Slider {"slider"};
-    auto attachment = mc::SliderValueTreeAttachment {valueTree, id, slider, &undoManager};
+    auto slider     = juce::Slider { "slider" };
+    auto attachment = mc::SliderValueTreeAttachment { valueTree, id, slider, &undoManager };
     CHECK(slider.getValue() == Catch::Approx(2.0f));
 
     slider.setValue(3.0f, juce::sendNotificationSync);

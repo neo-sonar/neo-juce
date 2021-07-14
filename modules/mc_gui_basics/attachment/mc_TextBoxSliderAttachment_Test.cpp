@@ -5,15 +5,15 @@
 
 TEST_CASE("gui_basics/attachment: TextBoxSliderValueTreeAttachment", "[gui_basics][attachment]")
 {
-    auto const id    = juce::Identifier {"value"};
+    auto const id    = juce::Identifier { "value" };
     auto undoManager = juce::UndoManager {};
-    auto valueTree   = juce::ValueTree {"test"};
+    auto valueTree   = juce::ValueTree { "test" };
 
-    mc::CachedAtomicFloat value {valueTree, id, &undoManager};
+    mc::CachedAtomicFloat value { valueTree, id, &undoManager };
     value = 2.0f;
 
-    auto slider     = mc::TextBoxSlider {"slider"};
-    auto attachment = mc::TextBoxSliderValueTreeAttachment {valueTree, id, slider, &undoManager};
+    auto slider     = mc::TextBoxSlider { "slider" };
+    auto attachment = mc::TextBoxSliderValueTreeAttachment { valueTree, id, slider, &undoManager };
     CHECK(slider.getValue() == Catch::Approx(2.0f));
 
     slider.setValue(3.0f, juce::sendNotificationSync);

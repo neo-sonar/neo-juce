@@ -1,9 +1,8 @@
-namespace mc
-{
+namespace mc {
 BipolarFilterValueTreeAttachment::BipolarFilterValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id,
-                                                                   BipolarFilter& slider,
-                                                                   juce::UndoManager* undoManager)
-    : slider_ {slider}, attachment_ {std::move(state), id, [this](auto f) { setValue(f); }, undoManager}
+    BipolarFilter& slider,
+    juce::UndoManager* undoManager)
+    : slider_ { slider }, attachment_ { std::move(state), id, [this](auto f) { setValue(f); }, undoManager }
 {
     sendInitialUpdate();
     //    slider_.valueChanged();
@@ -22,7 +21,9 @@ void BipolarFilterValueTreeAttachment::setValue(float newValue)
 }
 void BipolarFilterValueTreeAttachment::bipolarFilterValueChanged(BipolarFilter* /*slider*/)
 {
-    if (ignoreCallbacks_ || juce::ModifierKeys::currentModifiers.isRightButtonDown()) { return; }
+    if (ignoreCallbacks_ || juce::ModifierKeys::currentModifiers.isRightButtonDown()) {
+        return;
+    }
     attachment_.setValueAsPartOfGesture(static_cast<float>(slider_.getValue()));
 }
 
@@ -31,4 +32,4 @@ void BipolarFilterValueTreeAttachment::bipolarFilterDragStarted(BipolarFilter* /
     attachment_.beginGesture();
 }
 void BipolarFilterValueTreeAttachment::bipolarFilterDragEnded(BipolarFilter* /*slider*/) { attachment_.endGesture(); }
-}  // namespace mc
+} // namespace mc

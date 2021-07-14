@@ -1,14 +1,12 @@
 #ifndef MODERN_CIRCUITS_PLUGINS_SPECTRUM_ANALYZER_HPP
 #define MODERN_CIRCUITS_PLUGINS_SPECTRUM_ANALYZER_HPP
 
-namespace mc
-{
+namespace mc {
 /**
  * @brief Recieves data from the processor thread, calculates the FFT which is
  * read by the GUI thread to plot a spectrum.
  */
-class SpectrumSource : public juce::Thread
-{
+class SpectrumSource : public juce::Thread {
 public:
     SpectrumSource();
     ~SpectrumSource() override = default;
@@ -32,7 +30,7 @@ private:
 
     float sampleRate_ {};
 
-    juce::AbstractFifo abstractFifo_ {48000};
+    juce::AbstractFifo abstractFifo_ { 48000 };
     juce::AudioBuffer<float> audioFifo_;
     juce::AudioBuffer<float> fftBuffer_;
     juce::AudioBuffer<float> averager_;
@@ -46,7 +44,7 @@ private:
     juce::dsp::FFT fft_;
     juce::dsp::WindowingFunction<float> windowing_;
 
-    JUCE_LEAK_DETECTOR(SpectrumSource)  // NOLINT
+    JUCE_LEAK_DETECTOR(SpectrumSource) // NOLINT
 };
-}  // namespace mc
-#endif  // MODERN_CIRCUITS_PLUGINS_SPECTRUM_ANALYZER_HPP
+} // namespace mc
+#endif // MODERN_CIRCUITS_PLUGINS_SPECTRUM_ANALYZER_HPP

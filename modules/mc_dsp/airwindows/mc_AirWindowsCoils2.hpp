@@ -1,15 +1,12 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_AIRWINDOWSCOILS2_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_AIRWINDOWSCOILS2_HPP
 
-namespace mc
-{
-struct AirWindowsCoils2
-{
-    struct Parameter
-    {
-        float saturation {0.0f};
-        float cheapness {0.0f};
-        float dryWet {1.0f};
+namespace mc {
+struct AirWindowsCoils2 {
+    struct Parameter {
+        float saturation { 0.0f };
+        float cheapness { 0.0f };
+        float dryWet { 1.0f };
     };
 
     auto prepare(juce::dsp::ProcessSpec const& spec) -> void
@@ -30,7 +27,9 @@ struct AirWindowsCoils2
         overallscale *= spec_.sampleRate;
 
         double distScaling = pow(1.0 - parameter_.saturation, 2);
-        if (distScaling < 0.0001) { distScaling = 0.0001; }
+        if (distScaling < 0.0001) {
+            distScaling = 0.0001;
+        }
         biquadA_[0]           = 600.0 / spec_.sampleRate;
         biquadA_[1]           = 0.01 + (pow(parameter_.cheapness, 2) * 0.5);
         long double iirAmount = biquadA_[1] / overallscale;
@@ -52,17 +51,19 @@ struct AirWindowsCoils2
         double wet            = parameter_.dryWet;
 
         auto sampleFrames = buffer.getNumSamples();
-        while (--sampleFrames >= 0)
-        {
+        while (--sampleFrames >= 0) {
             long double inputSampleL = *in1;
             long double inputSampleR = *in2;
-            if (std::abs(inputSampleL) < 1.18e-37) { inputSampleL = fpdL_ * 1.18e-37; }
-            if (std::abs(inputSampleR) < 1.18e-37) { inputSampleR = fpdR_ * 1.18e-37; }
+            if (std::abs(inputSampleL) < 1.18e-37) {
+                inputSampleL = fpdL_ * 1.18e-37;
+            }
+            if (std::abs(inputSampleR) < 1.18e-37) {
+                inputSampleR = fpdR_ * 1.18e-37;
+            }
             long double drySampleL = inputSampleL;
             long double drySampleR = inputSampleR;
 
-            if (biquadA_[0] < 0.49999)
-            {
+            if (biquadA_[0] < 0.49999) {
                 long double tempSample = (inputSampleL * biquadA_[2]) + biquadA_[7];
                 biquadA_[7]            = -(tempSample * biquadA_[5]) + biquadA_[8];
                 biquadA_[8]            = (inputSampleL * biquadA_[4]) - (tempSample * biquadA_[6]);
@@ -70,12 +71,11 @@ struct AirWindowsCoils2
                 tempSample             = (inputSampleR * biquadA_[2]) + biquadA_[9];
                 biquadA_[9]            = -(tempSample * biquadA_[5]) + biquadA_[10];
                 biquadA_[10]           = (inputSampleR * biquadA_[4]) - (tempSample * biquadA_[6]);
-                inputSampleR           = tempSample;  // create bandpass of clean tone
+                inputSampleR           = tempSample; // create bandpass of clean tone
             }
             long double diffSampleL = (drySampleL - inputSampleL) / distScaling;
-            long double diffSampleR = (drySampleR - inputSampleR) / distScaling;  // mids notched out
-            if (biquadB_[0] < 0.49999)
-            {
+            long double diffSampleR = (drySampleR - inputSampleR) / distScaling; // mids notched out
+            if (biquadB_[0] < 0.49999) {
                 long double tempSample = (diffSampleL * biquadB_[2]) + biquadB_[7];
                 biquadB_[7]            = (diffSampleL * biquadB_[3]) - (tempSample * biquadB_[5]) + biquadB_[8];
                 biquadB_[8]            = (diffSampleL * biquadB_[4]) - (tempSample * biquadB_[6]);
@@ -86,43 +86,42 @@ struct AirWindowsCoils2
                 diffSampleR            = tempSample;
             }
             hysteresisL_ = (hysteresisL_ * (1.0 - iirAmount)) + (diffSampleL * iirAmount);
-            if (std::abs(hysteresisL_) < 1.18e-37) { hysteresisL_ = 0.0; }
-            else
-            {
+            if (std::abs(hysteresisL_) < 1.18e-37) {
+                hysteresisL_ = 0.0;
+            } else {
                 diffSampleL -= hysteresisL_;
             }
-            if (diffSampleL > 1.571) { diffSampleL = 1.571; }
-            else if (diffSampleL < -1.571)
-            {
+            if (diffSampleL > 1.571) {
+                diffSampleL = 1.571;
+            } else if (diffSampleL < -1.571) {
                 diffSampleL = -1.571;
             }
-            if (hysteresisL_ > 1.571) { hysteresisL_ = 1.571; }
-            else if (hysteresisL_ < -1.571)
-            {
+            if (hysteresisL_ > 1.571) {
+                hysteresisL_ = 1.571;
+            } else if (hysteresisL_ < -1.571) {
                 hysteresisL_ = -1.571;
             }
 
             hysteresisR_ = (hysteresisR_ * (1.0 - iirAmount)) + (diffSampleR * iirAmount);
-            if (std::abs(hysteresisR_) < 1.18e-37) { hysteresisR_ = 0.0; }
-            else
-            {
+            if (std::abs(hysteresisR_) < 1.18e-37) {
+                hysteresisR_ = 0.0;
+            } else {
                 diffSampleR -= hysteresisR_;
             }
-            if (diffSampleR > 1.571) { diffSampleR = 1.571; }
-            else if (diffSampleR < -1.571)
-            {
+            if (diffSampleR > 1.571) {
+                diffSampleR = 1.571;
+            } else if (diffSampleR < -1.571) {
                 diffSampleR = -1.571;
             }
-            if (hysteresisR_ > 1.571) { hysteresisR_ = 1.571; }
-            else if (hysteresisR_ < -1.571)
-            {
+            if (hysteresisR_ > 1.571) {
+                hysteresisR_ = 1.571;
+            } else if (hysteresisR_ < -1.571) {
                 hysteresisR_ = -1.571;
             }
             inputSampleL += (sin(diffSampleL) - sin(hysteresisL_)) * distScaling;
-            inputSampleR += (sin(diffSampleR) - sin(hysteresisR_)) * distScaling;  // apply transformer distortions
+            inputSampleR += (sin(diffSampleR) - sin(hysteresisR_)) * distScaling; // apply transformer distortions
 
-            if (wet != 1.0)
-            {
+            if (wet != 1.0) {
                 inputSampleL = (inputSampleL * wet) + (drySampleL * (1.0 - wet));
                 inputSampleR = (inputSampleR * wet) + (drySampleR * (1.0 - wet));
             }
@@ -154,16 +153,19 @@ struct AirWindowsCoils2
     auto reset() -> void
     {
 
-        for (int x = 0; x < 15; x++)
-        {
+        for (int x = 0; x < 15; x++) {
             biquadA_[x] = 0.0;
             biquadB_[x] = 0.0;
         }
         hysteresisL_ = hysteresisR_ = 0.0;
         fpdL_                       = 1.0;
-        while (fpdL_ < 16386) { fpdL_ = rand() * UINT32_MAX; }
+        while (fpdL_ < 16386) {
+            fpdL_ = rand() * UINT32_MAX;
+        }
         fpdR_ = 1.0;
-        while (fpdR_ < 16386) { fpdR_ = rand() * UINT32_MAX; }
+        while (fpdR_ < 16386) {
+            fpdR_ = rand() * UINT32_MAX;
+        }
     }
 
 private:
@@ -182,6 +184,6 @@ private:
     //    float B;
     //    float C;
 };
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_AIRWINDOWSCOILS2_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_AIRWINDOWSCOILS2_HPP

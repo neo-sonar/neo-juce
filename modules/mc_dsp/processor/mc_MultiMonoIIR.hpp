@@ -1,12 +1,10 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_MULTI_MONO_IIR_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_MULTI_MONO_IIR_HPP
 
-namespace mc
-{
+namespace mc {
 
-template<typename SampleType>
-class MultiMonoIIR
-{
+template <typename SampleType>
+class MultiMonoIIR {
     // This processor only works with float & double as its sample type.
     static_assert(std::is_same_v<SampleType, float> || std::is_same_v<SampleType, double>);
 
@@ -33,7 +31,7 @@ public:
         std::for_each(begin(filters_), end(filters_), [](auto& f) { f.reset(); });
     }
 
-    template<typename ProcessContext>
+    template <typename ProcessContext>
     void process(const ProcessContext& context) noexcept
     {
         auto const& inputBlock = context.getInputBlock();
@@ -45,11 +43,9 @@ public:
         outputBlock.copyFrom(inputBlock);
 
         auto const numSamples = outputBlock.getNumSamples();
-        for (std::size_t i = 0; i < inputBlock.getNumChannels(); ++i)
-        {
+        for (std::size_t i = 0; i < inputBlock.getNumChannels(); ++i) {
             auto* const channel = outputBlock.getChannelPointer(i);
-            for (std::size_t j = 0; j < numSamples; ++j)
-            {
+            for (std::size_t j = 0; j < numSamples; ++j) {
                 auto const input  = static_cast<float>(channel[j]);
                 auto const output = filters_[i].processSingleSampleRaw(input);
                 channel[j]        = static_cast<SampleType>(output);
@@ -73,6 +69,6 @@ private:
     juce::IIRCoefficients coefficients_ {};
     std::vector<juce::IIRFilter> filters_ {};
 };
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MULTI_MONO_IIR_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MULTI_MONO_IIR_HPP

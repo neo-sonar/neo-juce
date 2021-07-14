@@ -34,4 +34,4 @@
 #include "attachment/mc_SliderAttachment.hpp"
 #include "attachment/mc_TextBoxSliderAttachment.hpp"
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP

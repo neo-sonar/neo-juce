@@ -1,10 +1,8 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_POOL_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_POOL_HPP
 
-namespace mc
-{
-class AudioBufferPool
-{
+namespace mc {
+class AudioBufferPool {
 
 public:
     /**
@@ -67,16 +65,15 @@ public:
      * @param numChannels The number of channels for the newly created AudioBuffer.
      * @param numSamples The number of samples for the newly created AudioBuffer.
      */
-    template<typename FloatType>
+    template <typename FloatType>
     [[nodiscard]] auto makeBuffer(int numChannels, int numSamples) -> std::pair<juce::AudioBuffer<FloatType>, bool>
     {
         static_assert(std::is_same_v<FloatType, float> || std::is_same_v<FloatType, double>);
 
-        if (size_ + (sizeof(FloatType) * numChannels * numSamples) < capacity_)
-        {
+        if (size_ + (sizeof(FloatType) * numChannels * numSamples) < capacity_) {
             auto* data = reinterpret_cast<FloatType*>(&memory_[size_]);
             size_ += sizeof(FloatType) * numChannels * numSamples;
-            return std::make_pair(juce::AudioBuffer<FloatType> {&data, numChannels, numSamples}, true);
+            return std::make_pair(juce::AudioBuffer<FloatType> { &data, numChannels, numSamples }, true);
         }
 
         return std::make_pair(juce::AudioBuffer<FloatType> {}, false);
@@ -84,8 +81,8 @@ public:
 
 private:
     std::unique_ptr<std::byte[]> memory_ {};
-    std::size_t capacity_ {0};
-    std::size_t size_ {0};
+    std::size_t capacity_ { 0 };
+    std::size_t size_ { 0 };
 };
-}  // namespace mc
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_POOL_HPP
+} // namespace mc
+#endif // MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_POOL_HPP

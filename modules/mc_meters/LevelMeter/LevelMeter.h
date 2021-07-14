@@ -1,8 +1,7 @@
 
 #pragma once
 
-namespace mc
-{
+namespace mc {
 
 /** @addtogroup ff_meters */
 /*@{*/
@@ -16,28 +15,25 @@ namespace mc
  You can also set a reduction value to display, the definition of that value is up to you.
 */
 class LevelMeter
-    : public juce::Component
-    , private juce::Timer
-{
+    : public juce::Component,
+      private juce::Timer {
 public:
-    enum MeterFlags
-    {
+    enum MeterFlags {
         Default       = 0x0000, /**< Default is showing all channels in the LevelMeterSource without a border */
         Horizontal    = 0x0001, /**< Displays the level bars horizontally */
         Vintage       = 0x0002, /**< Switches to a special mode of old school meters (to come) */
         SingleChannel = 0x0004, /**< Display only one channel meter. \see setSelectedChannel */
         HasBorder
-        = 0x0008, /**< Displays a rounded border around the meter. This is used with the default constructor */
+        = 0x0008,           /**< Displays a rounded border around the meter. This is used with the default constructor */
         Reduction = 0x0010, /**< This turns the bar into a reduction bar.
                              The additional reduction bar is automatically added, as soon a reduction value < 1.0 is set
                              in the LevelMeterSource. \see LevelMeterSource::setReductionLevel */
-        Minimal = 0x0020,   /**< For a stereo meter, this tries to save space by showing only one line tickmarks in the
+        Minimal   = 0x0020, /**< For a stereo meter, this tries to save space by showing only one line tickmarks in the
                                middle and no max numbers */
         MaxNumber = 0x0040  /**< To add level meter to Minimal, set this flag */
     };
 
-    enum ColourIds
-    {
+    enum ColourIds {
         lmTextColour = 0x2200001, /**< Colour for the numbers etc. */
         lmTextDeactiveColour,     /**< Unused, will eventually be removed */
         lmTextClipColour,         /**< Colour to print the max number if it has clipped */
@@ -62,8 +58,7 @@ public:
      The LevelMeter needs a LookAndFeel, that implements these methods.
      There is a default implementation to be included in your custom LookAndFeel class, \see LookAndFeelMethods.h
      */
-    class LookAndFeelMethods
-    {
+    class LookAndFeelMethods {
     public:
         virtual ~LookAndFeelMethods() = default;
 
@@ -79,7 +74,7 @@ public:
 
         /** Override this callback to define the placement of a meter channel. */
         [[nodiscard]] virtual auto getMeterBounds(juce::Rectangle<float> bounds, MeterFlags meterType, int numChannels,
-                                                  int channel) const -> juce::Rectangle<float> = 0;
+            int channel) const -> juce::Rectangle<float> = 0;
 
         /** Override this callback to define the placement of the actual meter bar. */
         [[nodiscard]] virtual auto getMeterBarBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
@@ -93,7 +88,7 @@ public:
         /** Override this callback to define the placement of the clip indicator light.
          To disable this feature return an empty rectangle. */
         [[nodiscard]] virtual auto getMeterClipIndicatorBounds(juce::Rectangle<float> bounds,
-                                                               MeterFlags meterType) const
+            MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
         /** Override this to draw background and if wanted a frame. If the frame takes space away,
@@ -103,17 +98,17 @@ public:
 
         /** This is called to draw the actual numbers and bars on top of the static background */
         virtual void drawMeterBars(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds,
-                                   const LevelMeterSource* source, int fixedNumChannels = -1, int selectedChannel = -1)
+            const LevelMeterSource* source, int fixedNumChannels = -1, int selectedChannel = -1)
             = 0;
 
         /** This draws the static background of the whole level meter group with all channels */
         virtual void drawMeterBarsBackground(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds,
-                                             int numChannels, int fixedNumChannels = -1)
+            int numChannels, int fixedNumChannels = -1)
             = 0;
 
         /** This draws a group of informations representing one channel */
         virtual void drawMeterChannel(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds,
-                                      const LevelMeterSource* source, int selectedChannel)
+            const LevelMeterSource* source, int selectedChannel)
             = 0;
 
         /** This draws the static backgrounds representing one channel */
@@ -122,13 +117,13 @@ public:
 
         /** This callback draws the actual level bar. The background has an extra callback */
         virtual void drawMeterBar(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds, float rms,
-                                  float peak)
+            float peak)
             = 0;
 
         /** This callback draws an reduction from top. Only triggered, if a reduction < 1.0 is set in the
          * LevelMeterSource */
         virtual void drawMeterReduction(juce::Graphics& g, LevelMeter::MeterFlags meterType,
-                                        juce::Rectangle<float> bounds, float reduction)
+            juce::Rectangle<float> bounds, float reduction)
             = 0;
 
         /** This draws the background for the actual level bar */
@@ -139,7 +134,7 @@ public:
 
         /** This callback draws the clip indicator. The background has an extra callback */
         virtual void drawClipIndicator(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds,
-                                       bool hasClipped)
+            bool hasClipped)
             = 0;
 
         /** This draws the background for the clip indicator LED */
@@ -160,12 +155,12 @@ public:
 
         /** This is called by the frontend to check, if the clip indicator was clicked (e.g. for reset) */
         virtual auto hitTestClipIndicator(juce::Point<int> position, MeterFlags meterType,
-                                          juce::Rectangle<float> bounds, const LevelMeterSource* source) const -> int
+            juce::Rectangle<float> bounds, const LevelMeterSource* source) const -> int
             = 0;
 
         /** This is called by the frontend to check, if the maximum level number was clicked (e.g. for reset) */
         virtual auto hitTestMaxNumber(juce::Point<int> position, MeterFlags meterType, juce::Rectangle<float> bounds,
-                                      const LevelMeterSource* source) const -> int
+            const LevelMeterSource* source) const -> int
             = 0;
     };
 
@@ -254,8 +249,7 @@ public:
      }
      \endcode
      */
-    class Listener
-    {
+    class Listener {
     public:
         virtual ~Listener() = default;
         /**
@@ -276,7 +270,7 @@ public:
     void removeListener(LevelMeter::Listener* /*listener*/);
 
 private:
-    JUCE_LEAK_DETECTOR(LevelMeter)  // NOLINT
+    JUCE_LEAK_DETECTOR(LevelMeter) // NOLINT
 
     juce::WeakReference<LevelMeterSource> source_;
 
@@ -300,4 +294,4 @@ inline auto operator|(LevelMeter::MeterFlags a, LevelMeter::MeterFlags b) -> Lev
 
 /*@}*/
 
-}  // end namespace mc
+} // end namespace mc

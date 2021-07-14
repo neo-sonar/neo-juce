@@ -1,17 +1,15 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_MOUSE_UTILS_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_MOUSE_UTILS_HPP
 
-namespace mc
-{
+namespace mc {
 
-struct MouseEventUtils
-{
+struct MouseEventUtils {
     ~MouseEventUtils() = delete;
 
     [[nodiscard]] static auto hitTest(juce::MouseEvent const& event, juce::Rectangle<float> bounds) -> bool;
     [[nodiscard]] static auto hitTest(juce::MouseEvent const& event, juce::Point<float> point, float radius) -> bool;
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MOUSE_UTILS_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MOUSE_UTILS_HPP

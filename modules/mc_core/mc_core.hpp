@@ -60,4 +60,4 @@
 
 #include "benchmark/mc_Profile.hpp"
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP

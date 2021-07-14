@@ -1,14 +1,12 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_mc_BipolarFilter_ATTACHMENT_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_mc_BipolarFilter_ATTACHMENT_HPP
 
-namespace mc
-{
+namespace mc {
 
-class BipolarFilterValueTreeAttachment : private BipolarFilter::Listener
-{
+class BipolarFilterValueTreeAttachment : private BipolarFilter::Listener {
 public:
     BipolarFilterValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, BipolarFilter& slider,
-                                     juce::UndoManager* undoManager = nullptr);
+        juce::UndoManager* undoManager = nullptr);
 
     ~BipolarFilterValueTreeAttachment() override;
     void sendInitialUpdate();
@@ -24,6 +22,6 @@ private:
     bool ignoreCallbacks_ = false;
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_mc_BipolarFilter_ATTACHMENT_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_mc_BipolarFilter_ATTACHMENT_HPP

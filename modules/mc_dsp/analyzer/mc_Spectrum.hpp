@@ -1,26 +1,22 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_SPECTRUM_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_SPECTRUM_HPP
 
-namespace mc
-{
+namespace mc {
 
 /**
  * @brief Component for the spectrum analyser.
  */
 class Spectrum
-    : public juce::Component
-    , public juce::Timer
-{
+    : public juce::Component,
+      public juce::Timer {
 public:
-    enum ColourIds
-    {
+    enum ColourIds {
         plot   = 0x1331600,
         grid   = 0x1331601,
         labels = 0x1331602,
     };
 
-    class LookAndFeelMethods
-    {
+    class LookAndFeelMethods {
     public:
         LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
@@ -59,8 +55,8 @@ private:
     juce::Rectangle<int> textFrame_;
     juce::Path path_;
 
-    JUCE_LEAK_DETECTOR(Spectrum)  // NOLINT
+    JUCE_LEAK_DETECTOR(Spectrum) // NOLINT
 };
 
-}  // namespace mc
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_SPECTRUM_HPP
+} // namespace mc
+#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_SPECTRUM_HPP

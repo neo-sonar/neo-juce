@@ -1,7 +1,6 @@
 #pragma once
 
-namespace mc
-{
+namespace mc {
 
 /** @addtogroup ff_meters */
 /*@{*/
@@ -13,17 +12,14 @@ namespace mc
  At any time the GUI can ask for a stereo field visualisation of
  two neightbouring channels.
  */
-class StereoFieldComponent : public juce::Component
-{
+class StereoFieldComponent : public juce::Component {
 public:
-    enum
-    {
+    enum {
         GonioMeter = 0,
         StereoField
     };
 
-    enum ColourIds
-    {
+    enum ColourIds {
         backgroundColour = 0x2200101, /**< Colour for the numbers etc. */
         borderColour,                 /**< Colour for the numbers etc. */
         outlineColour,                /**< Colour for the numbers etc. */
@@ -32,8 +28,7 @@ public:
         maxValuesColour               /**< Colour for the numbers etc. */
     };
 
-    class LookAndFeelMethods
-    {
+    class LookAndFeelMethods {
     public:
         LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
@@ -49,19 +44,20 @@ public:
             = 0;
 
         virtual void drawGonioMeter(juce::Graphics& g, juce::Rectangle<float> bounds,
-                                    const StereoFieldBuffer<float>& stereoBuffer, int leftIdx, int rightIdx)
+            const StereoFieldBuffer<float>& stereoBuffer, int leftIdx, int rightIdx)
             = 0;
 
         virtual void drawStereoFieldBackground(juce::Graphics& g, juce::Rectangle<float> bounds, float margin,
-                                               float border)
+            float border)
             = 0;
 
         virtual void drawStereoField(juce::Graphics& g, juce::Rectangle<float> bounds, const StereoFieldBuffer<float>&,
-                                     int leftIdx = 0, int rightIdx = 1)
+            int leftIdx = 0, int rightIdx = 1)
             = 0;
     };
 
-    explicit StereoFieldComponent(StereoFieldBuffer<float>& stereo) : stereoBuffer_(stereo) { }
+    explicit StereoFieldComponent(StereoFieldBuffer<float>& stereo)
+        : stereoBuffer_(stereo) { }
 
     ~StereoFieldComponent() override = default;
 
@@ -74,23 +70,17 @@ public:
     {
         juce::Graphics::ScopedSaveState saved(g);
 
-        if (auto* lnf = dynamic_cast<StereoFieldComponent::LookAndFeelMethods*>(&getLookAndFeel()))
-        {
-            if (type_ == GonioMeter)
-            {
+        if (auto* lnf = dynamic_cast<StereoFieldComponent::LookAndFeelMethods*>(&getLookAndFeel())) {
+            if (type_ == GonioMeter) {
                 auto bounds = getLocalBounds().toFloat();
                 lnf->drawGonioBackground(g, bounds, margin_, border_);
                 lnf->drawGonioMeter(g, bounds.reduced(margin_), stereoBuffer_, 0, 1);
-            }
-            else if (type_ == StereoField)
-            {
+            } else if (type_ == StereoField) {
                 auto bounds = getLocalBounds().toFloat();
                 lnf->drawStereoFieldBackground(g, bounds, margin_, border_);
                 lnf->drawStereoField(g, bounds.reduced(margin_), stereoBuffer_, 0, 1);
             }
-        }
-        else
-        {
+        } else {
             // This LookAndFeel is missing the StereoFieldComponent::LookAndFeelMethods.
             jassertfalse;
         }
@@ -103,7 +93,7 @@ private:
     float margin_ = 5.0f;
     float border_ = 2.0f;
 
-    JUCE_LEAK_DETECTOR(StereoFieldComponent)  // NOLINT
+    JUCE_LEAK_DETECTOR(StereoFieldComponent) // NOLINT
 };
 /*@}*/
-}  // namespace mc
+} // namespace mc

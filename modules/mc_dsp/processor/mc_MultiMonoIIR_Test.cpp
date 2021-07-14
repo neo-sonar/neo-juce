@@ -10,7 +10,7 @@ TEMPLATE_TEST_CASE("dsp/processor: MultiMonoIIR", "[dsp][processor]", float, dou
     auto ioBuffer       = juce::dsp::AudioBlock<TestType>(buffer);
     auto const context  = juce::dsp::ProcessContextReplacing<TestType>(ioBuffer);
 
-    filter.prepare({44'100.0, uint32_t(512), uint32_t(2)});
+    filter.prepare({ 44'100.0, uint32_t(512), uint32_t(2) });
     filter.setCoefficients(juce::IIRCoefficients::makeLowPass(44'100.0, 800.0));
     filter.reset();
     filter.process(context);

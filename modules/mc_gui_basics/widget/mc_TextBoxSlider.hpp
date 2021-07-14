@@ -1,21 +1,18 @@
 #ifndef MODERN_CIRCUITS_PLUGINS_TEXT_BOX_SLIDER_HPP
 #define MODERN_CIRCUITS_PLUGINS_TEXT_BOX_SLIDER_HPP
 
-namespace mc
-{
+namespace mc {
 
 /**
  * @brief A text box slider control for changing a value via dragging or scrolling.
  */
-class TextBoxSlider : public juce::Component
-{
+class TextBoxSlider : public juce::Component {
 public:
     /**
      * @brief A class for receiving callbacks from a TextBoxSlider. To be told when a slider's value changes, you can
      * register a TextBoxSlider::Listener object using TextBoxSlider::addListener().
      */
-    struct Listener
-    {
+    struct Listener {
         /**
          * @brief Destructor.
          */
@@ -187,23 +184,22 @@ private:
     auto startDrag() -> void;
     auto stopDrag() -> void;
 
-    juce::Range<double> range_ {0.0, 10.0};
-    double value_ {1.0};
-    double interval_ {0.1};
-    double defaultValue_ {1.0};
+    juce::Range<double> range_ { 0.0, 10.0 };
+    double value_ { 1.0 };
+    double interval_ { 0.1 };
+    double defaultValue_ { 1.0 };
 
     juce::Label text_;
-    bool isDragging_ {false};
-    bool doubleClickToResetIsEnabled_ {true};
+    bool isDragging_ { false };
+    bool doubleClickToResetIsEnabled_ { true };
 
     juce::ListenerList<Listener> listenerList_ {};
 
-    JUCE_LEAK_DETECTOR(TextBoxSlider)  // NOLINT
+    JUCE_LEAK_DETECTOR(TextBoxSlider) // NOLINT
 };
 
 /// \brief A text box slider control for changing a value via dragging or scrolling.
-class TextBoxSliderV2 : public juce::Slider
-{
+class TextBoxSliderV2 : public juce::Slider {
 public:
     /// \brief Creates a text box slider.
     /// \details When created, you can set up the text box slider's range with setRange(), etc.
@@ -213,9 +209,9 @@ public:
     ~TextBoxSliderV2() noexcept override = default;
 
 private:
-    JUCE_LEAK_DETECTOR(TextBoxSliderV2)  // NOLINT
+    JUCE_LEAK_DETECTOR(TextBoxSliderV2) // NOLINT
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_PLUGINS_TEXT_BOX_SLIDER_HPP
+#endif // MODERN_CIRCUITS_PLUGINS_TEXT_BOX_SLIDER_HPP

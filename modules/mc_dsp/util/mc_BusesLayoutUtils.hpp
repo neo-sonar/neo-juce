@@ -1,11 +1,9 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_BUSES_LAYOUT_UTILS_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_BUSES_LAYOUT_UTILS_HPP
 
-namespace mc
-{
+namespace mc {
 
-struct BusesLayoutUtils
-{
+struct BusesLayoutUtils {
 
     /// \brief Returns true if the given layout contains a main bus
     /// configuration with the input & output having the same channel count.
@@ -20,6 +18,6 @@ struct BusesLayoutUtils
     [[nodiscard]] static auto isStereoInOut(juce::AudioProcessor::BusesLayout const& layout) noexcept -> bool;
 };
 
-}  // namespace mc
+} // namespace mc
 
-#endif  // MODERN_CIRCUITS_JUCE_MODULES_BUSES_LAYOUT_UTILS_HPP
+#endif // MODERN_CIRCUITS_JUCE_MODULES_BUSES_LAYOUT_UTILS_HPP
