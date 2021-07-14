@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <array>
 #include <atomic>
+#include <chrono>
 #include <cstdint>
 #include <mutex>
 #include <thread>
@@ -48,6 +49,7 @@
 #include "javascript/mc_JSONUtils.hpp"
 #include "math/mc_Constants.hpp"
 #include "math/mc_RangeUtils.hpp"
+#include "time/Duration.hpp"
 #include "time/mc_TimeUtils.hpp"
 
 #include "thread/LockFreeQueue.hpp"

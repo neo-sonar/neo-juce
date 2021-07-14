@@ -81,6 +81,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_core/text/mc_TextValueConverters_Test.cpp
             modules/mc_core/thread/mc_LeftRight_Test.cpp
             modules/mc_core/thread/mc_ThreadSafeQueue_Test.cpp
+            modules/mc_core/time/Duration_Test.cpp
             modules/mc_core/time/mc_TimeUtils_Test.cpp
 
             modules/mc_data_structures/value_tree/mc_ValueWrapper_Test.cpp
