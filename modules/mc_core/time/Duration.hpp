@@ -99,11 +99,17 @@ template <typename T, typename R>
 struct juce::VariantConverter<std::chrono::duration<T, R>> {
     [[nodiscard]] static auto fromVar(juce::var const& v) -> std::chrono::duration<T, R>
     {
-        return std::chrono::duration<T, R> { static_cast<T>(v) };
+        if constexpr (std::is_floating_point_v<T>) {
+            return std::chrono::duration<T, R> { static_cast<T>(v) };
+        }
+        return std::chrono::duration<T, R> { static_cast<T>(static_cast<std::int64_t>(v)) };
     }
 
     [[nodiscard]] static auto toVar(std::chrono::duration<T, R> const& d) -> juce::var
     {
-        return juce::var { d.count() };
+        if constexpr (std::is_floating_point_v<T>) {
+            return juce::var { d.count() };
+        }
+        return juce::var { static_cast<std::int64_t>(d.count()) };
     }
 };
