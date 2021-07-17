@@ -6,6 +6,9 @@ namespace mc {
 template <typename R>
 using Duration = std::chrono::duration<double, R>;
 
+/// \brief Duration in microseconds.
+using Microseconds = Duration<std::micro>;
+
 /// \brief Duration in milliseconds.
 using Milliseconds = Duration<std::milli>;
 

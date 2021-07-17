@@ -25,45 +25,21 @@ template <typename T>
 }
 
 /// \brief Returns the sample count converted to microseconds.
-template <typename ValueType>
-[[nodiscard]] constexpr auto samplesToMicroseconds(int samples, double sampleRate) noexcept -> ValueType
+[[nodiscard]] constexpr auto samplesToMicroseconds(int samples, double sampleRate) noexcept -> Microseconds
 {
-    return static_cast<ValueType>((static_cast<double>(samples) / sampleRate) * 1'000'000.0);
+    return Microseconds { (static_cast<double>(samples) / sampleRate) * 1'000'000.0 };
 }
 
 /// \brief Returns the sample count converted to milliseconds.
-template <typename ValueType>
-[[nodiscard]] constexpr auto samplesToMilliseconds(int samples, double sampleRate) noexcept -> ValueType
+[[nodiscard]] constexpr auto samplesToMilliseconds(int samples, double sampleRate) noexcept -> Milliseconds
 {
-    return samplesToMicroseconds<ValueType>(samples, sampleRate) / 1'000;
+    return toMilliseconds(samplesToMicroseconds(samples, sampleRate));
 }
 
 /// \brief Returns the sample count converted to seconds.
-template <typename ValueType>
-[[nodiscard]] constexpr auto samplesToSeconds(int samples, double sampleRate) noexcept -> ValueType
+[[nodiscard]] constexpr auto samplesToSeconds(int samples, double sampleRate) noexcept -> Seconds
 {
-    return samplesToMilliseconds<ValueType>(samples, sampleRate) / 1'000;
-}
-
-/// \brief Returns the given microseconds in samples.
-template <typename ValueType>
-[[nodiscard]] constexpr auto microsecondsToSamples(double micros, double sampleRate) noexcept -> ValueType
-{
-    return static_cast<ValueType>((micros / 1'000'000) * sampleRate);
-}
-
-/// \brief Returns the given milliseconds in samples.
-template <typename ValueType>
-[[nodiscard]] constexpr auto millisecondsToSamples(double millis, double sampleRate) noexcept -> ValueType
-{
-    return static_cast<ValueType>((millis / 1'000) * sampleRate);
-}
-
-/// \brief Returns the given seconds in samples.
-template <typename ValueType>
-[[nodiscard]] constexpr auto secondsToSamples(double seconds, double sampleRate) noexcept -> ValueType
-{
-    return static_cast<ValueType>(seconds * sampleRate);
+    return toSeconds(samplesToMicroseconds(samples, sampleRate));
 }
 
 /// \brief Returns given bar count in samples.
@@ -76,26 +52,34 @@ template <typename ValueType>
 }
 
 struct TriggerClock {
-    auto advance(std::uint32_t numSamples) -> bool
-    {
-        auto ticked { false };
-        for (std::uint32_t i { 0 }; i < numSamples; ++i) {
-            if (sampleCount_++ % tickLength_ == 0) {
-                ticked = true;
-            }
-        }
-        return ticked;
-    }
-    auto reset() -> void { sampleCount_ = 0; }
-    auto setTickLength(Milliseconds milli) -> void
-    {
-        tickLength_ = static_cast<std::uint32_t>(toSampleCount(milli, sampleRate_));
-    }
-    auto setSampleRate(double sampleRate) -> void { sampleRate_ = sampleRate; }
+    auto advance(std::uint32_t numSamples) -> bool;
+    auto reset() -> void;
+    auto setTickLength(Milliseconds milli) -> void;
+    auto setSampleRate(double sampleRate) -> void;
 
 private:
     std::uint32_t sampleCount_ { 0 };
     std::uint32_t tickLength_ { 0 };
     double sampleRate_ { 0 };
 };
+
+inline auto TriggerClock::advance(std::uint32_t numSamples) -> bool
+{
+    auto ticked { false };
+    for (std::uint32_t i { 0 }; i < numSamples; ++i) {
+        if (sampleCount_++ % tickLength_ == 0) {
+            ticked = true;
+        }
+    }
+    return ticked;
+}
+
+inline auto TriggerClock::reset() -> void { sampleCount_ = 0; }
+
+inline auto TriggerClock::setTickLength(Milliseconds milli) -> void
+{
+    tickLength_ = static_cast<std::uint32_t>(toSampleCount(milli, sampleRate_));
+}
+
+inline auto TriggerClock::setSampleRate(double sampleRate) -> void { sampleRate_ = sampleRate; }
 }
