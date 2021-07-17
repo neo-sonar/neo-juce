@@ -87,6 +87,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_data_structures/value_tree/mc_ValueWrapper_Test.cpp
 
             modules/mc_dsp/attachment/mc_XYPadAttachment_Test.cpp
+            modules/mc_dsp/clock/TriggerClock_Test.cpp
             modules/mc_dsp/container/mc_AudioBufferPool_Test.cpp
             modules/mc_dsp/container/mc_AudioBufferUtils_Test.cpp
             modules/mc_dsp/processor/mc_MultiMonoIIR_Test.cpp

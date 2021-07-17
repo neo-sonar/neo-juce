@@ -27,6 +27,8 @@
 #include "container/mc_AudioBufferQueue.hpp"
 #include "container/mc_AudioBufferUtils.hpp"
 
+#include "clock/TriggerClock.hpp"
+
 #include "util/mc_BusesLayoutUtils.hpp"
 
 #include "processor/mc_MultiMonoIIR.hpp"
