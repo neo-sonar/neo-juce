@@ -2,6 +2,6 @@
 
 namespace mc {
 template <typename T>
-using LockFreeQueue = moodycamel::ReaderWriterQueue<T>;
+using LockFreeQueue = moodycamel::ConcurrentQueue<T>;
 
 }
