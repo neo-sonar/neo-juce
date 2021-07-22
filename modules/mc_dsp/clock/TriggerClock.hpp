@@ -67,7 +67,7 @@ inline auto TriggerClock::advance(std::uint32_t numSamples) -> bool
 {
     auto ticked { false };
     for (std::uint32_t i { 0 }; i < numSamples; ++i) {
-        if (sampleCount_++ % tickLength_ == 0) {
+        if (sampleCount_ += 1; sampleCount_ % tickLength_ == 0) {
             ticked = true;
         }
     }
