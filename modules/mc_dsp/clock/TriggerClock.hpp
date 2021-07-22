@@ -52,34 +52,34 @@ template <typename T>
 }
 
 struct TriggerClock {
-    auto advance(std::uint32_t numSamples) -> bool;
-    auto reset() -> void;
+    auto reset(std::int64_t sampleCount = 0) -> void;
     auto setTickLength(Milliseconds milli) -> void;
     auto setSampleRate(double sampleRate) -> void;
 
+    [[nodiscard]] auto advance(std::int64_t numSamples) -> bool;
+
 private:
-    std::uint32_t sampleCount_ { 0 };
-    std::uint32_t tickLength_ { 0 };
+    std::int64_t sampleCount_ { 0 };
+    std::int64_t tickLength_ { 0 };
     double sampleRate_ { 0 };
 };
 
-inline auto TriggerClock::advance(std::uint32_t numSamples) -> bool
+inline auto TriggerClock::advance(std::int64_t numSamples) -> bool
 {
     auto ticked { false };
-    for (std::uint32_t i { 0 }; i < numSamples; ++i) {
-        if (sampleCount_ % tickLength_ == 0) {
+    for (std::int64_t i { 0 }; i < numSamples; ++i) {
+        if (sampleCount_ += 1; sampleCount_ % tickLength_ == 0) {
             ticked = true;
         }
-        sampleCount_ += 1;
     }
     return ticked;
 }
 
-inline auto TriggerClock::reset() -> void { sampleCount_ = 0; }
+inline auto TriggerClock::reset(std::int64_t sampleCount) -> void { sampleCount_ = sampleCount; }
 
 inline auto TriggerClock::setTickLength(Milliseconds milli) -> void
 {
-    tickLength_ = static_cast<std::uint32_t>(toSampleCount(milli, sampleRate_));
+    tickLength_ = static_cast<std::int64_t>(toSampleCount(milli, sampleRate_));
 }
 
 inline auto TriggerClock::setSampleRate(double sampleRate) -> void { sampleRate_ = sampleRate; }
