@@ -17,7 +17,6 @@ auto toSampleCount(Duration<R> const& duration, double sampleRate) noexcept -> d
     auto const samplesPerBar = samplesPerMin / barsPerMin;
     return samplesPerBar * bars;
 }
-}
 
 [[nodiscard]] constexpr auto barsToMilliseconds(double bpm, double num, double denom) noexcept -> Milliseconds
 {
@@ -51,4 +50,5 @@ template <typename T>
 [[nodiscard]] constexpr auto bpmToHertz(T bpm) noexcept -> T
 {
     return bpm / T { 60 };
+}
 }
