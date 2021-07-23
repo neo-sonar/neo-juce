@@ -2,9 +2,10 @@ namespace mc {
 
 auto TriggerClock::advance(std::int64_t numSamples) -> bool
 {
+    auto const oldCount = sampleCount_;
     sampleCount_ += numSamples;
     for (std::int64_t i { 0 }; i < numSamples; ++i) {
-        if (static_cast<std::uint64_t>(std::abs(sampleCount_) + i) % tickLength_ == 0) {
+        if (static_cast<std::uint64_t>(std::abs(oldCount) + i) % tickLength_ == 0) {
             return true;
         }
     }
