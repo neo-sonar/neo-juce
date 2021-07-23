@@ -6,10 +6,10 @@ XYPadAttachment::XYPadAttachment(juce::RangedAudioParameter& parameterX, juce::R
     , attachmentX_ { parameterX, [this](float val) { setPosition(val, true); }, um }
     , attachmentY_ { parameterY, [this](float val) { setPosition(val, false); }, um }
 {
-    pad_.addListener(this);
     pad_.setXRange(parameterX.getNormalisableRange());
     pad_.setYRange(parameterY.getNormalisableRange());
     sendInitialUpdate();
+    pad_.addListener(this);
 }
 
 XYPadAttachment::~XYPadAttachment()
