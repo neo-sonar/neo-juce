@@ -3,6 +3,7 @@
 namespace mc {
 
 /// \brief Converts the duration to a sample count based on the sample-rate.
+/// \see Duration
 template <typename R>
 auto toSampleCount(Duration<R> const& duration, double sampleRate) noexcept -> double
 {

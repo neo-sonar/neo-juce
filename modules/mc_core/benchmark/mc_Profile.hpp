@@ -165,9 +165,13 @@ private:
 #define MC_PROFILE_SCOPE(name) ::mc::ProfileTimer MC_ANONYMOUS_VARIABLE(timer)(name);
 #define MC_PROFILE_FUNCTION() MC_PROFILE_SCOPE(MC_FUNC_SIG)
 #else
+/// \brief Must be called as early as possible to start a new profiling session.
 #define MC_PROFILE_BEGIN_SESSION(name, filepath)
+/// \brief Close and saves the profiling run to disk.
 #define MC_PROFILE_END_SESSION()
+/// \brief Profile a scope
 #define MC_PROFILE_SCOPE(name)
+/// \brief Profile a function
 #define MC_PROFILE_FUNCTION()
 #endif
 

@@ -7,9 +7,7 @@
 
 namespace mc {
 
-/// \brief Registry
-/// \details Original design by Sean Parent. CppCon 2019: Sean Parent “Better Code: Relationships”
-/// https://youtu.be/ejF6qqohp3M
+/// \brief CppCon 2019: Sean Parent “Better Code: Relationships” https://youtu.be/ejF6qqohp3M
 template <class T>
 class Registry {
 public:

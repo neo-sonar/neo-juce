@@ -52,10 +52,10 @@ def add_doxygen_group(path, group_name):
     """
 
     filename = os.path.basename(path)
-    if re.match(r"^mc_.*\.(hpp|dox)", filename):
-        with open(path, "r") as f:
+    if re.match(r"^.*\.(hpp|dox)", filename):
+        with open(path, "r", encoding="utf8") as f:
             content = f.read()
-        with open(path, "w") as f:
+        with open(path, "w", encoding="utf8") as f:
             f.write("\r\n/** @weakgroup " +
                     group_name + "\r\n *  @{\r\n */\r\n")
             f.write(remove_mc_namespaces(content))
