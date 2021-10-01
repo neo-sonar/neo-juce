@@ -11,7 +11,7 @@ class MultiMonoIIR {
 public:
     MultiMonoIIR() = default;
 
-    [[nodiscard]] auto getCoefficients() const noexcept -> juce::IIRCoefficients { return coefficients_; }
+    MC_NODISCARD auto getCoefficients() const noexcept -> juce::IIRCoefficients { return coefficients_; }
 
     auto setCoefficients(juce::IIRCoefficients const& newCoefficients) noexcept -> void
     {

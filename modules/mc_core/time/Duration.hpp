@@ -17,14 +17,14 @@ using Seconds = Duration<std::ratio<1>>;
 
 /// \brief Converts a duration to milliseconds.
 template <typename R>
-[[nodiscard]] constexpr auto toMilliseconds(Duration<R> const& duration) noexcept -> Seconds
+MC_NODISCARD constexpr auto toMilliseconds(Duration<R> const& duration) noexcept -> Seconds
 {
     return std::chrono::duration_cast<Milliseconds>(duration);
 }
 
 /// \brief Converts a duration to seconds.
 template <typename R>
-[[nodiscard]] constexpr auto toSeconds(Duration<R> const& duration) noexcept -> Seconds
+MC_NODISCARD constexpr auto toSeconds(Duration<R> const& duration) noexcept -> Seconds
 {
     return std::chrono::duration_cast<Seconds>(duration);
 }
@@ -34,7 +34,7 @@ template <typename R>
 /// \internal
 template <typename T, typename R>
 struct juce::VariantConverter<std::chrono::duration<T, R>> {
-    [[nodiscard]] static auto fromVar(juce::var const& v) -> std::chrono::duration<T, R>
+    MC_NODISCARD static auto fromVar(juce::var const& v) -> std::chrono::duration<T, R>
     {
         if constexpr (std::is_floating_point_v<T>) {
             return std::chrono::duration<T, R> { static_cast<T>(v) };
@@ -42,7 +42,7 @@ struct juce::VariantConverter<std::chrono::duration<T, R>> {
         return std::chrono::duration<T, R> { static_cast<T>(static_cast<juce::int64>(v)) };
     }
 
-    [[nodiscard]] static auto toVar(std::chrono::duration<T, R> const& d) -> juce::var
+    MC_NODISCARD static auto toVar(std::chrono::duration<T, R> const& d) -> juce::var
     {
         if constexpr (std::is_floating_point_v<T>) {
             return juce::var { d.count() };

@@ -167,4 +167,9 @@ inline constexpr std::size_t HardwareCacheLineSize = MC_CACHE_LINE_SIZE;
 #define MC_ALIGNAS(bytes)
 #endif
 
+#if defined(_MSC_VER)
+#define MC_NODISCARD _Check_return_
+#else
+#define MC_NODISCARD __attribute__((warn_unused_result)) // NOLINT
+#endif
 #endif // MODERN_CIRCUITS_JUCE_MODULES_PLATFORM_HPP

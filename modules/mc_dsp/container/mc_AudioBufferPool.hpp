@@ -53,12 +53,12 @@ public:
     /**
      * @brief Returns the number of used bytes.
      */
-    [[nodiscard]] auto sizeInBytes() const noexcept -> std::size_t { return size_; }
+    MC_NODISCARD auto sizeInBytes() const noexcept -> std::size_t { return size_; }
 
     /**
      * @brief Returns the capacity in bytes.
      */
-    [[nodiscard]] auto capacityInBytes() const noexcept -> std::size_t { return capacity_; }
+    MC_NODISCARD auto capacityInBytes() const noexcept -> std::size_t { return capacity_; }
 
     /**
      * @brief Returns an AudioBuffer with the given size.
@@ -66,7 +66,7 @@ public:
      * @param numSamples The number of samples for the newly created AudioBuffer.
      */
     template <typename FloatType>
-    [[nodiscard]] auto makeBuffer(int numChannels, int numSamples) -> std::pair<juce::AudioBuffer<FloatType>, bool>
+    MC_NODISCARD auto makeBuffer(int numChannels, int numSamples) -> std::pair<juce::AudioBuffer<FloatType>, bool>
     {
         static_assert(std::is_same_v<FloatType, float> || std::is_same_v<FloatType, double>);
 

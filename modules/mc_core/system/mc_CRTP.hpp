@@ -5,9 +5,9 @@ namespace mc {
 template <typename Type, template <typename> typename CrtpTag>
 class CRTP {
 protected:
-    [[nodiscard]] constexpr auto underlying() const noexcept -> Type const& { return static_cast<Type const&>(*this); }
+    MC_NODISCARD constexpr auto underlying() const noexcept -> Type const& { return static_cast<Type const&>(*this); }
 
-    [[nodiscard]] constexpr auto underlying() noexcept -> Type& { return static_cast<Type&>(*this); }
+    MC_NODISCARD constexpr auto underlying() noexcept -> Type& { return static_cast<Type&>(*this); }
 };
 } // namespace mc
 

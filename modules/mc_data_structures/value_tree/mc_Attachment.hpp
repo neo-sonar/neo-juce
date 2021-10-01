@@ -56,7 +56,7 @@ public:
     }
 
 private:
-    [[nodiscard]] auto getValue() const -> value_type { return state_[id_]; }
+    MC_NODISCARD auto getValue() const -> value_type { return state_[id_]; }
 
     template <typename Callback>
     void callIfValueChanged(value_type newValue, Callback&& callback)

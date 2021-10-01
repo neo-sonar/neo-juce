@@ -53,7 +53,7 @@ public:
 
 template <typename ValueType>
 struct juce::VariantConverter<juce::Range<ValueType>> {
-    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Range<ValueType>
+    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Range<ValueType>
     {
         auto const splits = mc::StringUtils::split(v.toString(), ':');
         auto const start  = mc::StringUtils::toValue<ValueType>(splits[0]);
@@ -61,7 +61,7 @@ struct juce::VariantConverter<juce::Range<ValueType>> {
         return juce::Range<ValueType> { start, end };
     }
 
-    [[nodiscard]] static auto toVar(juce::Range<ValueType> const& r) -> juce::var
+    MC_NODISCARD static auto toVar(juce::Range<ValueType> const& r) -> juce::var
     {
         return juce::String { fmt::format("{}:{}", r.getStart(), r.getEnd()) };
     }
@@ -69,7 +69,7 @@ struct juce::VariantConverter<juce::Range<ValueType>> {
 
 template <typename ValueType>
 struct juce::VariantConverter<juce::NormalisableRange<ValueType>> {
-    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::NormalisableRange<ValueType>
+    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::NormalisableRange<ValueType>
     {
         auto const splits        = mc::StringUtils::split(v.toString(), ':');
         auto const start         = mc::StringUtils::toValue<ValueType>(splits[0]);
@@ -80,7 +80,7 @@ struct juce::VariantConverter<juce::NormalisableRange<ValueType>> {
         return juce::NormalisableRange<ValueType> { start, end, interval, skew, symmetricSkew };
     }
 
-    [[nodiscard]] static auto toVar(juce::NormalisableRange<ValueType> const& nr) -> juce::var
+    MC_NODISCARD static auto toVar(juce::NormalisableRange<ValueType> const& nr) -> juce::var
     {
         return juce::String { fmt::format("{}:{}:{}:{}:{}", nr.start, nr.end, nr.interval, nr.skew, nr.symmetricSkew) };
     }

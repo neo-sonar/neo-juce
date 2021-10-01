@@ -27,13 +27,13 @@ public:
     }
 
     /// \brief Returns the number of elements inside the registry.
-    [[nodiscard]] auto size() const noexcept -> size_type { return size_; }
+    MC_NODISCARD auto size() const noexcept -> size_type { return size_; }
 
     /// \brief Returns the last ticket number which was issued.
-    [[nodiscard]] auto maxID() const noexcept -> ticket_type { return id_ - 1; }
+    MC_NODISCARD auto maxID() const noexcept -> ticket_type { return id_ - 1; }
 
     /// \brief Returns the currently allocated space.
-    [[nodiscard]] auto capacity() const noexcept -> size_type { return map_.capacity(); }
+    MC_NODISCARD auto capacity() const noexcept -> size_type { return map_.capacity(); }
 
     /// \brief Apply a functor to all elements.
     template <typename F>
@@ -61,7 +61,7 @@ public:
     /// \details Returns true if the ticket was valid and the functor was called.
     /// False otherwise.
     template <typename F>
-    [[nodiscard]] auto forID(ticket_type ticket, F f) const -> bool
+    MC_NODISCARD auto forID(ticket_type ticket, F f) const -> bool
     {
         MC_EXPECTS(ticket < id_ && "ID must be in range for this registry");
 
@@ -80,7 +80,7 @@ public:
     }
 
     /// \brief Append an element to the registry. A handle will be returned.
-    [[nodiscard]] auto append(T element) -> ticket_type
+    MC_NODISCARD auto append(T element) -> ticket_type
     {
         MC_ENSURES(size() != 0);
         map_.emplace_back(id_, std::move(element));

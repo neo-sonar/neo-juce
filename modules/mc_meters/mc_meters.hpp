@@ -21,6 +21,7 @@
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <juce_events/juce_events.h>
 #include <juce_gui_basics/juce_gui_basics.h>
+#include <mc_data_structures/mc_data_structures.hpp>
 
 #include <atomic>
 #include <numeric>

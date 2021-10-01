@@ -19,9 +19,9 @@ public:
     auto operator=(ThreadSafeQueue const&) -> ThreadSafeQueue& = delete;
 
     ThreadSafeQueue(ThreadSafeQueue&& other) = delete;
-    auto operator=(ThreadSafeQueue &&) -> ThreadSafeQueue& = delete;
+    auto operator=(ThreadSafeQueue&&) -> ThreadSafeQueue& = delete;
 
-    [[nodiscard]] auto pop() -> boost::optional<value_type>
+    MC_NODISCARD auto pop() -> boost::optional<value_type>
     {
         std::lock_guard<std::mutex> lock(mutex_);
         if (queue_.empty()) {
@@ -44,7 +44,7 @@ public:
         queue_.push(std::move(item));
     }
 
-    [[nodiscard]] auto size() const -> size_type
+    MC_NODISCARD auto size() const -> size_type
     {
         std::lock_guard<std::mutex> lock(mutex_);
         return queue_.size();
@@ -52,7 +52,7 @@ public:
 
 private:
     // Moved out of public interface to prevent races between this and pop().
-    [[nodiscard]] auto empty() const -> bool { return queue_.empty(); }
+    MC_NODISCARD auto empty() const -> bool { return queue_.empty(); }
 
     std::queue<value_type> queue_;
     std::mutex mutable mutex_;

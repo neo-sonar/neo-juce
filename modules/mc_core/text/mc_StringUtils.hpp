@@ -4,7 +4,7 @@
 namespace mc {
 
 struct StringUtils {
-    [[nodiscard]] static auto split(juce::String const& str, char delimiter) -> std::vector<juce::String>
+    MC_NODISCARD static auto split(juce::String const& str, char delimiter) -> std::vector<juce::String>
     {
         std::vector<juce::String> tokens {};
         std::string token {};
@@ -16,7 +16,7 @@ struct StringUtils {
     }
 
     template <typename ValueType>
-    [[nodiscard]] static auto toValue(juce::String const& str) -> ValueType
+    MC_NODISCARD static auto toValue(juce::String const& str) -> ValueType
     {
         if constexpr (std::is_same_v<ValueType, int>) {
             return str.getIntValue();

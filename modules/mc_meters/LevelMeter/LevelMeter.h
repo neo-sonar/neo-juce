@@ -69,25 +69,25 @@ public:
         virtual void updateMeterGradients() = 0;
 
         /** Override this to change the inner rectangle in case you want to paint a border e.g. */
-        [[nodiscard]] virtual auto getMeterInnerBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
+        MC_NODISCARD virtual auto getMeterInnerBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
         /** Override this callback to define the placement of a meter channel. */
-        [[nodiscard]] virtual auto getMeterBounds(juce::Rectangle<float> bounds, MeterFlags meterType, int numChannels,
+        MC_NODISCARD virtual auto getMeterBounds(juce::Rectangle<float> bounds, MeterFlags meterType, int numChannels,
             int channel) const -> juce::Rectangle<float> = 0;
 
         /** Override this callback to define the placement of the actual meter bar. */
-        [[nodiscard]] virtual auto getMeterBarBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
+        MC_NODISCARD virtual auto getMeterBarBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
         /** Override this callback to define the placement of the tickmarks.
          To disable this feature return an empty rectangle. */
-        [[nodiscard]] virtual auto getMeterTickmarksBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
+        MC_NODISCARD virtual auto getMeterTickmarksBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
         /** Override this callback to define the placement of the clip indicator light.
          To disable this feature return an empty rectangle. */
-        [[nodiscard]] virtual auto getMeterClipIndicatorBounds(juce::Rectangle<float> bounds,
+        MC_NODISCARD virtual auto getMeterClipIndicatorBounds(juce::Rectangle<float> bounds,
             MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
@@ -143,7 +143,7 @@ public:
 
         /** Override this callback to define the placement of the max level.
          To disable this feature return an empty rectangle. */
-        [[nodiscard]] virtual auto getMeterMaxNumberBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
+        MC_NODISCARD virtual auto getMeterMaxNumberBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
         /** This callback draws the number of maximum level. The background has an extra callback */

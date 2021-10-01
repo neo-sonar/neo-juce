@@ -20,13 +20,13 @@ public:
     auto setupAnalyser(int audioFifoSize, double sampleRateToUse) -> void;
 
     auto createPath(juce::Path& p, juce::Rectangle<float> const& bounds, float minFreq) -> void;
-    [[nodiscard]] auto checkForNewData() -> bool;
+    MC_NODISCARD auto checkForNewData() -> bool;
 
 private:
     auto run() -> void override;
 
-    [[nodiscard]] auto indexToX(float index, float minFreq) const -> float;
-    [[nodiscard]] static auto binToY(float bin, juce::Rectangle<float> const& bounds) -> float;
+    MC_NODISCARD auto indexToX(float index, float minFreq) const -> float;
+    MC_NODISCARD static auto binToY(float bin, juce::Rectangle<float> const& bounds) -> float;
 
     float sampleRate_ {};
 

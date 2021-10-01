@@ -63,7 +63,7 @@ public:
     /**
      * @brief Returns the slider's current value.
      */
-    [[nodiscard]] auto getValue() const noexcept -> double;
+    MC_NODISCARD auto getValue() const noexcept -> double;
 
     /**
      * @brief Sets the limits that the text box slider's value can take.
@@ -73,22 +73,22 @@ public:
     /**
      * @brief Returns the text box slider's range.
      */
-    [[nodiscard]] auto getRange() const noexcept -> juce::Range<double>;
+    MC_NODISCARD auto getRange() const noexcept -> juce::Range<double>;
 
     /**
      * @brief Returns the current maximum value.
      */
-    [[nodiscard]] auto getMaximum() const noexcept -> double;
+    MC_NODISCARD auto getMaximum() const noexcept -> double;
 
     /**
      * @brief Returns the current minimum value.
      */
-    [[nodiscard]] auto getMinimum() const noexcept -> double;
+    MC_NODISCARD auto getMinimum() const noexcept -> double;
 
     /**
      * @brief Returns the current step-size for value.
      */
-    [[nodiscard]] auto getInterval() const noexcept -> double;
+    MC_NODISCARD auto getInterval() const noexcept -> double;
 
     /**
      * @brief Enables or disables the double-click to reset to default value feature.
@@ -98,12 +98,12 @@ public:
     /**
      * @brief Returns the values last set by setDoubleClickReturnValue() method.
      */
-    [[nodiscard]] auto getDoubleClickReturnValue() const noexcept -> double;
+    MC_NODISCARD auto getDoubleClickReturnValue() const noexcept -> double;
 
     /**
      * @brief Returns true if double-clicking to reset to a default value is enabled.
      */
-    [[nodiscard]] auto isDoubleClickReturnEnabled() const noexcept -> bool;
+    MC_NODISCARD auto isDoubleClickReturnEnabled() const noexcept -> bool;
 
     /**
      * @brief Makes the text-box editable.
@@ -113,7 +113,7 @@ public:
     /**
      * @brief Returns true if the text-box is read-only.
      */
-    [[nodiscard]] auto isTextBoxEditable() const noexcept -> bool;
+    MC_NODISCARD auto isTextBoxEditable() const noexcept -> bool;
 
     /**
      * @brief You can assign a lambda to this callback object to have it called when the slider value is changed.
@@ -143,12 +143,12 @@ public:
     /**
      * @brief Convert string representation to value.
      */
-    [[nodiscard]] auto getValueFromText(juce::String const& text) const -> double;
+    MC_NODISCARD auto getValueFromText(juce::String const& text) const -> double;
 
     /**
      * @brief Convert value to string representation.
      */
-    [[nodiscard]] auto getTextFromValue(double value) const -> juce::String;
+    MC_NODISCARD auto getTextFromValue(double value) const -> juce::String;
 
     /**
      * @brief Sets the style of justification to be used for positioning the text.
@@ -158,7 +158,7 @@ public:
     /**
      * @brief Returns the type of justification, as set in setJustificationType().
      */
-    [[nodiscard]] auto getJustificationType() const noexcept -> juce::Justification;
+    MC_NODISCARD auto getJustificationType() const noexcept -> juce::Justification;
 
     /**
      * @brief Adds a listener to be called when this text box slider's value changes.

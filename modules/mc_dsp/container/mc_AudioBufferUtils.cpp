@@ -41,7 +41,7 @@ auto splitInternal(juce::AudioBuffer<FloatT> const& src, juce::AudioBuffer<Float
 }
 
 template <typename FloatT>
-[[nodiscard]] auto containsNANsInternal(juce::AudioBuffer<FloatT> const& buffer) noexcept -> bool
+MC_NODISCARD auto containsNANsInternal(juce::AudioBuffer<FloatT> const& buffer) noexcept -> bool
 {
     for (auto channel = 0; channel < buffer.getNumChannels(); ++channel) {
         auto const* const samples = buffer.getReadPointer(channel);
@@ -56,7 +56,7 @@ template <typename FloatT>
 }
 
 template <typename FloatT>
-[[nodiscard]] auto containsINFsInternal(juce::AudioBuffer<FloatT> const& buffer) noexcept -> bool
+MC_NODISCARD auto containsINFsInternal(juce::AudioBuffer<FloatT> const& buffer) noexcept -> bool
 {
     for (auto channel = 0; channel < buffer.getNumChannels(); ++channel) {
         auto const* const samples = buffer.getReadPointer(channel);
@@ -71,7 +71,7 @@ template <typename FloatT>
 }
 
 template <typename FloatT>
-[[nodiscard]] auto allOfInternal(juce::AudioBuffer<FloatT> const& buffer, FloatT const value) noexcept -> bool
+MC_NODISCARD auto allOfInternal(juce::AudioBuffer<FloatT> const& buffer, FloatT const value) noexcept -> bool
 {
     auto const numChannels = buffer.getNumChannels();
     auto const numSamples  = buffer.getNumSamples();
@@ -86,7 +86,7 @@ template <typename FloatT>
 }
 
 template <typename FloatT>
-[[nodiscard]] auto equalInternal(juce::AudioBuffer<FloatT> const& lhs, juce::AudioBuffer<FloatT> const& rhs) noexcept
+MC_NODISCARD auto equalInternal(juce::AudioBuffer<FloatT> const& lhs, juce::AudioBuffer<FloatT> const& rhs) noexcept
     -> bool
 {
     if (lhs.getNumChannels() != rhs.getNumChannels()) {

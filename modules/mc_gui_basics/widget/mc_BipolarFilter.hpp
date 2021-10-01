@@ -36,7 +36,7 @@ public:
     ~BipolarFilter() noexcept override = default;
 
     auto setValue(double newValue) -> void;
-    [[nodiscard]] auto getValue() const noexcept -> double;
+    MC_NODISCARD auto getValue() const noexcept -> double;
 
     /**
      * @brief Enables or disables the double-click to reset to default value feature.
@@ -46,12 +46,12 @@ public:
     /**
      * @brief Returns the values last set by setDoubleClickReturnValue() method.
      */
-    [[nodiscard]] auto getDoubleClickReturnValue() const noexcept -> double;
+    MC_NODISCARD auto getDoubleClickReturnValue() const noexcept -> double;
 
     /**
      * @brief Returns true if double-clicking to reset to a default value is enabled.
      */
-    [[nodiscard]] auto isDoubleClickReturnEnabled() const noexcept -> bool;
+    MC_NODISCARD auto isDoubleClickReturnEnabled() const noexcept -> bool;
 
     /**
      * @brief Adds a listener to be called when this bipolar filter's value changes.

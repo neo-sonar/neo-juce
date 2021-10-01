@@ -29,28 +29,28 @@ struct XYPad : juce::Component {
     explicit XYPad(juce::String const& name = {});
     ~XYPad() override = default;
 
-    [[nodiscard]] auto getValueX() const noexcept -> float;
-    [[nodiscard]] auto getValueY() const noexcept -> float;
+    MC_NODISCARD auto getValueX() const noexcept -> float;
+    MC_NODISCARD auto getValueY() const noexcept -> float;
     auto setValueX(float x) -> void;
     auto setValueY(float y) -> void;
 
-    [[nodiscard]] auto getNormalizedX() const noexcept -> float;
-    [[nodiscard]] auto getNormalizedY() const noexcept -> float;
+    MC_NODISCARD auto getNormalizedX() const noexcept -> float;
+    MC_NODISCARD auto getNormalizedY() const noexcept -> float;
     auto setNormalizedX(float x) -> void;
     auto setNormalizedY(float y) -> void;
 
-    [[nodiscard]] auto getXRange() const noexcept -> juce::NormalisableRange<float>;
-    [[nodiscard]] auto getYRange() const noexcept -> juce::NormalisableRange<float>;
+    MC_NODISCARD auto getXRange() const noexcept -> juce::NormalisableRange<float>;
+    MC_NODISCARD auto getYRange() const noexcept -> juce::NormalisableRange<float>;
     auto setXRange(juce::NormalisableRange<float> const& newRange) -> void;
     auto setYRange(juce::NormalisableRange<float> const& newRange) -> void;
 
-    [[nodiscard]] auto getDirectionX() const noexcept -> bool;
-    [[nodiscard]] auto getDirectionY() const noexcept -> bool;
+    MC_NODISCARD auto getDirectionX() const noexcept -> bool;
+    MC_NODISCARD auto getDirectionY() const noexcept -> bool;
     auto setDirectionX(bool startShouldBeOnLeft) -> void;
     auto setDirectionY(bool startShouldBeOnTop) -> void;
 
-    [[nodiscard]] auto isOverThumb() const noexcept -> bool;
-    [[nodiscard]] auto isDragging() const noexcept -> bool;
+    MC_NODISCARD auto isOverThumb() const noexcept -> bool;
+    MC_NODISCARD auto isDragging() const noexcept -> bool;
 
     auto addListener(Listener* listener) -> void { listeners_.add(listener); }
     auto removeListener(Listener* listener) -> void { listeners_.remove(listener); }
@@ -64,9 +64,9 @@ private:
     auto mouseUp(juce::MouseEvent const& event) -> void override;
     auto mouseDrag(juce::MouseEvent const& event) -> void override;
 
-    [[nodiscard]] auto getValueFromPixel(int pixel, bool isXAxis) const -> float;
-    [[nodiscard]] auto getPixelFromNormalizedValue(float value, bool x) const -> int;
-    [[nodiscard]] auto thumbHitTest(juce::MouseEvent const& event) const -> bool;
+    MC_NODISCARD auto getValueFromPixel(int pixel, bool isXAxis) const -> float;
+    MC_NODISCARD auto getPixelFromNormalizedValue(float value, bool x) const -> int;
+    MC_NODISCARD auto thumbHitTest(juce::MouseEvent const& event) const -> bool;
 
     auto updatePosition() -> void;
 

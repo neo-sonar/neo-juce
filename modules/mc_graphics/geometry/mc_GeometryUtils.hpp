@@ -3,7 +3,7 @@
 
 template <typename ValueType>
 struct juce::VariantConverter<juce::Point<ValueType>> {
-    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Point<ValueType>
+    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Point<ValueType>
     {
         auto const splits = mc::StringUtils::split(v.toString(), ':');
         auto const x      = mc::StringUtils::toValue<ValueType>(splits[0]);
@@ -11,7 +11,7 @@ struct juce::VariantConverter<juce::Point<ValueType>> {
         return juce::Point<ValueType> { x, y };
     }
 
-    [[nodiscard]] static auto toVar(juce::Point<ValueType> const& p) -> juce::var
+    MC_NODISCARD static auto toVar(juce::Point<ValueType> const& p) -> juce::var
     {
         return juce::String { fmt::format("{}:{}", p.x, p.y) };
     }
@@ -19,7 +19,7 @@ struct juce::VariantConverter<juce::Point<ValueType>> {
 
 template <typename ValueType>
 struct juce::VariantConverter<juce::Line<ValueType>> {
-    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Line<ValueType>
+    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Line<ValueType>
     {
         auto const splits = mc::StringUtils::split(v.toString(), ':');
         auto const startX = mc::StringUtils::toValue<ValueType>(splits[0]);
@@ -29,7 +29,7 @@ struct juce::VariantConverter<juce::Line<ValueType>> {
         return juce::Line<ValueType> { { startX, startY }, { endX, endY } };
     }
 
-    [[nodiscard]] static auto toVar(juce::Line<ValueType> const& l) -> juce::var
+    MC_NODISCARD static auto toVar(juce::Line<ValueType> const& l) -> juce::var
     {
         return juce::String { fmt::format("{}:{}:{}:{}", l.getStart().x, l.getStart().y, l.getEnd().x, l.getEnd().y) };
     }
@@ -37,7 +37,7 @@ struct juce::VariantConverter<juce::Line<ValueType>> {
 
 template <typename ValueType>
 struct juce::VariantConverter<juce::Rectangle<ValueType>> {
-    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Rectangle<ValueType>
+    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Rectangle<ValueType>
     {
         auto const splits = mc::StringUtils::split(v.toString(), ':');
         auto const x      = mc::StringUtils::toValue<ValueType>(splits[0]);
@@ -47,7 +47,7 @@ struct juce::VariantConverter<juce::Rectangle<ValueType>> {
         return juce::Rectangle<ValueType> { x, y, width, height };
     }
 
-    [[nodiscard]] static auto toVar(juce::Rectangle<ValueType> const& l) -> juce::var
+    MC_NODISCARD static auto toVar(juce::Rectangle<ValueType> const& l) -> juce::var
     {
         return juce::String { fmt::format("{}:{}:{}:{}", l.getX(), l.getY(), l.getWidth(), l.getHeight()) };
     }

@@ -34,7 +34,7 @@ class OutlineBuffer {
         /**
          @return the number of values the buffer will store.
          */
-        [[nodiscard]] auto getSize() const -> int { return static_cast<int>(minBuffer_.size()); }
+        MC_NODISCARD auto getSize() const -> int { return static_cast<int>(minBuffer_.size()); }
 
         void setSamplesPerBlock(const int numSamples) { samplesPerBlock_ = numSamples; }
 

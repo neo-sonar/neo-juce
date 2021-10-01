@@ -15,7 +15,7 @@ struct OscilloscopeSource {
     void process(juce::AudioBuffer<float> const& buffer);
     void process(juce::AudioBuffer<double> const& buffer);
 
-    [[nodiscard]] auto getQueue() -> AudioBufferQueue<double>&;
+    MC_NODISCARD auto getQueue() -> AudioBufferQueue<double>&;
 
 private:
     template <typename SampleType>

@@ -13,7 +13,7 @@ inline auto to_string_view(juce::String const& string) -> ::fmt::string_view // 
 namespace mc {
 
 template <typename... Args>
-[[nodiscard]] inline auto format(juce::String const& formatStr, Args&&... args) -> juce::String
+MC_NODISCARD inline auto format(juce::String const& formatStr, Args&&... args) -> juce::String
 {
     return juce::String { ::fmt::format(to_string_view(formatStr), args...) };
 }
