@@ -39,6 +39,7 @@ mac:xcode:release:
     - mc-macos
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
+    MACOSX_DEPLOYMENT_TARGET: "10.12"
   script:
     - cd $CI_PROJECT_DIR
     - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_WERROR=ON

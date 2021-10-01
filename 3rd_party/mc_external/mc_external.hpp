@@ -6,7 +6,7 @@
  version:       0.1.0
  name:          Third party code
  description:   Modern Circuits 3rd party header only libraries
- searchpaths:   3rd_party/GSL/include, 3rd_party/fmt/include, 3rd_party/readerwriterqueue, 3rd_party/concurrentqueue
+ searchpaths:   3rd_party/GSL/include, 3rd_party/readerwriterqueue, 3rd_party/concurrentqueue
 
  END_JUCE_MODULE_DECLARATION
  */
@@ -18,7 +18,6 @@
 #define USE_MC_EXTERNAL 1
 #endif
 
-#define FMT_HEADER_ONLY 1
 #include "fmt/chrono.h"
 #include "fmt/format.h"
 #include "fmt/ostream.h"

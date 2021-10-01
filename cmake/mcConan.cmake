@@ -8,7 +8,31 @@ endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 
-conan_add_remote(NAME bincrafters URL https://api.bintray.com/conan/bincrafters/public-conan)
-conan_cmake_configure(REQUIRES boost/1.75.0 easy_profiler/2.1.0 GENERATORS cmake_find_package)
+conan_add_remote(NAME conancenter URL https://center.conan.io)
+conan_cmake_configure(
+    REQUIRES
+        boost/1.77.0
+        fmt/8.0.1
+        ms-gsl/3.1.0
+        tcb-span/cci.20200603
+    GENERATORS
+        cmake_find_package
+    OPTIONS
+        boost:header_only=True
+)
+
 conan_cmake_autodetect(settings)
-conan_cmake_install(PATH_OR_REFERENCE . BUILD missing REMOTE conan-center SETTINGS ${settings})
+
+conan_cmake_install(
+    PATH_OR_REFERENCE
+        .
+    BUILD
+        outdated
+    REMOTE
+        conancenter
+    SETTINGS
+        ${settings}
+    SETTINGS
+        compiler.cppstd=17
+)
+

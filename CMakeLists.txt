@@ -3,7 +3,7 @@ cmake_policy(VERSION 3.15)
 
 project(modern-circuits-juce-modules VERSION 0.1.0)
 
-option(MC_BUILD_CONAN      "Build with dependencies build from conan"          OFF)
+option(MC_BUILD_CONAN      "Build with dependencies build from conan"          ON)
 option(MC_BUILD_COVERAGE   "Build with coverage enabled"                       OFF)
 option(MC_BUILD_ASAN       "Build with address sanitizer enabled"              OFF)
 option(MC_BUILD_UBSAN      "Build with undefined behavior sanitizer enabled"   OFF)
@@ -44,14 +44,19 @@ if(MC_BUILD_CONAN)
     include(mcConan)
 endif()
 
-find_package(Boost 1.71 REQUIRED)
+find_package(Boost 1.77 REQUIRED)
+find_package(fmt REQUIRED)
+
 set_target_properties(Boost::headers PROPERTIES IMPORTED_GLOBAL TRUE)
+set_target_properties(fmt::fmt PROPERTIES IMPORTED_GLOBAL TRUE)
 
 add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
 
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 juce_add_module(3rd_party/mc_external ALIAS_NAMESPACE mc)
 target_link_libraries(mc_external INTERFACE Boost::headers)
+target_link_libraries(mc_external INTERFACE fmt::fmt)
+
 juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_data_structures ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_dsp ALIAS_NAMESPACE mc)
