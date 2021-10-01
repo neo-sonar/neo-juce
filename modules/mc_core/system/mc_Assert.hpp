@@ -33,11 +33,12 @@
  */
 #if not defined(MC_ENSURES)
 #define MC_ENSURES(exp)
-// #define MC_ENSURES(exp)                                     \
-//     auto MC_ANONYMOUS_VARIABLE(ensure_) = gsl::final_action \
-//     {                                                       \
-//         [&] { MC_ASSERT_IMPL("postcondition", (exp)); }     \
-//     }
 #endif
+
+// #define MC_ENSURES(exp)
+//     auto MC_ANONYMOUS_VARIABLE(ensure_) = gsl::final_action
+//     {
+//         [&] { MC_ASSERT_IMPL("postcondition", (exp)); }
+//     }
 
 #endif // MODERN_CIRCUITS_JUCE_MODULES_ASSERT_HPP
