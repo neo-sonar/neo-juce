@@ -26,7 +26,7 @@ struct XYPad : juce::Component {
         virtual auto getXYPadThumbDiameter(XYPad& pad) -> int                                             = 0;
     };
 
-    XYPad(juce::String name = {});
+    explicit XYPad(juce::String const& name = {});
     ~XYPad() override = default;
 
     [[nodiscard]] auto getValueX() const noexcept -> float;

@@ -1,5 +1,5 @@
 namespace mc {
-XYPad::XYPad(juce::String name)
+XYPad::XYPad(juce::String const& name)
     : juce::Component { name }, normalizedValues_ { 0.0f, 0.0f } { }
 
 auto XYPad::paint(juce::Graphics& g) -> void
