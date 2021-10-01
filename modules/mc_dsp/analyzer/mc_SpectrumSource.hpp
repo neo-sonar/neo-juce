@@ -2,10 +2,9 @@
 #define MODERN_CIRCUITS_PLUGINS_SPECTRUM_ANALYZER_HPP
 
 namespace mc {
-/**
- * @brief Recieves data from the processor thread, calculates the FFT which is
- * read by the GUI thread to plot a spectrum.
- */
+
+/// \brief Recieves data from the processor thread, calculates the FFT which is
+/// read by the GUI thread to plot a spectrum.
 class SpectrumSource : public juce::Thread {
 public:
     SpectrumSource();

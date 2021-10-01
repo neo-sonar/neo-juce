@@ -3,9 +3,7 @@
 
 namespace mc {
 
-/**
- * @brief Component for the spectrum analyser.
- */
+/// \brief Component for the spectrum analyser.
 class Spectrum
     : public juce::Component,
       public juce::Timer {

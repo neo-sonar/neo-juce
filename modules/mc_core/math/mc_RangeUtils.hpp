@@ -2,28 +2,21 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_RANGE_UTILS_HPP
 
 namespace mc {
-/**
- * @brief Collection of preconfigured ranges.
- */
+
+/// \brief Collection of preconfigured ranges.
 class RangeUtils {
 public:
-    /**
-     * @brief Deleted constructor. Static class.
-     */
+    /// \brief Deleted constructor. Static class.
     RangeUtils() = delete;
 
-    /**
-     * @brief Returns a normalized range.
-     */
+    /// \brief Returns a normalized range.
     static auto defaultNormalizedRange() noexcept -> juce::NormalisableRange<float>
     {
         auto range = juce::NormalisableRange<float> { 0.0f, 1.0f, 0.01f };
         return range;
     }
 
-    /**
-     * @brief Returns a range for gain parameters.
-     */
+    /// \brief Returns a range for gain parameters.
     static auto defaultGainRange() noexcept -> juce::NormalisableRange<float>
     {
         auto range = juce::NormalisableRange<float> { 0.0f, 4.0f, 0.01f };
@@ -31,9 +24,7 @@ public:
         return range;
     }
 
-    /**
-     * @brief Returns a range for full range frequency parameters.
-     */
+    /// \brief Returns a range for full range frequency parameters.
     static auto defaultFrequencyRange() noexcept -> juce::NormalisableRange<float>
     {
         auto range = juce::NormalisableRange<float> { 20.0f, 22'000.0f, 1.0f };

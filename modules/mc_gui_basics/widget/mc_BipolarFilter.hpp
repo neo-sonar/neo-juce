@@ -18,49 +18,33 @@ public:
         virtual auto bipolarFilterDragEnded(BipolarFilter* bipolarFilter) -> void    = 0;
     };
 
-    /**
-     * @brief Creates a text box slider.
-     * @details When created, you can set up the text box slider's range with setRange(), etc.
-     */
+    /// \brief Creates a text box slider.
+    /// \details When created, you can set up the text box slider's range with setRange(), etc.
     BipolarFilter() = default;
 
-    /**
-     * @brief Creates a text box slider.
-     * @details When created, you can set up the text box slider's range with setRange(), etc.
-     */
+    /// \brief Creates a text box slider.
+    /// \details When created, you can set up the text box slider's range with setRange(), etc.
     explicit BipolarFilter(juce::String const& componentName);
 
-    /**
-     * @brief Destructor.
-     */
+    /// \brief Destructor.
     ~BipolarFilter() noexcept override = default;
 
     auto setValue(double newValue) -> void;
     MC_NODISCARD auto getValue() const noexcept -> double;
 
-    /**
-     * @brief Enables or disables the double-click to reset to default value feature.
-     */
+    /// \brief Enables or disables the double-click to reset to default value feature.
     auto setDoubleClickReturnValue(bool shouldDoubleClickBeEnabled, double valueToSetOnDoubleClick) -> void;
 
-    /**
-     * @brief Returns the values last set by setDoubleClickReturnValue() method.
-     */
+    /// \brief Returns the values last set by setDoubleClickReturnValue() method.
     MC_NODISCARD auto getDoubleClickReturnValue() const noexcept -> double;
 
-    /**
-     * @brief Returns true if double-clicking to reset to a default value is enabled.
-     */
+    /// \brief Returns true if double-clicking to reset to a default value is enabled.
     MC_NODISCARD auto isDoubleClickReturnEnabled() const noexcept -> bool;
 
-    /**
-     * @brief Adds a listener to be called when this bipolar filter's value changes.
-     */
+    /// \brief Adds a listener to be called when this bipolar filter's value changes.
     auto addListener(Listener* listener) -> void;
 
-    /**
-     * @brief Removes a previously-registered listener.
-     */
+    /// \brief Removes a previously-registered listener.
     auto removeListener(Listener* listener) -> void;
 
     auto paint(juce::Graphics& g) -> void override;

@@ -54,9 +54,6 @@
 
 #endif
 
-/**
- * @brief Compiler type macros.
- */
 #if defined(__clang__)
 #define MC_COMPILER_CLANG 1
 #elif defined(__GNUC__)
@@ -71,9 +68,6 @@
 #error "unknown compiler"
 #endif
 
-/**
- * @brief Resolve which function signature macro will be used.
- */
 #if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600)) \
     || defined(__ghs__)
 #define MC_FUNC_SIG __PRETTY_FUNCTION__
@@ -105,20 +99,10 @@
 #define MC_HAS_FEATURE(...) 0
 #endif
 
-/**
- * MC_ANONYMOUS_VARIABLE(str) introduces an identifier starting with
- * str and ending with a number that varies with the line.
- */
 #ifndef MC_ANONYMOUS_VARIABLE
 #define MC_CONCATENATE_IMPL(s1, s2) s1##s2
 #define MC_CONCATENATE(s1, s2) MC_CONCATENATE_IMPL(s1, s2)
 
-/**
- * Modular builds build each module with its own preprocessor state, meaning
- * `__COUNTER__` no longer provides a unique number across a TU.  Instead of
- * calling back to just `__LINE__`, use a mix of `__COUNTER__` and `__LINE__`
- * to try provide as much uniqueness as possible.
- */
 #ifdef __COUNTER__
 #if MC_HAS_FEATURE(modules)
 #define MC_ANONYMOUS_VARIABLE(str) MC_CONCATENATE(MC_CONCATENATE(MC_CONCATENATE(str, __COUNTER__), _), __LINE__)
@@ -130,11 +114,6 @@
 #endif
 #endif
 
-/**
- * Cache line sizes for ARM values are not strictly correct since cache
- * line sizes depend on implementations, not architectures.  There are even
- * implementations with cache line sizes configurable at boot time.
- */
 #if defined(__aarch64__)
 #define MC_CACHE_LINE_SIZE 64
 #elif defined(__ARM_ARCH_5T__)

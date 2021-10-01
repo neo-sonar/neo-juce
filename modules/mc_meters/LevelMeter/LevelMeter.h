@@ -23,14 +23,13 @@ public:
         Horizontal    = 0x0001, /**< Displays the level bars horizontally */
         Vintage       = 0x0002, /**< Switches to a special mode of old school meters (to come) */
         SingleChannel = 0x0004, /**< Display only one channel meter. \see setSelectedChannel */
-        HasBorder
-        = 0x0008,           /**< Displays a rounded border around the meter. This is used with the default constructor */
-        Reduction = 0x0010, /**< This turns the bar into a reduction bar.
+        HasBorder     = 0x0008, /**< Displays a rounded border around the meter. This is used with the default constructor */
+        Reduction     = 0x0010, /**< This turns the bar into a reduction bar.
                              The additional reduction bar is automatically added, as soon a reduction value < 1.0 is set
                              in the LevelMeterSource. \see LevelMeterSource::setReductionLevel */
-        Minimal   = 0x0020, /**< For a stereo meter, this tries to save space by showing only one line tickmarks in the
+        Minimal       = 0x0020, /**< For a stereo meter, this tries to save space by showing only one line tickmarks in the
                                middle and no max numbers */
-        MaxNumber = 0x0040  /**< To add level meter to Minimal, set this flag */
+        MaxNumber     = 0x0040  /**< To add level meter to Minimal, set this flag */
     };
 
     enum ColourIds {
@@ -62,103 +61,103 @@ public:
     public:
         virtual ~LookAndFeelMethods() = default;
 
-        /** Define your default colours in this callback */
+        /// \brief Define your default colours in this callback
         virtual void setupDefaultMeterColours() = 0;
 
-        /** Call this to create the cached ColourGradients after changing colours of the meter gradients */
+        /// \brief Call this to create the cached ColourGradients after changing colours of the meter gradients
         virtual void updateMeterGradients() = 0;
 
-        /** Override this to change the inner rectangle in case you want to paint a border e.g. */
+        /// \brief Override this to change the inner rectangle in case you want to paint a border e.g.
         MC_NODISCARD virtual auto getMeterInnerBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
-        /** Override this callback to define the placement of a meter channel. */
+        /// \brief Override this callback to define the placement of a meter channel.
         MC_NODISCARD virtual auto getMeterBounds(juce::Rectangle<float> bounds, MeterFlags meterType, int numChannels,
             int channel) const -> juce::Rectangle<float> = 0;
 
-        /** Override this callback to define the placement of the actual meter bar. */
+        /// \brief Override this callback to define the placement of the actual meter bar.
         MC_NODISCARD virtual auto getMeterBarBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
-        /** Override this callback to define the placement of the tickmarks.
-         To disable this feature return an empty rectangle. */
+        /// \brief Override this callback to define the placement of the tickmarks.
+        /// To disable this feature return an empty rectangle.
         MC_NODISCARD virtual auto getMeterTickmarksBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
-        /** Override this callback to define the placement of the clip indicator light.
-         To disable this feature return an empty rectangle. */
+        /// \brief Override this callback to define the placement of the clip indicator light.
+        /// To disable this feature return an empty rectangle.
         MC_NODISCARD virtual auto getMeterClipIndicatorBounds(juce::Rectangle<float> bounds,
             MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
-        /** Override this to draw background and if wanted a frame. If the frame takes space away,
-         it should return the reduced bounds */
+        /// \brief Override this to draw background and if wanted a frame. If the frame takes space away,
+        /// it should return the reduced bounds
         virtual auto drawBackground(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds)
             -> juce::Rectangle<float> = 0;
 
-        /** This is called to draw the actual numbers and bars on top of the static background */
+        /// \brief This is called to draw the actual numbers and bars on top of the static background
         virtual void drawMeterBars(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds,
             const LevelMeterSource* source, int fixedNumChannels = -1, int selectedChannel = -1)
             = 0;
 
-        /** This draws the static background of the whole level meter group with all channels */
+        /// \brief This draws the static background of the whole level meter group with all channels
         virtual void drawMeterBarsBackground(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds,
             int numChannels, int fixedNumChannels = -1)
             = 0;
 
-        /** This draws a group of informations representing one channel */
+        /// \brief This draws a group of informations representing one channel
         virtual void drawMeterChannel(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds,
             const LevelMeterSource* source, int selectedChannel)
             = 0;
 
-        /** This draws the static backgrounds representing one channel */
+        /// \brief This draws the static backgrounds representing one channel
         virtual void drawMeterChannelBackground(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds)
             = 0;
 
-        /** This callback draws the actual level bar. The background has an extra callback */
+        /// \brief This callback draws the actual level bar. The background has an extra callback
         virtual void drawMeterBar(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds, float rms,
             float peak)
             = 0;
 
-        /** This callback draws an reduction from top. Only triggered, if a reduction < 1.0 is set in the
-         * LevelMeterSource */
+        /// \brief This callback draws an reduction from top. Only triggered,
+        /// if a reduction < 1.0 is set in the LevelMeterSource
         virtual void drawMeterReduction(juce::Graphics& g, LevelMeter::MeterFlags meterType,
             juce::Rectangle<float> bounds, float reduction)
             = 0;
 
-        /** This draws the background for the actual level bar */
+        /// \brief This draws the background for the actual level bar
         virtual void drawMeterBarBackground(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds) = 0;
 
-        /** This draws the tickmarks for the level scale. It is painted on the static background */
+        /// \brief This draws the tickmarks for the level scale. It is painted on the static background
         virtual void drawTickMarks(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds) = 0;
 
-        /** This callback draws the clip indicator. The background has an extra callback */
+        /// \brief This callback draws the clip indicator. The background has an extra callback
         virtual void drawClipIndicator(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds,
             bool hasClipped)
             = 0;
 
-        /** This draws the background for the clip indicator LED */
+        /// \brief This draws the background for the clip indicator LED
         virtual void drawClipIndicatorBackground(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds)
             = 0;
 
-        /** Override this callback to define the placement of the max level.
-         To disable this feature return an empty rectangle. */
+        /// \brief Override this callback to define the placement of the max level.
+        /// To disable this feature return an empty rectangle.
         MC_NODISCARD virtual auto getMeterMaxNumberBounds(juce::Rectangle<float> bounds, MeterFlags meterType) const
             -> juce::Rectangle<float> = 0;
 
-        /** This callback draws the number of maximum level. The background has an extra callback */
+        /// \brief This callback draws the number of maximum level. The background has an extra callback
         virtual void drawMaxNumber(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds, float maxGain)
             = 0;
 
-        /** This draws the background for the maximum level display */
+        /// \brief This draws the background for the maximum level display
         virtual void drawMaxNumberBackground(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds) = 0;
 
-        /** This is called by the frontend to check, if the clip indicator was clicked (e.g. for reset) */
+        /// \brief This is called by the frontend to check, if the clip indicator was clicked (e.g. for reset)
         virtual auto hitTestClipIndicator(juce::Point<int> position, MeterFlags meterType,
             juce::Rectangle<float> bounds, const LevelMeterSource* source) const -> int
             = 0;
 
-        /** This is called by the frontend to check, if the maximum level number was clicked (e.g. for reset) */
+        /// \brief This is called by the frontend to check, if the maximum level number was clicked (e.g. for reset)
         virtual auto hitTestMaxNumber(juce::Point<int> position, MeterFlags meterType, juce::Rectangle<float> bounds,
             const LevelMeterSource* source) const -> int
             = 0;
@@ -167,9 +166,7 @@ public:
     explicit LevelMeter(MeterFlags type = HasBorder);
     ~LevelMeter() override;
 
-    /**
-     Allows to change the meter's configuration by setting a combination of MeterFlags
-     */
+    /// \brief Allows to change the meter's configuration by setting a combination of MeterFlags  */
     void setMeterFlags(MeterFlags type);
 
     void paint(juce::Graphics& /*g*/) override;
@@ -180,21 +177,13 @@ public:
 
     void timerCallback() override;
 
-    /**
-     Set a LevelMeterSource to display. This separation is used, so the source can work in the processing and the
-     GUI can display the values.
-     */
+    /// \brief Set a LevelMeterSource to display. This separation is used, so the source can work in the processing and the  GUI can display the values.
     void setMeterSource(LevelMeterSource* src);
 
-    /**
-     Set a specific channel to display. This is only useful, if MeterFlags::SingleChannel is set.
-     */
+    /// \brief Set a specific channel to display. This is only useful, if MeterFlags::SingleChannel is set.
     void setSelectedChannel(int c);
 
-    /**
-     If you don't know, how many channels will be in the processblock, you can set this number to avoid stretching
-     the width of the channels.
-     */
+    /// \brief If you don't know, how many channels will be in the processblock, you can set this number to avoid stretching  the width of the channels.
     void setFixedNumChannels(int numChannels);
 
     void setRefreshRateHz(int newRefreshRate);

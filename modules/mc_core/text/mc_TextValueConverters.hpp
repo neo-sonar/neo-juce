@@ -2,9 +2,8 @@
 #define MODERN_CIRCUITS_PLUGINS_TEXT_VALUE_CONVERTER_HPP
 
 namespace mc {
-/**
- * @brief Text & float converter for active/bypass.
- */
+
+/// \brief Text & float converter for active/bypass.
 struct ActiveTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
@@ -18,9 +17,7 @@ struct ActiveTextConverter {
     }
 };
 
-/**
- * @brief Text & float converter for frequency.
- */
+/// \brief Text & float converter for frequency.
 struct FrequencyTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
@@ -35,9 +32,7 @@ struct FrequencyTextConverter {
     }
 };
 
-/**
- * @brief Text & float converter for filter quality.
- */
+/// \brief Text & float converter for filter quality.
 struct QualityTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
@@ -49,9 +44,7 @@ struct QualityTextConverter {
     MC_NODISCARD auto operator()(juce::String const& text) const -> float { return text.getFloatValue(); }
 };
 
-/**
- * @brief Text & float converter for percentages.
- */
+/// \brief Text & float converter for percentages.
 struct PercentTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
@@ -65,9 +58,7 @@ struct PercentTextConverter {
     }
 };
 
-/**
- * @brief Text & float converter for durations based on seconds.
- */
+/// \brief Text & float converter for durations based on seconds.
 struct TimeSecondsTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
@@ -81,9 +72,7 @@ struct TimeSecondsTextConverter {
     }
 };
 
-/**
- * @brief Text & float converter for durations based on seconds.
- */
+/// \brief Text & float converter for durations based on seconds.
 struct TimeMillisecondsTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
@@ -97,9 +86,7 @@ struct TimeMillisecondsTextConverter {
     }
 };
 
-/**
- * @brief Text & float converter for gain.
- */
+/// \brief Text & float converter for gain.
 struct GainTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
@@ -113,9 +100,7 @@ struct GainTextConverter {
     }
 };
 
-/**
- * @brief Text & float converter for phase invert.
- */
+/// \brief Text & float converter for phase invert.
 struct InvertPhaseTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {

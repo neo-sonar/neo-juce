@@ -28,9 +28,7 @@ public:
     virtual void objectRemoved(ObjectType*) = 0;
     virtual void objectOrderChanged()       = 0;
 
-    /**
-     * @brief Call in the sub-class when being created.
-     */
+    /// \brief Call in the sub-class when being created.
     void rebuildObjects()
     {
         jassert(objects_.empty()); // must only call this method once at construction
@@ -45,9 +43,7 @@ public:
         }
     }
 
-    /**
-     * @brief Call in the sub-class when being destroyed
-     */
+    /// \brief Call in the sub-class when being destroyed
     void freeObjects()
     {
         parent_.removeListener(this);
