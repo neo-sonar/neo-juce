@@ -15,7 +15,7 @@ namespace detail {
     };
     template <>
     struct ToValueImpl<float> {
-        auto operator()(juce::String const& str) -> int { return str.getFloatValue(); }
+        auto operator()(juce::String const& str) -> float { return str.getFloatValue(); }
     };
 }
 
