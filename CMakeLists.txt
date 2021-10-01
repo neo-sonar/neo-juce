@@ -50,25 +50,23 @@ find_package(Microsoft.GSL REQUIRED)
 find_package(concurrentqueue REQUIRED)
 find_package(readerwriterqueue REQUIRED)
 
-set_target_properties(Boost::headers PROPERTIES IMPORTED_GLOBAL TRUE)
-set_target_properties(fmt::fmt PROPERTIES IMPORTED_GLOBAL TRUE)
-
-add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
-
-add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
-juce_add_module(3rd_party/mc_external ALIAS_NAMESPACE mc)
+add_library(mc_external INTERFACE)
+add_library(mc::mc_external ALIAS mc_external)
 target_link_libraries(mc_external INTERFACE Boost::headers)
 target_link_libraries(mc_external INTERFACE fmt::fmt)
 target_link_libraries(mc_external INTERFACE Microsoft.GSL::Microsoft.GSL)
 target_link_libraries(mc_external INTERFACE concurrentqueue::concurrentqueue)
 target_link_libraries(mc_external INTERFACE readerwriterqueue::readerwriterqueue)
 
-juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
-juce_add_module(modules/mc_data_structures ALIAS_NAMESPACE mc)
-juce_add_module(modules/mc_dsp ALIAS_NAMESPACE mc)
-juce_add_module(modules/mc_graphics ALIAS_NAMESPACE mc)
-juce_add_module(modules/mc_gui_basics ALIAS_NAMESPACE mc)
-juce_add_module(modules/mc_meters ALIAS_NAMESPACE mc)
+add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
+juce_add_module(modules/mc_core             ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_data_structures  ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_dsp              ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_graphics         ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_gui_basics       ALIAS_NAMESPACE mc)
+juce_add_module(modules/mc_meters           ALIAS_NAMESPACE mc)
+
+add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     enable_testing()
@@ -128,6 +126,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
     target_link_libraries(${PROJECT_NAME}_tests
         PRIVATE
+            mc::mc_external
             mc::mc_core
             mc::mc_data_structures
             mc::mc_dsp

@@ -6,7 +6,7 @@
  version:       0.1.0
  name:          Modern Circuits JUCE Core module
  description:   Core JUCE extensions and utilities.
- dependencies:  juce_core, juce_events, juce_audio_basics, mc_external
+ dependencies:  juce_core, juce_events, juce_audio_basics
 
  END_JUCE_MODULE_DECLARATION
  */
@@ -22,7 +22,17 @@
 #include <juce_core/juce_core.h>
 #include <juce_events/juce_events.h>
 
-#include <mc_external/mc_external.hpp>
+#include "fmt/chrono.h"
+#include "fmt/format.h"
+#include "fmt/ostream.h"
+
+#include <gsl/gsl>
+
+#include <boost/optional.hpp>
+
+#include "moodycamel/concurrentqueue.h"
+#include "readerwriterqueue/readerwritercircularbuffer.h"
+#include "readerwriterqueue/readerwriterqueue.h"
 
 #include <algorithm>
 #include <array>
