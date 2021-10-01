@@ -3,6 +3,22 @@
 
 namespace mc {
 
+namespace detail {
+    template <typename T>
+    struct ToValueImpl {
+        auto operator()(juce::String const& str) -> T { return static_cast<T>(str.getDoubleValue()); }
+    };
+
+    template <>
+    struct ToValueImpl<int> {
+        auto operator()(juce::String const& str) -> int { return str.getIntValue(); }
+    };
+    template <>
+    struct ToValueImpl<float> {
+        auto operator()(juce::String const& str) -> int { return str.getFloatValue(); }
+    };
+}
+
 struct StringUtils {
     MC_NODISCARD static auto split(juce::String const& str, char delimiter) -> std::vector<juce::String>
     {
@@ -18,13 +34,7 @@ struct StringUtils {
     template <typename ValueType>
     MC_NODISCARD static auto toValue(juce::String const& str) -> ValueType
     {
-        if constexpr (std::is_same_v<ValueType, int>) {
-            return str.getIntValue();
-        }
-        if constexpr (std::is_same_v<ValueType, float>) {
-            return str.getFloatValue();
-        }
-        return static_cast<ValueType>(str.getDoubleValue());
+        return detail::ToValueImpl<ValueType> {}(str);
     }
 };
 

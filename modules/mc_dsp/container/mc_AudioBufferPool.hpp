@@ -68,7 +68,7 @@ public:
     template <typename FloatType>
     MC_NODISCARD auto makeBuffer(int numChannels, int numSamples) -> std::pair<juce::AudioBuffer<FloatType>, bool>
     {
-        static_assert(std::is_same_v<FloatType, float> || std::is_same_v<FloatType, double>);
+        static_assert(std::is_same<FloatType, float>::value || std::is_same<FloatType, double>::value);
 
         if (size_ + (sizeof(FloatType) * numChannels * numSamples) < capacity_) {
             auto* data = reinterpret_cast<FloatType*>(&memory_[size_]);
