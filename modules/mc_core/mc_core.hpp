@@ -66,7 +66,6 @@
 #include "thread/mc_ThreadSafeQueue.hpp"
 
 #include "thread/mc_BackgroundProcess.hpp"
-#include "thread/mc_LeftRight.hpp"
 
 #include "benchmark/mc_Profile.hpp"
 
