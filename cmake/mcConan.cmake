@@ -12,8 +12,10 @@ conan_add_remote(NAME conancenter URL https://center.conan.io)
 conan_cmake_configure(
     REQUIRES
         boost/1.77.0
+        concurrentqueue/1.0.3
         fmt/8.0.1
         ms-gsl/3.1.0
+        readerwriterqueue/1.0.5
         tcb-span/cci.20200603
     GENERATORS
         cmake_find_package

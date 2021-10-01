@@ -6,7 +6,6 @@
  version:       0.1.0
  name:          Third party code
  description:   Modern Circuits 3rd party header only libraries
- searchpaths:   3rd_party/readerwriterqueue, 3rd_party/concurrentqueue
 
  END_JUCE_MODULE_DECLARATION
  */
@@ -26,9 +25,8 @@
 
 #include <boost/optional.hpp>
 
-#include "readerwritercircularbuffer.h"
-#include "readerwriterqueue.h"
-
-#include "concurrentqueue.h"
+#include "moodycamel/concurrentqueue.h"
+#include "readerwriterqueue/readerwritercircularbuffer.h"
+#include "readerwriterqueue/readerwriterqueue.h"
 
 #endif // MODERN_CIRCUITS_JUCE_MODULES_MC_EXTERNAL_HPP
