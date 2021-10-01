@@ -46,6 +46,7 @@ endif()
 
 find_package(Boost 1.77 REQUIRED)
 find_package(fmt REQUIRED)
+find_package(Microsoft.GSL REQUIRED)
 
 set_target_properties(Boost::headers PROPERTIES IMPORTED_GLOBAL TRUE)
 set_target_properties(fmt::fmt PROPERTIES IMPORTED_GLOBAL TRUE)
@@ -56,6 +57,7 @@ add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 juce_add_module(3rd_party/mc_external ALIAS_NAMESPACE mc)
 target_link_libraries(mc_external INTERFACE Boost::headers)
 target_link_libraries(mc_external INTERFACE fmt::fmt)
+target_link_libraries(mc_external INTERFACE Microsoft.GSL::Microsoft.GSL)
 
 juce_add_module(modules/mc_core ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_data_structures ALIAS_NAMESPACE mc)
