@@ -20,8 +20,8 @@ struct juce::VariantConverter<juce::Image> {
 
     static auto toVar(juce::Image const& i) -> juce::var
     {
-        auto mb = juce::MemoryBlock {};
-        auto os = juce::MemoryOutputStream(mb, false);
+        juce::MemoryBlock mb {};
+        juce::MemoryOutputStream os(mb, false);
         if (!JPEGImageFormat().writeImageToStream(i, os)) {
             return {};
         }

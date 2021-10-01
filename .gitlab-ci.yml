@@ -28,7 +28,7 @@ win:msvc:release:
     Set-Location $env:CI_PROJECT_DIR
     New-Item -Path cmake-build-release -ItemType Directory
     Set-Location cmake-build-release
-    cmake -S .. -DMC_BUILD_WERROR=ON -DMC_BUILD_CONAN=ON -DCMAKE_BUILD_TYPE=Release
+    cmake -S .. -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_WERROR=ON
     cmake --build . --config Release --parallel 4
     ctest -C Release
   dependencies: [ ]

@@ -57,8 +57,8 @@ struct TestListenerValueChanged : mc::BipolarFilter::Listener {
     auto operator=(const TestListenerValueChanged& rhs) -> TestListenerValueChanged& = delete;
     auto operator=(TestListenerValueChanged&& rhs) -> TestListenerValueChanged& = delete;
 
-    auto bipolarFilterDragStarted(mc::BipolarFilter * /*s*/) -> void override { }
-    auto bipolarFilterDragEnded(mc::BipolarFilter * /*s*/) -> void override { }
+    auto bipolarFilterDragStarted(mc::BipolarFilter* /*s*/) -> void override { }
+    auto bipolarFilterDragEnded(mc::BipolarFilter* /*s*/) -> void override { }
     auto bipolarFilterValueChanged(mc::BipolarFilter* s) -> void override
     {
         wasCalled = true;
@@ -73,7 +73,7 @@ struct TestListenerValueChanged : mc::BipolarFilter::Listener {
 
 TEST_CASE("gui_basics/widget: BipolarFilter::Listener::textBoxSliderValueChanged", "[gui_basics][widget]")
 {
-    auto listener = TestListenerValueChanged {};
+    TestListenerValueChanged listener {};
     mc::BipolarFilter filter {};
     CHECK_FALSE(listener.wasCalled);
     CHECK_FALSE(listener.value.has_value());

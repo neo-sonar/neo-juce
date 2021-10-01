@@ -2,7 +2,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_CRTP_HPP
 
 namespace mc {
-template <typename Type, template <typename> typename CrtpTag>
+template <typename Type, template <typename> class CrtpTag>
 class CRTP {
 protected:
     MC_NODISCARD constexpr auto underlying() const noexcept -> Type const& { return static_cast<Type const&>(*this); }

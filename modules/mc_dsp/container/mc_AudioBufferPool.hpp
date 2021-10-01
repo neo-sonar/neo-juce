@@ -47,7 +47,7 @@ public:
     {
         capacity_ = numBytes;
         size_     = 0;
-        memory_   = std::make_unique<std::byte[]>(numBytes);
+        memory_   = std::make_unique<std::uint8_t[]>(numBytes);
     }
 
     /**
@@ -68,7 +68,7 @@ public:
     template <typename FloatType>
     MC_NODISCARD auto makeBuffer(int numChannels, int numSamples) -> std::pair<juce::AudioBuffer<FloatType>, bool>
     {
-        static_assert(std::is_same<FloatType, float>::value || std::is_same<FloatType, double>::value);
+        static_assert(std::is_same<FloatType, float>::value || std::is_same<FloatType, double>::value, "");
 
         if (size_ + (sizeof(FloatType) * numChannels * numSamples) < capacity_) {
             auto* data = reinterpret_cast<FloatType*>(&memory_[size_]);
@@ -80,7 +80,7 @@ public:
     }
 
 private:
-    std::unique_ptr<std::byte[]> memory_ {};
+    std::unique_ptr<std::uint8_t[]> memory_ {};
     std::size_t capacity_ { 0 };
     std::size_t size_ { 0 };
 };

@@ -37,7 +37,8 @@ public:
 
         for (const auto& v : parent_) {
             if (isSuitableType(v)) {
-                if (auto* newObject = makeObject(v); newObject != nullptr) {
+                auto* newObject = makeObject(v);
+                if (newObject != nullptr) {
                     objects_.push_back(newObject);
                 }
             }
@@ -87,10 +88,12 @@ private:
     void valueTreeChildAdded(juce::ValueTree& /*parent*/, juce::ValueTree& tree) override
     {
         if (isChildTree(tree)) {
-            [[maybe_unused]] auto const index = parent_.indexOf(tree);
+            auto const index = parent_.indexOf(tree);
+            (void)index;
             jassert(index >= 0);
 
-            if (ObjectType* newObject = makeObject(tree); newObject != nullptr) {
+            ObjectType* newObject = makeObject(tree);
+            if (newObject != nullptr) {
                 {
                     ScopedLockType lock(objectsMutex_);
                     objects_.push_back(newObject);

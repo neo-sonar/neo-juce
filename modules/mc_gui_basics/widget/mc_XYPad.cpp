@@ -4,11 +4,12 @@ XYPad::XYPad(juce::String const& name)
 
 auto XYPad::paint(juce::Graphics& g) -> void
 {
-    if (auto* lnf = dynamic_cast<XYPad::LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr) {
+    auto* lnf = dynamic_cast<XYPad::LookAndFeelMethods*>(&getLookAndFeel());
+    if (lnf != nullptr) {
         auto const x        = getPixelFromNormalizedValue(normalizedValues_.x, true);
         auto const y        = getPixelFromNormalizedValue(normalizedValues_.y, false);
         auto const diameter = lnf->getXYPadThumbDiameter(*this);
-        thumb_              = juce::Rectangle { 0, 0, diameter, diameter }.withCentre({ static_cast<int>(x), static_cast<int>(y) });
+        thumb_              = juce::Rectangle<int> { 0, 0, diameter, diameter }.withCentre({ static_cast<int>(x), static_cast<int>(y) });
         lnf->drawXYPad(g, thumb_.toFloat(), *this);
         return;
     }
@@ -79,6 +80,13 @@ auto XYPad::mouseUp(juce::MouseEvent const& event) -> void
     stopDragging();
 }
 
+template <typename T>
+MC_NODISCARD constexpr auto clamp(T const& val, T const& lo, T const& hi) -> T const&
+{
+    return (val < lo) ? lo : (hi < val) ? hi
+                                        : val;
+}
+
 auto XYPad::mouseDrag(juce::MouseEvent const& event) -> void
 {
     if (!isDragging_) {
@@ -86,8 +94,8 @@ auto XYPad::mouseDrag(juce::MouseEvent const& event) -> void
     }
 
     auto p = juce::Point<int> {};
-    p.x    = std::clamp<int>(event.x, bounds_.getX(), bounds_.getRight());
-    p.y    = std::clamp<int>(event.y, bounds_.getY(), bounds_.getBottom());
+    p.x    = clamp<int>(event.x, bounds_.getX(), bounds_.getRight());
+    p.y    = clamp<int>(event.y, bounds_.getY(), bounds_.getBottom());
     setValueX(getValueFromPixel(p.x, true));
     setValueY(getValueFromPixel(p.y, false));
 }

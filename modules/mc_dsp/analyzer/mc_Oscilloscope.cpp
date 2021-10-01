@@ -16,7 +16,8 @@ auto Oscilloscope::setFramesPerSecond(int framesPerSecond) -> void
 auto Oscilloscope::paint(juce::Graphics& g) -> void
 {
     auto const area = getLocalBounds();
-    if (auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr) {
+    auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
+    if (lnf != nullptr) {
         auto const* data = sampleData_.data();
         auto const size  = sampleData_.size();
         lnf->drawOscilloscopeBackground(g, area);

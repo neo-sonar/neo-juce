@@ -4,14 +4,14 @@
 
 TEST_CASE("gui_basics/attachment: LabelValueTreeAttachment", "[gui_basics][attachment]")
 {
-    auto const id  = juce::String { "test" };
-    auto um        = juce::UndoManager {};
-    auto valueTree = juce::ValueTree { "test_plugin" };
+    auto const id = juce::String { "test" };
+    juce::UndoManager um {};
+    juce::ValueTree valueTree { "test_plugin" };
     valueTree.setProperty(id, "test", &um);
 
-    auto label = juce::Label { "label", "label" };
+    juce::Label label { "label", "label" };
     CHECK(label.getText() == juce::String { "label" });
 
-    auto attachment = mc::LabelValueTreeAttachment<juce::String> { valueTree, id, label, &um };
+    mc::LabelValueTreeAttachment<juce::String> attachment { valueTree, id, label, &um };
     CHECK(label.getText() == juce::String { "test" });
 }

@@ -151,7 +151,7 @@
 
 namespace mc {
 
-inline constexpr std::size_t HardwareCacheLineSize = MC_CACHE_LINE_SIZE;
+constexpr std::size_t HardwareCacheLineSize = MC_CACHE_LINE_SIZE;
 
 }
 

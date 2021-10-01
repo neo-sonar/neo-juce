@@ -35,8 +35,8 @@ private:
     juce::AudioBuffer<float> fftBuffer_;
     juce::AudioBuffer<float> averager_;
 
-    int averagerPtr_                    = 1;
-    std::atomic<bool> newDataAvailable_ = false;
+    int averagerPtr_ = 1;
+    std::atomic<bool> newDataAvailable_ { false };
 
     juce::WaitableEvent waitForData_;
     juce::CriticalSection pathCreationLock_;

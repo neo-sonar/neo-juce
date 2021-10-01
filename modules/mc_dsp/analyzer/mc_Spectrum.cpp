@@ -4,7 +4,8 @@ Spectrum::Spectrum(SpectrumSource& analyser)
 
 auto Spectrum::paint(juce::Graphics& g) -> void
 {
-    if (auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr) {
+    auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
+    if (lnf != nullptr) {
         juce::Graphics::ScopedSaveState state(g);
         lnf->drawAnalyzerLabels(g, textFrame_);
         lnf->drawAnalyzerGrid(g, plotFrame_);
@@ -18,7 +19,8 @@ auto Spectrum::paint(juce::Graphics& g) -> void
 
 auto Spectrum::resized() -> void
 {
-    if (auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr) {
+    auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
+    if (lnf != nullptr) {
         auto area  = getLocalBounds().reduced(3);
         plotFrame_ = lnf->getAnalyserPathBounds(area);
         textFrame_ = lnf->getAnalyserFrequencyLabelBounds(area);

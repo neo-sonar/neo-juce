@@ -8,15 +8,17 @@ auto BackgroundProcess::startProcess(const juce::String& command) -> void
 {
     if (threadPool_ != nullptr) {
         threadPool_->addJob([command, this] {
-            if (auto proc = juce::ChildProcess {}; proc.start(command)) {
+            juce::ChildProcess proc {};
+            if (proc.start(command)) {
                 this->processHasStarted_.store(true);
 
-                auto buffer = std::vector<std::byte>(1024 * 16, std::byte {});
+                auto buffer = std::vector<std::uint8_t>(1024 * 16, std::uint8_t {});
                 while (proc.isRunning()) {
-                    std::fill(std::begin(buffer), std::end(buffer), std::byte {});
+                    std::fill(std::begin(buffer), std::end(buffer), std::uint8_t {});
                     auto* const data   = static_cast<void*>(buffer.data());
                     auto const maxSize = static_cast<int>(buffer.size());
-                    if (auto num = proc.readProcessOutput(data, maxSize); num != 0) {
+                    auto num           = proc.readProcessOutput(data, maxSize);
+                    if (num != 0) {
                         queue_.push(juce::String::createStringFromData(static_cast<void*>(buffer.data()), num));
                     }
                 }

@@ -7,17 +7,21 @@ LevelMeter::LevelMeter(MeterFlags type)
     lookAndFeelChanged();
 
     onMaxLevelClicked
-        = [](mc::LevelMeter& meter, [[maybe_unused]] int channel, [[maybe_unused]] juce::ModifierKeys mods) {
+        = [](mc::LevelMeter& meter, int channel, juce::ModifierKeys mods) {
               // default clear all indicators. Overwrite this lambda to change the behaviour
               meter.clearMaxLevelDisplay();
               meter.clearClipIndicator();
+              (void)channel;
+              (void)mods;
           };
 
     onClipLightClicked
-        = [](mc::LevelMeter& meter, [[maybe_unused]] int channel, [[maybe_unused]] juce::ModifierKeys mods) {
+        = [](mc::LevelMeter& meter, int channel, juce::ModifierKeys mods) {
               // default clear all indicators. Overwrite this lambda to change the behaviour
               meter.clearMaxLevelDisplay();
               meter.clearClipIndicator();
+              (void)channel;
+              (void)mods;
           };
 
     startTimerHz(refreshRate_);

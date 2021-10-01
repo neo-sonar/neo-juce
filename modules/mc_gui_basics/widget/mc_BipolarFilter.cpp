@@ -32,7 +32,7 @@ auto BipolarFilter::paint(juce::Graphics& g) -> void
     auto thumbX     = juce::jmap<float>(static_cast<float>(currentValue_), -1.0f, 1.0f, area.getX(), area.getRight());
     auto thumbY     = area.getY() + (area.getHeight() / 10.0f) * 3.5f;
     auto thumbWidth = std::min(area.getWidth() / 5.0f, area.getHeight() / 5.0f);
-    thumbArea_      = juce::Rectangle { 0.0f, 0.0f, thumbWidth, thumbWidth }.withCentre({ thumbX, thumbY });
+    thumbArea_      = juce::Rectangle<float> { 0.0f, 0.0f, thumbWidth, thumbWidth }.withCentre({ thumbX, thumbY });
 
     g.setColour(juce::Colours::blue);
     g.drawLine({ thumbArea_.getCentre(), area.getBottomLeft() }, 3.0f);

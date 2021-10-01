@@ -22,7 +22,8 @@ TextBoxSlider::TextBoxSlider(juce::String const& name)
 auto TextBoxSlider::setValue(double const newValue, juce::NotificationType notification) -> void
 {
     juce::ignoreUnused(notification);
-    if (auto const clipped = range_.clipValue(newValue); clipped != value_) {
+    auto const clipped = range_.clipValue(newValue);
+    if (clipped != value_) {
         value_ = clipped;
         text_.setText(getTextFromValue(clipped), juce::dontSendNotification);
         listenerList_.call([self = this](auto& listener) { listener.textBoxSliderValueChanged(self); });

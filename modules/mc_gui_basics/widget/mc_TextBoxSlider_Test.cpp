@@ -136,8 +136,8 @@ struct TestListenerValueChanged : mc::TextBoxSlider::Listener {
     auto operator=(const TestListenerValueChanged& rhs) -> TestListenerValueChanged& = delete;
     auto operator=(TestListenerValueChanged&& rhs) -> TestListenerValueChanged& = delete;
 
-    auto textBoxSliderDragStarted(mc::TextBoxSlider * /*s*/) -> void override { }
-    auto textBoxSliderDragEnded(mc::TextBoxSlider * /*s*/) -> void override { }
+    auto textBoxSliderDragStarted(mc::TextBoxSlider* /*s*/) -> void override { }
+    auto textBoxSliderDragEnded(mc::TextBoxSlider* /*s*/) -> void override { }
     auto textBoxSliderValueChanged(mc::TextBoxSlider* s) -> void override
     {
         wasCalled = true;
@@ -152,8 +152,8 @@ struct TestListenerValueChanged : mc::TextBoxSlider::Listener {
 
 TEST_CASE("gui_basics/widget: TextBoxSlider::Listener::textBoxSliderValueChanged", "[gui_basics][widget]")
 {
-    auto listener = TestListenerValueChanged {};
-    auto slider   = mc::TextBoxSlider {};
+    TestListenerValueChanged listener {};
+    mc::TextBoxSlider slider {};
     CHECK_FALSE(listener.wasCalled);
     CHECK_FALSE(listener.value.has_value());
 

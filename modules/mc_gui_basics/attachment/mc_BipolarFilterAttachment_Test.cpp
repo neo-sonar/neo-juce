@@ -5,15 +5,15 @@
 
 TEST_CASE("gui_basics/attachment: BipolarFilterValueTreeAttachment", "[gui_basics][attachment]")
 {
-    auto const id    = juce::Identifier { "value" };
-    auto undoManager = juce::UndoManager {};
-    auto valueTree   = juce::ValueTree { "test" };
+    juce::Identifier const id { "value" };
+    juce::UndoManager undoManager {};
+    juce::ValueTree valueTree { "test" };
 
     mc::CachedAtomicFloat value { valueTree, id, &undoManager };
     value = 0.5f;
 
-    auto slider     = mc::BipolarFilter { "filter" };
-    auto attachment = mc::BipolarFilterValueTreeAttachment { valueTree, id, slider, &undoManager };
+    mc::BipolarFilter slider { "filter" };
+    mc::BipolarFilterValueTreeAttachment attachment { valueTree, id, slider, &undoManager };
     CHECK(slider.getValue() == Catch::Approx(0.5f));
 
     slider.setValue(0.25f);

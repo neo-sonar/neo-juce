@@ -5,7 +5,7 @@ auto ImageUtils::loadFromURL(juce::URL const& url) -> juce::Image
     auto response = url.createInputStream(options);
     auto block    = juce::MemoryBlock {};
     response->readIntoMemoryBlock(block);
-    auto mis = juce::MemoryInputStream(block, false);
+    juce::MemoryInputStream mis(block, false);
     return juce::ImageFileFormat::loadFrom(mis);
 }
 } // namespace mc
