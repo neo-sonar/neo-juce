@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <thread>
+#include "mc/thread.hpp"
 
 TEMPLATE_TEST_CASE("core/thread: ThreadSafeQueue", "[core][thread]", int, float, double, std::string, juce::String)
 {

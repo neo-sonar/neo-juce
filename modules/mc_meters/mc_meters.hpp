@@ -18,14 +18,14 @@
 #define USE_MC_METERS 1
 #endif
 
+#include "mc/atomic.hpp"
+#include "mc/numeric.hpp"
+#include "mc/vector.hpp"
+
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <juce_events/juce_events.h>
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <mc_data_structures/mc_data_structures.hpp>
-
-#include <atomic>
-#include <numeric>
-#include <vector>
 
 #include "LevelMeter/LevelMeterSource.h"
 

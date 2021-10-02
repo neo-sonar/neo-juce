@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <random>
+#include "mc/random.hpp"
 
 template <typename FloatType>
 inline auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<FloatType>

@@ -1,8 +1,8 @@
 #include "mc_core/mc_core.hpp"
 
-#include <catch2/catch.hpp>
+#include "mc/functional.hpp"
 
-#include <functional>
+#include <catch2/catch.hpp>
 
 namespace {
 struct SomeStruct {

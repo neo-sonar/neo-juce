@@ -50,7 +50,6 @@
 
 #include "container/mc_Registry.hpp"
 #include "container/mc_Variant.hpp"
-#include "container/mc_Vector.hpp"
 
 #include "javascript/mc_JSONUtils.hpp"
 #include "math/mc_Constants.hpp"

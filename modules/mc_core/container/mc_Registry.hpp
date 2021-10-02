@@ -1,10 +1,6 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_REGISTRY_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_REGISTRY_HPP
 
-#include <algorithm>
-#include <cstdint>
-#include <vector>
-
 namespace mc {
 
 /// \brief CppCon 2019: Sean Parent “Better Code: Relationships” https://youtu.be/ejF6qqohp3M
@@ -22,8 +18,6 @@ public:
     explicit Registry(size_type capacity)
         : map_ { capacity }
     {
-        MC_ENSURES(size() == 0);
-        MC_ENSURES(map_.capacity() == capacity);
     }
 
     /// \brief Returns the number of elements inside the registry.
@@ -82,7 +76,6 @@ public:
     /// \brief Append an element to the registry. A handle will be returned.
     MC_NODISCARD auto append(T element) -> ticket_type
     {
-        MC_ENSURES(size() != 0);
         map_.emplace_back(id_, std::move(element));
         ++size_;
         return id_++;
