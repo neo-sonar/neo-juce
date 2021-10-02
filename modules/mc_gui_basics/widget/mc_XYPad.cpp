@@ -80,13 +80,6 @@ auto XYPad::mouseUp(juce::MouseEvent const& event) -> void
     stopDragging();
 }
 
-template <typename T>
-MC_NODISCARD constexpr auto clamp(T const& val, T const& lo, T const& hi) -> T const&
-{
-    return (val < lo) ? lo : (hi < val) ? hi
-                                        : val;
-}
-
 auto XYPad::mouseDrag(juce::MouseEvent const& event) -> void
 {
     if (!isDragging_) {

@@ -22,26 +22,22 @@
 #include <juce_core/juce_core.h>
 #include <juce_events/juce_events.h>
 
-#include "fmt/chrono.h"
-#include "fmt/format.h"
-#include "fmt/ostream.h"
-
 #include <gsl/gsl>
-
-#include <boost/optional.hpp>
 
 #include "moodycamel/concurrentqueue.h"
 #include "readerwriterqueue/readerwritercircularbuffer.h"
 #include "readerwriterqueue/readerwriterqueue.h"
 
-#include <algorithm>
-#include <array>
-#include <atomic>
-#include <chrono>
-#include <cstdint>
-#include <mutex>
-#include <thread>
-#include <type_traits>
+#include "mc/algorithm.hpp"
+#include "mc/array.hpp"
+#include "mc/atomic.hpp"
+#include "mc/chrono.hpp"
+#include "mc/cstdint.hpp"
+#include "mc/format.hpp"
+#include "mc/mutex.hpp"
+#include "mc/optional.hpp"
+#include "mc/thread.hpp"
+#include "mc/type_traits.hpp"
 
 #include "system/mc_Platform.hpp"
 
