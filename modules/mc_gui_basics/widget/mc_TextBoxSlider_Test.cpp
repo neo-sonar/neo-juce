@@ -1,5 +1,4 @@
-#include "catch2/catch_approx.hpp"
-#include "catch2/catch_test_macros.hpp"
+#include <catch2/catch.hpp>
 
 #include <mc_gui_basics/mc_gui_basics.hpp>
 
@@ -18,48 +17,48 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::TextBoxSlider(componentName)", "[gu
 TEST_CASE("gui_basics/widget: TextBoxSlider::setValue", "[gui_basics][widget]")
 {
     mc::TextBoxSlider slider {};
-    CHECK(slider.getValue() == Catch::Approx(1.0));
+    CHECK(slider.getValue() == Approx(1.0));
 
     slider.setValue(2.0);
-    CHECK(slider.getValue() == Catch::Approx(2.0));
+    CHECK(slider.getValue() == Approx(2.0));
 
     // outside range should be clipped
     slider.setValue(12.0);
-    CHECK(slider.getValue() == Catch::Approx(10.0));
+    CHECK(slider.getValue() == Approx(10.0));
     slider.setValue(-5.0);
-    CHECK(slider.getValue() == Catch::Approx(0.0));
+    CHECK(slider.getValue() == Approx(0.0));
 }
 
 TEST_CASE("gui_basics/widget: TextBoxSlider::Range", "[gui_basics][widget]")
 {
     mc::TextBoxSlider slider {};
-    CHECK(slider.getRange().getStart() == Catch::Approx(0.0));
-    CHECK(slider.getRange().getEnd() == Catch::Approx(10.0));
-    CHECK(slider.getMinimum() == Catch::Approx(0.0));
-    CHECK(slider.getMaximum() == Catch::Approx(10.0));
-    CHECK(slider.getInterval() == Catch::Approx(0.1));
+    CHECK(slider.getRange().getStart() == Approx(0.0));
+    CHECK(slider.getRange().getEnd() == Approx(10.0));
+    CHECK(slider.getMinimum() == Approx(0.0));
+    CHECK(slider.getMaximum() == Approx(10.0));
+    CHECK(slider.getInterval() == Approx(0.1));
 
     slider.setRange({ 0.0, 4.0 }, 0.01);
-    CHECK(slider.getRange().getStart() == Catch::Approx(0.0));
-    CHECK(slider.getRange().getEnd() == Catch::Approx(4.0));
-    CHECK(slider.getMinimum() == Catch::Approx(0.0));
-    CHECK(slider.getMaximum() == Catch::Approx(4.0));
-    CHECK(slider.getInterval() == Catch::Approx(0.01));
+    CHECK(slider.getRange().getStart() == Approx(0.0));
+    CHECK(slider.getRange().getEnd() == Approx(4.0));
+    CHECK(slider.getMinimum() == Approx(0.0));
+    CHECK(slider.getMaximum() == Approx(4.0));
+    CHECK(slider.getInterval() == Approx(0.01));
 }
 
 TEST_CASE("gui_basics/widget: TextBoxSlider::doubleClickReturn", "[gui_basics][widget]")
 {
     mc::TextBoxSlider slider {};
     CHECK(slider.isDoubleClickReturnEnabled());
-    CHECK(slider.getDoubleClickReturnValue() == Catch::Approx(1.0));
+    CHECK(slider.getDoubleClickReturnValue() == Approx(1.0));
 
     slider.setDoubleClickReturnValue(true, 5.0);
     CHECK(slider.isDoubleClickReturnEnabled());
-    CHECK(slider.getDoubleClickReturnValue() == Catch::Approx(5.0));
+    CHECK(slider.getDoubleClickReturnValue() == Approx(5.0));
 
     slider.setDoubleClickReturnValue(false, 1.0);
     CHECK_FALSE(slider.isDoubleClickReturnEnabled());
-    CHECK(slider.getDoubleClickReturnValue() == Catch::Approx(1.0));
+    CHECK(slider.getDoubleClickReturnValue() == Approx(1.0));
 }
 
 TEST_CASE("gui_basics/widget: TextBoxSlider::onValueChange", "[gui_basics][widget]")
@@ -98,17 +97,17 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::textBoxEditable", "[gui_basics][wid
 TEST_CASE("gui_basics/widget: TextBoxSlider::getValueFromText", "[gui_basics][widget]")
 {
     mc::TextBoxSlider slider {};
-    CHECK(slider.getValueFromText("1.0") == Catch::Approx(1.0));
-    CHECK(slider.getValueFromText("2.0") == Catch::Approx(2.0));
-    CHECK(slider.getValueFromText("1.43") == Catch::Approx(1.43));
+    CHECK(slider.getValueFromText("1.0") == Approx(1.0));
+    CHECK(slider.getValueFromText("2.0") == Approx(2.0));
+    CHECK(slider.getValueFromText("1.43") == Approx(1.43));
 
     slider.valueFromText = [](auto const& text) -> double {
         juce::ignoreUnused(text);
         return 1.0;
     };
-    CHECK(slider.getValueFromText("1.0") == Catch::Approx(1.0));
-    CHECK(slider.getValueFromText("2.0") == Catch::Approx(1.0));
-    CHECK(slider.getValueFromText("1.43") == Catch::Approx(1.0));
+    CHECK(slider.getValueFromText("1.0") == Approx(1.0));
+    CHECK(slider.getValueFromText("2.0") == Approx(1.0));
+    CHECK(slider.getValueFromText("1.43") == Approx(1.0));
 }
 
 TEST_CASE("gui_basics/widget: TextBoxSlider::getTextFromValue", "[gui_basics][widget]")

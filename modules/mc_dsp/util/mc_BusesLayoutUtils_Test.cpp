@@ -1,6 +1,6 @@
 #include <mc_dsp/mc_dsp.hpp>
 
-#include "catch2/catch_test_macros.hpp"
+#include <catch2/catch.hpp>
 
 TEST_CASE("dsp/util: BusesLayoutUtils::isSameInOut", "[dsp][util]")
 {

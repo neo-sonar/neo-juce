@@ -33,31 +33,8 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     endif ()
 endif ()
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-include(mcCompilerOptions)
-include(mcCompilerWarnings)
-include(mcCodeCoverage)
 
-if(MC_BUILD_CONAN)
-    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR})
-    list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR})
-    include(mcConan)
-endif()
-
-find_package(Boost 1.77 REQUIRED)
-find_package(fmt REQUIRED)
-find_package(Microsoft.GSL REQUIRED)
-find_package(concurrentqueue REQUIRED)
-find_package(readerwriterqueue REQUIRED)
-
-add_library(mc_external INTERFACE)
-add_library(mc::mc_external ALIAS mc_external)
-target_link_libraries(mc_external INTERFACE Boost::headers)
-target_link_libraries(mc_external INTERFACE fmt::fmt)
-target_link_libraries(mc_external INTERFACE Microsoft.GSL::Microsoft.GSL)
-target_link_libraries(mc_external INTERFACE concurrentqueue::concurrentqueue)
-target_link_libraries(mc_external INTERFACE readerwriterqueue::readerwriterqueue)
-
+add_subdirectory(3rd_party/lib-stl)
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 juce_add_module(modules/mc_core             ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_data_structures  ALIAS_NAMESPACE mc)
@@ -66,13 +43,9 @@ juce_add_module(modules/mc_graphics         ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_gui_basics       ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_meters           ALIAS_NAMESPACE mc)
 
-add_subdirectory(3rd_party/Catch2 EXCLUDE_FROM_ALL)
-
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     enable_testing()
     include(CTest)
-    list (APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/Catch2/extras)
-    include(Catch)
 
     juce_add_console_app(${PROJECT_NAME}_tests PRODUCT_NAME "${PROJECT_NAME}_tests" NEEDS_CURL TRUE)
     catch_discover_tests(${PROJECT_NAME}_tests)
@@ -125,17 +98,17 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
     target_link_libraries(${PROJECT_NAME}_tests
         PRIVATE
-            mc::mc_external
+            mc::mc_stl
             mc::mc_core
             mc::mc_data_structures
             mc::mc_dsp
             mc::mc_graphics
             mc::mc_gui_basics
             mc::mc_meters
+            mc::compiler_options
+            mc::compiler_warnings
+            mc::coverage
             Catch2::Catch2
             juce::juce_recommended_config_flags
-            ModernCircuits::CompilerOptions
-            ModernCircuits::CompilerWarnings
-            ModernCircuits::CodeCoverage
     )
 endif()

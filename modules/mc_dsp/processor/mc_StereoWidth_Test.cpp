@@ -1,7 +1,6 @@
 #include <mc_dsp/mc_dsp.hpp>
 
-#include "catch2/catch_approx.hpp"
-#include "catch2/catch_template_test_macros.hpp"
+#include <catch2/catch.hpp>
 
 #include <random>
 
@@ -71,7 +70,7 @@ TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "[dsp][processor]", float, doub
 
             // check that original & processed buffer contain the same data
             for (int i = 0; i < buffer.getNumSamples(); ++i) {
-                CHECK(processedData[i] == Catch::Approx(originalData[i]));
+                CHECK(processedData[i] == Approx(originalData[i]));
             }
         }
     }
@@ -100,7 +99,7 @@ TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "[dsp][processor]", float, doub
 
         for (int i = 0; i < buffer.getNumSamples(); ++i) {
             // check that left & right buffers contain the same data.
-            CHECK(left[i] == Catch::Approx(right[i]));
+            CHECK(left[i] == Approx(right[i]));
         }
     }
 }

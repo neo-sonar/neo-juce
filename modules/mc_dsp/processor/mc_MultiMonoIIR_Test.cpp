@@ -1,6 +1,6 @@
 #include <mc_dsp/mc_dsp.hpp>
 
-#include "catch2/catch_template_test_macros.hpp"
+#include <catch2/catch.hpp>
 
 TEMPLATE_TEST_CASE("dsp/processor: MultiMonoIIR", "[dsp][processor]", float, double)
 {

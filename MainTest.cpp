@@ -1,6 +1,7 @@
-#include <juce_events/juce_events.h>
+#define CATCH_CONFIG_RUNNER
+#include <catch2/catch.hpp>
 
-#include "catch2/catch_session.hpp"
+#include <juce_events/juce_events.h>
 
 auto main(int const argc, char const* argv[]) -> int
 {

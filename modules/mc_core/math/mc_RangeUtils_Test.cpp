@@ -1,6 +1,6 @@
 #include <mc_core/mc_core.hpp>
 
-#include "catch2/catch_template_test_macros.hpp"
+#include <catch2/catch.hpp>
 
 TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::Range>", "[core][math]", int, float, double)
 {

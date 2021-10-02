@@ -1,6 +1,6 @@
 #include <mc_graphics/mc_graphics.hpp>
 
-#include "catch2/catch_test_macros.hpp"
+#include <catch2/catch.hpp>
 
 TEST_CASE("graphics/color: VariantConverter<juce::Colour>", "[graphics][color]")
 {
