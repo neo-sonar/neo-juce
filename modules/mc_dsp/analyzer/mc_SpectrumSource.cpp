@@ -99,7 +99,7 @@ auto SpectrumSource::run() -> void
             juce::ScopedLock lockedForWriting(pathCreationLock_);
             averager_.addFrom(0, 0, averager_.getReadPointer(averagerPtr_), averager_.getNumSamples(), -1.0f);
             averager_.copyFrom(averagerPtr_, 0, fftBuffer_.getReadPointer(0), averager_.getNumSamples(),
-                1.0f / (averager_.getNumSamples() * (averager_.getNumChannels() - 1)));
+                1.0f / static_cast<float>(averager_.getNumSamples() * (averager_.getNumChannels() - 1)));
             averager_.addFrom(0, 0, averager_.getReadPointer(averagerPtr_), averager_.getNumSamples());
             if (++averagerPtr_ == averager_.getNumChannels()) {
                 averagerPtr_ = 1;

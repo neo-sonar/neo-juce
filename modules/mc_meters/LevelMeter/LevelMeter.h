@@ -18,7 +18,7 @@ class LevelMeter
     : public juce::Component,
       private juce::Timer {
 public:
-    enum MeterFlags {
+    enum MeterFlags : unsigned {
         Default       = 0x0000, /**< Default is showing all channels in the LevelMeterSource without a border */
         Horizontal    = 0x0001, /**< Displays the level bars horizontally */
         Vintage       = 0x0002, /**< Switches to a special mode of old school meters (to come) */
@@ -278,7 +278,7 @@ private:
 
 inline auto operator|(LevelMeter::MeterFlags a, LevelMeter::MeterFlags b) -> LevelMeter::MeterFlags
 {
-    return static_cast<LevelMeter::MeterFlags>(static_cast<int>(a) | static_cast<int>(b));
+    return static_cast<LevelMeter::MeterFlags>(static_cast<unsigned>(a) | static_cast<unsigned>(b));
 }
 
 /*@}*/

@@ -87,7 +87,7 @@ class OutlineBuffer {
             auto latest     = writePointer_ > 0 ? writePointer_ - 1 : maxBuffer_.size() - 1;
             auto oldest     = (latest >= numSamples) ? latest - numSamples : latest + maxBuffer_.size() - numSamples;
 
-            const auto dx = bounds.getWidth() / numSamples;
+            const auto dx = bounds.getWidth() / static_cast<float>(numSamples);
             const auto dy = bounds.getHeight() * 0.35f;
             const auto my = bounds.getCentreY();
             auto x        = bounds.getX();

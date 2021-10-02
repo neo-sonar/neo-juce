@@ -1,4 +1,4 @@
-Checks:          '*-,boost-*,bugprone-*,-bugprone-macro-parentheses,cert-*,-cert-oop54-cpp,-cert-err58-cpp,clang-analyzer-*,-clang-analyzer-optin.performance.Padding,-clang-diagnostics-*,concurrency-*,hicpp-*,-hicpp-avoid-c-arrays,-hicpp-uppercase-literal-suffix,modernize-*,-modernize-avoid-c-arrays,performance-*,readability-*,readability-identifier-naming,-readability-uppercase-literal-suffix,-readability-magic-numbers,-readability-function-cognitive-complexity'
+Checks:          '*-,boost-*,bugprone-*,-bugprone-macro-parentheses,cert-*,-cert-oop54-cpp,-cert-err58-cpp,clang-analyzer-*,-clang-analyzer-optin.performance.Padding,-clang-diagnostics-*,concurrency-*,hicpp-*,-hicpp-avoid-c-arrays,-hicpp-uppercase-literal-suffix,modernize-*,-modernize-avoid-c-arrays,performance-*,readability-*,readability-identifier-naming,-readability-uppercase-literal-suffix,-readability-magic-numbers,-readability-function-cognitive-complexity,-hicpp-special-member-functions'
 WarningsAsErrors: '*'
 FormatStyle:     none
 CheckOptions:
