@@ -36,6 +36,7 @@
 #include "mc/format.hpp"
 #include "mc/mutex.hpp"
 #include "mc/optional.hpp"
+#include "mc/queue.hpp"
 #include "mc/thread.hpp"
 #include "mc/type_traits.hpp"
 

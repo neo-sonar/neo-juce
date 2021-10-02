@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <future>
+#include "mc/future.hpp"
 
 TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "[data_structures][value_tree]", int, float, double)
 {

@@ -1,9 +1,6 @@
 #ifndef MODERN_CIRCUITS_APP_ZENTRALE_THREAD_SAFE_QUEUE_HPP
 #define MODERN_CIRCUITS_APP_ZENTRALE_THREAD_SAFE_QUEUE_HPP
 
-#include <mutex>
-#include <queue>
-
 namespace mc {
 template <typename T>
 class ThreadSafeQueue {

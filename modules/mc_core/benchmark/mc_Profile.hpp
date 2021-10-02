@@ -1,15 +1,15 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_PROFILE_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_PROFILE_HPP
 
-#include <algorithm>
-#include <chrono>
-#include <fstream>
-#include <iomanip>
-#include <memory>
-#include <mutex>
-#include <sstream>
-#include <string>
-#include <thread>
+#include "mc/algorithm.hpp"
+#include "mc/chrono.hpp"
+#include "mc/fstream.hpp"
+#include "mc/iomanip.hpp"
+#include "mc/memory.hpp"
+#include "mc/mutex.hpp"
+#include "mc/sstream.hpp"
+#include "mc/string.hpp"
+#include "mc/thread.hpp"
 
 namespace mc {
 
