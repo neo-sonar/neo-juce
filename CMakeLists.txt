@@ -55,13 +55,10 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             MainTest.cpp
 
             modules/mc_core/container/mc_Registry_Test.cpp
-            modules/mc_core/container/mc_Variant_Test.cpp
             modules/mc_core/javascript/mc_JSONUtils_Test.cpp
-            modules/mc_core/math/mc_Constants_Test.cpp
             modules/mc_core/math/mc_RangeUtils_Test.cpp
             modules/mc_core/text/mc_Format_Test.cpp
             modules/mc_core/text/mc_TextValueConverters_Test.cpp
-            modules/mc_core/thread/mc_ThreadSafeQueue_Test.cpp
             modules/mc_core/time/Duration_Test.cpp
             modules/mc_core/time/mc_TimeUtils_Test.cpp
 
@@ -110,5 +107,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             mc::coverage
             Catch2::Catch2
             juce::juce_recommended_config_flags
+            juce::juce_recommended_warning_flags
     )
 endif()
