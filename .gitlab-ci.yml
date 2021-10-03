@@ -44,7 +44,7 @@ mac:xcode:cpp14:
   script:
     - pip install conan --upgrade
     - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-cpp14 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=14 -DMC_BUILD_WERROR=ON
+    - cmake -S. -GNinja -Bcmake-build-cpp14 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=14 -DCMAKE_OSX_DEPLOYMENT_TARGET="10.11" -DMC_BUILD_WERROR=ON
     - cmake --build cmake-build-cpp14
     - cd cmake-build-cpp14
     - ctest
@@ -61,7 +61,7 @@ mac:xcode:cpp17:
   script:
     - pip install conan --upgrade
     - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-cpp17 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DMC_BUILD_WERROR=ON
+    - cmake -S. -GNinja -Bcmake-build-cpp17 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DCMAKE_OSX_DEPLOYMENT_TARGET="10.14" -DMC_BUILD_WERROR=ON
     - cmake --build cmake-build-cpp17
     - cd cmake-build-cpp17
     - ctest
@@ -79,7 +79,7 @@ linux:clang:release:
   script:
     - pip install conan --upgrade
     - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_WERROR=ON
+    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DMC_BUILD_WERROR=ON
     - cmake --build cmake-build-release
     - cd cmake-build-release
     - ctest
