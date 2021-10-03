@@ -144,7 +144,7 @@ struct TestListenerValueChanged : mc::TextBoxSlider::Listener {
     }
 
     bool wasCalled { false };
-    boost::optional<double> value {};
+    mc::optional<double> value {};
 };
 
 } // namespace

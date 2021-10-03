@@ -65,7 +65,7 @@ struct TestListenerValueChanged : mc::BipolarFilter::Listener {
     }
 
     bool wasCalled { false };
-    boost::optional<double> value {};
+    mc::optional<double> value {};
 };
 
 } // namespace

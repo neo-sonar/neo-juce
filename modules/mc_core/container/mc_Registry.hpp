@@ -108,7 +108,7 @@ public:
     }
 
 private:
-    std::vector<std::pair<size_type, boost::optional<T>>> map_;
+    std::vector<std::pair<size_type, optional<T>>> map_;
     size_type size_ = 0;
     ticket_type id_ = 0;
 };
