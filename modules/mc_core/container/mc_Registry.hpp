@@ -57,7 +57,7 @@ public:
     template <typename F>
     MC_NODISCARD auto forID(ticket_type ticket, F f) const -> bool
     {
-        MC_EXPECTS(ticket < id_ && "ID must be in range for this registry");
+        MC_ASSERT(ticket < id_ && "ID must be in range for this registry");
 
         auto compare = [](auto const& a, auto const& b) { return a.first < b; };
         auto p       = std::lower_bound(begin(map_), end(map_), ticket, compare);
@@ -84,7 +84,7 @@ public:
     /// \brief Erase an element from the registry.
     auto erase(size_type id) -> void
     {
-        MC_EXPECTS(id < id_ && "ID must be in range for this registry");
+        MC_ASSERT(id < id_ && "ID must be in range for this registry");
 
         auto compare = [](auto const& a, auto const& b) { return a.first < b; };
         auto p       = std::lower_bound(begin(map_), end(map_), id, compare);

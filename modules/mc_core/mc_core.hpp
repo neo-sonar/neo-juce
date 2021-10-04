@@ -22,8 +22,6 @@
 #include <juce_core/juce_core.h>
 #include <juce_events/juce_events.h>
 
-#include <gsl/gsl>
-
 #include "mc/algorithm.hpp"
 #include "mc/array.hpp"
 #include "mc/atomic.hpp"
@@ -71,11 +69,6 @@
 #include "mc/variant.hpp"
 #include "mc/vector.hpp"
 #include "mc/version.hpp"
-
-#include "system/mc_Platform.hpp"
-
-#include "system/mc_Assert.hpp"
-#include "system/mc_CRTP.hpp"
 
 #include "text/mc_Format.hpp"
 #include "text/mc_StringUtils.hpp"
