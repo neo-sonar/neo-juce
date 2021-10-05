@@ -2,10 +2,10 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("core/text: format", "[core][text]")
+TEST_CASE("core/text: jformat", "[core][text]")
 {
-    CHECK(mc::format(juce::String { "test" }) == "test");
-    CHECK(mc::format(juce::String { "test{}" }, 143) == "test143");
-    CHECK(mc::format(juce::String { "{}test" }, 143) == "143test");
-    CHECK(mc::format(juce::String { "{0}test{0}" }, 143) == "143test143");
+    CHECK(mc::jformat(juce::String { "test" }) == "test");
+    CHECK(mc::jformat(juce::String { "test{}" }, 143) == "test143");
+    CHECK(mc::jformat(juce::String { "{}test" }, 143) == "143test");
+    CHECK(mc::jformat(juce::String { "{0}test{0}" }, 143) == "143test143");
 }

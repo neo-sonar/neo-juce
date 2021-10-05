@@ -13,7 +13,7 @@ struct juce::VariantConverter<juce::Point<ValueType>> {
 
     MC_NODISCARD static auto toVar(juce::Point<ValueType> const& p) -> juce::var
     {
-        return juce::String { fmt::format("{}:{}", p.x, p.y) };
+        return mc::jformat("{}:{}", p.x, p.y);
     }
 };
 
@@ -31,7 +31,7 @@ struct juce::VariantConverter<juce::Line<ValueType>> {
 
     MC_NODISCARD static auto toVar(juce::Line<ValueType> const& l) -> juce::var
     {
-        return juce::String { fmt::format("{}:{}:{}:{}", l.getStart().x, l.getStart().y, l.getEnd().x, l.getEnd().y) };
+        return mc::jformat("{}:{}:{}:{}", l.getStart().x, l.getStart().y, l.getEnd().x, l.getEnd().y);
     }
 };
 
@@ -49,7 +49,7 @@ struct juce::VariantConverter<juce::Rectangle<ValueType>> {
 
     MC_NODISCARD static auto toVar(juce::Rectangle<ValueType> const& l) -> juce::var
     {
-        return juce::String { fmt::format("{}:{}:{}:{}", l.getX(), l.getY(), l.getWidth(), l.getHeight()) };
+        return mc::jformat("{}:{}:{}:{}", l.getX(), l.getY(), l.getWidth(), l.getHeight());
     }
 };
 

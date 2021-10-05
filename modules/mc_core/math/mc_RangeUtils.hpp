@@ -54,7 +54,7 @@ struct juce::VariantConverter<juce::Range<ValueType>> {
 
     MC_NODISCARD static auto toVar(juce::Range<ValueType> const& r) -> juce::var
     {
-        return juce::String { fmt::format("{}:{}", r.getStart(), r.getEnd()) };
+        return mc::jformat("{}:{}", r.getStart(), r.getEnd());
     }
 };
 
@@ -73,7 +73,7 @@ struct juce::VariantConverter<juce::NormalisableRange<ValueType>> {
 
     MC_NODISCARD static auto toVar(juce::NormalisableRange<ValueType> const& nr) -> juce::var
     {
-        return juce::String { fmt::format("{}:{}:{}:{}:{}", nr.start, nr.end, nr.interval, nr.skew, nr.symmetricSkew) };
+        return mc::jformat("{}:{}:{}:{}:{}", nr.start, nr.end, nr.interval, nr.skew, nr.symmetricSkew);
     }
 };
 

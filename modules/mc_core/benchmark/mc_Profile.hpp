@@ -27,14 +27,7 @@ struct InstrumentationSession {
     std::string Name;
 };
 
-class Profiler {
-private:
-    std::mutex mutex_;
-    std::unique_ptr<InstrumentationSession> currentSession_ { nullptr };
-    std::ofstream outputStream_;
-    std::vector<std::string> buffer_;
-
-public:
+struct Profiler {
     Profiler() = default;
 
     void beginSession(std::string const& name, std::string const& filepath = "results.json")
@@ -52,7 +45,7 @@ public:
             currentSession_->Name = name;
             writeHeader();
         } else {
-            DBG(mc::format("Profiler could not open results file '{0}'.", filepath));
+            DBG(mc::jformat("Profiler could not open results file '{0}'.", filepath));
         }
     }
 
@@ -67,7 +60,7 @@ public:
         auto name = result.Name;
         std::replace(name.begin(), name.end(), '"', '\'');
 
-        auto const json = fmt::format(                                                                   //
+        auto const json = mc::format(                                                                    //
             R"(,{{"cat":"function","dur": {0},"name": "{1}","ph":"X","pid":0,"tid": "{2}","ts": {3}}})", //
             result.ElapsedTime.count(),                                                                  //
             name,                                                                                        //
@@ -117,6 +110,11 @@ private:
             currentSession_ = nullptr;
         }
     }
+
+    std::mutex mutex_;
+    std::unique_ptr<InstrumentationSession> currentSession_ { nullptr };
+    std::ofstream outputStream_;
+    std::vector<std::string> buffer_;
 };
 
 class ProfileTimer {
