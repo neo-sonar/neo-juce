@@ -4,18 +4,16 @@
 namespace mc {
 
 /// \brief Component for the spectrum analyser.
-class Spectrum
-    : public juce::Component,
-      public juce::Timer {
-public:
+struct Spectrum
+    : juce::Component,
+      juce::Timer {
     enum ColourIds {
         plot   = 0x1331600,
         grid   = 0x1331601,
         labels = 0x1331602,
     };
 
-    class LookAndFeelMethods {
-    public:
+    struct LookAndFeelMethods {
         LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
 

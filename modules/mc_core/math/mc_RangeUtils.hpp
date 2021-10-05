@@ -4,8 +4,7 @@
 namespace mc {
 
 /// \brief Collection of preconfigured ranges.
-class RangeUtils {
-public:
+struct RangeUtils {
     /// \brief Deleted constructor. Static class.
     RangeUtils() = delete;
 

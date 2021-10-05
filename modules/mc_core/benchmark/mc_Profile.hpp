@@ -117,8 +117,7 @@ private:
     std::vector<std::string> buffer_;
 };
 
-class ProfileTimer {
-public:
+struct ProfileTimer {
     explicit ProfileTimer(const char* name)
         : name_(name), stopped_(false)
     {

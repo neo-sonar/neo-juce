@@ -5,8 +5,7 @@ namespace mc {
 
 /// \brief Recieves data from the processor thread, calculates the FFT which is
 /// read by the GUI thread to plot a spectrum.
-class SpectrumSource : public juce::Thread {
-public:
+struct SpectrumSource final : juce::Thread {
     SpectrumSource();
     ~SpectrumSource() override = default;
 

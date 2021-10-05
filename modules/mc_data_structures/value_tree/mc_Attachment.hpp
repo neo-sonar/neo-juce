@@ -4,10 +4,9 @@
 namespace mc {
 
 template <typename T>
-class ValueTreeAttachment
+struct ValueTreeAttachment
     : private juce::ValueTree::Listener,
       private juce::AsyncUpdater {
-public:
     using value_type = T;
 
     ValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id,

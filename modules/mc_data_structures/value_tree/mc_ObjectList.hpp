@@ -4,8 +4,7 @@
 namespace mc {
 
 template <typename ObjectType, typename CriticalSectionType = juce::DummyCriticalSection>
-class ValueTreeObjectList : public juce::ValueTree::Listener {
-public:
+struct ValueTreeObjectList : public juce::ValueTree::Listener {
     explicit ValueTreeObjectList(juce::ValueTree parentTree)
         : parent_(std::move(parentTree))
     {

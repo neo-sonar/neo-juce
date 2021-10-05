@@ -2,8 +2,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_SLIDER_ATTACHMENT_HPP
 
 namespace mc {
-class SliderValueTreeAttachment : private juce::Slider::Listener {
-public:
+struct SliderValueTreeAttachment : juce::Slider::Listener {
     SliderValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, juce::Slider& slider,
         juce::UndoManager* undoManager = nullptr);
     ~SliderValueTreeAttachment() override;

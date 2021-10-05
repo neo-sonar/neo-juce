@@ -2,8 +2,7 @@
 #define MODERN_CIRCUITS_PLUGINS_mc_BipolarFilter_HPP
 
 namespace mc {
-class BipolarFilter : public juce::Component {
-public:
+struct BipolarFilter : juce::Component {
     enum ColourIds {
         backgroundColor = 0x1330001,
         lineColor       = 0x1330002,

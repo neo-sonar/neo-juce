@@ -4,13 +4,12 @@
 namespace mc {
 
 template <typename SampleType>
-class AudioBufferQueue {
-public:
-    AudioBufferQueue() = default;
-
+struct AudioBufferQueue {
     static constexpr std::size_t order      = 9;
     static constexpr std::size_t bufferSize = 1U << order;
     static constexpr std::size_t numBuffers = 5;
+
+    AudioBufferQueue() = default;
 
     void push(SampleType const* dataToPush, std::size_t numSamples)
     {

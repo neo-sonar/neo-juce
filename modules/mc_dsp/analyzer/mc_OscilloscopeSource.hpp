@@ -58,7 +58,7 @@ private:
 
     static constexpr auto triggerLevel = 0.05;
 
-    enum class State {
+    enum struct State {
         waitingForTrigger,
         collecting
     };

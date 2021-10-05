@@ -3,8 +3,7 @@
 
 namespace mc {
 
-class BipolarFilterValueTreeAttachment : private BipolarFilter::Listener {
-public:
+struct BipolarFilterValueTreeAttachment : private BipolarFilter::Listener {
     BipolarFilterValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, BipolarFilter& slider,
         juce::UndoManager* undoManager = nullptr);
 

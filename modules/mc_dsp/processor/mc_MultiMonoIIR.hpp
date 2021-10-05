@@ -4,11 +4,10 @@
 namespace mc {
 
 template <typename SampleType>
-class MultiMonoIIR {
+struct MultiMonoIIR {
     // This processor only works with float & double as its sample type.
     static_assert(std::is_same<SampleType, float>::value || std::is_same<SampleType, double>::value, "");
 
-public:
     MultiMonoIIR() = default;
 
     MC_NODISCARD auto getCoefficients() const noexcept -> juce::IIRCoefficients { return coefficients_; }

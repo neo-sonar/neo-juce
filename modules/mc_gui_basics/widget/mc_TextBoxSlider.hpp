@@ -4,8 +4,7 @@
 namespace mc {
 
 /// \brief A text box slider control for changing a value via dragging or scrolling.
-class TextBoxSlider : public juce::Component {
-public:
+struct TextBoxSlider : juce::Component {
     /// \brief A class for receiving callbacks from a TextBoxSlider. To be told when a slider's value changes, you can
     /// register a TextBoxSlider::Listener object using TextBoxSlider::addListener().
     struct Listener {
@@ -134,8 +133,7 @@ private:
 };
 
 /// \brief A text box slider control for changing a value via dragging or scrolling.
-class TextBoxSliderV2 : public juce::Slider {
-public:
+struct TextBoxSliderV2 : juce::Slider {
     /// \brief Creates a text box slider.
     /// \details When created, you can set up the text box slider's range with setRange(), etc.
     TextBoxSliderV2();

@@ -2,8 +2,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_TEXT_BOX_SLIDER_ATTACHMENT_HPP
 
 namespace mc {
-class TextBoxSliderValueTreeAttachment : private TextBoxSlider::Listener {
-public:
+struct TextBoxSliderValueTreeAttachment : TextBoxSlider::Listener {
     TextBoxSliderValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, TextBoxSlider& slider,
         juce::UndoManager* undoManager = nullptr);
 

@@ -4,8 +4,7 @@ namespace mc {
 namespace dsp {
 
     /// @brief Controls the width of a stereo signal
-    class StereoWidth {
-    public:
+    struct StereoWidth {
         /// @brief Holds the parameters for this processor.
         struct Parameters {
             float width = 1.0f; // 0 to 2.0: 1 = Normal, 0 = Mono

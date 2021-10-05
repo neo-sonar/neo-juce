@@ -2,9 +2,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_POOL_HPP
 
 namespace mc {
-class AudioBufferPool {
-
-public:
+struct AudioBufferPool {
     /// \brief Construct a AudioBufferPool
     AudioBufferPool() = default;
 

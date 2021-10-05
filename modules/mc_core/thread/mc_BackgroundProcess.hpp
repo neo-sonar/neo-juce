@@ -3,8 +3,7 @@
 
 namespace mc {
 
-class BackgroundProcess : private juce::Timer {
-public:
+struct BackgroundProcess : private juce::Timer {
     struct Listener {
         Listener()          = default;
         virtual ~Listener() = default;

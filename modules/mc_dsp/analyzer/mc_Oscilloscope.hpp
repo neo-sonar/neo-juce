@@ -3,12 +3,10 @@
 
 namespace mc {
 
-class Oscilloscope
-    : public juce::Component,
-      private juce::Timer {
-public:
-    class LookAndFeelMethods {
-    public:
+struct Oscilloscope
+    : juce::Component,
+      juce::Timer {
+    struct LookAndFeelMethods {
         LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
 

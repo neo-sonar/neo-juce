@@ -4,9 +4,8 @@
 namespace mc {
 
 /// \brief CppCon 2019: Sean Parent “Better Code: Relationships” https://youtu.be/ejF6qqohp3M
-template <class T>
-class Registry {
-public:
+template <typename T>
+struct Registry {
     using value_type  = T;
     using ticket_type = std::size_t;
     using size_type   = std::size_t;

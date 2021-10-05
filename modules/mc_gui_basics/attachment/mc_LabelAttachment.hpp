@@ -4,8 +4,7 @@
 namespace mc {
 
 template <typename T>
-class LabelValueTreeAttachment : public juce::ValueTree::Listener {
-public:
+struct LabelValueTreeAttachment : juce::ValueTree::Listener {
     using value_type = T;
     LabelValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, juce::Label& label,
         juce::UndoManager* undoManager = nullptr)
@@ -48,8 +47,7 @@ private:
 };
 
 template <typename T = juce::String>
-class ValueTreeLabel : public juce::Component {
-public:
+struct ValueTreeLabel : juce::Component {
     using value_type = T;
 
     explicit ValueTreeLabel(juce::CachedValue<value_type>& value)
