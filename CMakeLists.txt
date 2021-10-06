@@ -99,8 +99,6 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             mc::compiler_warnings
             mc::coverage
             Catch2::Catch2
-            juce::juce_recommended_config_flags
-            juce::juce_recommended_warning_flags
     )
 
 
