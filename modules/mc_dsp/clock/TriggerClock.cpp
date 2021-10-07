@@ -14,7 +14,7 @@ auto TriggerClock::advance(std::int64_t numSamples) -> bool
 
 auto TriggerClock::reset(std::int64_t sampleCount) -> void { sampleCount_ = sampleCount; }
 
-auto TriggerClock::setTickLength(Milliseconds milli) -> void
+auto TriggerClock::setTickLength(Milliseconds<double> milli) -> void
 {
     tickLength_ = static_cast<std::uint64_t>(toSampleCount(milli, sampleRate_));
 }

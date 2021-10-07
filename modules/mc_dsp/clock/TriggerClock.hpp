@@ -4,7 +4,7 @@ namespace mc {
 
 struct TriggerClock {
     auto reset(std::int64_t sampleCount = 0) -> void;
-    auto setTickLength(Milliseconds milli) -> void;
+    auto setTickLength(Milliseconds<double> milli) -> void;
     auto setSampleRate(double sampleRate) -> void;
 
     MC_NODISCARD auto advance(std::int64_t numSamples) -> bool;

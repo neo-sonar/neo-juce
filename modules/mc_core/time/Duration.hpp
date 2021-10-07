@@ -2,33 +2,6 @@
 
 namespace mc {
 
-/// \brief Duration type based on double.
-template <typename R>
-using Duration = std::chrono::duration<double, R>;
-
-/// \brief Duration in microseconds.
-using Microseconds = Duration<std::micro>;
-
-/// \brief Duration in milliseconds.
-using Milliseconds = Duration<std::milli>;
-
-/// \brief Duration in seconds.
-using Seconds = Duration<std::ratio<1>>;
-
-/// \brief Converts a duration to milliseconds.
-template <typename R>
-MC_NODISCARD constexpr auto toMilliseconds(Duration<R> const& duration) noexcept -> Seconds
-{
-    return std::chrono::duration_cast<Milliseconds>(duration);
-}
-
-/// \brief Converts a duration to seconds.
-template <typename R>
-MC_NODISCARD constexpr auto toSeconds(Duration<R> const& duration) noexcept -> Seconds
-{
-    return std::chrono::duration_cast<Seconds>(duration);
-}
-
 namespace detail {
     template <typename T, bool isFloatingPoint = std::is_floating_point<T>::value>
     struct DurationFromVarImpl {

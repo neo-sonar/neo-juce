@@ -37,32 +37,32 @@ TEST_CASE("core/time: samplesToSeconds", "[core][time]")
 
 TEST_CASE("core/time: toSampleCount(Microseconds)", "[core][time]")
 {
-    CHECK(mc::toSampleCount(mc::Microseconds { 1'000'000 }, 44'100.0) == Approx(44'100));
-    CHECK(mc::toSampleCount(mc::Microseconds { 1'000'000 }, 48'000.0) == Approx(48'000));
-    CHECK(mc::toSampleCount(mc::Microseconds { 1'000'000 }, 88'200.0) == Approx(88'200));
-    CHECK(mc::toSampleCount(mc::Microseconds { 1'000'000 }, 96'000.0) == Approx(96'000));
-    CHECK(mc::toSampleCount(mc::Microseconds { 500'000 }, 44'100.0) == Approx(22'050));
-    CHECK(mc::toSampleCount(mc::Microseconds { 250'000 }, 44'100.0) == Approx(11'025));
+    CHECK(mc::toSampleCount(mc::Microseconds<double> { 1'000'000 }, 44'100.0) == Approx(44'100));
+    CHECK(mc::toSampleCount(mc::Microseconds<double> { 1'000'000 }, 48'000.0) == Approx(48'000));
+    CHECK(mc::toSampleCount(mc::Microseconds<double> { 1'000'000 }, 88'200.0) == Approx(88'200));
+    CHECK(mc::toSampleCount(mc::Microseconds<double> { 1'000'000 }, 96'000.0) == Approx(96'000));
+    CHECK(mc::toSampleCount(mc::Microseconds<double> { 500'000 }, 44'100.0) == Approx(22'050));
+    CHECK(mc::toSampleCount(mc::Microseconds<double> { 250'000 }, 44'100.0) == Approx(11'025));
 }
 
 TEST_CASE("core/time: toSampleCount(Milliseconds)", "[core][time]")
 {
-    CHECK(mc::toSampleCount(mc::Milliseconds { 1'000 }, 44'100.0) == Approx(44'100));
-    CHECK(mc::toSampleCount(mc::Milliseconds { 1'000 }, 48'000.0) == Approx(48'000));
-    CHECK(mc::toSampleCount(mc::Milliseconds { 1'000 }, 88'200.0) == Approx(88'200));
-    CHECK(mc::toSampleCount(mc::Milliseconds { 1'000 }, 96'000.0) == Approx(96'000));
-    CHECK(mc::toSampleCount(mc::Milliseconds { 500 }, 44'100.0) == Approx(22'050));
-    CHECK(mc::toSampleCount(mc::Milliseconds { 250 }, 44'100.0) == Approx(11'025));
+    CHECK(mc::toSampleCount(mc::Milliseconds<double> { 1'000 }, 44'100.0) == Approx(44'100));
+    CHECK(mc::toSampleCount(mc::Milliseconds<double> { 1'000 }, 48'000.0) == Approx(48'000));
+    CHECK(mc::toSampleCount(mc::Milliseconds<double> { 1'000 }, 88'200.0) == Approx(88'200));
+    CHECK(mc::toSampleCount(mc::Milliseconds<double> { 1'000 }, 96'000.0) == Approx(96'000));
+    CHECK(mc::toSampleCount(mc::Milliseconds<double> { 500 }, 44'100.0) == Approx(22'050));
+    CHECK(mc::toSampleCount(mc::Milliseconds<double> { 250 }, 44'100.0) == Approx(11'025));
 }
 
 TEST_CASE("core/time: toSampleCount(Seconds)", "[core][time]")
 {
-    CHECK(mc::toSampleCount(mc::Seconds { 1 }, 44'100.0) == Approx(44'100));
-    CHECK(mc::toSampleCount(mc::Seconds { 1 }, 48'000.0) == Approx(48'000));
-    CHECK(mc::toSampleCount(mc::Seconds { 1 }, 88'200.0) == Approx(88'200));
-    CHECK(mc::toSampleCount(mc::Seconds { 1 }, 96'000.0) == Approx(96'000));
-    CHECK(mc::toSampleCount(mc::Seconds { 0.5 }, 44'100.0) == Approx(22'050));
-    CHECK(mc::toSampleCount(mc::Seconds { 0.25 }, 44'100.0) == Approx(11'025));
+    CHECK(mc::toSampleCount(mc::Seconds<double> { 1 }, 44'100.0) == Approx(44'100));
+    CHECK(mc::toSampleCount(mc::Seconds<double> { 1 }, 48'000.0) == Approx(48'000));
+    CHECK(mc::toSampleCount(mc::Seconds<double> { 1 }, 88'200.0) == Approx(88'200));
+    CHECK(mc::toSampleCount(mc::Seconds<double> { 1 }, 96'000.0) == Approx(96'000));
+    CHECK(mc::toSampleCount(mc::Seconds<double> { 0.5 }, 44'100.0) == Approx(22'050));
+    CHECK(mc::toSampleCount(mc::Seconds<double> { 0.25 }, 44'100.0) == Approx(11'025));
 }
 
 TEST_CASE("core/time: barsToSamples", "[core][time]")
@@ -78,9 +78,9 @@ TEST_CASE("core/time: barsToSamples", "[core][time]")
 
 TEST_CASE("core/time: barsToSeconds", "[core][time]")
 {
-    CHECK(mc::barsToSeconds(120.0, 2.0, 1.0) == mc::Seconds { 4.0 });
-    CHECK(mc::barsToSeconds(120.0, 1.0, 1.0) == mc::Seconds { 2.0 });
-    CHECK(mc::barsToSeconds(120.0, 1.0, 4.0) == mc::Seconds { 0.5 });
+    CHECK(mc::barsToSeconds(120.0, 2.0, 1.0) == mc::Seconds<double> { 4.0 });
+    CHECK(mc::barsToSeconds(120.0, 1.0, 1.0) == mc::Seconds<double> { 2.0 });
+    CHECK(mc::barsToSeconds(120.0, 1.0, 4.0) == mc::Seconds<double> { 0.5 });
 }
 
 TEST_CASE("core/time: bpmToHertz", "[core][time]")
@@ -93,7 +93,7 @@ TEST_CASE("core/time: TriggerClock", "[core][time]")
 {
     auto clock = mc::TriggerClock {};
     clock.setSampleRate(44'100.0);
-    clock.setTickLength(mc::Seconds { 1.0 });
+    clock.setTickLength(mc::Seconds<double> { 1.0 });
     CHECK(clock.advance(32));
     CHECK_FALSE(clock.advance(32));
     CHECK(clock.advance(44'100));
