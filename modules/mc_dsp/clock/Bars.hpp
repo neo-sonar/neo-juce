@@ -52,4 +52,4 @@ MC_NODISCARD constexpr auto bpmToHertz(T bpm) noexcept -> T
 {
     return bpm / T { 60 };
 }
-}
+} // namespace mc

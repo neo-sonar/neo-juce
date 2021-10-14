@@ -15,7 +15,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_GRAPHICS_HPP
 
 #ifndef USE_MC_GRAPHICS
-#define USE_MC_GRAPHICS 1
+    #define USE_MC_GRAPHICS 1
 #endif
 
 #include <juce_graphics/juce_graphics.h>

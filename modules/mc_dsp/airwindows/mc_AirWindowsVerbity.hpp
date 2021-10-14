@@ -26,13 +26,10 @@ struct AirWindowsVerbity {
         overallscale /= 44100.0;
         overallscale *= spec_.sampleRate;
         int cycleEnd = floor(overallscale);
-        if (cycleEnd < 1)
-            cycleEnd = 1;
-        if (cycleEnd > 4)
-            cycleEnd = 4;
+        if (cycleEnd < 1) cycleEnd = 1;
+        if (cycleEnd > 4) cycleEnd = 4;
         // this is going to be 2 for 88.1 or 96k, 3 for silly people, 4 for 176 or 192k
-        if (cycle > cycleEnd - 1)
-            cycle = cycleEnd - 1; // sanity check
+        if (cycle > cycleEnd - 1) cycle = cycleEnd - 1; // sanity check
 
         double size          = (parameter_.big * 1.77) + 0.1;
         double regen         = 0.0625 + (parameter_.tail * 0.03125); // 0.09375 max;
@@ -41,18 +38,10 @@ struct AirWindowsVerbity {
         double thunderAmount = (0.3 - (parameter_.tail * 0.22)) * parameter_.dark * 0.1;
         double wet           = parameter_.wet * 2.0;
         double dry           = 2.0 - wet;
-        if (wet > 1.0) {
-            wet = 1.0;
-        }
-        if (wet < 0.0) {
-            wet = 0.0;
-        }
-        if (dry > 1.0) {
-            dry = 1.0;
-        }
-        if (dry < 0.0) {
-            dry = 0.0;
-        }
+        if (wet > 1.0) { wet = 1.0; }
+        if (wet < 0.0) { wet = 0.0; }
+        if (dry > 1.0) { dry = 1.0; }
+        if (dry < 0.0) { dry = 0.0; }
         // this reverb makes 50% full dry AND full wet, not crossfaded.
         // that's so it can be on submixes without cutting back dry channel when adjusted:
         // unless you go super heavy, you are only adjusting the added verb loudness.
@@ -74,12 +63,10 @@ struct AirWindowsVerbity {
 
         while (nSampleFrames-- > 0) {
             long double inputSample = *source;
-            if (fabs(inputSample) < 1.18e-37)
-                inputSample = fpd * 1.18e-37;
+            if (fabs(inputSample) < 1.18e-37) inputSample = fpd * 1.18e-37;
             double drySample = inputSample;
 
-            if (fabs(iirA) < 1.18e-37)
-                iirA = 0.0;
+            if (fabs(iirA) < 1.18e-37) iirA = 0.0;
             iirA        = (iirA * (1.0 - lowpass)) + (inputSample * lowpass);
             inputSample = iirA;
             // initial filter
@@ -103,17 +90,13 @@ struct AirWindowsVerbity {
                 aL[countL] = inputSample + (feedbackD * regen);
 
                 countI++;
-                if (countI < 0 || countI > delayI)
-                    countI = 0;
+                if (countI < 0 || countI > delayI) countI = 0;
                 countJ++;
-                if (countJ < 0 || countJ > delayJ)
-                    countJ = 0;
+                if (countJ < 0 || countJ > delayJ) countJ = 0;
                 countK++;
-                if (countK < 0 || countK > delayK)
-                    countK = 0;
+                if (countK < 0 || countK > delayK) countK = 0;
                 countL++;
-                if (countL < 0 || countL > delayL)
-                    countL = 0;
+                if (countL < 0 || countL > delayL) countL = 0;
 
                 double outI = aI[countI - ((countI > delayI) ? delayI + 1 : 0)];
                 double outJ = aJ[countJ - ((countJ > delayJ) ? delayJ + 1 : 0)];
@@ -127,17 +110,13 @@ struct AirWindowsVerbity {
                 aD[countD] = (outL - (outI + outJ + outK));
 
                 countA++;
-                if (countA < 0 || countA > delayA)
-                    countA = 0;
+                if (countA < 0 || countA > delayA) countA = 0;
                 countB++;
-                if (countB < 0 || countB > delayB)
-                    countB = 0;
+                if (countB < 0 || countB > delayB) countB = 0;
                 countC++;
-                if (countC < 0 || countC > delayC)
-                    countC = 0;
+                if (countC < 0 || countC > delayC) countC = 0;
                 countD++;
-                if (countD < 0 || countD > delayD)
-                    countD = 0;
+                if (countD < 0 || countD > delayD) countD = 0;
 
                 double outA = aA[countA - ((countA > delayA) ? delayA + 1 : 0)];
                 double outB = aB[countB - ((countB > delayB) ? delayB + 1 : 0)];
@@ -151,17 +130,13 @@ struct AirWindowsVerbity {
                 aH[countH] = (outD - (outA + outB + outC));
 
                 countE++;
-                if (countE < 0 || countE > delayE)
-                    countE = 0;
+                if (countE < 0 || countE > delayE) countE = 0;
                 countF++;
-                if (countF < 0 || countF > delayF)
-                    countF = 0;
+                if (countF < 0 || countF > delayF) countF = 0;
                 countG++;
-                if (countG < 0 || countG > delayG)
-                    countG = 0;
+                if (countG < 0 || countG > delayG) countG = 0;
                 countH++;
-                if (countH < 0 || countH > delayH)
-                    countH = 0;
+                if (countH < 0 || countH > delayH) countH = 0;
 
                 double outE = aE[countE - ((countE > delayE) ? delayE + 1 : 0)];
                 double outF = aF[countF - ((countF > delayF) ? delayF + 1 : 0)];
@@ -201,16 +176,13 @@ struct AirWindowsVerbity {
                 // we are going through our references now
             }
 
-            if (fabs(iirB) < 1.18e-37)
-                iirB = 0.0;
+            if (fabs(iirB) < 1.18e-37) iirB = 0.0;
             iirB        = (iirB * (1.0 - lowpass)) + (inputSample * lowpass);
             inputSample = iirB;
             // end filter
 
-            if (wet < 1.0)
-                inputSample *= wet;
-            if (dry < 1.0)
-                drySample *= dry;
+            if (wet < 1.0) inputSample *= wet;
+            if (dry < 1.0) drySample *= dry;
             inputSample += drySample;
             // this is our submix verb dry/wet: 0.5 is BOTH at FULL VOLUME
             // purpose is that, if you're adding verb, you're not altering other balances
@@ -236,44 +208,20 @@ struct AirWindowsVerbity {
         iirA = 0.0;
         iirB = 0.0;
 
-        for (int count = 0; count < 6479; count++) {
-            aI[count] = 0.0;
-        }
-        for (int count = 0; count < 3659; count++) {
-            aJ[count] = 0.0;
-        }
-        for (int count = 0; count < 1719; count++) {
-            aK[count] = 0.0;
-        }
-        for (int count = 0; count < 679; count++) {
-            aL[count] = 0.0;
-        }
+        for (int count = 0; count < 6479; count++) { aI[count] = 0.0; }
+        for (int count = 0; count < 3659; count++) { aJ[count] = 0.0; }
+        for (int count = 0; count < 1719; count++) { aK[count] = 0.0; }
+        for (int count = 0; count < 679; count++) { aL[count] = 0.0; }
 
-        for (int count = 0; count < 9699; count++) {
-            aA[count] = 0.0;
-        }
-        for (int count = 0; count < 5999; count++) {
-            aB[count] = 0.0;
-        }
-        for (int count = 0; count < 2319; count++) {
-            aC[count] = 0.0;
-        }
-        for (int count = 0; count < 939; count++) {
-            aD[count] = 0.0;
-        }
+        for (int count = 0; count < 9699; count++) { aA[count] = 0.0; }
+        for (int count = 0; count < 5999; count++) { aB[count] = 0.0; }
+        for (int count = 0; count < 2319; count++) { aC[count] = 0.0; }
+        for (int count = 0; count < 939; count++) { aD[count] = 0.0; }
 
-        for (int count = 0; count < 15219; count++) {
-            aE[count] = 0.0;
-        }
-        for (int count = 0; count < 8459; count++) {
-            aF[count] = 0.0;
-        }
-        for (int count = 0; count < 4539; count++) {
-            aG[count] = 0.0;
-        }
-        for (int count = 0; count < 3199; count++) {
-            aH[count] = 0.0;
-        }
+        for (int count = 0; count < 15219; count++) { aE[count] = 0.0; }
+        for (int count = 0; count < 8459; count++) { aF[count] = 0.0; }
+        for (int count = 0; count < 4539; count++) { aG[count] = 0.0; }
+        for (int count = 0; count < 3199; count++) { aH[count] = 0.0; }
 
         feedbackA = 0.0;
         feedbackB = 0.0;
@@ -284,9 +232,7 @@ struct AirWindowsVerbity {
         previousC = 0.0;
         previousD = 0.0;
 
-        for (int count = 0; count < 6; count++) {
-            lastRef[count] = 0.0;
-        }
+        for (int count = 0; count < 6; count++) { lastRef[count] = 0.0; }
 
         thunder = 0;
 
@@ -308,9 +254,7 @@ struct AirWindowsVerbity {
         cycle = 0;
 
         fpd = 1.0;
-        while (fpd < 16386) {
-            fpd = rand() * UINT32_MAX;
-        }
+        while (fpd < 16386) { fpd = rand() * UINT32_MAX; }
     }
 
 private:

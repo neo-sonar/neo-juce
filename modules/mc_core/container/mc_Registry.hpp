@@ -14,10 +14,7 @@ struct Registry {
     Registry() noexcept = default;
 
     /// \brief Construct with given capacity.
-    explicit Registry(size_type capacity)
-        : map_ { capacity }
-    {
-    }
+    explicit Registry(size_type capacity) : map_ { capacity } { }
 
     /// \brief Returns the number of elements inside the registry.
     MC_NODISCARD auto size() const noexcept -> size_type { return size_; }
@@ -33,9 +30,7 @@ struct Registry {
     auto forEach(F f) const -> void
     {
         for (auto const& e : map_) {
-            if (e.second) {
-                f(*e.second);
-            }
+            if (e.second) { f(*e.second); }
         }
     }
     /// \brief Apply a functor to all elements.
@@ -43,9 +38,7 @@ struct Registry {
     auto forEach(F f) -> void
     {
         for (auto& e : map_) {
-            if (e.second) {
-                f(*e.second);
-            }
+            if (e.second) { f(*e.second); }
         }
     }
 
@@ -60,9 +53,7 @@ struct Registry {
 
         auto compare = [](auto const& a, auto const& b) { return a.first < b; };
         auto p       = std::lower_bound(begin(map_), end(map_), ticket, compare);
-        if (p == end(map_) || p->first != ticket) {
-            return false;
-        }
+        if (p == end(map_) || p->first != ticket) { return false; }
 
         if (p->second) {
             f(*p->second);
@@ -87,16 +78,12 @@ struct Registry {
 
         auto compare = [](auto const& a, auto const& b) { return a.first < b; };
         auto p       = std::lower_bound(begin(map_), end(map_), id, compare);
-        if (p == end(map_) || p->first != id) {
-            return;
-        }
+        if (p == end(map_) || p->first != id) { return; }
 
         p->second.reset();
         --size_;
 
-        if (size_ < (map_.size() / 2)) {
-            shrinkToFit();
-        }
+        if (size_ < (map_.size() / 2)) { shrinkToFit(); }
     }
 
     /// \brief Releases unused memory. Afterwards size() == capacity().

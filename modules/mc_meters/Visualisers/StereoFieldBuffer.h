@@ -29,8 +29,9 @@ class StereoFieldBuffer {
         }
     }
 
-    MC_NODISCARD inline auto computePosition(const juce::Rectangle<FloatType>& b, const FloatType left,
-        const FloatType right) const -> juce::Point<FloatType>
+    MC_NODISCARD inline auto computePosition(
+        const juce::Rectangle<FloatType>& b, const FloatType left, const FloatType right) const
+        -> juce::Point<FloatType>
     {
         return juce::Point<FloatType>(b.getCentreX() + FloatType(0.5) * b.getWidth() * (right - left),
             b.getCentreY() + FloatType(0.5) * b.getHeight() * (left + right));
@@ -76,8 +77,8 @@ public:
 
     //  ==============================================================================
 
-    MC_NODISCARD auto getOscilloscope(const int numSamples, const juce::Rectangle<FloatType> bounds, int leftIdx,
-        int rightIdx) const -> juce::Path
+    MC_NODISCARD auto getOscilloscope(
+        const int numSamples, const juce::Rectangle<FloatType> bounds, int leftIdx, int rightIdx) const -> juce::Path
     {
         juce::Path curve;
         auto pos = writePosition_.load();

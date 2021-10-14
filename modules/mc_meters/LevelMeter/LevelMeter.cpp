@@ -1,28 +1,25 @@
 
 namespace mc {
 
-LevelMeter::LevelMeter(MeterFlags type)
-    : meterType_(type)
+LevelMeter::LevelMeter(MeterFlags type) : meterType_(type)
 {
     lookAndFeelChanged();
 
-    onMaxLevelClicked
-        = [](mc::LevelMeter& meter, int channel, juce::ModifierKeys mods) {
-              // default clear all indicators. Overwrite this lambda to change the behaviour
-              meter.clearMaxLevelDisplay();
-              meter.clearClipIndicator();
-              (void)channel;
-              (void)mods;
-          };
+    onMaxLevelClicked = [](mc::LevelMeter& meter, int channel, juce::ModifierKeys mods) {
+        // default clear all indicators. Overwrite this lambda to change the behaviour
+        meter.clearMaxLevelDisplay();
+        meter.clearClipIndicator();
+        (void)channel;
+        (void)mods;
+    };
 
-    onClipLightClicked
-        = [](mc::LevelMeter& meter, int channel, juce::ModifierKeys mods) {
-              // default clear all indicators. Overwrite this lambda to change the behaviour
-              meter.clearMaxLevelDisplay();
-              meter.clearClipIndicator();
-              (void)channel;
-              (void)mods;
-          };
+    onClipLightClicked = [](mc::LevelMeter& meter, int channel, juce::ModifierKeys mods) {
+        // default clear all indicators. Overwrite this lambda to change the behaviour
+        meter.clearMaxLevelDisplay();
+        meter.clearClipIndicator();
+        (void)channel;
+        (void)mods;
+    };
 
     startTimerHz(refreshRate_);
 }
@@ -71,9 +68,7 @@ void LevelMeter::paint(juce::Graphics& g)
         lmLookAndFeel_->drawMeterBars(g, meterType_, bounds, source_, fixedNumChannels_, selectedChannel_);
     }
 
-    if (source_ != nullptr) {
-        source_->decayIfNeeded();
-    }
+    if (source_ != nullptr) { source_->decayIfNeeded(); }
 }
 
 void LevelMeter::resized()
@@ -87,9 +82,7 @@ void LevelMeter::visibilityChanged() { backgroundNeedsRepaint_ = true; }
 void LevelMeter::timerCallback()
 {
     if (((source_ != nullptr) && source_->checkNewDataFlag()) || backgroundNeedsRepaint_) {
-        if (source_ != nullptr) {
-            source_->resetNewDataFlag();
-        }
+        if (source_ != nullptr) { source_->resetNewDataFlag(); }
 
         repaint();
     }
@@ -97,9 +90,7 @@ void LevelMeter::timerCallback()
 
 void LevelMeter::clearClipIndicator(int channel)
 {
-    if (source_ == nullptr) {
-        return;
-    }
+    if (source_ == nullptr) { return; }
 
     if (channel < 0) {
         source_->clearAllClipFlags();
@@ -110,9 +101,7 @@ void LevelMeter::clearClipIndicator(int channel)
 
 void LevelMeter::clearMaxLevelDisplay(int channel)
 {
-    if (source_ == nullptr) {
-        return;
-    }
+    if (source_ == nullptr) { return; }
 
     if (channel < 0) {
         source_->clearAllMaxNums();
@@ -123,9 +112,7 @@ void LevelMeter::clearMaxLevelDisplay(int channel)
 
 void LevelMeter::mouseDown(const juce::MouseEvent& event)
 {
-    if (source_ == nullptr) {
-        return;
-    }
+    if (source_ == nullptr) { return; }
 
     const juce::Rectangle<float> innerBounds
         = lmLookAndFeel_->getMeterInnerBounds(getLocalBounds().toFloat(), meterType_);
@@ -133,17 +120,13 @@ void LevelMeter::mouseDown(const juce::MouseEvent& event)
         auto channel = lmLookAndFeel_->hitTestClipIndicator(event.getPosition(), meterType_, innerBounds, source_);
         if (channel >= 0) {
             listeners_.call(&LevelMeter::Listener::clipLightClicked, this, channel, event.mods);
-            if (onClipLightClicked) {
-                onClipLightClicked(*this, channel, event.mods);
-            }
+            if (onClipLightClicked) { onClipLightClicked(*this, channel, event.mods); }
         }
 
         channel = lmLookAndFeel_->hitTestMaxNumber(event.getPosition(), meterType_, innerBounds, source_);
         if (channel >= 0) {
             listeners_.call(&LevelMeter::Listener::maxLevelClicked, this, channel, event.mods);
-            if (onMaxLevelClicked) {
-                onMaxLevelClicked(*this, channel, event.mods);
-            }
+            if (onMaxLevelClicked) { onMaxLevelClicked(*this, channel, event.mods); }
         }
     }
 }

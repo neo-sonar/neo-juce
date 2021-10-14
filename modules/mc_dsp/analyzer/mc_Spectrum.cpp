@@ -1,6 +1,5 @@
 namespace mc {
-Spectrum::Spectrum(SpectrumSource& analyser)
-    : processor_ { analyser } { startTimerHz(30); }
+Spectrum::Spectrum(SpectrumSource& analyser) : processor_ { analyser } { startTimerHz(30); }
 
 auto Spectrum::paint(juce::Graphics& g) -> void
 {

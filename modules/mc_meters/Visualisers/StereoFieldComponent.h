@@ -14,10 +14,7 @@ namespace mc {
  */
 class StereoFieldComponent : public juce::Component {
 public:
-    enum {
-        GonioMeter = 0,
-        StereoField
-    };
+    enum { GonioMeter = 0, StereoField };
 
     enum ColourIds {
         backgroundColour = 0x2200101, /**< Colour for the numbers etc. */
@@ -43,21 +40,26 @@ public:
         virtual void drawGonioBackground(juce::Graphics& g, juce::Rectangle<float> bounds, float margin, float border)
             = 0;
 
-        virtual void drawGonioMeter(juce::Graphics& g, juce::Rectangle<float> bounds,
-            const StereoFieldBuffer<float>& stereoBuffer, int leftIdx, int rightIdx)
+        virtual void drawGonioMeter(juce::Graphics& g,
+            juce::Rectangle<float> bounds,
+            const StereoFieldBuffer<float>& stereoBuffer,
+            int leftIdx,
+            int rightIdx)
             = 0;
 
-        virtual void drawStereoFieldBackground(juce::Graphics& g, juce::Rectangle<float> bounds, float margin,
-            float border)
+        virtual void drawStereoFieldBackground(
+            juce::Graphics& g, juce::Rectangle<float> bounds, float margin, float border)
             = 0;
 
-        virtual void drawStereoField(juce::Graphics& g, juce::Rectangle<float> bounds, const StereoFieldBuffer<float>&,
-            int leftIdx = 0, int rightIdx = 1)
+        virtual void drawStereoField(juce::Graphics& g,
+            juce::Rectangle<float> bounds,
+            const StereoFieldBuffer<float>&,
+            int leftIdx  = 0,
+            int rightIdx = 1)
             = 0;
     };
 
-    explicit StereoFieldComponent(StereoFieldBuffer<float>& stereo)
-        : stereoBuffer_(stereo) { }
+    explicit StereoFieldComponent(StereoFieldBuffer<float>& stereo) : stereoBuffer_(stereo) { }
 
     ~StereoFieldComponent() override = default;
 

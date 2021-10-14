@@ -15,7 +15,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP
 
 #ifndef USE_MC_GUI_BASICS
-#define USE_MC_GUI_BASICS 1
+    #define USE_MC_GUI_BASICS 1
 #endif
 
 #include <juce_gui_basics/juce_gui_basics.h>

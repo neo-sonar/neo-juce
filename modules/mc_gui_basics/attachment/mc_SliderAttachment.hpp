@@ -3,7 +3,9 @@
 
 namespace mc {
 struct SliderValueTreeAttachment : juce::Slider::Listener {
-    SliderValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, juce::Slider& slider,
+    SliderValueTreeAttachment(juce::ValueTree state,
+        juce::Identifier const& id,
+        juce::Slider& slider,
         juce::UndoManager* undoManager = nullptr);
     ~SliderValueTreeAttachment() override;
     void sendInitialUpdate();

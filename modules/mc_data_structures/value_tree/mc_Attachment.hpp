@@ -4,15 +4,17 @@
 namespace mc {
 
 template <typename T>
-struct ValueTreeAttachment
-    : private juce::ValueTree::Listener,
-      private juce::AsyncUpdater {
+struct ValueTreeAttachment : private juce::ValueTree::Listener, private juce::AsyncUpdater {
     using value_type = T;
 
-    ValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id,
+    ValueTreeAttachment(juce::ValueTree state,
+        juce::Identifier const& id,
         std::function<void(value_type)> parameterChangedCallback,
         juce::UndoManager* undoManager = nullptr)
-        : state_ { std::move(state) }, id_ { id }, undoManager_(undoManager), setValue_(std::move(parameterChangedCallback))
+        : state_ { std::move(state) }
+        , id_ { id }
+        , undoManager_(undoManager)
+        , setValue_(std::move(parameterChangedCallback))
     {
         jassert(state_.isValid());
         state_.addListener(this);
@@ -37,9 +39,7 @@ struct ValueTreeAttachment
 
     void beginGesture()
     {
-        if (undoManager_ != nullptr) {
-            undoManager_->beginNewTransaction();
-        }
+        if (undoManager_ != nullptr) { undoManager_->beginNewTransaction(); }
     }
 
     void setValueAsPartOfGesture(value_type value)
@@ -49,9 +49,7 @@ struct ValueTreeAttachment
 
     void endGesture()
     {
-        if (undoManager_ != nullptr) {
-            undoManager_->beginNewTransaction();
-        }
+        if (undoManager_ != nullptr) { undoManager_->beginNewTransaction(); }
     }
 
 private:
@@ -60,9 +58,7 @@ private:
     template <typename Callback>
     void callIfValueChanged(value_type newValue, Callback&& callback)
     {
-        if (getValue() != newValue) {
-            callback(newValue);
-        }
+        if (getValue() != newValue) { callback(newValue); }
     }
 
     void valueTreePropertyChanged(juce::ValueTree& tree, juce::Identifier const& property) override
@@ -80,9 +76,7 @@ private:
 
     void handleAsyncUpdate() override
     {
-        if (setValue_ != nullptr) {
-            setValue_(lastValue_);
-        }
+        if (setValue_ != nullptr) { setValue_(lastValue_); }
     }
 
     juce::ValueTree state_;

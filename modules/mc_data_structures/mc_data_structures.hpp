@@ -15,7 +15,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_DATA_STRUCTURES_HPP
 
 #ifndef USE_MC_DATA_STRUCTURES
-#define USE_MC_DATA_STRUCTURES 1
+    #define USE_MC_DATA_STRUCTURES 1
 #endif
 
 #include <juce_data_structures/juce_data_structures.h>

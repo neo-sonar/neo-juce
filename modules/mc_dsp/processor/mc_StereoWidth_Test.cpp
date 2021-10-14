@@ -14,32 +14,26 @@ inline auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<Float
     // fill with noise
     auto buffer = juce::AudioBuffer<FloatType> { channels, size };
     for (auto channel = 0; channel < buffer.getNumChannels(); ++channel) {
-        for (int i = 0; i < buffer.getNumSamples(); ++i) {
-            buffer.setSample(channel, i, dist(e2));
-        }
+        for (int i = 0; i < buffer.getNumSamples(); ++i) { buffer.setSample(channel, i, dist(e2)); }
     }
 
     return buffer;
 }
 
-#define CHECK_FOR_NANS(buffer)                                               \
-    for (auto channel = 0; channel < (buffer).getNumChannels(); ++channel) { \
-        auto* samples = (buffer).getWritePointer(channel);                   \
-        for (int i = 0; i < (buffer).getNumSamples(); ++i) {                 \
-            CHECK_FALSE(std::isnan(samples[i]));                             \
-        }                                                                    \
-    }                                                                        \
-    do {                                                                     \
+#define CHECK_FOR_NANS(buffer)                                                                                         \
+    for (auto channel = 0; channel < (buffer).getNumChannels(); ++channel) {                                           \
+        auto* samples = (buffer).getWritePointer(channel);                                                             \
+        for (int i = 0; i < (buffer).getNumSamples(); ++i) { CHECK_FALSE(std::isnan(samples[i])); }                    \
+    }                                                                                                                  \
+    do {                                                                                                               \
     } while (false)
 
-#define CHECK_FOR_INFS(buffer)                                               \
-    for (auto channel = 0; channel < (buffer).getNumChannels(); ++channel) { \
-        auto* samples = (buffer).getWritePointer(channel);                   \
-        for (int i = 0; i < (buffer).getNumSamples(); ++i) {                 \
-            CHECK_FALSE(std::isinf(samples[i]));                             \
-        }                                                                    \
-    }                                                                        \
-    do {                                                                     \
+#define CHECK_FOR_INFS(buffer)                                                                                         \
+    for (auto channel = 0; channel < (buffer).getNumChannels(); ++channel) {                                           \
+        auto* samples = (buffer).getWritePointer(channel);                                                             \
+        for (int i = 0; i < (buffer).getNumSamples(); ++i) { CHECK_FALSE(std::isinf(samples[i])); }                    \
+    }                                                                                                                  \
+    do {                                                                                                               \
     } while (false)
 
 TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "[dsp][processor]", float, double)
@@ -69,9 +63,7 @@ TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "[dsp][processor]", float, doub
             auto* processedData = buffer.getWritePointer(channel);
 
             // check that original & processed buffer contain the same data
-            for (int i = 0; i < buffer.getNumSamples(); ++i) {
-                CHECK(processedData[i] == Approx(originalData[i]));
-            }
+            for (int i = 0; i < buffer.getNumSamples(); ++i) { CHECK(processedData[i] == Approx(originalData[i])); }
         }
     }
 

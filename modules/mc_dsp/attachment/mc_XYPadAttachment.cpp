@@ -1,7 +1,7 @@
 namespace mc {
 
-XYPadAttachment::XYPadAttachment(juce::RangedAudioParameter& parameterX, juce::RangedAudioParameter& parameterY,
-    XYPad& pad, juce::UndoManager* um)
+XYPadAttachment::XYPadAttachment(
+    juce::RangedAudioParameter& parameterX, juce::RangedAudioParameter& parameterY, XYPad& pad, juce::UndoManager* um)
     : pad_ { pad }
     , attachmentX_ { parameterX, [this](float val) { setPosition(val, true); }, um }
     , attachmentY_ { parameterY, [this](float val) { setPosition(val, false); }, um }
@@ -29,24 +29,14 @@ auto XYPadAttachment::xypadChanged(XYPad* pad, juce::Point<float> position) -> v
     juce::ignoreUnused(pad);
     jassert(pad == &pad_);
 
-    if (ignoreCallbacks_) {
-        return;
-    }
+    if (ignoreCallbacks_) { return; }
 
     if (isDragging_) {
-        if (lastPosition_.x != position.x) {
-            attachmentX_.setValueAsPartOfGesture(position.x);
-        }
-        if (lastPosition_.y != position.y) {
-            attachmentY_.setValueAsPartOfGesture(position.y);
-        }
+        if (lastPosition_.x != position.x) { attachmentX_.setValueAsPartOfGesture(position.x); }
+        if (lastPosition_.y != position.y) { attachmentY_.setValueAsPartOfGesture(position.y); }
     } else {
-        if (lastPosition_.x != position.x) {
-            attachmentX_.setValueAsCompleteGesture(position.x);
-        }
-        if (lastPosition_.y != position.y) {
-            attachmentY_.setValueAsCompleteGesture(position.y);
-        }
+        if (lastPosition_.x != position.x) { attachmentX_.setValueAsCompleteGesture(position.x); }
+        if (lastPosition_.y != position.y) { attachmentY_.setValueAsCompleteGesture(position.y); }
     }
 
     lastPosition_ = position;
@@ -74,12 +64,8 @@ auto XYPadAttachment::xypadDragEnded(XYPad* pad) -> void
 auto XYPadAttachment::setPosition(float newValue, bool isX) -> void
 {
     juce::ScopedValueSetter<bool> svs { ignoreCallbacks_, true };
-    if (isX) {
-        pad_.setValueX(newValue);
-    }
-    if (!isX) {
-        pad_.setValueY(newValue);
-    }
+    if (isX) { pad_.setValueX(newValue); }
+    if (!isX) { pad_.setValueY(newValue); }
 }
 
 } // namespace mc

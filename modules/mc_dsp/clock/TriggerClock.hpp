@@ -15,4 +15,4 @@ private:
     double sampleRate_ { 0 };
 };
 
-}
+} // namespace mc

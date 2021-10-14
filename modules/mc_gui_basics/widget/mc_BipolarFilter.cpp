@@ -1,7 +1,6 @@
 namespace mc {
 
-BipolarFilter::BipolarFilter(juce::String const& name)
-    : juce::Component { name } { }
+BipolarFilter::BipolarFilter(juce::String const& name) : juce::Component { name } { }
 
 auto BipolarFilter::setValue(double newValue) -> void
 {
@@ -50,9 +49,7 @@ auto BipolarFilter::resized() -> void { }
 
 auto BipolarFilter::mouseDown(juce::MouseEvent const& mouseEvent) -> void
 {
-    if (MouseEventUtils::hitTest(mouseEvent, thumbArea_)) {
-        startDragging();
-    }
+    if (MouseEventUtils::hitTest(mouseEvent, thumbArea_)) { startDragging(); }
 }
 
 auto BipolarFilter::mouseDrag(juce::MouseEvent const& mouseEvent) -> void

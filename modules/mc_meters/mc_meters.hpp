@@ -15,7 +15,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_METERS_HPP
 
 #ifndef USE_MC_METERS
-#define USE_MC_METERS 1
+    #define USE_MC_METERS 1
 #endif
 
 #include "mc/atomic.hpp"

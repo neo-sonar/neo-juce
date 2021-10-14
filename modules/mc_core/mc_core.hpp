@@ -15,7 +15,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP
 
 #ifndef USE_MC_CORE
-#define USE_MC_CORE 1
+    #define USE_MC_CORE 1
 #endif
 
 #include <juce_audio_basics/juce_audio_basics.h>

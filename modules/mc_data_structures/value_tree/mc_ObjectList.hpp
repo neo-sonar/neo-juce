@@ -5,8 +5,7 @@ namespace mc {
 
 template <typename ObjectType, typename CriticalSectionType = juce::DummyCriticalSection>
 struct ValueTreeObjectList : public juce::ValueTree::Listener {
-    explicit ValueTreeObjectList(juce::ValueTree parentTree)
-        : parent_(std::move(parentTree))
+    explicit ValueTreeObjectList(juce::ValueTree parentTree) : parent_(std::move(parentTree))
     {
         parent_.addListener(this);
     }
@@ -33,9 +32,7 @@ struct ValueTreeObjectList : public juce::ValueTree::Listener {
         for (const auto& v : parent_) {
             if (isSuitableType(v)) {
                 auto* newObject = makeObject(v);
-                if (newObject != nullptr) {
-                    objects_.push_back(newObject);
-                }
+                if (newObject != nullptr) { objects_.push_back(newObject); }
             }
         }
     }
@@ -69,9 +66,7 @@ protected:
     MC_NODISCARD auto indexOf(juce::ValueTree const& v) const noexcept -> int
     {
         for (std::size_t i = 0; i < objects_.size(); ++i) {
-            if (objects_[i]->getValueTree() == v) {
-                return static_cast<int>(i);
-            }
+            if (objects_[i]->getValueTree() == v) { return static_cast<int>(i); }
         }
 
         return -1;
@@ -90,9 +85,7 @@ private:
                 {
                     ScopedLockType lock(objectsMutex_);
                     objects_.push_back(newObject);
-                    if (index != parent_.getNumChildren() - 1) {
-                        sortArray();
-                    }
+                    if (index != parent_.getNumChildren() - 1) { sortArray(); }
                 }
 
                 objectAdded(newObject);
@@ -134,8 +127,8 @@ private:
         }
     }
 
-    void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/,
-        juce::Identifier const& /*property*/) override
+    void valueTreePropertyChanged(
+        juce::ValueTree& /*treeWhosePropertyHasChanged*/, juce::Identifier const& /*property*/) override
     {
     }
     void valueTreeParentChanged(juce::ValueTree& /*treeWhoseParentHasChanged*/) override { }
@@ -163,8 +156,7 @@ private:
 
 template <typename ObjectType, typename CriticalSectionType = juce::DummyCriticalSection>
 struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
-    explicit ValueTreeObjectListV2(juce::ValueTree parentTree)
-        : parent(std::move(parentTree))
+    explicit ValueTreeObjectListV2(juce::ValueTree parentTree) : parent(std::move(parentTree))
     {
         parent.addListener(this);
     }
@@ -190,9 +182,7 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
 
         for (const auto& v : parent) {
             if (isSuitableType(v)) {
-                if (auto newObject = createNewObject(v)) {
-                    objects.add(newObject);
-                }
+                if (auto newObject = createNewObject(v)) { objects.add(newObject); }
             }
         }
     }
@@ -239,8 +229,8 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
         }
     }
 
-    void valueTreeChildRemoved(juce::ValueTree& exParent, juce::ValueTree& tree,
-        int /*indexFromWhichChildWasRemoved*/) override
+    void valueTreeChildRemoved(
+        juce::ValueTree& exParent, juce::ValueTree& tree, int /*indexFromWhichChildWasRemoved*/) override
     {
         if (parent == exParent && isSuitableType(tree)) {
             auto oldIndex = indexOf(tree);
@@ -271,8 +261,8 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
         }
     }
 
-    void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/,
-        const juce::Identifier& /*property*/) override
+    void valueTreePropertyChanged(
+        juce::ValueTree& /*treeWhosePropertyHasChanged*/, const juce::Identifier& /*property*/) override
     {
     }
     void valueTreeParentChanged(juce::ValueTree& /*treeWhoseParentHasChanged*/) override { }
@@ -293,9 +283,7 @@ protected:
     {
         const ScopedLockType sl(arrayLock);
 
-        while (objects.size() > 0) {
-            deleteObject(objects.removeAndReturn(objects.size() - 1));
-        }
+        while (objects.size() > 0) { deleteObject(objects.removeAndReturn(objects.size() - 1)); }
     }
 
     auto isChildTree(juce::ValueTree& v) const -> bool { return isSuitableType(v) && v.getParent() == parent; }
@@ -303,9 +291,7 @@ protected:
     MC_NODISCARD auto indexOf(juce::ValueTree const& v) const noexcept -> int
     {
         for (int i = 0; i < objects.size(); ++i) {
-            if (objects.getUnchecked(i)->state == v) {
-                return i;
-            }
+            if (objects.getUnchecked(i)->state == v) { return i; }
         }
 
         return -1;

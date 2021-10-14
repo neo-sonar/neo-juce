@@ -3,7 +3,9 @@
 
 namespace mc {
 struct TextBoxSliderValueTreeAttachment : TextBoxSlider::Listener {
-    TextBoxSliderValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, TextBoxSlider& slider,
+    TextBoxSliderValueTreeAttachment(juce::ValueTree state,
+        juce::Identifier const& id,
+        TextBoxSlider& slider,
         juce::UndoManager* undoManager = nullptr);
 
     ~TextBoxSliderValueTreeAttachment() override;

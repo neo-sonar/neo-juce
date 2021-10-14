@@ -4,9 +4,7 @@
 namespace mc {
 
 /// \brief Component for the spectrum analyser.
-struct Spectrum
-    : juce::Component,
-      juce::Timer {
+struct Spectrum : juce::Component, juce::Timer {
     enum ColourIds {
         plot   = 0x1331600,
         grid   = 0x1331601,

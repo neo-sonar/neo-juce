@@ -27,9 +27,7 @@ struct AirWindowsCoils2 {
         overallscale *= spec_.sampleRate;
 
         double distScaling = pow(1.0 - parameter_.saturation, 2);
-        if (distScaling < 0.0001) {
-            distScaling = 0.0001;
-        }
+        if (distScaling < 0.0001) { distScaling = 0.0001; }
         biquadA_[0]           = 600.0 / spec_.sampleRate;
         biquadA_[1]           = 0.01 + (pow(parameter_.cheapness, 2) * 0.5);
         long double iirAmount = biquadA_[1] / overallscale;
@@ -54,12 +52,8 @@ struct AirWindowsCoils2 {
         while (--sampleFrames >= 0) {
             long double inputSampleL = *in1;
             long double inputSampleR = *in2;
-            if (std::abs(inputSampleL) < 1.18e-37) {
-                inputSampleL = fpdL_ * 1.18e-37;
-            }
-            if (std::abs(inputSampleR) < 1.18e-37) {
-                inputSampleR = fpdR_ * 1.18e-37;
-            }
+            if (std::abs(inputSampleL) < 1.18e-37) { inputSampleL = fpdL_ * 1.18e-37; }
+            if (std::abs(inputSampleR) < 1.18e-37) { inputSampleR = fpdR_ * 1.18e-37; }
             long double drySampleL = inputSampleL;
             long double drySampleR = inputSampleR;
 
@@ -159,13 +153,9 @@ struct AirWindowsCoils2 {
         }
         hysteresisL_ = hysteresisR_ = 0.0;
         fpdL_                       = 1.0;
-        while (fpdL_ < 16386) {
-            fpdL_ = rand() * UINT32_MAX;
-        }
+        while (fpdL_ < 16386) { fpdL_ = rand() * UINT32_MAX; }
         fpdR_ = 1.0;
-        while (fpdR_ < 16386) {
-            fpdR_ = rand() * UINT32_MAX;
-        }
+        while (fpdR_ < 16386) { fpdR_ = rand() * UINT32_MAX; }
     }
 
 private:

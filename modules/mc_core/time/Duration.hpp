@@ -3,38 +3,29 @@
 namespace mc {
 
 namespace detail {
-    template <typename T, bool isFloatingPoint = std::is_floating_point<T>::value>
-    struct DurationFromVarImpl {
-        auto operator()(juce::var const& v) -> T
-        {
-            return static_cast<T>(static_cast<juce::int64>(v));
-        }
-    };
+template <typename T, bool isFloatingPoint = std::is_floating_point<T>::value>
+struct DurationFromVarImpl {
+    auto operator()(juce::var const& v) -> T { return static_cast<T>(static_cast<juce::int64>(v)); }
+};
 
-    template <typename T>
-    struct DurationFromVarImpl<T, true> {
-        auto operator()(juce::var const& v) -> T
-        {
-            return static_cast<T>(v);
-        }
-    };
+template <typename T>
+struct DurationFromVarImpl<T, true> {
+    auto operator()(juce::var const& v) -> T { return static_cast<T>(v); }
+};
 
-    template <typename T, typename R, bool isFloatingPoint = std::is_floating_point<T>::value>
-    struct DurationToVarImpl {
-        auto operator()(std::chrono::duration<T, R> const& d) -> juce::var
-        {
-            return juce::var { static_cast<juce::int64>(d.count()) };
-        }
-    };
+template <typename T, typename R, bool isFloatingPoint = std::is_floating_point<T>::value>
+struct DurationToVarImpl {
+    auto operator()(std::chrono::duration<T, R> const& d) -> juce::var
+    {
+        return juce::var { static_cast<juce::int64>(d.count()) };
+    }
+};
 
-    template <typename T, typename R>
-    struct DurationToVarImpl<T, R, true> {
-        auto operator()(std::chrono::duration<T, R> const& d) -> juce::var
-        {
-            return juce::var { d.count() };
-        }
-    };
-}
+template <typename T, typename R>
+struct DurationToVarImpl<T, R, true> {
+    auto operator()(std::chrono::duration<T, R> const& d) -> juce::var { return juce::var { d.count() }; }
+};
+} // namespace detail
 
 } // namespace mc
 

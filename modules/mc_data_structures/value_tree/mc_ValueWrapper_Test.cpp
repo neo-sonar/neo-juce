@@ -12,17 +12,15 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "[data_structure
     start.referTo(c, "start", nullptr);
 
     auto read = std::async(std::launch::async, [&] {
-        for (int i = 0; i < iterations; ++i) {
-            start = start.get() + TestType { 1 };
-        }
+        for (int i = 0; i < iterations; ++i) { start = start.get() + TestType { 1 }; }
     });
 
     read.wait();
     CHECK(static_cast<TestType>(start.get()) == iterations);
 }
 
-TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "[data_structures][value_tree]", int, float,
-    double)
+TEMPLATE_TEST_CASE(
+    "data_structures/value_tree: ConstrainerWrapper", "[data_structures][value_tree]", int, float, double)
 {
     struct StartTimeConstrainer {
         static auto constrain(const TestType& v) -> TestType
@@ -32,8 +30,7 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "[data_stru
     };
 
     struct CachedValueClip : public juce::ReferenceCountedObject {
-        explicit CachedValueClip(juce::ValueTree const& v)
-            : state { v }
+        explicit CachedValueClip(juce::ValueTree const& v) : state { v }
         {
             CHECK(v.hasType("CLIP"));
             start.referTo(state, "start", nullptr);

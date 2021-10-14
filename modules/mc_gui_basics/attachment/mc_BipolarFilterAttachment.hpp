@@ -4,7 +4,9 @@
 namespace mc {
 
 struct BipolarFilterValueTreeAttachment : private BipolarFilter::Listener {
-    BipolarFilterValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, BipolarFilter& slider,
+    BipolarFilterValueTreeAttachment(juce::ValueTree state,
+        juce::Identifier const& id,
+        BipolarFilter& slider,
         juce::UndoManager* undoManager = nullptr);
 
     ~BipolarFilterValueTreeAttachment() override;

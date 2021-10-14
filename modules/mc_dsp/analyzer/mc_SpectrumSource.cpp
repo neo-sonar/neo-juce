@@ -8,9 +8,7 @@ SpectrumSource::SpectrumSource()
 
 auto SpectrumSource::addAudioData(juce::AudioBuffer<float> const& buffer, int startChannel, int numChannels) -> void
 {
-    if (abstractFifo_.getFreeSpace() < buffer.getNumSamples()) {
-        return;
-    }
+    if (abstractFifo_.getFreeSpace() < buffer.getNumSamples()) { return; }
 
     int start1 {};
     int block1 {};
@@ -18,17 +16,11 @@ auto SpectrumSource::addAudioData(juce::AudioBuffer<float> const& buffer, int st
     int block2 {};
     abstractFifo_.prepareToWrite(buffer.getNumSamples(), start1, block1, start2, block2);
     audioFifo_.copyFrom(0, start1, buffer.getReadPointer(startChannel), block1);
-    if (block2 > 0) {
-        audioFifo_.copyFrom(0, start2, buffer.getReadPointer(startChannel, block1), block2);
-    }
+    if (block2 > 0) { audioFifo_.copyFrom(0, start2, buffer.getReadPointer(startChannel, block1), block2); }
 
     for (int channel = startChannel; channel < startChannel + numChannels; ++channel) {
-        if (block1 > 0) {
-            audioFifo_.addFrom(0, start1, buffer.getReadPointer(channel), block1);
-        }
-        if (block2 > 0) {
-            audioFifo_.addFrom(0, start2, buffer.getReadPointer(channel, block1), block2);
-        }
+        if (block1 > 0) { audioFifo_.addFrom(0, start1, buffer.getReadPointer(channel), block1); }
+        if (block2 > 0) { audioFifo_.addFrom(0, start2, buffer.getReadPointer(channel, block1), block2); }
     }
     abstractFifo_.finishedWrite(block1 + block2);
     waitForData_.signal();
@@ -85,12 +77,8 @@ auto SpectrumSource::run() -> void
             auto block2 = 0;
 
             abstractFifo_.prepareToRead(fft_.getSize(), start1, block1, start2, block2);
-            if (block1 > 0) {
-                fftBuffer_.copyFrom(0, 0, audioFifo_.getReadPointer(0, start1), block1);
-            }
-            if (block2 > 0) {
-                fftBuffer_.copyFrom(0, block1, audioFifo_.getReadPointer(0, start2), block2);
-            }
+            if (block1 > 0) { fftBuffer_.copyFrom(0, 0, audioFifo_.getReadPointer(0, start1), block1); }
+            if (block2 > 0) { fftBuffer_.copyFrom(0, block1, audioFifo_.getReadPointer(0, start2), block2); }
             abstractFifo_.finishedRead(block1 + block2);
 
             windowing_.multiplyWithWindowingTable(fftBuffer_.getWritePointer(0), size_t(fft_.getSize()));
@@ -98,19 +86,18 @@ auto SpectrumSource::run() -> void
 
             juce::ScopedLock lockedForWriting(pathCreationLock_);
             averager_.addFrom(0, 0, averager_.getReadPointer(averagerPtr_), averager_.getNumSamples(), -1.0f);
-            averager_.copyFrom(averagerPtr_, 0, fftBuffer_.getReadPointer(0), averager_.getNumSamples(),
+            averager_.copyFrom(averagerPtr_,
+                0,
+                fftBuffer_.getReadPointer(0),
+                averager_.getNumSamples(),
                 1.0f / static_cast<float>(averager_.getNumSamples() * (averager_.getNumChannels() - 1)));
             averager_.addFrom(0, 0, averager_.getReadPointer(averagerPtr_), averager_.getNumSamples());
-            if (++averagerPtr_ == averager_.getNumChannels()) {
-                averagerPtr_ = 1;
-            }
+            if (++averagerPtr_ == averager_.getNumChannels()) { averagerPtr_ = 1; }
 
             newDataAvailable_.store(true);
         }
 
-        if (abstractFifo_.getNumReady() < fft_.getSize()) {
-            waitForData_.wait(20);
-        }
+        if (abstractFifo_.getNumReady() < fft_.getSize()) { waitForData_.wait(20); }
     }
 }
 

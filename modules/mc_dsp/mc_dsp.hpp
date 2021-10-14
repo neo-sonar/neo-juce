@@ -15,7 +15,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP
 
 #ifndef USE_MC_DSP
-#define USE_MC_DSP 1
+    #define USE_MC_DSP 1
 #endif
 
 #include <juce_audio_processors/juce_audio_processors.h>

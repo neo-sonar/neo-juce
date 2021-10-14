@@ -73,9 +73,7 @@ private:
 
         void setLevels(const juce::int64 time, const float newMax, const float newRms, const juce::int64 newHoldMSecs)
         {
-            if (newMax > 1.0 || newRms > 1.0) {
-                clip = true;
-            }
+            if (newMax > 1.0 || newRms > 1.0) { clip = true; }
 
             maxOverall = fmaxf(maxOverall, newMax);
             if (newMax >= max) {
@@ -117,8 +115,7 @@ private:
     };
 
 public:
-    LevelMeterSource()
-        : lastMeasurement_(0) { }
+    LevelMeterSource() : lastMeasurement_(0) { }
 
     ~LevelMeterSource() { masterReference.clear(); }
 
@@ -135,9 +132,7 @@ public:
     void resize(const int channels, const int rmsWindow)
     {
         levels_.resize(size_t(channels), ChannelData(size_t(rmsWindow)));
-        for (ChannelData& l : levels_) {
-            l.setRMSsize(size_t(rmsWindow));
-        }
+        for (ChannelData& l : levels_) { l.setRMSsize(size_t(rmsWindow)); }
 
         newDataFlag_ = true;
     }
@@ -154,8 +149,10 @@ public:
             const int numSamples  = buffer.getNumSamples();
 
             for (int channel = 0; channel < std::min(numChannels, int(levels_.size())); ++channel) {
-                levels_[size_t(channel)].setLevels(lastMeasurement_, buffer.getMagnitude(channel, 0, numSamples),
-                    buffer.getRMSLevel(channel, 0, numSamples), holdMSecs_);
+                levels_[size_t(channel)].setLevels(lastMeasurement_,
+                    buffer.getMagnitude(channel, 0, numSamples),
+                    buffer.getRMSLevel(channel, 0, numSamples),
+                    holdMSecs_);
             }
         }
 
@@ -169,9 +166,7 @@ public:
     void decayIfNeeded()
     {
         juce::int64 time = juce::Time::currentTimeMillis();
-        if (time - lastMeasurement_ < 100) {
-            return;
-        }
+        if (time - lastMeasurement_ < 100) { return; }
 
         lastMeasurement_ = time;
         for (auto& level : levels_) {
@@ -202,9 +197,7 @@ public:
      */
     void setReductionLevel(const float reduction)
     {
-        for (auto& channel : levels_) {
-            channel.reduction = reduction;
-        }
+        for (auto& channel : levels_) { channel.reduction = reduction; }
     }
 
     /**
@@ -259,9 +252,7 @@ public:
 
     void clearAllClipFlags()
     {
-        for (ChannelData& l : levels_) {
-            l.clip = false;
-        }
+        for (ChannelData& l : levels_) { l.clip = false; }
     }
 
     /**
@@ -274,9 +265,7 @@ public:
      */
     void clearAllMaxNums()
     {
-        for (ChannelData& l : levels_) {
-            l.maxOverall = infinity;
-        }
+        for (ChannelData& l : levels_) { l.maxOverall = infinity; }
     }
 
     /**

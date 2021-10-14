@@ -5,9 +5,7 @@ auto fillInternal(juce::AudioBuffer<FloatT>& buffer, FloatT value) noexcept -> v
 {
     for (auto ch = 0; ch < buffer.getNumChannels(); ++ch) {
         auto* const samples = buffer.getWritePointer(ch);
-        for (int i = 0; i < buffer.getNumSamples(); ++i) {
-            samples[i] = value;
-        }
+        for (int i = 0; i < buffer.getNumSamples(); ++i) { samples[i] = value; }
     }
 }
 
@@ -46,9 +44,7 @@ MC_NODISCARD auto containsNANsInternal(juce::AudioBuffer<FloatT> const& buffer) 
     for (auto channel = 0; channel < buffer.getNumChannels(); ++channel) {
         auto const* const samples = buffer.getReadPointer(channel);
         for (int i = 0; i < buffer.getNumSamples(); ++i) {
-            if (std::isnan(samples[i])) {
-                return true;
-            }
+            if (std::isnan(samples[i])) { return true; }
         }
     }
 
@@ -61,9 +57,7 @@ MC_NODISCARD auto containsINFsInternal(juce::AudioBuffer<FloatT> const& buffer) 
     for (auto channel = 0; channel < buffer.getNumChannels(); ++channel) {
         auto const* const samples = buffer.getReadPointer(channel);
         for (int i = 0; i < buffer.getNumSamples(); ++i) {
-            if (std::isinf(samples[i])) {
-                return true;
-            }
+            if (std::isinf(samples[i])) { return true; }
         }
     }
 
@@ -77,9 +71,7 @@ MC_NODISCARD auto allOfInternal(juce::AudioBuffer<FloatT> const& buffer, FloatT 
     auto const numSamples  = buffer.getNumSamples();
     for (auto ch = 0; ch < numChannels; ++ch) {
         for (auto i = 0; i < numSamples; ++i) {
-            if (buffer.getSample(ch, i) != value) {
-                return false;
-            }
+            if (buffer.getSample(ch, i) != value) { return false; }
         }
     }
     return true;
@@ -89,19 +81,13 @@ template <typename FloatT>
 MC_NODISCARD auto equalInternal(juce::AudioBuffer<FloatT> const& lhs, juce::AudioBuffer<FloatT> const& rhs) noexcept
     -> bool
 {
-    if (lhs.getNumChannels() != rhs.getNumChannels()) {
-        return false;
-    }
-    if (lhs.getNumSamples() != rhs.getNumSamples()) {
-        return false;
-    }
+    if (lhs.getNumChannels() != rhs.getNumChannels()) { return false; }
+    if (lhs.getNumSamples() != rhs.getNumSamples()) { return false; }
     for (auto ch = 0; ch < lhs.getNumChannels(); ++ch) {
         auto* l = lhs.getReadPointer(ch);
         auto* r = rhs.getReadPointer(ch);
         for (int i = 0; i < lhs.getNumSamples(); ++i) {
-            if (l[i] != r[i]) {
-                return false;
-            }
+            if (l[i] != r[i]) { return false; }
         }
     }
     return true;

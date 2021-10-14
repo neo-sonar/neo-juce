@@ -1,6 +1,5 @@
 namespace mc {
-XYPad::XYPad(juce::String const& name)
-    : juce::Component { name }, normalizedValues_ { 0.0f, 0.0f } { }
+XYPad::XYPad(juce::String const& name) : juce::Component { name }, normalizedValues_ { 0.0f, 0.0f } { }
 
 auto XYPad::paint(juce::Graphics& g) -> void
 {
@@ -9,7 +8,8 @@ auto XYPad::paint(juce::Graphics& g) -> void
         auto const x        = getPixelFromNormalizedValue(normalizedValues_.x, true);
         auto const y        = getPixelFromNormalizedValue(normalizedValues_.y, false);
         auto const diameter = lnf->getXYPadThumbDiameter(*this);
-        thumb_              = juce::Rectangle<int> { 0, 0, diameter, diameter }.withCentre({ static_cast<int>(x), static_cast<int>(y) });
+        thumb_              = juce::Rectangle<int> { 0, 0, diameter, diameter }.withCentre(
+            { static_cast<int>(x), static_cast<int>(y) });
         lnf->drawXYPad(g, thumb_.toFloat(), *this);
         return;
     }
@@ -82,9 +82,7 @@ auto XYPad::mouseUp(juce::MouseEvent const& event) -> void
 
 auto XYPad::mouseDrag(juce::MouseEvent const& event) -> void
 {
-    if (!isDragging_) {
-        startDragging();
-    }
+    if (!isDragging_) { startDragging(); }
 
     auto p = juce::Point<int> {};
     p.x    = clamp<int>(event.x, bounds_.getX(), bounds_.getRight());

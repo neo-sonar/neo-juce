@@ -6,8 +6,8 @@ namespace mc {
 template <typename T>
 struct LabelValueTreeAttachment : juce::ValueTree::Listener {
     using value_type = T;
-    LabelValueTreeAttachment(juce::ValueTree state, juce::Identifier const& id, juce::Label& label,
-        juce::UndoManager* undoManager = nullptr)
+    LabelValueTreeAttachment(
+        juce::ValueTree state, juce::Identifier const& id, juce::Label& label, juce::UndoManager* undoManager = nullptr)
         : state_ { state }
         , id_ { id }
         , label_ { label }
@@ -32,9 +32,7 @@ private:
     void valueTreePropertyChanged(juce::ValueTree& tree, juce::Identifier const& id) override
     {
         if (tree == state_ && id == id_) {
-            if (ignoreCallbacks_) {
-                return;
-            }
+            if (ignoreCallbacks_) { return; }
             attachment_.setValueAsCompleteGesture(tree[id]);
         }
     }
@@ -51,7 +49,8 @@ struct ValueTreeLabel : juce::Component {
     using value_type = T;
 
     explicit ValueTreeLabel(juce::CachedValue<value_type>& value)
-        : value_ { value }, attachment_ { value_.getValueTree(), value_.getPropertyID(), label_, value_.getUndoManager() }
+        : value_ { value }
+        , attachment_ { value_.getValueTree(), value_.getPropertyID(), label_, value_.getUndoManager() }
     {
         addAndMakeVisible(label_);
     }

@@ -18,8 +18,8 @@ struct TextBoxSlider : juce::Component {
         virtual auto textBoxSliderValueChanged(TextBoxSlider* slider) -> void = 0;
 
         /// \brief Called when the text box slider is about to be dragged.
-        /// \details This is called when a drag begins, then it's followed by multiple calls to sliderValueChanged(), and
-        /// then sliderDragEnded() is called after the user lets go.
+        /// \details This is called when a drag begins, then it's followed by multiple calls to sliderValueChanged(),
+        /// and then sliderDragEnded() is called after the user lets go.
         virtual auto textBoxSliderDragStarted(TextBoxSlider* slider) -> void = 0;
 
         /// \brief Called after a drag operation has finished.
