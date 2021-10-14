@@ -34,7 +34,11 @@ auto processOscilloscopeImpl(Queue& queue, Buffer const& buffer, std::size_t dow
         auto const l = scratchBuffer.data() + i * ChunkSize + s;
 
         auto chunk = StaticVector<float, ChunkSize>(s, 0.0f);
-        std::copy(f, l, std::begin(chunk));
+
+        // We use transform instead of copy, so that we can explicitly
+        // cast the value to the type required by the queue chunks.
+        // i.e. float <-> double conversion.
+        std::transform(f, l, std::begin(chunk), [](T x) { return static_cast<float>(x); });
 
         queue.try_enqueue(chunk);
     }
