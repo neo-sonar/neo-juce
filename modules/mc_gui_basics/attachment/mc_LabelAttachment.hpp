@@ -6,8 +6,10 @@ namespace mc {
 template <typename T>
 struct LabelValueTreeAttachment : juce::ValueTree::Listener {
     using value_type = T;
-    LabelValueTreeAttachment(
-        juce::ValueTree state, juce::Identifier const& id, juce::Label& label, juce::UndoManager* undoManager = nullptr)
+    LabelValueTreeAttachment(juce::ValueTree state,
+        juce::Identifier const& id,
+        juce::Label& label,
+        juce::UndoManager* undoManager = nullptr)
         : state_ { state }
         , id_ { id }
         , label_ { label }

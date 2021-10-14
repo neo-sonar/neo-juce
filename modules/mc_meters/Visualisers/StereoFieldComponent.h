@@ -47,8 +47,8 @@ public:
             int rightIdx)
             = 0;
 
-        virtual void drawStereoFieldBackground(
-            juce::Graphics& g, juce::Rectangle<float> bounds, float margin, float border)
+        virtual void
+        drawStereoFieldBackground(juce::Graphics& g, juce::Rectangle<float> bounds, float margin, float border)
             = 0;
 
         virtual void drawStereoField(juce::Graphics& g,

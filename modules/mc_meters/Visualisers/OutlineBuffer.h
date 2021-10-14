@@ -80,8 +80,8 @@ class OutlineBuffer {
             }
         }
 
-        void getChannelOutline(
-            juce::Path& outline, const juce::Rectangle<float> bounds, const int numSamplesToPlot) const
+        void
+        getChannelOutline(juce::Path& outline, const juce::Rectangle<float> bounds, const int numSamplesToPlot) const
         {
             auto numSamples = size_t(numSamplesToPlot);
             auto latest     = writePointer_ > 0 ? writePointer_ - 1 : maxBuffer_.size() - 1;
@@ -167,8 +167,10 @@ public:
      @param numSamples is the number of sample blocks
      @return a path with a single channel outline (min to max)
      */
-    void getChannelOutline(
-        juce::Path& path, const juce::Rectangle<float> bounds, const int channel, const int numSamples) const
+    void getChannelOutline(juce::Path& path,
+        const juce::Rectangle<float> bounds,
+        const int channel,
+        const int numSamples) const
     {
         if (channel < int(channelDatas_.size())) {
             return channelDatas_[size_t(channel)].getChannelOutline(path, bounds, numSamples);

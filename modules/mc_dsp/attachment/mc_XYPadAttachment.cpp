@@ -1,7 +1,9 @@
 namespace mc {
 
-XYPadAttachment::XYPadAttachment(
-    juce::RangedAudioParameter& parameterX, juce::RangedAudioParameter& parameterY, XYPad& pad, juce::UndoManager* um)
+XYPadAttachment::XYPadAttachment(juce::RangedAudioParameter& parameterX,
+    juce::RangedAudioParameter& parameterY,
+    XYPad& pad,
+    juce::UndoManager* um)
     : pad_ { pad }
     , attachmentX_ { parameterX, [this](float val) { setPosition(val, true); }, um }
     , attachmentY_ { parameterY, [this](float val) { setPosition(val, false); }, um }

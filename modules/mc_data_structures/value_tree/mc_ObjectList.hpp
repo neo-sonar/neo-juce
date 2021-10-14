@@ -127,8 +127,8 @@ private:
         }
     }
 
-    void valueTreePropertyChanged(
-        juce::ValueTree& /*treeWhosePropertyHasChanged*/, juce::Identifier const& /*property*/) override
+    void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/,
+        juce::Identifier const& /*property*/) override
     {
     }
     void valueTreeParentChanged(juce::ValueTree& /*treeWhoseParentHasChanged*/) override { }
@@ -229,8 +229,9 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
         }
     }
 
-    void valueTreeChildRemoved(
-        juce::ValueTree& exParent, juce::ValueTree& tree, int /*indexFromWhichChildWasRemoved*/) override
+    void valueTreeChildRemoved(juce::ValueTree& exParent,
+        juce::ValueTree& tree,
+        int /*indexFromWhichChildWasRemoved*/) override
     {
         if (parent == exParent && isSuitableType(tree)) {
             auto oldIndex = indexOf(tree);
@@ -261,8 +262,8 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
         }
     }
 
-    void valueTreePropertyChanged(
-        juce::ValueTree& /*treeWhosePropertyHasChanged*/, const juce::Identifier& /*property*/) override
+    void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/,
+        const juce::Identifier& /*property*/) override
     {
     }
     void valueTreeParentChanged(juce::ValueTree& /*treeWhoseParentHasChanged*/) override { }

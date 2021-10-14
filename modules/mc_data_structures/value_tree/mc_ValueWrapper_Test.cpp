@@ -19,8 +19,11 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "[data_structure
     CHECK(static_cast<TestType>(start.get()) == iterations);
 }
 
-TEMPLATE_TEST_CASE(
-    "data_structures/value_tree: ConstrainerWrapper", "[data_structures][value_tree]", int, float, double)
+TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper",
+    "[data_structures][value_tree]",
+    int,
+    float,
+    double)
 {
     struct StartTimeConstrainer {
         static auto constrain(const TestType& v) -> TestType

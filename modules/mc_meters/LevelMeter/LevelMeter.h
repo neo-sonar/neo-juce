@@ -71,8 +71,8 @@ public:
             -> juce::Rectangle<float> = 0;
 
         /// \brief Override this callback to define the placement of a meter channel.
-        MC_NODISCARD virtual auto getMeterBounds(
-            juce::Rectangle<float> bounds, MeterFlags meterType, int numChannels, int channel) const
+        MC_NODISCARD virtual auto
+        getMeterBounds(juce::Rectangle<float> bounds, MeterFlags meterType, int numChannels, int channel) const
             -> juce::Rectangle<float> = 0;
 
         /// \brief Override this callback to define the placement of the actual meter bar.
@@ -124,14 +124,16 @@ public:
             = 0;
 
         /// \brief This callback draws the actual level bar. The background has an extra callback
-        virtual void drawMeterBar(
-            juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds, float rms, float peak)
+        virtual void
+        drawMeterBar(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds, float rms, float peak)
             = 0;
 
         /// \brief This callback draws an reduction from top. Only triggered,
         /// if a reduction < 1.0 is set in the LevelMeterSource
-        virtual void drawMeterReduction(
-            juce::Graphics& g, LevelMeter::MeterFlags meterType, juce::Rectangle<float> bounds, float reduction)
+        virtual void drawMeterReduction(juce::Graphics& g,
+            LevelMeter::MeterFlags meterType,
+            juce::Rectangle<float> bounds,
+            float reduction)
             = 0;
 
         /// \brief This draws the background for the actual level bar
@@ -141,8 +143,8 @@ public:
         virtual void drawTickMarks(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds) = 0;
 
         /// \brief This callback draws the clip indicator. The background has an extra callback
-        virtual void drawClipIndicator(
-            juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds, bool hasClipped)
+        virtual void
+        drawClipIndicator(juce::Graphics&, MeterFlags meterType, juce::Rectangle<float> bounds, bool hasClipped)
             = 0;
 
         /// \brief This draws the background for the clip indicator LED

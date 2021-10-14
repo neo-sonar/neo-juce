@@ -1,6 +1,8 @@
 namespace mc {
-BipolarFilterValueTreeAttachment::BipolarFilterValueTreeAttachment(
-    juce::ValueTree state, juce::Identifier const& id, BipolarFilter& slider, juce::UndoManager* undoManager)
+BipolarFilterValueTreeAttachment::BipolarFilterValueTreeAttachment(juce::ValueTree state,
+    juce::Identifier const& id,
+    BipolarFilter& slider,
+    juce::UndoManager* undoManager)
     : slider_ { slider }, attachment_ { std::move(state), id, [this](auto f) { setValue(f); }, undoManager }
 {
     sendInitialUpdate();
