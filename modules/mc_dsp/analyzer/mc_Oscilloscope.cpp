@@ -1,35 +1,21 @@
 namespace mc {
 
-Oscilloscope::Oscilloscope(OscilloscopeSource& source)
-    : oscilloscopeSource_(source)
-{
-    sampleData_.fill(double(0));
-    setFramesPerSecond(30);
-}
+Oscilloscope::Oscilloscope(OscilloscopeSource& source) : source_ { source } { source_.addChangeListener(this); }
 
-auto Oscilloscope::setFramesPerSecond(int framesPerSecond) -> void
-{
-    jassert(framesPerSecond > 0 && framesPerSecond < 1000);
-    startTimerHz(framesPerSecond);
-}
+Oscilloscope::~Oscilloscope() { source_.removeChangeListener(this); }
 
 auto Oscilloscope::paint(juce::Graphics& g) -> void
 {
-    auto const area = getLocalBounds();
     auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
     if (lnf != nullptr) {
-        auto const* data = sampleData_.data();
-        auto const size  = sampleData_.size();
+        auto const* data = source_.currentScope().data();
+        auto const size  = source_.currentScope().size();
+        auto const area  = getLocalBounds();
         lnf->drawOscilloscopeBackground(g, area);
         lnf->drawOscilloscopePlot(g, area, data, size, 1.5f, static_cast<float>(area.getHeight()) / 2.0f);
     }
 }
 
-auto Oscilloscope::timerCallback() -> void
-{
-    sampleData_.fill(double(0));
-    oscilloscopeSource_.getQueue().pop(sampleData_.data());
-    repaint();
-}
+auto Oscilloscope::changeListenerCallback(juce::ChangeBroadcaster* /*source*/) -> void { repaint(); }
 
 } // namespace mc

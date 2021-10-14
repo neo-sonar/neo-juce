@@ -3,41 +3,31 @@
 
 namespace mc {
 
-struct Oscilloscope
-    : juce::Component,
-      juce::Timer {
-    struct LookAndFeelMethods {
-        LookAndFeelMethods()          = default;
-        virtual ~LookAndFeelMethods() = default;
+struct OscilloscopeLookAndFeelMethods {
+    OscilloscopeLookAndFeelMethods()          = default;
+    virtual ~OscilloscopeLookAndFeelMethods() = default;
 
-        LookAndFeelMethods(const LookAndFeelMethods& other) = delete;
-        LookAndFeelMethods(LookAndFeelMethods&& other)      = delete;
-        auto operator=(const LookAndFeelMethods& rhs) -> LookAndFeelMethods& = delete;
-        auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods& = delete;
+    virtual auto drawOscilloscopeBackground(juce::Graphics& g, juce::Rectangle<int> bounds) -> void = 0;
+    virtual auto drawOscilloscopePlot(juce::Graphics& g,
+        juce::Rectangle<int> bounds,
+        float const* data,
+        std::size_t numSamples,
+        float scaler,
+        float offset) -> void
+        = 0;
+};
+struct Oscilloscope final : juce::Component, juce::ChangeListener {
 
-        virtual auto drawOscilloscopeBackground(juce::Graphics& g, juce::Rectangle<int> bounds) -> void = 0;
-        virtual auto drawOscilloscopePlot(juce::Graphics& g, juce::Rectangle<int> bounds, double const* data,
-            std::size_t numSamples, float scaler = 1.0f, float offset = 0.0f) -> void
-            = 0;
-    };
+    using LookAndFeelMethods = OscilloscopeLookAndFeelMethods;
 
     explicit Oscilloscope(OscilloscopeSource& source);
-    ~Oscilloscope() override = default;
-
-    Oscilloscope(const Oscilloscope& other) = delete;
-    Oscilloscope(Oscilloscope&& other)      = delete;
-    auto operator=(const Oscilloscope& rhs) -> Oscilloscope& = delete;
-    auto operator=(Oscilloscope&& rhs) -> Oscilloscope& = delete;
-
-    auto setFramesPerSecond(int framesPerSecond) -> void;
+    ~Oscilloscope();
 
     auto paint(juce::Graphics& g) -> void override;
+    auto changeListenerCallback(juce::ChangeBroadcaster* source) -> void override;
 
 private:
-    void timerCallback() override;
-
-    OscilloscopeSource& oscilloscopeSource_;
-    std::array<double, AudioBufferQueue<double>::bufferSize> sampleData_ {};
+    OscilloscopeSource& source_;
 
     JUCE_LEAK_DETECTOR(Oscilloscope) // NOLINT
 };

@@ -3,67 +3,29 @@
 
 namespace mc {
 
-struct OscilloscopeSource {
-    OscilloscopeSource()  = default;
-    ~OscilloscopeSource() = default;
+struct OscilloscopeSource final : juce::Timer, juce::ChangeBroadcaster {
+    OscilloscopeSource();
+    ~OscilloscopeSource() override = default;
 
-    OscilloscopeSource(const OscilloscopeSource& other) = delete;
+    OscilloscopeSource(OscilloscopeSource const& other) = delete;
     OscilloscopeSource(OscilloscopeSource&& other)      = delete;
-    auto operator=(const OscilloscopeSource& rhs) -> OscilloscopeSource& = delete;
-    auto operator=(OscilloscopeSource&& rhs) -> OscilloscopeSource& = delete;
+
+    auto operator=(OscilloscopeSource const& other) -> OscilloscopeSource& = delete;
+    auto operator=(OscilloscopeSource&& other) -> OscilloscopeSource& = delete;
 
     void process(juce::AudioBuffer<float> const& buffer);
     void process(juce::AudioBuffer<double> const& buffer);
 
-    MC_NODISCARD auto getQueue() -> AudioBufferQueue<double>&;
+    MC_NODISCARD auto currentScope() const noexcept -> span<float const>;
 
 private:
-    template <typename SampleType>
-    void processInternal(SampleType const* data, std::size_t numSamples)
-    {
-        std::size_t index = 0;
+    auto timerCallback() -> void override;
 
-        if (state_ == State::waitingForTrigger) {
-            while (index++ < numSamples) {
-                auto currentSample = *data++;
+    enum { ChunkSize = 64U };
+    LockFreeQueue<StaticVector<float, ChunkSize>> queue_ { 8U };
+    std::size_t downSampleFactor_ { 8U };
 
-                if (currentSample >= triggerLevel && prevSample_ < triggerLevel) {
-                    numCollected_ = 0;
-                    state_        = State::collecting;
-                    break;
-                }
-
-                prevSample_ = currentSample;
-            }
-        }
-
-        if (state_ == State::collecting) {
-            while (index++ < numSamples) {
-                buffer_.at(numCollected_++) = *data++;
-
-                if (numCollected_ == buffer_.size()) {
-                    audioBufferQueue_.push(buffer_.data(), buffer_.size());
-                    state_      = State::waitingForTrigger;
-                    prevSample_ = 100.0;
-                    break;
-                }
-            }
-        }
-    }
-
-    AudioBufferQueue<double> audioBufferQueue_ {};
-    std::array<double, AudioBufferQueue<double>::bufferSize> buffer_ {};
-    std::size_t numCollected_ {};
-    double prevSample_ = 100.0;
-
-    static constexpr auto triggerLevel = 0.05;
-
-    enum struct State {
-        waitingForTrigger,
-        collecting
-    };
-
-    State state_ { State::waitingForTrigger };
+    std::vector<float> currentScope_;
 
     JUCE_LEAK_DETECTOR(OscilloscopeSource) // NOLINT
 };
