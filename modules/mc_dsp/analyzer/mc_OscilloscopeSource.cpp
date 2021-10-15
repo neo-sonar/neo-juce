@@ -2,20 +2,6 @@ namespace mc {
 
 namespace {
 
-MC_NODISCARD auto sizeAfterDownSample(std::size_t signalSize, std::size_t factor) noexcept -> std::size_t
-{
-    return (signalSize - 1U) / factor + 1U;
-}
-
-template <typename T>
-auto downSample(T const* in, std::size_t sizeIn, T* out, std::size_t factor) -> std::size_t
-{
-    if (factor == 0) { std::copy(in, in + static_cast<std::size_t>(sizeIn), out); }
-    auto const n = sizeAfterDownSample(sizeIn, factor);
-    for (std::size_t i = 0; i < n; ++i) { out[i] = in[i * factor]; }
-    return n;
-}
-
 template <typename Queue, typename Buffer, std::size_t ChunkSize>
 auto processOscilloscopeImpl(Queue& queue, Buffer const& buffer, std::size_t downSampleFactor) -> void
 {

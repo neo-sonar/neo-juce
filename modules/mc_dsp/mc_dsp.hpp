@@ -23,6 +23,8 @@
 #include <mc_data_structures/mc_data_structures.hpp>
 #include <mc_gui_basics/mc_gui_basics.hpp>
 
+#include "algorithm/downSample.hpp"
+
 #include "container/mc_AudioBufferPool.hpp"
 #include "container/mc_AudioBufferQueue.hpp"
 #include "container/mc_AudioBufferUtils.hpp"
