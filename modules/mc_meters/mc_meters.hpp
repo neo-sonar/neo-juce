@@ -27,11 +27,11 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <mc_data_structures/mc_data_structures.hpp>
 
-#include "LevelMeter/LevelMeterSource.h"
+#include "LevelMeter/LevelMeterSource.hpp"
 
-#include "LevelMeter/LevelMeter.h"
-#include "Visualisers/OutlineBuffer.h"
-#include "Visualisers/StereoFieldBuffer.h"
-#include "Visualisers/StereoFieldComponent.h"
+#include "LevelMeter/LevelMeter.hpp"
+#include "Visualisers/OutlineBuffer.hpp"
+#include "Visualisers/StereoFieldBuffer.hpp"
+#include "Visualisers/StereoFieldComponent.hpp"
 
 #endif
