@@ -3,19 +3,13 @@
 
 namespace mc {
 
-/** @addtogroup ff_meters */
-/*@{*/
-
-/**
- \class OutlineBuffer
-
- This class implements a circular buffer to store min and max values
- of anaudio signal. The block size can be specified. At any time the
- UI can request an outline of the last n blocks as Path to fill or stroke
- */
-class OutlineBuffer {
-
-    class ChannelData {
+/// This class implements a circular buffer to store min and max values
+/// of anaudio signal. The block size can be specified. At any time the
+/// UI can request an outline of the last n blocks as Path to fill or stroke
+struct OutlineBuffer {
+private:
+    struct ChannelData {
+    private:
         std::vector<float> minBuffer_;
         std::vector<float> maxBuffer_;
         std::atomic<size_t> writePointer_ { 0 };

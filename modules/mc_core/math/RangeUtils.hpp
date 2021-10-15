@@ -5,8 +5,6 @@ namespace mc {
 
 /// \brief Collection of preconfigured ranges.
 struct RangeUtils {
-    /// \brief Deleted constructor. Static class.
-    RangeUtils() = delete;
 
     /// \brief Returns a normalized range.
     static auto defaultNormalizedRange() noexcept -> juce::NormalisableRange<float>

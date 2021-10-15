@@ -4,21 +4,13 @@
 
 namespace mc {
 
-/** @addtogroup ff_meters */
-/*@{*/
-
-/**
- \class LevelMeterSource
-
- To get a meter GUI create a LevelMeterSource in your AudioProcessor
- or whatever instance processes an AudioBuffer.
- Then call LevelMeterSource::measureBlock (AudioBuffer<float>& buf) to
- create the readings.
- */
-class LevelMeterSource {
+/// To get a meter GUI create a LevelMeterSource in your AudioProcessor
+/// or whatever instance processes an AudioBuffer.
+/// Then call LevelMeterSource::measureBlock (AudioBuffer<float>& buf) to
+/// create the readings.
+struct LevelMeterSource {
 private:
-    class ChannelData {
-    public:
+    struct ChannelData {
         explicit ChannelData(const size_t rmsWindow = 8)
             : max()
             , maxOverall()

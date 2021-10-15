@@ -3,18 +3,12 @@
 
 namespace mc {
 
-/** @addtogroup ff_meters */
-/*@{*/
-
-/**
- \class StereoFieldBuffer
-
- This class implements a circular buffer to buffer audio samples.
- At any time the GUI can ask for a stereo field visualisation of
- two neightbouring channels.
- */
+/// This class implements a circular buffer to buffer audio samples.
+/// At any time the GUI can ask for a stereo field visualisation of
+/// two neightbouring channels.
 template <typename FloatType>
-class StereoFieldBuffer {
+struct StereoFieldBuffer {
+private:
     juce::AudioBuffer<FloatType> sampleBuffer_;
     std::atomic<int> writePosition_   = { 0 };
     std::vector<FloatType> maxValues_ = { 180, 0.0 };

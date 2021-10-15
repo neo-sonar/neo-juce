@@ -2,18 +2,11 @@
 
 namespace mc {
 
-/** @addtogroup ff_meters */
-/*@{*/
+/// This class implements a circular buffer to buffer audio samples.
+/// At any time the GUI can ask for a stereo field visualisation of
+/// two neightbouring channels.
+struct StereoFieldComponent : juce::Component {
 
-/**
- \class StereoFieldComponent
-
- This class implements a circular buffer to buffer audio samples.
- At any time the GUI can ask for a stereo field visualisation of
- two neightbouring channels.
- */
-class StereoFieldComponent : public juce::Component {
-public:
     enum { GonioMeter = 0, StereoField };
 
     enum ColourIds {
@@ -25,8 +18,7 @@ public:
         maxValuesColour               /**< Colour for the numbers etc. */
     };
 
-    class LookAndFeelMethods {
-    public:
+    struct LookAndFeelMethods {
         LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
 

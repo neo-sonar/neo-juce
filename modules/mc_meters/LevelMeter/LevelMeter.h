@@ -3,32 +3,20 @@
 
 namespace mc {
 
-/** @addtogroup ff_meters */
-/*@{*/
-
-//==============================================================================
-/*
- \class LevelMeter
- \brief A component to display live gain and RMS readings
-
- This class is used to display a level reading. It supports max and RMS levels.
- You can also set a reduction value to display, the definition of that value is up to you.
-*/
-class LevelMeter : public juce::Component, private juce::Timer {
-public:
+/// \brief A component to display live gain and RMS readings
+///
+/// This class is used to display a level reading. It supports max and RMS levels.
+/// You can also set a reduction value to display, the definition of that value is up to you.
+struct LevelMeter : juce::Component, juce::Timer {
     enum MeterFlags : unsigned {
         Default       = 0x0000, /**< Default is showing all channels in the LevelMeterSource without a border */
         Horizontal    = 0x0001, /**< Displays the level bars horizontally */
         Vintage       = 0x0002, /**< Switches to a special mode of old school meters (to come) */
         SingleChannel = 0x0004, /**< Display only one channel meter. \see setSelectedChannel */
-        HasBorder
-        = 0x0008, /**< Displays a rounded border around the meter. This is used with the default constructor */
-        Reduction = 0x0010, /**< This turns the bar into a reduction bar.
-                         The additional reduction bar is automatically added, as soon a reduction value < 1.0 is set
-                         in the LevelMeterSource. \see LevelMeterSource::setReductionLevel */
-        Minimal = 0x0020,   /**< For a stereo meter, this tries to save space by showing only one line tickmarks in the
-                           middle and no max numbers */
-        MaxNumber = 0x0040  /**< To add level meter to Minimal, set this flag */
+        HasBorder     = 0x0008, /**< Displays a rounded border around the meter.  */
+        Reduction     = 0x0010, /**< This turns the bar into a reduction bar. */
+        Minimal       = 0x0020, /**< For a stereo meter */
+        MaxNumber     = 0x0040  /**< To add level meter to Minimal, set this flag */
     };
 
     enum ColourIds {
@@ -56,8 +44,7 @@ public:
      The LevelMeter needs a LookAndFeel, that implements these methods.
      There is a default implementation to be included in your custom LookAndFeel class, \see LookAndFeelMethods.h
      */
-    class LookAndFeelMethods {
-    public:
+    struct LookAndFeelMethods {
         virtual ~LookAndFeelMethods() = default;
 
         /// \brief Define your default colours in this callback
@@ -255,8 +242,7 @@ public:
      }
      \endcode
      */
-    class Listener {
-    public:
+    struct Listener {
         virtual ~Listener() = default;
         /**
          This is called, when the user clicks a clip indicator. It can be used to reset the clip indicator.
