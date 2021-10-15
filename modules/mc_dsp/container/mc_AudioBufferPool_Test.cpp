@@ -3,7 +3,7 @@
 #include <catch2/catch.hpp>
 
 // TODO: [tobi] Triggers ASAN
-// TEMPLATE_TEST_CASE("dsp/container: AudioBufferPool", "[dsp][container]", float, double)
+// TEMPLATE_TEST_CASE("dsp/container: AudioBufferPool", "", float, double)
 //{
 //    auto pool = mc::AudioBufferPool {};
 //    CHECK(pool.capacityInBytes() == 0);

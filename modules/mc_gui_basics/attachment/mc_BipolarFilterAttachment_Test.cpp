@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("gui_basics/attachment: BipolarFilterValueTreeAttachment", "[gui_basics][attachment]")
+TEST_CASE("gui_basics/attachment: BipolarFilterValueTreeAttachment", "")
 {
     juce::Identifier const id { "value" };
     juce::UndoManager undoManager {};

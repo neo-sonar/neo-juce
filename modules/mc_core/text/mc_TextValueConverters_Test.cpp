@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("core/text: ActiveTextConverter", "[core][text]")
+TEST_CASE("core/text: ActiveTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -19,7 +19,7 @@ TEST_CASE("core/text: ActiveTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: FrequencyTextConverter", "[core][text]")
+TEST_CASE("core/text: FrequencyTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -36,7 +36,7 @@ TEST_CASE("core/text: FrequencyTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: QualityTextConverter", "[core][text]")
+TEST_CASE("core/text: QualityTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -54,7 +54,7 @@ TEST_CASE("core/text: QualityTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: GainTextConverter", "[core][text]")
+TEST_CASE("core/text: GainTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -73,7 +73,7 @@ TEST_CASE("core/text: GainTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: PercentTextConverter", "[core][text]")
+TEST_CASE("core/text: PercentTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -92,7 +92,7 @@ TEST_CASE("core/text: PercentTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: TimeSecondsTextConverter", "[core][text]")
+TEST_CASE("core/text: TimeSecondsTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -111,7 +111,7 @@ TEST_CASE("core/text: TimeSecondsTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: TimeMillisecondsTextConverter", "[core][text]")
+TEST_CASE("core/text: TimeMillisecondsTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -130,7 +130,7 @@ TEST_CASE("core/text: TimeMillisecondsTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: RatioCompTextConverter", "[core][text]")
+TEST_CASE("core/text: RatioCompTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -151,7 +151,7 @@ TEST_CASE("core/text: RatioCompTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: RatioExpTextConverter", "[core][text]")
+TEST_CASE("core/text: RatioExpTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -172,7 +172,7 @@ TEST_CASE("core/text: RatioExpTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: InvertPhaseTextConverter", "[core][text]")
+TEST_CASE("core/text: InvertPhaseTextConverter", "")
 {
     SECTION("String -> float")
     {
@@ -189,7 +189,7 @@ TEST_CASE("core/text: InvertPhaseTextConverter", "[core][text]")
     }
 }
 
-TEST_CASE("core/text: InvertPhaseBoolTextConverter", "[core][text]")
+TEST_CASE("core/text: InvertPhaseBoolTextConverter", "")
 {
     SECTION("String -> bool")
     {

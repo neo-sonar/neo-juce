@@ -2,19 +2,19 @@
 
 #include <mc_gui_basics/mc_gui_basics.hpp>
 
-TEST_CASE("gui_basics/widget: BipolarFilter::BipolarFilter()", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: BipolarFilter::BipolarFilter()", "")
 {
     mc::BipolarFilter filter {};
     CHECK(filter.getName() == "");
 }
 
-TEST_CASE("gui_basics/widget: BipolarFilter::BipolarFilter(componentName)", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: BipolarFilter::BipolarFilter(componentName)", "")
 {
     mc::BipolarFilter filter { "filter" };
     CHECK(filter.getName() == "filter");
 }
 
-TEST_CASE("gui_basics/widget: BipolarFilter::setValue", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: BipolarFilter::setValue", "")
 {
     mc::BipolarFilter filter {};
     CHECK(filter.getValue() == Approx(0.0));
@@ -29,7 +29,7 @@ TEST_CASE("gui_basics/widget: BipolarFilter::setValue", "[gui_basics][widget]")
     CHECK(filter.getValue() == Approx(-1.0));
 }
 
-TEST_CASE("gui_basics/widget: BipolarFilter::doubleClickReturn", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: BipolarFilter::doubleClickReturn", "")
 {
     mc::BipolarFilter filter {};
     CHECK(filter.isDoubleClickReturnEnabled());
@@ -70,7 +70,7 @@ struct TestListenerValueChanged : mc::BipolarFilter::Listener {
 
 } // namespace
 
-TEST_CASE("gui_basics/widget: BipolarFilter::Listener::textBoxSliderValueChanged", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: BipolarFilter::Listener::textBoxSliderValueChanged", "")
 {
     TestListenerValueChanged listener {};
     mc::BipolarFilter filter {};
@@ -98,7 +98,7 @@ TEST_CASE("gui_basics/widget: BipolarFilter::Listener::textBoxSliderValueChanged
 }
 
 //
-// TEST_CASE("gui_basics/widget: BipolarFilter::Range", "[gui_basics][widget]")
+// TEST_CASE("gui_basics/widget: BipolarFilter::Range", "")
 //{
 //    mc::BipolarFilter filter {};
 //    CHECK(filter.getRange().getStart() == Approx(0.0));
@@ -116,7 +116,7 @@ TEST_CASE("gui_basics/widget: BipolarFilter::Listener::textBoxSliderValueChanged
 //}
 //
 //
-// TEST_CASE("gui_basics/widget: BipolarFilter::onValueChange", "[gui_basics][widget]")
+// TEST_CASE("gui_basics/widget: BipolarFilter::onValueChange", "")
 //{
 //    auto wasCalled = false;
 //    mc::BipolarFilter filter {};

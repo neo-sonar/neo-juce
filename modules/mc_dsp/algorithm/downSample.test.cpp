@@ -20,7 +20,7 @@ public:
     }
 };
 
-TEST_CASE("dsp/algorithm: sizeAfterDownSample", "[dsp][algorithm]")
+TEST_CASE("dsp/algorithm: sizeAfterDownSample", "")
 {
     REQUIRE(mc::sizeAfterDownSample(512U, 1U) == 512U);
     REQUIRE(mc::sizeAfterDownSample(1024U, 1U) == 1024U);
@@ -29,7 +29,7 @@ TEST_CASE("dsp/algorithm: sizeAfterDownSample", "[dsp][algorithm]")
     REQUIRE(mc::sizeAfterDownSample(1024U, 2U) == 512U);
 }
 
-TEST_CASE("dsp/algorithm: downSample", "[dsp][algorithm]")
+TEST_CASE("dsp/algorithm: downSample", "")
 {
     auto input = std::array<float, 8> {};
     std::fill(begin(input), end(input), 1.0f);

@@ -11,7 +11,7 @@ struct SomeStruct {
 };
 } // namespace
 
-TEMPLATE_TEST_CASE("core/container: Registry::Construct", "[core][container]", char, int, float, SomeStruct)
+TEMPLATE_TEST_CASE("core/container: Registry::Construct", "", char, int, float, SomeStruct)
 {
     SECTION("default")
     {
@@ -28,7 +28,7 @@ TEMPLATE_TEST_CASE("core/container: Registry::Construct", "[core][container]", c
     }
 }
 
-TEMPLATE_TEST_CASE("core/container: Registry::Append", "[core][container]", char, int, float, SomeStruct)
+TEMPLATE_TEST_CASE("core/container: Registry::Append", "", char, int, float, SomeStruct)
 {
     auto reg      = mc::Registry<TestType> {};
     auto const t1 = reg.append({});
@@ -38,7 +38,7 @@ TEMPLATE_TEST_CASE("core/container: Registry::Append", "[core][container]", char
     CHECK(t1 < t2);
 }
 
-TEMPLATE_TEST_CASE("core/container: Registry::Erase", "[core][container]", char, int, float, SomeStruct)
+TEMPLATE_TEST_CASE("core/container: Registry::Erase", "", char, int, float, SomeStruct)
 {
     auto reg      = mc::Registry<TestType> {};
     auto const t1 = reg.append({});
@@ -52,7 +52,7 @@ TEMPLATE_TEST_CASE("core/container: Registry::Erase", "[core][container]", char,
     CHECK(reg.size() == 0);
 }
 
-TEMPLATE_TEST_CASE("core/container: Registry::capacity", "[core][container]", char, int, float, SomeStruct)
+TEMPLATE_TEST_CASE("core/container: Registry::capacity", "", char, int, float, SomeStruct)
 {
     auto reg = mc::Registry<TestType> {};
     CHECK(reg.capacity() == 0);
@@ -71,7 +71,7 @@ TEMPLATE_TEST_CASE("core/container: Registry::capacity", "[core][container]", ch
     CHECK(reg.capacity() == 1);
 }
 
-TEST_CASE("core/container: Registry::forEach", "[core][container]")
+TEST_CASE("core/container: Registry::forEach", "")
 {
     auto reg = mc::Registry<std::function<int(int)>> {};
     auto t1  = reg.append([](auto x) -> int { return x; });
@@ -102,7 +102,7 @@ TEST_CASE("core/container: Registry::forEach", "[core][container]")
     }
 }
 
-TEST_CASE("core/container: Registry::forID", "[core][container]")
+TEST_CASE("core/container: Registry::forID", "")
 {
     auto reg = mc::Registry<std::function<int(int)>> {};
 

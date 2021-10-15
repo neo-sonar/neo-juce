@@ -2,7 +2,7 @@
 
 #include <mc_gui_basics/mc_gui_basics.hpp>
 
-TEST_CASE("gui_basics/widget: XYPad", "[gui_basics][widgets]")
+TEST_CASE("gui_basics/widget: XYPad", "")
 {
     SECTION("default")
     {

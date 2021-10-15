@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("core/time: VariantConverter<juce::Time>", "[core][time]")
+TEST_CASE("core/time: VariantConverter<juce::Time>", "")
 {
     // SECTION("default")
     // {

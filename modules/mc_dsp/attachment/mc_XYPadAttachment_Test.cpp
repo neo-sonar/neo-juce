@@ -3,7 +3,7 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("dsp/attachment: XYPadAttachment", "[dsp][attachment]") // NOLINT
+TEST_CASE("dsp/attachment: XYPadAttachment", "") // NOLINT
 {
     mc::XYPad xypad {};
     CHECK(xypad.getXRange().start == Approx(0.0f));

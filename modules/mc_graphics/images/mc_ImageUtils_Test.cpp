@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("graphics/images: VariantConverter<juce::Image>", "[graphics][images]")
+TEST_CASE("graphics/images: VariantConverter<juce::Image>", "")
 {
     SECTION("rgb cleared")
     {

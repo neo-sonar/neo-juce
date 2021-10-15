@@ -2,19 +2,19 @@
 
 #include <mc_gui_basics/mc_gui_basics.hpp>
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::TextBoxSlider()", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::TextBoxSlider()", "")
 {
     mc::TextBoxSlider slider {};
     CHECK(slider.getName() == "");
 }
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::TextBoxSlider(componentName)", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::TextBoxSlider(componentName)", "")
 {
     mc::TextBoxSlider slider { "slider" };
     CHECK(slider.getName() == "slider");
 }
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::setValue", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::setValue", "")
 {
     mc::TextBoxSlider slider {};
     CHECK(slider.getValue() == Approx(1.0));
@@ -29,7 +29,7 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::setValue", "[gui_basics][widget]")
     CHECK(slider.getValue() == Approx(0.0));
 }
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::Range", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::Range", "")
 {
     mc::TextBoxSlider slider {};
     CHECK(slider.getRange().getStart() == Approx(0.0));
@@ -46,7 +46,7 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::Range", "[gui_basics][widget]")
     CHECK(slider.getInterval() == Approx(0.01));
 }
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::doubleClickReturn", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::doubleClickReturn", "")
 {
     mc::TextBoxSlider slider {};
     CHECK(slider.isDoubleClickReturnEnabled());
@@ -61,7 +61,7 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::doubleClickReturn", "[gui_basics][w
     CHECK(slider.getDoubleClickReturnValue() == Approx(1.0));
 }
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::onValueChange", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::onValueChange", "")
 {
     auto wasCalled = false;
     mc::TextBoxSlider slider {};
@@ -70,7 +70,7 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::onValueChange", "[gui_basics][widge
     CHECK(wasCalled);
 }
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::justificationType", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::justificationType", "")
 {
     mc::TextBoxSlider slider {};
     CHECK(slider.getJustificationType() == juce::Justification::centred);
@@ -82,7 +82,7 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::justificationType", "[gui_basics][w
     CHECK(slider.getJustificationType() == juce::Justification::centred);
 }
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::textBoxEditable", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::textBoxEditable", "")
 {
     mc::TextBoxSlider slider {};
     CHECK(slider.isTextBoxEditable());
@@ -94,7 +94,7 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::textBoxEditable", "[gui_basics][wid
     CHECK(slider.isTextBoxEditable());
 }
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::getValueFromText", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::getValueFromText", "")
 {
     mc::TextBoxSlider slider {};
     CHECK(slider.getValueFromText("1.0") == Approx(1.0));
@@ -110,7 +110,7 @@ TEST_CASE("gui_basics/widget: TextBoxSlider::getValueFromText", "[gui_basics][wi
     CHECK(slider.getValueFromText("1.43") == Approx(1.0));
 }
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::getTextFromValue", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::getTextFromValue", "")
 {
     mc::TextBoxSlider slider {};
     CHECK(slider.getTextFromValue(1.0) == "1.0");
@@ -149,7 +149,7 @@ struct TestListenerValueChanged : mc::TextBoxSlider::Listener {
 
 } // namespace
 
-TEST_CASE("gui_basics/widget: TextBoxSlider::Listener::textBoxSliderValueChanged", "[gui_basics][widget]")
+TEST_CASE("gui_basics/widget: TextBoxSlider::Listener::textBoxSliderValueChanged", "")
 {
     TestListenerValueChanged listener {};
     mc::TextBoxSlider slider {};

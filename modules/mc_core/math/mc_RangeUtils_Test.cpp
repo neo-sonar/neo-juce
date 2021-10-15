@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::Range>", "[core][math]", int, float, double)
+TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::Range>", "", int, float, double)
 {
     SECTION("empty")
     {
@@ -24,7 +24,7 @@ TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::Range>", "[core][math]", i
     }
 }
 
-TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::NormalisableRange>", "[core][math]", float, double)
+TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::NormalisableRange>", "", float, double)
 {
     SECTION("empty")
     {
@@ -53,7 +53,7 @@ TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::NormalisableRange>", "[cor
     }
 }
 
-// TEST_CASE("core/math: VariantConverter<juce::NormalisableRange<float>>", "[core][math]")
+// TEST_CASE("core/math: VariantConverter<juce::NormalisableRange<float>>", "")
 //{
 //    SECTION("defaultFrequencyRange")
 //    {

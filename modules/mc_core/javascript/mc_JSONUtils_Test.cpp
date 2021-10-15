@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("core/javascript: JSONUtils::loadFromURL", "[core][javascript]")
+TEST_CASE("core/javascript: JSONUtils::loadFromURL", "")
 {
     auto url  = juce::URL { "https://jsonplaceholder.typicode.com/users" };
     auto json = mc::JSONUtils::loadFromURL(url);

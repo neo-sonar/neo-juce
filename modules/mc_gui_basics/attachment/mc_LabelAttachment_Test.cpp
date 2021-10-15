@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("gui_basics/attachment: LabelValueTreeAttachment", "[gui_basics][attachment]")
+TEST_CASE("gui_basics/attachment: LabelValueTreeAttachment", "")
 {
     auto const id = juce::String { "test" };
     juce::UndoManager um {};

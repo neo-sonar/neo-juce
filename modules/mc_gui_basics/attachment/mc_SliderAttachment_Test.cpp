@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("gui_basics/attachment: SliderValueTreeAttachment", "[gui_basics][attachment]")
+TEST_CASE("gui_basics/attachment: SliderValueTreeAttachment", "")
 {
     auto const id = juce::Identifier { "value" };
     juce::UndoManager undoManager {};

@@ -2,7 +2,7 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE("core/text: jformat", "[core][text]")
+TEST_CASE("core/text: jformat", "")
 {
     CHECK(mc::jformat(juce::String { "test" }) == "test");
     CHECK(mc::jformat(juce::String { "test{}" }, 143) == "test143");
