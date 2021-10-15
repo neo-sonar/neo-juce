@@ -74,6 +74,7 @@
 #include "text/Format.hpp"
 #include "text/StringUtils.hpp"
 #include "text/TextValueConverters.hpp"
+#include "text/TrueFalseTextConverter.hpp"
 
 #include "container/Registry.hpp"
 
