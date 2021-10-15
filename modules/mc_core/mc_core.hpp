@@ -71,19 +71,19 @@
 #include "mc/vector.hpp"
 #include "mc/version.hpp"
 
-#include "text/mc_Format.hpp"
-#include "text/mc_StringUtils.hpp"
-#include "text/mc_TextValueConverters.hpp"
+#include "text/Format.hpp"
+#include "text/StringUtils.hpp"
+#include "text/TextValueConverters.hpp"
 
-#include "container/mc_Registry.hpp"
+#include "container/Registry.hpp"
 
-#include "javascript/mc_JSONUtils.hpp"
-#include "math/mc_RangeUtils.hpp"
+#include "javascript/JSONUtils.hpp"
+#include "math/RangeUtils.hpp"
 #include "time/Duration.hpp"
-#include "time/mc_TimeUtils.hpp"
+#include "time/TimeUtils.hpp"
 
-#include "thread/mc_BackgroundProcess.hpp"
+#include "thread/BackgroundProcess.hpp"
 
-#include "benchmark/mc_Profile.hpp"
+#include "benchmark/Profile.hpp"
 
 #endif // MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP

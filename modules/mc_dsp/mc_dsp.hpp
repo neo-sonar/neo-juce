@@ -25,27 +25,27 @@
 
 #include "algorithm/downSample.hpp"
 
-#include "container/mc_AudioBufferPool.hpp"
-#include "container/mc_AudioBufferQueue.hpp"
-#include "container/mc_AudioBufferUtils.hpp"
+#include "container/AudioBufferPool.hpp"
+#include "container/AudioBufferQueue.hpp"
+#include "container/AudioBufferUtils.hpp"
 
 #include "clock/Bars.hpp"
 #include "clock/TriggerClock.hpp"
 
-#include "util/mc_BusesLayoutUtils.hpp"
+#include "util/BusesLayoutUtils.hpp"
 
-#include "processor/mc_MultiMonoIIR.hpp"
-#include "processor/mc_StereoWidth.hpp"
+#include "processor/MultiMonoIIR.hpp"
+#include "processor/StereoWidth.hpp"
 
-#include "analyzer/mc_OscilloscopeSource.hpp"
-#include "analyzer/mc_SpectrumSource.hpp"
+#include "analyzer/OscilloscopeSource.hpp"
+#include "analyzer/SpectrumSource.hpp"
 
-#include "analyzer/mc_Oscilloscope.hpp"
-#include "analyzer/mc_Spectrum.hpp"
+#include "analyzer/Oscilloscope.hpp"
+#include "analyzer/Spectrum.hpp"
 
-// #include "airwindows/mc_AirWindowsCoils2.hpp"
-//#include "airwindows/mc_AirWindowsVerbity.hpp"
+// #include "airwindows/AirWindowsCoils2.hpp"
+//#include "airwindows/AirWindowsVerbity.hpp"
 
-#include "attachment/mc_XYPadAttachment.hpp"
+#include "attachment/XYPadAttachment.hpp"
 
 #endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP

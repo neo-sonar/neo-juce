@@ -47,37 +47,37 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
         PRIVATE
             MainTest.cpp
 
-            modules/mc_core/container/mc_Registry.test.cpp
-            modules/mc_core/javascript/mc_JSONUtils.test.cpp
-            modules/mc_core/math/mc_RangeUtils.test.cpp
-            modules/mc_core/text/mc_Format.test.cpp
-            modules/mc_core/text/mc_TextValueConverters.test.cpp
+            modules/mc_core/container/Registry.test.cpp
+            modules/mc_core/javascript/JSONUtils.test.cpp
+            modules/mc_core/math/RangeUtils.test.cpp
+            modules/mc_core/text/Format.test.cpp
+            modules/mc_core/text/TextValueConverters.test.cpp
             modules/mc_core/time/Duration.test.cpp
-            modules/mc_core/time/mc_TimeUtils.test.cpp
+            modules/mc_core/time/TimeUtils.test.cpp
 
-            modules/mc_data_structures/value_tree/mc_ValueWrapper.test.cpp
+            modules/mc_data_structures/value_tree/ValueWrapper.test.cpp
 
             modules/mc_dsp/algorithm/downSample.test.cpp
-            modules/mc_dsp/attachment/mc_XYPadAttachment.test.cpp
+            modules/mc_dsp/attachment/XYPadAttachment.test.cpp
             modules/mc_dsp/clock/TriggerClock.test.cpp
-            modules/mc_dsp/container/mc_AudioBufferPool.test.cpp
-            modules/mc_dsp/container/mc_AudioBufferUtils.test.cpp
-            modules/mc_dsp/processor/mc_MultiMonoIIR.test.cpp
-            modules/mc_dsp/processor/mc_StereoWidth.test.cpp
-            modules/mc_dsp/util/mc_BusesLayoutUtils.test.cpp
+            modules/mc_dsp/container/AudioBufferPool.test.cpp
+            modules/mc_dsp/container/AudioBufferUtils.test.cpp
+            modules/mc_dsp/processor/MultiMonoIIR.test.cpp
+            modules/mc_dsp/processor/StereoWidth.test.cpp
+            modules/mc_dsp/util/BusesLayoutUtils.test.cpp
 
-            modules/mc_graphics/color/mc_ColorUtils.test.cpp
-            modules/mc_graphics/geometry/mc_GeometryUtils.test.cpp
-            modules/mc_graphics/images/mc_ImageUtils.test.cpp
+            modules/mc_graphics/color/ColorUtils.test.cpp
+            modules/mc_graphics/geometry/GeometryUtils.test.cpp
+            modules/mc_graphics/images/ImageUtils.test.cpp
 
-            modules/mc_gui_basics/attachment/mc_BipolarFilterAttachment.test.cpp
-            modules/mc_gui_basics/attachment/mc_LabelAttachment.test.cpp
-            modules/mc_gui_basics/attachment/mc_SliderAttachment.test.cpp
-            modules/mc_gui_basics/attachment/mc_TextBoxSliderAttachment.test.cpp
+            modules/mc_gui_basics/attachment/BipolarFilterAttachment.test.cpp
+            modules/mc_gui_basics/attachment/LabelAttachment.test.cpp
+            modules/mc_gui_basics/attachment/SliderAttachment.test.cpp
+            modules/mc_gui_basics/attachment/TextBoxSliderAttachment.test.cpp
 
-            modules/mc_gui_basics/widget/mc_BipolarFilter.test.cpp
-            modules/mc_gui_basics/widget/mc_TextBoxSlider.test.cpp
-            modules/mc_gui_basics/widget/mc_XYPad.test.cpp
+            modules/mc_gui_basics/widget/BipolarFilter.test.cpp
+            modules/mc_gui_basics/widget/TextBoxSlider.test.cpp
+            modules/mc_gui_basics/widget/XYPad.test.cpp
     )
 
     target_compile_definitions(${PROJECT_NAME}_tests
