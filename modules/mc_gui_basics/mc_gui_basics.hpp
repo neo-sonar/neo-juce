@@ -25,13 +25,9 @@
 
 #include "mouse/MouseUtils.hpp"
 
-#include "widget/BipolarFilter.hpp"
-#include "widget/TextBoxSlider.hpp"
 #include "widget/XYPad.hpp"
 
-#include "attachment/BipolarFilterAttachment.hpp"
 #include "attachment/LabelAttachment.hpp"
 #include "attachment/SliderAttachment.hpp"
-#include "attachment/TextBoxSliderAttachment.hpp"
 
 #endif // MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP

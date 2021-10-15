@@ -70,13 +70,9 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
             modules/mc_graphics/geometry/GeometryUtils.test.cpp
             modules/mc_graphics/images/ImageUtils.test.cpp
 
-            modules/mc_gui_basics/attachment/BipolarFilterAttachment.test.cpp
             modules/mc_gui_basics/attachment/LabelAttachment.test.cpp
             modules/mc_gui_basics/attachment/SliderAttachment.test.cpp
-            modules/mc_gui_basics/attachment/TextBoxSliderAttachment.test.cpp
 
-            modules/mc_gui_basics/widget/BipolarFilter.test.cpp
-            modules/mc_gui_basics/widget/TextBoxSlider.test.cpp
             modules/mc_gui_basics/widget/XYPad.test.cpp
     )
 
