@@ -6,44 +6,29 @@ Histogram::Histogram(HistogramSource* source, juce::Range<float> range) : source
     startTimerHz(refreshRateHz_);
 }
 
-auto Histogram::paint(juce::Graphics& g) -> void
-{
-    if (!history_.empty()) {
-        // intentionally swapped
-        auto const start = range_.getEnd();
-        auto const end   = range_.getStart();
+auto Histogram::historyBuffer() const noexcept -> RingBuffer<float> const& { return history_; }
 
-        auto path = juce::Path {};
-        path.preallocateSpace(static_cast<int>(history_.size()));
-        path.startNewSubPath(0.0f, juce::jmap(history_[0], start, end, 0.0f, static_cast<float>(getHeight())));
+auto Histogram::valueRange(juce::Range<float> const& range) noexcept -> void { range_ = range; }
 
-        for (std::uint32_t i = 1; i < history_.size(); ++i) {
-            auto const x = juce::jmap(static_cast<int>(i), 0, static_cast<int>(history_.size() - 1), 0, getWidth());
-            auto const y = juce::jmap(history_[i], start, end, 0.0f, static_cast<float>(getHeight()));
-            path.lineTo(static_cast<float>(x), y);
-        }
+auto Histogram::valueRange() const noexcept -> juce::Range<float> const& { return range_; }
 
-        // findColour(BundleColors::primaryLedHighlight, true).withAlpha(0.95f)
-        g.setColour(juce::Colours::red);
-        g.strokePath(path, juce::PathStrokeType { 1.5f });
-    }
-}
-
-auto Histogram::resized() -> void { }
-
-auto Histogram::setValueRange(juce::Range<float> const& range) noexcept -> void { range_ = range; }
-
-auto Histogram::setHistoryToShow(float seconds) noexcept -> void
+auto Histogram::historyToShow(float seconds) noexcept -> void
 {
     historyToKeepSeconds_ = seconds;
     resizeBuffer();
 }
 
-auto Histogram::setRefreshRate(int rateInHz) -> void
+auto Histogram::refreshRate(int rateInHz) -> void
 {
     refreshRateHz_ = rateInHz;
     resizeBuffer();
     if (isTimerRunning()) { startTimerHz(refreshRateHz_); }
+}
+
+auto Histogram::paint(juce::Graphics& g) -> void
+{
+    auto* lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
+    if (lnf != nullptr) { lnf->drawHistogram(g, *this); }
 }
 
 auto Histogram::timerCallback() -> void

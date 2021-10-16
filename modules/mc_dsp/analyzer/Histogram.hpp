@@ -2,16 +2,28 @@
 
 namespace mc {
 
+struct Histogram;
+
+struct HistogramLookAndFeelMethods {
+    virtual ~HistogramLookAndFeelMethods()                                            = default;
+    virtual auto drawHistogram(juce::Graphics& g, Histogram const& histogram) -> void = 0;
+};
+
 struct Histogram : juce::Component, juce::Timer {
+    using LookAndFeelMethods = HistogramLookAndFeelMethods;
+
     explicit Histogram(HistogramSource* source, juce::Range<float> range = juce::Range<float> { 0.0f, 1.3f });
     ~Histogram() override = default;
 
-    auto paint(juce::Graphics& g) -> void override;
-    auto resized() -> void override;
+    MC_NODISCARD auto historyBuffer() const noexcept -> RingBuffer<float> const&;
 
-    auto setValueRange(juce::Range<float> const& range) noexcept -> void;
-    auto setHistoryToShow(float seconds) noexcept -> void;
-    auto setRefreshRate(int rateInHz) -> void;
+    auto valueRange(juce::Range<float> const& range) noexcept -> void;
+    MC_NODISCARD auto valueRange() const noexcept -> juce::Range<float> const&;
+
+    auto historyToShow(float seconds) noexcept -> void;
+    auto refreshRate(int rateInHz) -> void;
+
+    auto paint(juce::Graphics& g) -> void override;
 
 private:
     auto timerCallback() -> void override;
