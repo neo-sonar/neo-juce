@@ -25,6 +25,7 @@
 
 #include "mouse/MouseUtils.hpp"
 
+#include "widget/Components.hpp"
 #include "widget/XYPad.hpp"
 
 #include "attachment/LabelAttachment.hpp"
