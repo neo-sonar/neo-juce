@@ -8,6 +8,6 @@ auto OscilloscopeSource::currentScope() const noexcept -> span<float const> { re
 
 auto OscilloscopeSource::addChangeListener(juce::ChangeListener* l) -> void { source_.addChangeListener(l); }
 
-auto OscilloscopeSource::removeChangeListener(juce::ChangeListener* l) -> void { source_.addChangeListener(l); }
+auto OscilloscopeSource::removeChangeListener(juce::ChangeListener* l) -> void { source_.removeChangeListener(l); }
 
 } // namespace mc

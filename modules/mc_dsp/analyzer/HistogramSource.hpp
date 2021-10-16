@@ -14,8 +14,6 @@ struct HistogramSource {
 private:
     double sampleRate_ { 44'100.0 };
     juce::AudioBuffer<float> summingBuffer_;
-    LockFreeQueue<float> queue_ { 128 };
-    Milliseconds<double> refreshRate_ { 16.0 };
     Microseconds<double> timeSinceLastSample_ { 0 };
     std::atomic<float> lastValue_ { 0.0f };
 };
