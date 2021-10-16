@@ -28,6 +28,7 @@
 #include "container/AudioBufferPool.hpp"
 #include "container/AudioBufferQueue.hpp"
 #include "container/AudioBufferUtils.hpp"
+#include "container/RingBuffer.hpp"
 
 #include "clock/Bars.hpp"
 #include "clock/TriggerClock.hpp"
@@ -37,9 +38,11 @@
 #include "processor/MultiMonoIIR.hpp"
 #include "processor/StereoWidth.hpp"
 
+#include "analyzer/HistogramSource.hpp"
 #include "analyzer/OscilloscopeSource.hpp"
 #include "analyzer/SpectrumSource.hpp"
 
+#include "analyzer/Histogram.hpp"
 #include "analyzer/Oscilloscope.hpp"
 #include "analyzer/Spectrum.hpp"
 
