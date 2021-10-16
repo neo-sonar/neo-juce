@@ -38,6 +38,7 @@
 #include "processor/MultiMonoIIR.hpp"
 #include "processor/StereoWidth.hpp"
 
+#include "analyzer/DownSamplingAnalyzer.hpp"
 #include "analyzer/HistogramSource.hpp"
 #include "analyzer/OscilloscopeSource.hpp"
 #include "analyzer/SpectrumSource.hpp"
