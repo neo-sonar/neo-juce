@@ -11,6 +11,7 @@ namespace mc {
 /// deleted before this object!
 struct XYPadAttachment final : XYPad::Listener {
     /// \brief Creates a connection between a plug-in parameter and a Slider.
+    ///
     /// \param parameterX    The parameter to use for the x-axis
     /// \param parameterY    The parameter to use for the y-axis
     /// \param pad           The XYPad to use
@@ -18,7 +19,7 @@ struct XYPadAttachment final : XYPad::Listener {
     XYPadAttachment(juce::RangedAudioParameter& parameterX,
         juce::RangedAudioParameter& parameterY,
         XYPad& pad,
-        juce::UndoManager* um = nullptr);
+        juce::UndoManager* undoManager = nullptr);
 
     ~XYPadAttachment() override;
 

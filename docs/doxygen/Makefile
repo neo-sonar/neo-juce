@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 SOURCE_FILES := $(shell find ../../modules -type f -name "mc_*.hpp" -or -name "mc_*.dox" | sed 's/ /\\ /g')
 
-.PHONEY: clean
+.PHONY: clean
 
 doc/index.html: build/mc_modules.dox Doxyfile
 	doxygen
