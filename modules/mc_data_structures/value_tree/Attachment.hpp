@@ -80,7 +80,7 @@ private:
     }
 
     juce::ValueTree state_;
-    juce::Identifier const& id_;
+    juce::Identifier id_;
     value_type lastValue_;
     juce::UndoManager* undoManager_;
     std::function<void(value_type)> setValue_;
