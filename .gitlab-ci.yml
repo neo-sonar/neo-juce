@@ -31,41 +31,55 @@ win:msvc:release:
     cmake -S .. -DCMAKE_BUILD_TYPE=Release -DMC_BUILD_WERROR=ON
     cmake --build . --config Release --parallel 4
     ctest -C Release
-  dependencies: [ ]
+  dependencies: []
   needs: []
 
-mac:xcode:cpp14:
+mac:intel:cpp14:
   stage: build
   tags:
-    - mc-macos
+    - mc-macos-intel
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
     MACOSX_DEPLOYMENT_TARGET: "10.11"
   script:
-    - pip install conan --upgrade
     - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-cpp14 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=14 -DCMAKE_OSX_DEPLOYMENT_TARGET="10.11" -DMC_BUILD_WERROR=ON
-    - cmake --build cmake-build-cpp14
-    - cd cmake-build-cpp14
+    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=14 -DCMAKE_OSX_DEPLOYMENT_TARGET="10.11" -DMC_BUILD_WERROR=ON
+    - cmake --build cmake-build-release
+    - cd cmake-build-release
     - ctest
-  dependencies: [ ]
+  dependencies: []
   needs: []
 
-mac:xcode:cpp17:
+mac:intel:cpp17:
   stage: build
   tags:
-    - mc-macos
+    - mc-macos-intel
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
     MACOSX_DEPLOYMENT_TARGET: "10.14"
   script:
-    - pip install conan --upgrade
     - cd $CI_PROJECT_DIR
-    - cmake -S. -GNinja -Bcmake-build-cpp17 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DCMAKE_OSX_DEPLOYMENT_TARGET="10.14" -DMC_BUILD_WERROR=ON
-    - cmake --build cmake-build-cpp17
-    - cd cmake-build-cpp17
+    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DCMAKE_OSX_DEPLOYMENT_TARGET="10.14" -DMC_BUILD_WERROR=ON
+    - cmake --build cmake-build-release
+    - cd cmake-build-release
     - ctest
-  dependencies: [ ]
+  dependencies: []
+  needs: []
+
+mac:arm:cpp17:
+  stage: build
+  tags:
+    - mc-macos-arm
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    MACOSX_DEPLOYMENT_TARGET: "11.0"
+  script:
+    - cd $CI_PROJECT_DIR
+    - cmake -S. -GNinja -Bcmake-build-release -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DCMAKE_OSX_DEPLOYMENT_TARGET="11.0" -DMC_BUILD_WERROR=ON
+    - cmake --build cmake-build-release
+    - cd cmake-build-release
+    - ctest
+  dependencies: []
   needs: []
 
 linux:clang:release:
@@ -83,7 +97,7 @@ linux:clang:release:
     - cmake --build cmake-build-release
     - cd cmake-build-release
     - ctest
-  dependencies: [ ]
+  dependencies: []
   needs: []
 
 # linux:clang-tidy:
@@ -137,7 +151,7 @@ linux:gcc:coverage:
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
     CMAKE_BUILD_PARALLEL_LEVEL: 2
-  dependencies: [ ]
+  dependencies: []
   needs: []
   script:
     - make coverage-xml
