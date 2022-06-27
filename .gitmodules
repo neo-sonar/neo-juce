@@ -1,6 +1,6 @@
 [submodule "3rd_party/JUCE"]
 	path = 3rd_party/JUCE
 	url = https://github.com/juce-framework/JUCE
-[submodule "3rd_party/lib-stl"]
-	path = 3rd_party/lib-stl
-	url = ../lib-stl.git
+[submodule "3rd_party/mcSTL"]
+	path = 3rd_party/mcSTL
+	url = https://github.com/ModernCircuits/mcSTL

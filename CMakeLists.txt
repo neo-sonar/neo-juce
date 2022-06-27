@@ -23,7 +23,7 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 endif ()
 
-add_subdirectory(3rd_party/lib-stl)
+add_subdirectory(3rd_party/mcSTL)
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 juce_add_module(modules/mc_core             ALIAS_NAMESPACE mc)
 juce_add_module(modules/mc_data_structures  ALIAS_NAMESPACE mc)
