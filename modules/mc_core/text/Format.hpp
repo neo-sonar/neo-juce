@@ -15,7 +15,7 @@ namespace mc {
 template <typename... Args>
 MC_NODISCARD inline auto jformat(juce::String const& formatStr, Args&&... args) -> juce::String
 {
-    return juce::String { format(to_string_view(formatStr), args...) };
+    return juce::String { fmt::vformat(to_string_view(formatStr), fmt::make_format_args(args...)) };
 }
 
 } // namespace mc
