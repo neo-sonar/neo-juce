@@ -160,4 +160,6 @@ linux:gcc:coverage:
     name: ${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
     expire_in: 2 days
     reports:
-      cobertura: cmake-build-coverage/coverage.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: cmake-build-coverage/coverage.xml
