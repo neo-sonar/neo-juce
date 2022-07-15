@@ -1,6 +1,6 @@
 #include <mc_data_structures/mc_data_structures.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 #include "mc/future.hpp"
 

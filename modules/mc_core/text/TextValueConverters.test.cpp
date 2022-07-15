@@ -1,6 +1,7 @@
 #include <mc_core/mc_core.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_approx.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 TEST_CASE("core/text: ActiveTextConverter", "")
 {
@@ -59,17 +60,17 @@ TEST_CASE("core/text: GainTextConverter", "")
     SECTION("String -> float")
     {
         mc::GainTextConverter const converter {};
-        REQUIRE(converter("0.0 db") == Approx(1.0f));
+        REQUIRE(converter("0.0 db") == Catch::Approx(1.0f));
     }
     SECTION("String -> float")
     {
         mc::GainTextConverter const converter {};
-        REQUIRE(converter("1.0 db") == Approx(1.12202f));
+        REQUIRE(converter("1.0 db") == Catch::Approx(1.12202f));
     }
     SECTION("String -> float")
     {
         mc::GainTextConverter const converter {};
-        REQUIRE(converter("6.0 db") == Approx(1.99526f));
+        REQUIRE(converter("6.0 db") == Catch::Approx(1.99526f));
     }
 }
 

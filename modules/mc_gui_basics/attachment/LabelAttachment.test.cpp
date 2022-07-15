@@ -1,6 +1,6 @@
 #include <mc_gui_basics/mc_gui_basics.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 TEST_CASE("gui_basics/attachment: LabelValueTreeAttachment", "")
 {

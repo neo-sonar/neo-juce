@@ -1,6 +1,6 @@
 #include <mc_graphics/mc_graphics.hpp>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Point>", "", int, float, double)
 {

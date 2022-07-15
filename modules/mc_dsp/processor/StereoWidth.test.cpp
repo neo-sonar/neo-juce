@@ -1,8 +1,9 @@
 #include <mc_dsp/mc_dsp.hpp>
 
-#include <catch2/catch.hpp>
-
 #include "mc/random.hpp"
+
+#include <catch2/catch_approx.hpp>
+#include <catch2/catch_template_test_macros.hpp>
 
 template <typename FloatType>
 inline auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<FloatType>
@@ -63,7 +64,9 @@ TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "", float, double)
             auto* processedData = buffer.getWritePointer(channel);
 
             // check that original & processed buffer contain the same data
-            for (int i = 0; i < buffer.getNumSamples(); ++i) { CHECK(processedData[i] == Approx(originalData[i])); }
+            for (int i = 0; i < buffer.getNumSamples(); ++i) {
+                CHECK(processedData[i] == Catch::Approx(originalData[i]));
+            }
         }
     }
 
@@ -91,7 +94,7 @@ TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "", float, double)
 
         for (int i = 0; i < buffer.getNumSamples(); ++i) {
             // check that left & right buffers contain the same data.
-            CHECK(left[i] == Approx(right[i]));
+            CHECK(left[i] == Catch::Approx(right[i]));
         }
     }
 }
