@@ -25,7 +25,7 @@ else()
         PATH_OR_REFERENCE
             ${CMAKE_CURRENT_SOURCE_DIR}
         BUILD
-            always
+            missing
         SETTINGS
             ${settings}
     )
