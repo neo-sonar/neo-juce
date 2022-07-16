@@ -21,12 +21,24 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_subdirectory(3rd_party/mcSTL)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR})
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR})
+include(mcConan)
+include(mcCompilerOptions)
+include(mcCompilerWarnings)
+include(mcCodeCoverage)
+
+find_package(mc-core REQUIRED)
+
 add_subdirectory(3rd_party/JUCE EXCLUDE_FROM_ALL)
 add_subdirectory(modules)
 
 enable_testing()
 include(CTest)
+
+find_package(Catch2 REQUIRED)
+include(Catch)
 
 juce_add_console_app(${PROJECT_NAME}_tests PRODUCT_NAME "${PROJECT_NAME}_tests" NEEDS_CURL TRUE)
 catch_discover_tests(${PROJECT_NAME}_tests)
@@ -73,7 +85,7 @@ target_compile_definitions(${PROJECT_NAME}_tests
 
 target_link_libraries(${PROJECT_NAME}_tests
     PRIVATE
-        mc::mc_stl
+        mc-core::mc-core
         mc::mc_core
         mc::mc_data_structures
         mc::mc_dsp

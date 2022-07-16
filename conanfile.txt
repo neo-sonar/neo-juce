@@ -1,0 +1,12 @@
+[requires]
+mc-core/0.1.0@ltaudio/stable
+catch2/3.0.1
+
+[options]
+
+[generators]
+cmake_find_package
+markdown
+
+[imports]
+., license* -> ./licenses @ folder=True, ignore_case=True
