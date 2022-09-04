@@ -8,8 +8,9 @@ jobs:
     strategy:
       matrix:
         cxx: [14, 17, 20]
+        build_mode: ["Debug", "Release"]
       fail-fast: false
-    name: macOS C++ ${{ matrix.cxx_std }}
+    name: ${{ matrix.cxx }} - ${{ matrix.build_mode }}
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -23,20 +24,17 @@ jobs:
           brew install ninja conan
           conan config set general.revisions_enabled=1
 
-      - name: CMake configure -- Debug
-        run: cmake -S . -G "Ninja" -B cmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+      - name: CMake configure
+        run: >
+          cmake
+          -S .
+          -G Ninja
+          -B build
+          -D CMAKE_BUILD_TYPE=${{ matrix.build_mode }}
+          -D CMAKE_CXX_STANDARD="${{ matrix.cxx }}"
 
-      - name: CMake build -- Debug
-        run: cmake --build cmake-build-debug
+      - name: CMake build
+        run: cmake --build build
 
-      - name: CTest -- Debug
-        run: ctest --test-dir cmake-build-debug -C Debug
-
-      - name: CMake configure -- Release
-        run: cmake -S . -G "Ninja" -B cmake-build-release -DCMAKE_BUILD_TYPE=Release
-
-      - name: CMake build -- Release
-        run: cmake --build cmake-build-release
-
-      - name: CTest -- Release
-        run: ctest --test-dir cmake-build-release -C Release
+      - name: CTest
+        run: ctest --test-dir build -C ${{ matrix.build_mode }}
