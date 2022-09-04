@@ -18,6 +18,12 @@ jobs:
           submodules: true
           lfs: true
 
+      - name: Install conan
+        run: |
+          sudo apt update -y
+          pip install conan
+          conan config set general.revisions_enabled=1
+
       - name: Install JUCE dependencies
         run: >
           sudo apt install -y
@@ -38,11 +44,6 @@ jobs:
           libwebkit2gtk-4.0-dev
           libglu1-mesa-dev
           mesa-common-dev
-
-      - name: Install conan
-        run: |
-          pip install conan
-          conan config set general.revisions_enabled=1
 
       - name: CMake configure
         run: >
