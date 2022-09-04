@@ -30,6 +30,7 @@ include(mcCompilerWarnings)
 include(mcCodeCoverage)
 
 find_package(mc-core REQUIRED)
+find_package(mc-dsp REQUIRED)
 
 include(FetchContent)
 FetchContent_Declare(JUCE GIT_REPOSITORY "https://github.com/juce-framework/JUCE" GIT_TAG "7.0.2")
@@ -89,6 +90,7 @@ target_compile_definitions(${PROJECT_NAME}_tests
 target_link_libraries(${PROJECT_NAME}_tests
     PRIVATE
         mc-core::mc-core
+        mc-dsp::mc-dsp
         mc::mc_core
         mc::mc_data_structures
         mc::mc_dsp

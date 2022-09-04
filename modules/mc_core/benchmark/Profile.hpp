@@ -48,15 +48,14 @@ struct Profiler {
         auto name = result.Name;
         std::replace(name.begin(), name.end(), '"', '\'');
 
-        // auto const json = mc::format(                                                                    //
-        //     R"(,{{"cat":"function","dur": {0},"name": "{1}","ph":"X","pid":0,"tid": "{2}","ts": {3}}})", //
-        //     result.ElapsedTime.count(),                                                                  //
-        //     name,                                                                                        //
-        //     result.ThreadID,                                                                         //
-        //     result.Start.count()                                                                         //
-        // );
+        auto const json = mc::format(                                                                    //
+            R"(,{{"cat":"function","dur": {0},"name": "{1}","ph":"X","pid":0,"tid": "{2}","ts": {3}}})", //
+            result.ElapsedTime.count(),                                                                  //
+            name,                                                                                        //
+            fmt::streamed(result.ThreadID),                                                              //
+            result.Start.count()                                                                         //
+        );
 
-        auto const* json = "";
         std::lock_guard<std::mutex> lock(mutex_);
         if (currentSession_ != nullptr) { buffer_.push_back(json); }
     }
