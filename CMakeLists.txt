@@ -32,7 +32,7 @@ include(mcCodeCoverage)
 find_package(mc-core REQUIRED)
 
 include(FetchContent)
-FetchContent_Declare(JUCE GIT_REPOSITORY "https://github.com/juce-framework/JUCE" GIT_TAG "7.0.1")
+FetchContent_Declare(JUCE GIT_REPOSITORY "https://github.com/juce-framework/JUCE" GIT_TAG "7.0.2")
 FetchContent_MakeAvailable(JUCE)
 
 add_subdirectory(modules)

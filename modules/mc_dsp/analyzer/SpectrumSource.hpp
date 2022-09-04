@@ -9,10 +9,10 @@ struct SpectrumSource final : juce::Thread {
     SpectrumSource();
     ~SpectrumSource() override = default;
 
-    SpectrumSource(const SpectrumSource& other) = delete;
-    SpectrumSource(SpectrumSource&& other)      = delete;
+    SpectrumSource(const SpectrumSource& other)                  = delete;
+    SpectrumSource(SpectrumSource&& other)                       = delete;
     auto operator=(const SpectrumSource& rhs) -> SpectrumSource& = delete;
-    auto operator=(SpectrumSource&& rhs) -> SpectrumSource& = delete;
+    auto operator=(SpectrumSource&& rhs) -> SpectrumSource&      = delete;
 
     auto addAudioData(juce::AudioBuffer<float> const& buffer, int startChannel, int numChannels) -> void;
     auto setupAnalyser(int audioFifoSize, double sampleRateToUse) -> void;
@@ -34,7 +34,7 @@ private:
     juce::AudioBuffer<float> averager_;
 
     int averagerPtr_ = 1;
-    std::atomic<bool> newDataAvailable_ { false };
+    Atomic<bool> newDataAvailable_ { false };
 
     juce::WaitableEvent waitForData_;
     juce::CriticalSection pathCreationLock_;

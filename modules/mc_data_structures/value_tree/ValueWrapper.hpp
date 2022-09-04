@@ -36,7 +36,7 @@ struct AtomicWrapper {
         return value.load();
     }
 
-    std::atomic<Type> value { Type() };
+    Atomic<Type> value { Type() };
 };
 
 template <typename Type, typename Constrainer>

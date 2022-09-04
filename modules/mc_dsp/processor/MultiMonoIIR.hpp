@@ -66,7 +66,7 @@ private:
 
     juce::dsp::ProcessSpec specs_ {};
     juce::IIRCoefficients coefficients_ {};
-    std::vector<juce::IIRFilter> filters_ {};
+    Vector<juce::IIRFilter> filters_ {};
 };
 } // namespace mc
 

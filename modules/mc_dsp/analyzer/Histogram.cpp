@@ -3,7 +3,7 @@ namespace mc {
 Histogram::Histogram(HistogramSource* source, juce::Range<float> range) : source_ { source }, range_ { range }
 {
     jassert(!range.isEmpty());
-    startTimerHz(refreshRate_.count());
+    startTimerHz(refreshRate_);
 }
 
 auto Histogram::historyBuffer() const noexcept -> RingBuffer<float> const& { return history_; }
@@ -18,11 +18,11 @@ auto Histogram::historyToShow(Seconds<float> seconds) noexcept -> void
     resizeBuffer();
 }
 
-auto Histogram::refreshRate(Hertz<int> rate) -> void
+auto Histogram::refreshRate(int rate) -> void
 {
     refreshRate_ = rate;
     resizeBuffer();
-    if (isTimerRunning()) { startTimerHz(refreshRate_.count()); }
+    if (isTimerRunning()) { startTimerHz(refreshRate_); }
 }
 
 auto Histogram::paint(juce::Graphics& g) -> void
@@ -39,7 +39,7 @@ auto Histogram::timerCallback() -> void
 
 auto Histogram::resizeBuffer() -> void
 {
-    auto const size = static_cast<float>(refreshRate_.count()) * historyToKeep_.count();
+    auto const size = static_cast<float>(refreshRate_) * historyToKeep_.count();
     history_.resize(static_cast<std::uint32_t>(size));
 }
 } // namespace mc

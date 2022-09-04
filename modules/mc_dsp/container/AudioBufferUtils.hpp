@@ -1,8 +1,6 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_UTILS_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_UTILS_HPP
 
-#include "mc/random.hpp"
-
 namespace mc {
 struct AudioBufferUtils {
     template <typename FloatT>

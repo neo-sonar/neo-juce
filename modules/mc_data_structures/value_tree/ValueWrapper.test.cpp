@@ -2,8 +2,6 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-#include "mc/future.hpp"
-
 TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "", int, float, double)
 {
     constexpr auto iterations = 1'000;

@@ -18,7 +18,7 @@ private:
     LockFreeQueue<StaticVector<float, ChunkSize>> queue_ { 8U };
     std::size_t downSampleFactor_ { 8U };
 
-    std::vector<float> buffer_;
+    Vector<float> buffer_;
 };
 
 } // namespace mc

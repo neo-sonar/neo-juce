@@ -21,7 +21,7 @@ struct Histogram : juce::Component, juce::Timer {
     MC_NODISCARD auto valueRange() const noexcept -> juce::Range<float> const&;
 
     auto historyToShow(Seconds<float> seconds) noexcept -> void;
-    auto refreshRate(Hertz<int> rate) -> void;
+    auto refreshRate(int rate) -> void;
 
     auto paint(juce::Graphics& g) -> void override;
 
@@ -33,6 +33,6 @@ private:
     juce::Range<float> range_ { 1.0, 0.0 };
     RingBuffer<float> history_ {};
     Seconds<float> historyToKeep_ { 6.0f };
-    Hertz<int> refreshRate_ { 30 };
+    int refreshRate_ { 30 };
 };
 } // namespace mc

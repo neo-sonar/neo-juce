@@ -20,9 +20,9 @@ struct ToValueImpl<float> {
 } // namespace detail
 
 struct StringUtils {
-    MC_NODISCARD static auto split(juce::String const& str, char delimiter) -> std::vector<juce::String>
+    MC_NODISCARD static auto split(juce::String const& str, char delimiter) -> Vector<juce::String>
     {
-        std::vector<juce::String> tokens {};
+        Vector<juce::String> tokens {};
         std::string token {};
         std::istringstream tokenStream(str.toStdString());
         while (std::getline(tokenStream, token, delimiter)) { tokens.emplace_back(token); }

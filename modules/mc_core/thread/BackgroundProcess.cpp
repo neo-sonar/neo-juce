@@ -11,7 +11,7 @@ auto BackgroundProcess::startProcess(const juce::String& command) -> void
             if (proc.start(command)) {
                 this->processHasStarted_.store(true);
 
-                auto buffer = std::vector<std::uint8_t>(1024 * 16, std::uint8_t {});
+                auto buffer = Vector<std::uint8_t>(1024 * 16, std::uint8_t {});
                 while (proc.isRunning()) {
                     std::fill(std::begin(buffer), std::end(buffer), std::uint8_t {});
                     auto* const data   = static_cast<void*>(buffer.data());

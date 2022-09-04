@@ -15,7 +15,7 @@ private:
     double sampleRate_ { 44'100.0 };
     juce::AudioBuffer<float> summingBuffer_;
     Microseconds<double> timeSinceLastSample_ { 0 };
-    std::atomic<float> lastValue_ { 0.0f };
+    Atomic<float> lastValue_ { 0.0f };
 };
 
 } // namespace mc

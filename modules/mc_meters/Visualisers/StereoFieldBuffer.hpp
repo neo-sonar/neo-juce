@@ -10,12 +10,10 @@ template <typename FloatType>
 struct StereoFieldBuffer {
 private:
     juce::AudioBuffer<FloatType> sampleBuffer_;
-    std::atomic<int> writePosition_   = { 0 };
-    std::vector<FloatType> maxValues_ = { 180, 0.0 };
+    Atomic<int> writePosition_   = { 0 };
+    Vector<FloatType> maxValues_ = { 180, 0.0 };
 
-    JUCE_LEAK_DETECTOR(StereoFieldBuffer) // NOLINT
-
-    inline void computeDirection(std::vector<float>& directions, const FloatType left, const FloatType right) const
+    inline void computeDirection(Vector<float>& directions, const FloatType left, const FloatType right) const
     {
         if (left == 0) {
             directions[45] = std::max(directions[45], std::abs(right));
@@ -35,10 +33,10 @@ public:
     StereoFieldBuffer()  = default;
     ~StereoFieldBuffer() = default;
 
-    StereoFieldBuffer(const StereoFieldBuffer& other) = delete;
-    StereoFieldBuffer(StereoFieldBuffer&& other)      = delete;
+    StereoFieldBuffer(const StereoFieldBuffer& other)                  = delete;
+    StereoFieldBuffer(StereoFieldBuffer&& other)                       = delete;
     auto operator=(const StereoFieldBuffer& rhs) -> StereoFieldBuffer& = delete;
-    auto operator=(StereoFieldBuffer&& rhs) -> StereoFieldBuffer& = delete;
+    auto operator=(StereoFieldBuffer&& rhs) -> StereoFieldBuffer&      = delete;
 
     void setBufferSize(int newNumChannels, int newNumSamples)
     {
@@ -114,7 +112,7 @@ public:
 
     //  ==============================================================================
 
-    void getDirections(std::vector<FloatType>& directions, int numSamples, int leftIdx, int rightIdx)
+    void getDirections(Vector<FloatType>& directions, int numSamples, int leftIdx, int rightIdx)
     {
         jassert(directions.size() == 180);
         std::fill(directions.begin(), directions.end(), 0.0);

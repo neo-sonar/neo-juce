@@ -50,7 +50,7 @@ struct Registry {
     auto shrinkToFit() -> void;
 
 private:
-    std::vector<std::pair<size_type, optional<T>>> map_;
+    Vector<std::pair<size_type, Optional<T>>> map_;
     size_type size_ = 0;
     ticket_type id_ = 0;
 };

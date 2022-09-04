@@ -8,10 +8,10 @@ struct BackgroundProcess : private juce::Timer {
         Listener()          = default;
         virtual ~Listener() = default;
 
-        Listener(const Listener& other) = delete;
-        Listener(Listener&& other)      = delete;
+        Listener(const Listener& other)                  = delete;
+        Listener(Listener&& other)                       = delete;
         auto operator=(const Listener& rhs) -> Listener& = delete;
-        auto operator=(Listener&& rhs) -> Listener& = delete;
+        auto operator=(Listener&& rhs) -> Listener&      = delete;
 
         virtual auto backgroundProcessStarted(BackgroundProcess* process) -> void                             = 0;
         virtual auto backgroundProcessFinished(BackgroundProcess* process, std::uint32_t exitCode) -> void    = 0;
@@ -21,10 +21,10 @@ struct BackgroundProcess : private juce::Timer {
     explicit BackgroundProcess(juce::ThreadPool* threadPool);
     ~BackgroundProcess() override = default;
 
-    BackgroundProcess(const BackgroundProcess& other) = delete;
-    BackgroundProcess(BackgroundProcess&& other)      = delete;
+    BackgroundProcess(const BackgroundProcess& other)                  = delete;
+    BackgroundProcess(BackgroundProcess&& other)                       = delete;
     auto operator=(const BackgroundProcess& rhs) -> BackgroundProcess& = delete;
-    auto operator=(BackgroundProcess&& rhs) -> BackgroundProcess& = delete;
+    auto operator=(BackgroundProcess&& rhs) -> BackgroundProcess&      = delete;
 
     auto startProcess(const juce::String& command) -> void;
     auto addListener(Listener* listener) -> void;
@@ -36,9 +36,9 @@ private:
     juce::ListenerList<Listener> listeners_ {};
     ThreadSafeQueue<juce::String> queue_ {};
     juce::ThreadPool* threadPool_ { nullptr };
-    std::atomic<bool> processHasStarted_ { false };
-    std::atomic<bool> processHasFinished_ { false };
-    std::atomic<uint32_t> processExitCode_ { 0 };
+    Atomic<bool> processHasStarted_ { false };
+    Atomic<bool> processHasFinished_ { false };
+    Atomic<uint32_t> processExitCode_ { 0 };
 };
 
 } // namespace mc

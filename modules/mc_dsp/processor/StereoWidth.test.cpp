@@ -1,7 +1,5 @@
 #include <mc_dsp/mc_dsp.hpp>
 
-#include "mc/random.hpp"
-
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 

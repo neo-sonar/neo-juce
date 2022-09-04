@@ -1,7 +1,5 @@
 #include "mc_core/mc_core.hpp"
 
-#include "mc/functional.hpp"
-
 #include <catch2/catch_template_test_macros.hpp>
 
 namespace {

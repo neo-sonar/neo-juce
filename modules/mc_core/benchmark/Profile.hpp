@@ -1,16 +1,6 @@
 #ifndef MODERN_CIRCUITS_JUCE_MODULES_PROFILE_HPP
 #define MODERN_CIRCUITS_JUCE_MODULES_PROFILE_HPP
 
-#include "mc/algorithm.hpp"
-#include "mc/chrono.hpp"
-#include "mc/fstream.hpp"
-#include "mc/iomanip.hpp"
-#include "mc/memory.hpp"
-#include "mc/mutex.hpp"
-#include "mc/sstream.hpp"
-#include "mc/string.hpp"
-#include "mc/thread.hpp"
-
 namespace mc {
 
 using FloatingPointMicroseconds = std::chrono::duration<double, std::micro>;
@@ -58,14 +48,15 @@ struct Profiler {
         auto name = result.Name;
         std::replace(name.begin(), name.end(), '"', '\'');
 
-        auto const json = mc::format(                                                                    //
-            R"(,{{"cat":"function","dur": {0},"name": "{1}","ph":"X","pid":0,"tid": "{2}","ts": {3}}})", //
-            result.ElapsedTime.count(),                                                                  //
-            name,                                                                                        //
-            result.ThreadID,                                                                             //
-            result.Start.count()                                                                         //
-        );
+        // auto const json = mc::format(                                                                    //
+        //     R"(,{{"cat":"function","dur": {0},"name": "{1}","ph":"X","pid":0,"tid": "{2}","ts": {3}}})", //
+        //     result.ElapsedTime.count(),                                                                  //
+        //     name,                                                                                        //
+        //     result.ThreadID,                                                                         //
+        //     result.Start.count()                                                                         //
+        // );
 
+        auto const* json = "";
         std::lock_guard<std::mutex> lock(mutex_);
         if (currentSession_ != nullptr) { buffer_.push_back(json); }
     }
@@ -108,7 +99,7 @@ private:
     std::mutex mutex_;
     std::unique_ptr<InstrumentationSession> currentSession_ { nullptr };
     std::ofstream outputStream_;
-    std::vector<std::string> buffer_;
+    Vector<std::string> buffer_;
 };
 
 struct ProfileTimer {
@@ -122,10 +113,10 @@ struct ProfileTimer {
         if (!stopped_) { stop(); }
     }
 
-    ProfileTimer(const ProfileTimer& other) = delete;
-    ProfileTimer(ProfileTimer&& other)      = delete;
+    ProfileTimer(const ProfileTimer& other)                  = delete;
+    ProfileTimer(ProfileTimer&& other)                       = delete;
     auto operator=(const ProfileTimer& rhs) -> ProfileTimer& = delete;
-    auto operator=(ProfileTimer&& rhs) -> ProfileTimer& = delete;
+    auto operator=(ProfileTimer&& rhs) -> ProfileTimer&      = delete;
 
     void stop()
     {

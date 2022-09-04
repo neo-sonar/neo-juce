@@ -48,10 +48,10 @@ private:
             return (*this);
         }
 
-        std::atomic<float> max;
-        std::atomic<float> maxOverall;
-        std::atomic<bool> clip;
-        std::atomic<float> reduction;
+        Atomic<float> max;
+        Atomic<float> maxOverall;
+        Atomic<bool> clip;
+        Atomic<float> reduction;
 
         MC_NODISCARD auto getAvgRMS() const -> float
         {
@@ -100,9 +100,9 @@ private:
             }
         }
 
-        std::atomic<juce::int64> hold_;
-        std::vector<double> rmsHistory_;
-        std::atomic<double> rmsSum_;
+        Atomic<juce::int64> hold_;
+        Vector<double> rmsHistory_;
+        Atomic<double> rmsSum_;
         size_t rmsPtr_ { 0 };
     };
 
@@ -283,11 +283,11 @@ private:
 
     constexpr static float infinity = -100.0f;
 
-    std::vector<ChannelData> levels_;
+    Vector<ChannelData> levels_;
 
     juce::int64 holdMSecs_ { 500 };
 
-    std::atomic<juce::int64> lastMeasurement_;
+    Atomic<juce::int64> lastMeasurement_;
 
     bool newDataFlag_ = true;
 

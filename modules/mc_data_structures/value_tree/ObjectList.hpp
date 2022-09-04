@@ -44,14 +44,14 @@ struct ValueTreeObjectList : public juce::ValueTree::Listener {
         deleteAllObjects();
     }
 
-    MC_NODISCARD auto getObjects() -> std::vector<ObjectType*>& { return objects_; }
-    MC_NODISCARD auto getObjects() const -> std::vector<ObjectType*> const& { return objects_; }
+    MC_NODISCARD auto getObjects() -> Vector<ObjectType*>& { return objects_; }
+    MC_NODISCARD auto getObjects() const -> Vector<ObjectType*> const& { return objects_; }
     MC_NODISCARD auto getValueTree() noexcept -> juce::ValueTree& { return parent_; }
 
 protected:
     using ScopedLockType = typename CriticalSectionType::ScopedLockType;
     CriticalSectionType objectsMutex_;
-    std::vector<ObjectType*> objects_ {};
+    Vector<ObjectType*> objects_ {};
     juce::ValueTree parent_ {};
 
     void deleteAllObjects()
