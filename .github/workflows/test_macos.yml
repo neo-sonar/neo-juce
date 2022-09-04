@@ -1,0 +1,42 @@
+name: macOS
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: macos-12
+    strategy:
+      matrix:
+        cxx: [14, 17, 20]
+      fail-fast: false
+    name: macOS C++ ${{ matrix.cxx_std }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: true
+
+      - name: Install dependencies
+        run: |
+          brew update
+          brew install ninja conan
+          conan config set general.revisions_enabled=1
+
+      - name: CMake configure -- Debug
+        run: cmake -S . -G "Ninja" -B cmake-build-debug -DCMAKE_BUILD_TYPE=Debug
+
+      - name: CMake build -- Debug
+        run: cmake --build cmake-build-debug
+
+      - name: CTest -- Debug
+        run: ctest --test-dir cmake-build-debug -C Debug
+
+      - name: CMake configure -- Release
+        run: cmake -S . -G "Ninja" -B cmake-build-release -DCMAKE_BUILD_TYPE=Release
+
+      - name: CMake build -- Release
+        run: cmake --build cmake-build-release
+
+      - name: CTest -- Release
+        run: ctest --test-dir cmake-build-release -C Release
