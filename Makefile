@@ -1,3 +1,5 @@
+CXX_STD ?= 14
+
 BUILD_DIR ?= cmake-build-debug
 
 CLANG_FORMAT_BINARY ?= clang-format
@@ -20,7 +22,7 @@ tidy-fix:
 
 .PHONY: coverage
 coverage:
-	cmake -S. -GNinja -Bcmake-build-coverage -DCMAKE_BUILD_TYPE=Debug -DMC_BUILD_COVERAGE=TRUE
+	cmake -S. -GNinja -Bcmake-build-coverage -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=${CXX_STD} -DMC_BUILD_COVERAGE=TRUE
 	cmake --build cmake-build-coverage
 	cd cmake-build-coverage && ctest -j ${shell nproc}
 
