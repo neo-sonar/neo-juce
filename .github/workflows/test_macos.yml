@@ -34,7 +34,7 @@ jobs:
           -D CMAKE_CXX_STANDARD="${{ matrix.cxx }}"
 
       - name: CMake build
-        run: cmake --build build
+        run: cmake --build build --config ${{ matrix.build_mode }}
 
       - name: CTest
-        run: ctest --test-dir build -C ${{ matrix.build_mode }}
+        run: ctest --test-dir build -C ${{ matrix.build_mode }} --output-on-failure
