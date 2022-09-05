@@ -24,15 +24,15 @@ tidy-fix:
 coverage:
 	cmake -S. -GNinja -Bcmake-build-coverage -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=${CXX_STD} -DMC_BUILD_COVERAGE=TRUE
 	cmake --build cmake-build-coverage
-	cd cmake-build-coverage && ctest -j ${shell nproc}
+	ctest --test-dir cmake-build-coverage -C Debug --output-on-failure
 
 .PHONY: coverage-html
 coverage-html: coverage
-	cd cmake-build-coverage && gcovr --html --html-details --exclude-unreachable-branches -o coverage.html -r ../modules -j ${shell nproc} -s .
+	cd cmake-build-coverage && gcovr --html --html-details -e ".*test\.cpp" --exclude-unreachable-branches -o coverage.html -r ../modules -j ${shell nproc} -s .
 
 .PHONY: coverage-xml
 coverage-xml: coverage
-	cd cmake-build-coverage && gcovr --xml-pretty --exclude-unreachable-branches -o coverage.xml  -r ../modules -j ${shell nproc} -s .
+	cd cmake-build-coverage && gcovr --xml-pretty -e ".*test\.cpp" --exclude-unreachable-branches -o coverage.xml  -r ../modules -j ${shell nproc} -s .
 
 
 .PHONY: report
