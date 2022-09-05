@@ -31,6 +31,8 @@ jobs:
         run: >
           sudo apt install -y
           ninja-build
+          gcovr
+          lcov
           libasound2-dev
           libjack-jackd2-dev
           ladspa-sdk
