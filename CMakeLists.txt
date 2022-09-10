@@ -55,6 +55,7 @@ target_sources(${PROJECT_NAME}_tests
         # modules/mc_core/javascript/JSONUtils.test.cpp
         modules/mc_core/math/NormalisableRange.test.cpp
         modules/mc_core/math/Range.test.cpp
+        modules/mc_core/misc/Result.test.cpp
         modules/mc_core/text/Format.test.cpp
         modules/mc_core/text/TextValueConverters.test.cpp
         modules/mc_core/time/Duration.test.cpp
