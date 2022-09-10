@@ -35,7 +35,6 @@
 
 #include "util/BusesLayout.hpp"
 
-#include "processor/MultiMonoIIR.hpp"
 #include "processor/StereoWidth.hpp"
 
 #include "analyzer/DownSamplingAnalyzer.hpp"
