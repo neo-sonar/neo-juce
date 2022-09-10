@@ -22,8 +22,9 @@
 
 #include <mc_core/mc_core.hpp>
 
+#include "value_tree/AtomicWrapper.hpp"
 #include "value_tree/Attachment.hpp"
+#include "value_tree/ConstrainerWrapper.hpp"
 #include "value_tree/ObjectList.hpp"
-#include "value_tree/ValueWrapper.hpp"
 
 #endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DATA_STRUCTURES_HPP

@@ -61,7 +61,8 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_core/time/Duration.test.cpp
         modules/mc_core/time/Time.test.cpp
 
-        modules/mc_data_structures/value_tree/ValueWrapper.test.cpp
+        modules/mc_data_structures/value_tree/AtomicWrapper.test.cpp
+        modules/mc_data_structures/value_tree/ConstrainerWrapper.test.cpp
 
         modules/mc_dsp/algorithm/downSample.test.cpp
         modules/mc_dsp/clock/TriggerClock.test.cpp
