@@ -57,7 +57,6 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_core/math/Range.test.cpp
         modules/mc_core/misc/Result.test.cpp
         modules/mc_core/text/Format.test.cpp
-        modules/mc_core/text/TextValueConverters.test.cpp
         modules/mc_core/time/Duration.test.cpp
         modules/mc_core/time/Time.test.cpp
 
@@ -69,6 +68,8 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_dsp/container/AudioBufferUtils.test.cpp
         modules/mc_dsp/processor/StereoWidth.test.cpp
         modules/mc_dsp/util/BusesLayout.test.cpp
+        modules/mc_dsp/util/TextValueConverters.test.cpp
+        modules/mc_dsp/util/TrueFalseTextConverter.test.cpp
 
         modules/mc_graphics/color/Color.test.cpp
         modules/mc_graphics/geometry/Line.test.cpp
@@ -95,6 +96,7 @@ target_link_libraries(${PROJECT_NAME}_tests
         mc-core::mc-core
         mc-dsp::mc-dsp
         mc::mc_core
+        mc::mc_events
         mc::mc_data_structures
         mc::mc_dsp
         mc::mc_graphics

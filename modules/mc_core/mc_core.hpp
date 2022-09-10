@@ -6,10 +6,10 @@
  version:       0.1.0
  name:          Modern Circuits JUCE Core module
  description:   Core JUCE extensions and utilities.
- dependencies:  juce_core, juce_events, juce_audio_basics
+ dependencies:  juce_core
 
  END_JUCE_MODULE_DECLARATION
- */
+*/
 
 #pragma once
 
@@ -17,17 +17,13 @@
     #define USE_MC_CORE
 #endif
 
-#include <juce_audio_basics/juce_audio_basics.h>
 #include <juce_core/juce_core.h>
-#include <juce_events/juce_events.h>
 
 #include <mc/core.hpp>
 
 #include "text/Format.hpp"
 #include "text/String.hpp"
 #include "text/Strings.hpp"
-#include "text/TextValueConverters.hpp"
-#include "text/TrueFalseTextConverter.hpp"
 
 #include "container/Array.hpp"
 #include "container/BitSet.hpp"
@@ -45,7 +41,5 @@
 
 #include "time/Duration.hpp"
 #include "time/Time.hpp"
-
-#include "thread/BackgroundProcess.hpp"
 
 #include "benchmark/Profile.hpp"

@@ -6,10 +6,10 @@
  version:       0.1.0
  name:          Graphics
  description:   JUCE graphics extensions and utilities.
- dependencies:  juce_gui_basics, mc_data_structures
+ dependencies:  juce_gui_basics, mc_data_structures, mc_graphics
 
  END_JUCE_MODULE_DECLARATION
- */
+*/
 
 #pragma once
 
@@ -19,6 +19,7 @@
 
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <mc_data_structures/mc_data_structures.hpp>
+#include <mc_graphics/mc_graphics.hpp>
 
 #include "button/ButtonUtils.hpp"
 

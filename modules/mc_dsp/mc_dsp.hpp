@@ -9,7 +9,7 @@
  dependencies:  juce_audio_processors, juce_dsp, mc_data_structures, mc_gui_basics
 
  END_JUCE_MODULE_DECLARATION
- */
+*/
 
 #pragma once
 
@@ -33,6 +33,8 @@
 #include "clock/TriggerClock.hpp"
 
 #include "util/BusesLayout.hpp"
+#include "util/TextValueConverters.hpp"
+#include "util/TrueFalseTextConverter.hpp"
 
 #include "processor/StereoWidth.hpp"
 

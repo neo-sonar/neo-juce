@@ -9,7 +9,7 @@
  dependencies:  juce_data_structures, mc_core
 
  END_JUCE_MODULE_DECLARATION
- */
+*/
 
 #pragma once
 

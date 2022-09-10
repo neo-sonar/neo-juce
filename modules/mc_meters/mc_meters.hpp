@@ -9,7 +9,7 @@
  dependencies:  juce_audio_basics, mc_data_structures
 
  END_JUCE_MODULE_DECLARATION
- */
+*/
 
 #pragma once
 
