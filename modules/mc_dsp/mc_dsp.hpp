@@ -35,7 +35,7 @@
 #include "clock/Bars.hpp"
 #include "clock/TriggerClock.hpp"
 
-#include "util/BusesLayoutUtils.hpp"
+#include "util/BusesLayout.hpp"
 
 #include "processor/MultiMonoIIR.hpp"
 #include "processor/StereoWidth.hpp"

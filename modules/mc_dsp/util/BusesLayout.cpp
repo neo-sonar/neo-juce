@@ -1,5 +1,5 @@
 namespace mc {
-auto BusesLayoutUtils::isSameInOut(juce::AudioProcessor::BusesLayout const& layout) noexcept -> bool
+auto isSameInOut(juce::AudioProcessor::BusesLayout const& layout) noexcept -> bool
 {
     auto const inputSet  = layout.getMainInputChannelSet();
     auto const outputSet = layout.getMainOutputChannelSet();
@@ -12,12 +12,12 @@ auto BusesLayoutUtils::isSameInOut(juce::AudioProcessor::BusesLayout const& layo
     return inputSet == outputSet;
 }
 
-auto BusesLayoutUtils::isMonoInOut(juce::AudioProcessor::BusesLayout const& layout) noexcept -> bool
+auto isMonoInOut(juce::AudioProcessor::BusesLayout const& layout) noexcept -> bool
 {
     return isSameInOut(layout) && (layout.getMainOutputChannelSet() == juce::AudioChannelSet::mono());
 }
 
-auto BusesLayoutUtils::isStereoInOut(juce::AudioProcessor::BusesLayout const& layout) noexcept -> bool
+auto isStereoInOut(juce::AudioProcessor::BusesLayout const& layout) noexcept -> bool
 {
     return isSameInOut(layout) && (layout.getMainOutputChannelSet() == juce::AudioChannelSet::stereo());
 }

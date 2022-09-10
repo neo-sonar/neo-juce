@@ -10,4 +10,4 @@
 #include "attachment/XYPadAttachment.cpp"    // NOLINT(bugprone-suspicious-include)
 #include "clock/TriggerClock.cpp"            // NOLINT(bugprone-suspicious-include)
 #include "container/AudioBufferUtils.cpp"    // NOLINT(bugprone-suspicious-include)
-#include "util/BusesLayoutUtils.cpp"         // NOLINT(bugprone-suspicious-include)
+#include "util/BusesLayout.cpp"              // NOLINT(bugprone-suspicious-include)

@@ -69,7 +69,7 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_dsp/container/AudioBufferUtils.test.cpp
         modules/mc_dsp/processor/MultiMonoIIR.test.cpp
         modules/mc_dsp/processor/StereoWidth.test.cpp
-        modules/mc_dsp/util/BusesLayoutUtils.test.cpp
+        modules/mc_dsp/util/BusesLayout.test.cpp
 
         modules/mc_graphics/color/Color.test.cpp
         modules/mc_graphics/geometry/Line.test.cpp
