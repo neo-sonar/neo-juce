@@ -14,7 +14,7 @@ auto BackgroundProcess::startProcess(const juce::String& command) -> void
 
                 auto buffer = Vector<std::uint8_t>(static_cast<size_t>(1024 * 16), std::uint8_t {});
                 while (proc.isRunning()) {
-                    std::fill(std::begin(buffer), std::end(buffer), std::uint8_t {});
+                    std::fill(begin(buffer), end(buffer), std::uint8_t {});
                     auto* const data   = static_cast<void*>(buffer.data());
                     auto const maxSize = static_cast<int>(buffer.size());
                     auto num           = proc.readProcessOutput(data, maxSize);

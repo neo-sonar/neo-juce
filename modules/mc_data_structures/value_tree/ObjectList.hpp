@@ -57,7 +57,7 @@ protected:
     void deleteAllObjects()
     {
         ScopedLockType lock(objectsMutex_);
-        std::for_each(std::begin(_objects), std::end(_objects), [this](auto* obj) { deleteObject(obj); });
+        std::for_each(begin(_objects), end(_objects), [this](auto* obj) { deleteObject(obj); });
         _objects.clear();
     }
 
@@ -141,7 +141,7 @@ private:
     void sortArray()
     {
         auto compare = [this](auto* lhs, auto* rhs) { return compareElements(lhs, rhs); };
-        std::sort(std::begin(_objects), std::end(_objects), compare);
+        std::sort(begin(_objects), end(_objects), compare);
     }
 
     auto compareElements(ObjectType* first, ObjectType* second) const -> int
