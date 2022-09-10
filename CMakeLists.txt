@@ -117,4 +117,3 @@ message("C:                \t ${CMAKE_C_STANDARD}")
 message("C++:              \t ${CMAKE_CXX_STANDARD}")
 message("MACOS:            \t ${CMAKE_OSX_DEPLOYMENT_TARGET}")
 message("------------------------------------------")
-

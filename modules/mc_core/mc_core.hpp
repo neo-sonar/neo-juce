@@ -71,7 +71,6 @@
 #include <mc/core/vector.hpp>
 #include <mc/core/version.hpp>
 
-
 #include "text/Format.hpp"
 #include "text/StringUtils.hpp"
 #include "text/TextValueConverters.hpp"

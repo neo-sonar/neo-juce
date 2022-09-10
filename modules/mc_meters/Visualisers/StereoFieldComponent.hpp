@@ -22,10 +22,10 @@ struct StereoFieldComponent : juce::Component {
         LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
 
-        LookAndFeelMethods(const LookAndFeelMethods& other) = delete;
-        LookAndFeelMethods(LookAndFeelMethods&& other)      = delete;
+        LookAndFeelMethods(const LookAndFeelMethods& other)                  = delete;
+        LookAndFeelMethods(LookAndFeelMethods&& other)                       = delete;
         auto operator=(const LookAndFeelMethods& rhs) -> LookAndFeelMethods& = delete;
-        auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods& = delete;
+        auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods&      = delete;
 
         virtual void setupDefaultStereoFieldColours() = 0;
 
@@ -55,10 +55,10 @@ struct StereoFieldComponent : juce::Component {
 
     ~StereoFieldComponent() override = default;
 
-    StereoFieldComponent(const StereoFieldComponent& other) = delete;
-    StereoFieldComponent(StereoFieldComponent&& other)      = delete;
+    StereoFieldComponent(const StereoFieldComponent& other)                  = delete;
+    StereoFieldComponent(StereoFieldComponent&& other)                       = delete;
     auto operator=(const StereoFieldComponent& rhs) -> StereoFieldComponent& = delete;
-    auto operator=(StereoFieldComponent&& rhs) -> StereoFieldComponent& = delete;
+    auto operator=(StereoFieldComponent&& rhs) -> StereoFieldComponent&      = delete;
 
     void paint(juce::Graphics& g) override
     {

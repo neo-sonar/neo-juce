@@ -15,10 +15,10 @@ struct Spectrum : juce::Component, juce::Timer {
         LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
 
-        LookAndFeelMethods(const LookAndFeelMethods& other) = delete;
-        LookAndFeelMethods(LookAndFeelMethods&& other)      = delete;
+        LookAndFeelMethods(const LookAndFeelMethods& other)                  = delete;
+        LookAndFeelMethods(LookAndFeelMethods&& other)                       = delete;
         auto operator=(const LookAndFeelMethods& rhs) -> LookAndFeelMethods& = delete;
-        auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods& = delete;
+        auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods&      = delete;
 
         virtual auto getAnalyserPathBounds(juce::Rectangle<int> const& area) -> juce::Rectangle<int>           = 0;
         virtual auto getAnalyserFrequencyLabelBounds(juce::Rectangle<int> const& area) -> juce::Rectangle<int> = 0;
@@ -33,10 +33,10 @@ struct Spectrum : juce::Component, juce::Timer {
     explicit Spectrum(SpectrumSource& analyser);
     ~Spectrum() override = default;
 
-    Spectrum(const Spectrum& other) = delete;
-    Spectrum(Spectrum&& other)      = delete;
+    Spectrum(const Spectrum& other)                  = delete;
+    Spectrum(Spectrum&& other)                       = delete;
     auto operator=(const Spectrum& rhs) -> Spectrum& = delete;
-    auto operator=(Spectrum&& rhs) -> Spectrum& = delete;
+    auto operator=(Spectrum&& rhs) -> Spectrum&      = delete;
 
     auto paint(juce::Graphics& g) -> void override;
     auto resized() -> void override;
