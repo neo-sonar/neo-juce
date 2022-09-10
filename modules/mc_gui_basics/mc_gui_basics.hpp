@@ -30,5 +30,6 @@
 
 #include "attachment/LabelAttachment.hpp"
 #include "attachment/SliderAttachment.hpp"
+// #include "attachment/XYPadAttachment.hpp"
 
 #endif // MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP

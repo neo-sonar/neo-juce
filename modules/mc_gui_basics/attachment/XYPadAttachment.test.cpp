@@ -1,10 +1,9 @@
-#include <mc_dsp/mc_dsp.hpp>
 #include <mc_gui_basics/mc_gui_basics.hpp>
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("dsp/attachment: XYPadAttachment", "") // NOLINT
+TEST_CASE("gui_basics/attachment: XYPadAttachment", "") // NOLINT
 {
     mc::XYPad xypad {};
     REQUIRE(xypad.getXRange().start == Catch::Approx(0.0F));

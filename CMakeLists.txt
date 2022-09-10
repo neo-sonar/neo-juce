@@ -63,7 +63,6 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_data_structures/value_tree/ValueWrapper.test.cpp
 
         modules/mc_dsp/algorithm/downSample.test.cpp
-        modules/mc_dsp/attachment/XYPadAttachment.test.cpp
         modules/mc_dsp/clock/TriggerClock.test.cpp
         modules/mc_dsp/container/AudioBufferUtils.test.cpp
         modules/mc_dsp/processor/MultiMonoIIR.test.cpp
@@ -78,6 +77,7 @@ target_sources(${PROJECT_NAME}_tests
 
         modules/mc_gui_basics/attachment/LabelAttachment.test.cpp
         modules/mc_gui_basics/attachment/SliderAttachment.test.cpp
+        # modules/mc_gui_basics/attachment/XYPadAttachment.test.cpp
 
         modules/mc_gui_basics/widget/XYPad.test.cpp
 )

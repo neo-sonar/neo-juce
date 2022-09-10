@@ -50,6 +50,4 @@
 // #include "airwindows/AirWindowsCoils2.hpp"
 //#include "airwindows/AirWindowsVerbity.hpp"
 
-#include "attachment/XYPadAttachment.hpp"
-
 #endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP

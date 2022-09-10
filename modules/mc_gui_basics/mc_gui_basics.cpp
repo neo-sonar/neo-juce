@@ -5,3 +5,4 @@
 #include "mouse/MouseUtils.cpp"            // NOLINT(bugprone-suspicious-include)
 #include "widget/Components.cpp"           // NOLINT(bugprone-suspicious-include)
 #include "widget/XYPad.cpp"                // NOLINT(bugprone-suspicious-include)
+// #include "attachment/XYPadAttachment.cpp"  // NOLINT(bugprone-suspicious-include)
