@@ -49,7 +49,7 @@ auto DownSamplingAnalyzer::process(juce::AudioBuffer<double> const& buffer) -> v
         queue_, buffer, downSampleFactor_);
 }
 
-auto DownSamplingAnalyzer::buffer() const noexcept -> span<float const> { return buffer_; }
+auto DownSamplingAnalyzer::buffer() const noexcept -> Span<float const> { return buffer_; }
 
 auto DownSamplingAnalyzer::timerCallback() -> void
 {

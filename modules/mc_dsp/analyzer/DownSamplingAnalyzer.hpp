@@ -9,7 +9,7 @@ struct DownSamplingAnalyzer final : juce::Timer, juce::ChangeBroadcaster {
     void process(juce::AudioBuffer<float> const& buffer);
     void process(juce::AudioBuffer<double> const& buffer);
 
-    MC_NODISCARD auto buffer() const noexcept -> span<float const>;
+    MC_NODISCARD auto buffer() const noexcept -> Span<float const>;
 
 private:
     auto timerCallback() -> void override;

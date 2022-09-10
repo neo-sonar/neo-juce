@@ -9,7 +9,7 @@ struct OscilloscopeSource {
     auto process(juce::AudioBuffer<float> const& buffer) -> void;
     auto process(juce::AudioBuffer<double> const& buffer) -> void;
 
-    MC_NODISCARD auto currentScope() const noexcept -> span<float const>;
+    MC_NODISCARD auto currentScope() const noexcept -> Span<float const>;
 
     auto addChangeListener(juce::ChangeListener* l) -> void;
     auto removeChangeListener(juce::ChangeListener* l) -> void;

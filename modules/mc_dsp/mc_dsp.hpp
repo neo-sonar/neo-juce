@@ -18,6 +18,8 @@
     #define USE_MC_DSP 1
 #endif
 
+#include <mc/dsp.hpp>
+
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 #include <mc_data_structures/mc_data_structures.hpp>
