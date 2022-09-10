@@ -2,7 +2,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("core/misc: fail", "")
+TEST_CASE("core/misc: fail", "[core]")
 {
     auto result = mc::fail("error: {} and 42", juce::String { "foo" }, 42);
     REQUIRE(result.failed());

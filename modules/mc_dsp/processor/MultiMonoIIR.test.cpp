@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("dsp/processor: MultiMonoIIR", "", float, double)
+TEMPLATE_TEST_CASE("dsp/processor: MultiMonoIIR", "[dsp]", float, double)
 {
     auto filter         = mc::MultiMonoIIR<TestType> {};
     auto buffer         = mc::AudioBufferUtils::createNoiseBuffer<TestType>(2, 512);

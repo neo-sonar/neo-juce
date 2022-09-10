@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("core/time: VariantConverter<mc::Milliseconds>", "")
+TEST_CASE("core/time: VariantConverter<mc::Milliseconds>", "[core]")
 {
     auto test = [](auto const& tc) -> bool {
         auto const var = juce::VariantConverter<mc::Milliseconds<double>>::toVar(tc);
@@ -14,7 +14,7 @@ TEST_CASE("core/time: VariantConverter<mc::Milliseconds>", "")
     REQUIRE(test(mc::Milliseconds<double> { 2.0 }));
 }
 
-TEST_CASE("core/time: VariantConverter<mc::Seconds>", "")
+TEST_CASE("core/time: VariantConverter<mc::Seconds>", "[core]")
 {
     auto test = [](auto const& tc) -> bool {
         auto const var = juce::VariantConverter<mc::Seconds<double>>::toVar(tc);
@@ -26,7 +26,7 @@ TEST_CASE("core/time: VariantConverter<mc::Seconds>", "")
     REQUIRE(test(mc::Seconds<double> { 2.0 }));
 }
 
-TEST_CASE("core/time: VariantConverter<std::chrono::seconds>", "")
+TEST_CASE("core/time: VariantConverter<std::chrono::seconds>", "[core]")
 {
     auto test = [](auto const& tc) -> bool {
         auto const var = juce::VariantConverter<std::chrono::seconds>::toVar(tc);
@@ -38,7 +38,7 @@ TEST_CASE("core/time: VariantConverter<std::chrono::seconds>", "")
     REQUIRE(test(std::chrono::seconds { 2 }));
 }
 
-TEST_CASE("core/time: VariantConverter<std::chrono::milliseconds>", "")
+TEST_CASE("core/time: VariantConverter<std::chrono::milliseconds>", "[core]")
 {
     auto test = [](auto const& tc) -> bool {
         auto const var = juce::VariantConverter<std::chrono::milliseconds>::toVar(tc);

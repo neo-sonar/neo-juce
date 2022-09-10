@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Line>", "", int, float, double)
+TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Line>", "[graphics]", int, float, double)
 {
     auto convert = [](auto const& value) -> juce::Line<TestType> {
         auto const var = juce::VariantConverter<juce::Line<TestType>>::toVar(value);

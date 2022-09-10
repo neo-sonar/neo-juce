@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::Range>", "", int, float, double)
+TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::Range>", "[core]", int, float, double)
 {
     SECTION("empty")
     {

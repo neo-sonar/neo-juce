@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "", int, float, double)
+TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "[data_structures]", int, float, double)
 {
     constexpr auto iterations = 1'000;
     auto c                    = juce::ValueTree("CLIP");
@@ -17,7 +17,7 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "", int, float, 
     REQUIRE(static_cast<TestType>(start.get()) == iterations);
 }
 
-TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "", int, float, double)
+TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "[data_structures]", int, float, double)
 {
     struct StartTimeConstrainer {
         static auto constrain(const TestType& v) -> TestType

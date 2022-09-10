@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("core/text: TrueFalseTextConverter", "")
+TEST_CASE("core/text: TrueFalseTextConverter", "[core]")
 {
     SECTION("String -> float")
     {

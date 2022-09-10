@@ -9,7 +9,7 @@ struct SomeStruct {
 };
 } // namespace
 
-TEMPLATE_TEST_CASE("core/container: Registry::Construct", "", char, int, float, SomeStruct)
+TEMPLATE_TEST_CASE("core/container: Registry::Construct", "[core]", char, int, float, SomeStruct)
 {
     SECTION("default")
     {
@@ -26,7 +26,7 @@ TEMPLATE_TEST_CASE("core/container: Registry::Construct", "", char, int, float, 
     }
 }
 
-TEMPLATE_TEST_CASE("core/container: Registry::Append", "", char, int, float, SomeStruct)
+TEMPLATE_TEST_CASE("core/container: Registry::Append", "[core]", char, int, float, SomeStruct)
 {
     auto reg      = mc::Registry<TestType> {};
     auto const t1 = reg.append({});
@@ -36,7 +36,7 @@ TEMPLATE_TEST_CASE("core/container: Registry::Append", "", char, int, float, Som
     REQUIRE(t1 < t2);
 }
 
-TEMPLATE_TEST_CASE("core/container: Registry::Erase", "", char, int, float, SomeStruct)
+TEMPLATE_TEST_CASE("core/container: Registry::Erase", "[core]", char, int, float, SomeStruct)
 {
     auto reg      = mc::Registry<TestType> {};
     auto const t1 = reg.append({});
@@ -50,7 +50,7 @@ TEMPLATE_TEST_CASE("core/container: Registry::Erase", "", char, int, float, Some
     REQUIRE(reg.size() == 0);
 }
 
-TEMPLATE_TEST_CASE("core/container: Registry::capacity", "", char, int, float, SomeStruct)
+TEMPLATE_TEST_CASE("core/container: Registry::capacity", "[core]", char, int, float, SomeStruct)
 {
     auto reg = mc::Registry<TestType> {};
     REQUIRE(reg.capacity() == 0);
@@ -69,7 +69,7 @@ TEMPLATE_TEST_CASE("core/container: Registry::capacity", "", char, int, float, S
     REQUIRE(reg.capacity() == 1);
 }
 
-TEST_CASE("core/container: Registry::forEach", "")
+TEST_CASE("core/container: Registry::forEach", "[core]")
 {
     auto reg = mc::Registry<std::function<int(int)>> {};
     auto t1  = reg.append([](auto x) -> int { return x; });
@@ -100,7 +100,7 @@ TEST_CASE("core/container: Registry::forEach", "")
     }
 }
 
-TEST_CASE("core/container: Registry::forID", "")
+TEST_CASE("core/container: Registry::forID", "[core]")
 {
     auto reg = mc::Registry<std::function<int(int)>> {};
 

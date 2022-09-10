@@ -3,7 +3,7 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("gui_basics/attachment: SliderValueTreeAttachment", "")
+TEST_CASE("gui_basics/attachment: SliderValueTreeAttachment", "[gui_basics]")
 {
     auto const id = juce::Identifier { "value" };
     juce::UndoManager undoManager {};

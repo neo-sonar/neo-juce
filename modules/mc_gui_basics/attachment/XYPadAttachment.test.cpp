@@ -3,7 +3,7 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("gui_basics/attachment: XYPadAttachment", "") // NOLINT
+TEST_CASE("gui_basics/attachment: XYPadAttachment", "[gui_basics]") // NOLINT
 {
     mc::XYPad xypad {};
     REQUIRE(xypad.getXRange().start == Catch::Approx(0.0F));

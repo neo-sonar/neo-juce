@@ -2,12 +2,12 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("core/text: format", "")
+TEST_CASE("core/text: format", "[core]")
 {
     REQUIRE(mc::format("{0}test{0}{1}", 143, juce::String { "foo" }) == "143test143foo");
 }
 
-TEST_CASE("core/text: jformat", "")
+TEST_CASE("core/text: jformat", "[core]")
 {
     REQUIRE(mc::jformat("test") == "test");
     REQUIRE(mc::jformat("test{}", 143) == "test143");

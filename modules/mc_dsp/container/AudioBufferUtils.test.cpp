@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::sumToMono", "", float, double)
+TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::sumToMono", "[dsp]", float, double)
 {
     auto src = juce::AudioBuffer<TestType> { 2, 512 };
     auto dst = juce::AudioBuffer<TestType> { 1, 512 };
@@ -12,7 +12,7 @@ TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::sumToMono", "", float, doub
     REQUIRE(mc::AudioBufferUtils::allOf(dst, TestType { 0.5 }));
 }
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::split", "", float, double)
+TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::split", "[dsp]", float, double)
 {
     auto src = juce::AudioBuffer<TestType> { 1, 512 };
     auto dst = juce::AudioBuffer<TestType> { 4, 512 };
@@ -22,21 +22,21 @@ TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::split", "", float, double)
     REQUIRE(mc::AudioBufferUtils::allOf(dst, TestType { 2.0 }));
 }
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::containsNANs", "", float, double)
+TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::containsNANs", "[dsp]", float, double)
 {
     auto buffer = juce::AudioBuffer<TestType> { 2, 512 };
     mc::AudioBufferUtils::fill(buffer, TestType { 0.5 });
     REQUIRE_FALSE(mc::AudioBufferUtils::containsNANs(buffer));
 }
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::containsINFs", "", float, double)
+TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::containsINFs", "[dsp]", float, double)
 {
     auto buffer = juce::AudioBuffer<TestType> { 2, 512 };
     mc::AudioBufferUtils::fill(buffer, TestType { 0.5 });
     REQUIRE_FALSE(mc::AudioBufferUtils::containsINFs(buffer));
 }
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::equal", "", float, double)
+TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::equal", "[dsp]", float, double)
 {
     SECTION("same buffer")
     {

@@ -6,7 +6,7 @@ namespace mc {
 template <typename SampleType>
 struct MultiMonoIIR {
     // This processor only works with float & double as its sample type.
-    static_assert(std::is_same<SampleType, float>::value || std::is_same<SampleType, double>::value, "");
+    static_assert(std::is_same<SampleType, float>::value || std::is_same<SampleType, double>::value, "[dsp]");
 
     MultiMonoIIR() = default;
 

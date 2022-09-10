@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Point>", "", int, float, double)
+TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Point>", "[graphics]", int, float, double)
 {
     auto convert = [](auto const& value) -> juce::Point<TestType> {
         auto const var = juce::VariantConverter<juce::Point<TestType>>::toVar(value);
