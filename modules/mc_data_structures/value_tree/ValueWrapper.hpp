@@ -44,8 +44,8 @@ struct ConstrainerWrapper {
     ConstrainerWrapper() = default;
 
     template <typename OtherType>
-    ConstrainerWrapper(const OtherType& other)  // NOLINT(hicpp-explicit-conversions)
-        : value(Constrainer::constrain(static_cast<Type>(other))) 
+    ConstrainerWrapper(const OtherType& other) // NOLINT(hicpp-explicit-conversions)
+        : value(Constrainer::constrain(static_cast<Type>(other)))
     {
     }
 
