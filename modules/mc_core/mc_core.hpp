@@ -72,7 +72,7 @@
 #include <mc/core/version.hpp>
 
 #include "text/Format.hpp"
-#include "text/StringUtils.hpp"
+#include "text/Strings.hpp"
 #include "text/TextValueConverters.hpp"
 #include "text/TrueFalseTextConverter.hpp"
 

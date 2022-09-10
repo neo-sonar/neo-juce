@@ -4,11 +4,11 @@ template <typename ValueType>
 struct juce::VariantConverter<juce::Rectangle<ValueType>> {
     MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Rectangle<ValueType>
     {
-        auto const splits = mc::StringUtils::split(v.toString(), ':');
-        auto const x      = mc::StringUtils::toValue<ValueType>(splits[0]);
-        auto const y      = mc::StringUtils::toValue<ValueType>(splits[1]);
-        auto const width  = mc::StringUtils::toValue<ValueType>(splits[2]);
-        auto const height = mc::StringUtils::toValue<ValueType>(splits[3]);
+        auto const splits = mc::strings::split(v.toString(), ':');
+        auto const x      = mc::strings::toValue<ValueType>(splits[0]);
+        auto const y      = mc::strings::toValue<ValueType>(splits[1]);
+        auto const width  = mc::strings::toValue<ValueType>(splits[2]);
+        auto const height = mc::strings::toValue<ValueType>(splits[3]);
         return juce::Rectangle<ValueType> { x, y, width, height };
     }
 
