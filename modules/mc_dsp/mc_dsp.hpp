@@ -15,7 +15,7 @@
 #define MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP
 
 #ifndef USE_MC_DSP
-    #define USE_MC_DSP 1
+    #define USE_MC_DSP
 #endif
 
 #include <mc/dsp.hpp>
@@ -27,8 +27,6 @@
 
 #include "algorithm/downSample.hpp"
 
-#include "container/AudioBufferPool.hpp"
-#include "container/AudioBufferQueue.hpp"
 #include "container/AudioBufferUtils.hpp"
 #include "container/RingBuffer.hpp"
 

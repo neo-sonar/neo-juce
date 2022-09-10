@@ -65,7 +65,6 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_dsp/algorithm/downSample.test.cpp
         modules/mc_dsp/attachment/XYPadAttachment.test.cpp
         modules/mc_dsp/clock/TriggerClock.test.cpp
-        modules/mc_dsp/container/AudioBufferPool.test.cpp
         modules/mc_dsp/container/AudioBufferUtils.test.cpp
         modules/mc_dsp/processor/MultiMonoIIR.test.cpp
         modules/mc_dsp/processor/StereoWidth.test.cpp
