@@ -71,9 +71,11 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_dsp/processor/StereoWidth.test.cpp
         modules/mc_dsp/util/BusesLayoutUtils.test.cpp
 
-        modules/mc_graphics/color/ColorUtils.test.cpp
-        modules/mc_graphics/geometry/GeometryUtils.test.cpp
-        modules/mc_graphics/images/ImageUtils.test.cpp
+        modules/mc_graphics/color/Color.test.cpp
+        modules/mc_graphics/geometry/Line.test.cpp
+        modules/mc_graphics/geometry/Point.test.cpp
+        modules/mc_graphics/geometry/Rectangle.test.cpp
+        modules/mc_graphics/images/Image.test.cpp
 
         modules/mc_gui_basics/attachment/LabelAttachment.test.cpp
         modules/mc_gui_basics/attachment/SliderAttachment.test.cpp

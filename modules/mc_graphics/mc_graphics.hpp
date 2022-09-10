@@ -21,8 +21,11 @@
 #include <juce_graphics/juce_graphics.h>
 #include <mc_core/mc_core.hpp>
 
-#include "color/ColorUtils.hpp"
-#include "geometry/GeometryUtils.hpp"
+#include "color/Color.hpp"
+#include "geometry/Line.hpp"
+#include "geometry/Point.hpp"
+#include "geometry/Rectangle.hpp"
+#include "images/Image.hpp"
 #include "images/ImageUtils.hpp"
 
 #endif // MODERN_CIRCUITS_JUCE_MODULES_MC_GRAPHICS_HPP
