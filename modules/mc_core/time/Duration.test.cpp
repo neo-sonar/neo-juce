@@ -9,9 +9,9 @@ TEST_CASE("core/time: VariantConverter<mc::Milliseconds>", "")
         return tc == juce::VariantConverter<mc::Milliseconds<double>>::fromVar(var);
     };
 
-    CHECK(test(mc::Milliseconds<double> { 0.5 }));
-    CHECK(test(mc::Milliseconds<double> { 1.0 }));
-    CHECK(test(mc::Milliseconds<double> { 2.0 }));
+    REQUIRE(test(mc::Milliseconds<double> { 0.5 }));
+    REQUIRE(test(mc::Milliseconds<double> { 1.0 }));
+    REQUIRE(test(mc::Milliseconds<double> { 2.0 }));
 }
 
 TEST_CASE("core/time: VariantConverter<mc::Seconds>", "")
@@ -21,9 +21,9 @@ TEST_CASE("core/time: VariantConverter<mc::Seconds>", "")
         return tc == juce::VariantConverter<mc::Seconds<double>>::fromVar(var);
     };
 
-    CHECK(test(mc::Seconds<double> { 0.5 }));
-    CHECK(test(mc::Seconds<double> { 1.0 }));
-    CHECK(test(mc::Seconds<double> { 2.0 }));
+    REQUIRE(test(mc::Seconds<double> { 0.5 }));
+    REQUIRE(test(mc::Seconds<double> { 1.0 }));
+    REQUIRE(test(mc::Seconds<double> { 2.0 }));
 }
 
 TEST_CASE("core/time: VariantConverter<std::chrono::seconds>", "")
@@ -33,9 +33,9 @@ TEST_CASE("core/time: VariantConverter<std::chrono::seconds>", "")
         return tc == juce::VariantConverter<std::chrono::seconds>::fromVar(var);
     };
 
-    CHECK(test(std::chrono::seconds { 0 }));
-    CHECK(test(std::chrono::seconds { 1 }));
-    CHECK(test(std::chrono::seconds { 2 }));
+    REQUIRE(test(std::chrono::seconds { 0 }));
+    REQUIRE(test(std::chrono::seconds { 1 }));
+    REQUIRE(test(std::chrono::seconds { 2 }));
 }
 
 TEST_CASE("core/time: VariantConverter<std::chrono::milliseconds>", "")
@@ -45,7 +45,7 @@ TEST_CASE("core/time: VariantConverter<std::chrono::milliseconds>", "")
         return tc == juce::VariantConverter<std::chrono::milliseconds>::fromVar(var);
     };
 
-    CHECK(test(std::chrono::milliseconds { 0 }));
-    CHECK(test(std::chrono::milliseconds { 1 }));
-    CHECK(test(std::chrono::milliseconds { 2 }));
+    REQUIRE(test(std::chrono::milliseconds { 0 }));
+    REQUIRE(test(std::chrono::milliseconds { 1 }));
+    REQUIRE(test(std::chrono::milliseconds { 2 }));
 }

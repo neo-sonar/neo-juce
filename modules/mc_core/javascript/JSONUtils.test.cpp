@@ -6,5 +6,5 @@ TEST_CASE("core/javascript: JSONUtils::loadFromURL", "")
 {
     auto url  = juce::URL { "https://jsonplaceholder.typicode.com/users" };
     auto json = mc::JSONUtils::loadFromURL(url);
-    CHECK(json.getArray()->size() == 10);
+    REQUIRE(json.getArray()->size() == 10);
 }

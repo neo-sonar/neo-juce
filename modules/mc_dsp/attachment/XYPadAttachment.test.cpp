@@ -7,31 +7,31 @@
 TEST_CASE("dsp/attachment: XYPadAttachment", "") // NOLINT
 {
     mc::XYPad xypad {};
-    CHECK(xypad.getXRange().start == Catch::Approx(0.0F));
-    CHECK(xypad.getXRange().end == Catch::Approx(1.0F));
+    REQUIRE(xypad.getXRange().start == Catch::Approx(0.0F));
+    REQUIRE(xypad.getXRange().end == Catch::Approx(1.0F));
 
-    CHECK(xypad.getValueX() == Catch::Approx(0.0F));
-    CHECK(xypad.getValueY() == Catch::Approx(0.0F));
+    REQUIRE(xypad.getValueX() == Catch::Approx(0.0F));
+    REQUIRE(xypad.getValueY() == Catch::Approx(0.0F));
 
     xypad.setValueX(0.5F);
     xypad.setValueY(0.75F);
-    CHECK(xypad.getValueX() == Catch::Approx(0.5F));
-    CHECK(xypad.getValueY() == Catch::Approx(0.75F));
+    REQUIRE(xypad.getValueX() == Catch::Approx(0.5F));
+    REQUIRE(xypad.getValueY() == Catch::Approx(0.75F));
 
     juce::AudioParameterFloat paramA { "a", "a", 0.0F, 100.0F, 0.0F };
     juce::AudioParameterFloat paramB { "b", "b", 0.0F, 50.0F, 0.0F };
 
     mc::XYPadAttachment attachment { paramA, paramB, xypad, nullptr };
-    CHECK(xypad.getXRange().start == Catch::Approx(0.0F));
-    CHECK(xypad.getXRange().end == Catch::Approx(100.0F));
-    CHECK(xypad.getYRange().start == Catch::Approx(0.0F));
-    CHECK(xypad.getYRange().end == Catch::Approx(50.0F));
+    REQUIRE(xypad.getXRange().start == Catch::Approx(0.0F));
+    REQUIRE(xypad.getXRange().end == Catch::Approx(100.0F));
+    REQUIRE(xypad.getYRange().start == Catch::Approx(0.0F));
+    REQUIRE(xypad.getYRange().end == Catch::Approx(50.0F));
 
-    CHECK(xypad.getValueX() == Catch::Approx(0.0F));
-    CHECK(xypad.getValueY() == Catch::Approx(0.0F));
+    REQUIRE(xypad.getValueX() == Catch::Approx(0.0F));
+    REQUIRE(xypad.getValueY() == Catch::Approx(0.0F));
 
     paramA = 50.0F;
     paramB = 25.0F;
-    CHECK(xypad.getValueX() == Catch::Approx(50.0F));
-    CHECK(xypad.getValueY() == Catch::Approx(25.0F));
+    REQUIRE(xypad.getValueX() == Catch::Approx(50.0F));
+    REQUIRE(xypad.getValueY() == Catch::Approx(25.0F));
 }

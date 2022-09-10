@@ -13,19 +13,19 @@ TEST_CASE("gui_basics/attachment: SliderValueTreeAttachment", "")
 
     juce::Slider slider { "slider" };
     mc::SliderValueTreeAttachment attachment { valueTree, id, slider, &undoManager };
-    CHECK(slider.getValue() == Catch::Approx(2.0F));
+    REQUIRE(slider.getValue() == Catch::Approx(2.0F));
 
     slider.setValue(3.0F, juce::sendNotificationSync);
-    CHECK(value.get() == Catch::Approx(3.0F));
-    CHECK(slider.getValue() == Catch::Approx(3.0F));
+    REQUIRE(value.get() == Catch::Approx(3.0F));
+    REQUIRE(slider.getValue() == Catch::Approx(3.0F));
 
     slider.startedDragging();
     slider.setValue(3.1F, juce::sendNotificationSync);
-    CHECK(value.get() == Catch::Approx(3.1F));
-    CHECK(slider.getValue() == Catch::Approx(3.1F));
+    REQUIRE(value.get() == Catch::Approx(3.1F));
+    REQUIRE(slider.getValue() == Catch::Approx(3.1F));
 
     slider.setValue(3.2F, juce::sendNotificationSync);
-    CHECK(value.get() == Catch::Approx(3.2F));
-    CHECK(slider.getValue() == Catch::Approx(3.2F));
+    REQUIRE(value.get() == Catch::Approx(3.2F));
+    REQUIRE(slider.getValue() == Catch::Approx(3.2F));
     slider.stoppedDragging();
 }

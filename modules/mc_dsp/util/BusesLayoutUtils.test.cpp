@@ -9,12 +9,12 @@ TEST_CASE("dsp/util: BusesLayoutUtils::isSameInOut", "")
         auto l1        = juce::AudioProcessor::BusesLayout {};
         l1.inputBuses  = juce::AudioChannelSet::mono();
         l1.outputBuses = juce::AudioChannelSet::stereo();
-        CHECK_FALSE(mc::BusesLayoutUtils::isSameInOut(l1));
+        REQUIRE_FALSE(mc::BusesLayoutUtils::isSameInOut(l1));
 
         auto l2        = juce::AudioProcessor::BusesLayout {};
         l2.inputBuses  = juce::AudioChannelSet::stereo();
         l2.outputBuses = juce::AudioChannelSet::mono();
-        CHECK_FALSE(mc::BusesLayoutUtils::isSameInOut(l2));
+        REQUIRE_FALSE(mc::BusesLayoutUtils::isSameInOut(l2));
     }
 
     SECTION("mono")
@@ -22,7 +22,7 @@ TEST_CASE("dsp/util: BusesLayoutUtils::isSameInOut", "")
         auto layout        = juce::AudioProcessor::BusesLayout {};
         layout.inputBuses  = juce::AudioChannelSet::mono();
         layout.outputBuses = juce::AudioChannelSet::mono();
-        CHECK(mc::BusesLayoutUtils::isSameInOut(layout));
+        REQUIRE(mc::BusesLayoutUtils::isSameInOut(layout));
     }
 
     SECTION("stereo")
@@ -30,7 +30,7 @@ TEST_CASE("dsp/util: BusesLayoutUtils::isSameInOut", "")
         auto layout        = juce::AudioProcessor::BusesLayout {};
         layout.inputBuses  = juce::AudioChannelSet::stereo();
         layout.outputBuses = juce::AudioChannelSet::stereo();
-        CHECK(mc::BusesLayoutUtils::isSameInOut(layout));
+        REQUIRE(mc::BusesLayoutUtils::isSameInOut(layout));
     }
 }
 
@@ -41,12 +41,12 @@ TEST_CASE("dsp/util: BusesLayoutUtils::isStereoInOut", "")
         auto l1        = juce::AudioProcessor::BusesLayout {};
         l1.inputBuses  = juce::AudioChannelSet::mono();
         l1.outputBuses = juce::AudioChannelSet::stereo();
-        CHECK_FALSE(mc::BusesLayoutUtils::isStereoInOut(l1));
+        REQUIRE_FALSE(mc::BusesLayoutUtils::isStereoInOut(l1));
 
         auto l2        = juce::AudioProcessor::BusesLayout {};
         l2.inputBuses  = juce::AudioChannelSet::stereo();
         l2.outputBuses = juce::AudioChannelSet::mono();
-        CHECK_FALSE(mc::BusesLayoutUtils::isStereoInOut(l2));
+        REQUIRE_FALSE(mc::BusesLayoutUtils::isStereoInOut(l2));
     }
 
     SECTION("mono")
@@ -54,7 +54,7 @@ TEST_CASE("dsp/util: BusesLayoutUtils::isStereoInOut", "")
         auto layout        = juce::AudioProcessor::BusesLayout {};
         layout.inputBuses  = juce::AudioChannelSet::mono();
         layout.outputBuses = juce::AudioChannelSet::mono();
-        CHECK_FALSE(mc::BusesLayoutUtils::isStereoInOut(layout));
+        REQUIRE_FALSE(mc::BusesLayoutUtils::isStereoInOut(layout));
     }
 
     SECTION("stereo")
@@ -62,6 +62,6 @@ TEST_CASE("dsp/util: BusesLayoutUtils::isStereoInOut", "")
         auto layout        = juce::AudioProcessor::BusesLayout {};
         layout.inputBuses  = juce::AudioChannelSet::stereo();
         layout.outputBuses = juce::AudioChannelSet::stereo();
-        CHECK(mc::BusesLayoutUtils::isStereoInOut(layout));
+        REQUIRE(mc::BusesLayoutUtils::isStereoInOut(layout));
     }
 }

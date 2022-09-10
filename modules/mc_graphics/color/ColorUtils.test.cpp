@@ -8,20 +8,20 @@ TEST_CASE("graphics/color: VariantConverter<juce::Colour>", "")
     {
         auto const color = juce::Colours::black;
         auto const var   = juce::VariantConverter<juce::Colour>::toVar(color);
-        CHECK(color == juce::VariantConverter<juce::Colour>::fromVar(var));
+        REQUIRE(color == juce::VariantConverter<juce::Colour>::fromVar(var));
     }
 
     SECTION("white")
     {
         auto const color = juce::Colours::white;
         auto const var   = juce::VariantConverter<juce::Colour>::toVar(color);
-        CHECK(color == juce::VariantConverter<juce::Colour>::fromVar(var));
+        REQUIRE(color == juce::VariantConverter<juce::Colour>::fromVar(var));
     }
 
     SECTION("pink")
     {
         auto const color = juce::Colours::pink;
         auto const var   = juce::VariantConverter<juce::Colour>::toVar(color);
-        CHECK(color == juce::VariantConverter<juce::Colour>::fromVar(var));
+        REQUIRE(color == juce::VariantConverter<juce::Colour>::fromVar(var));
     }
 }

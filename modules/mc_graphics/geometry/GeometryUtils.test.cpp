@@ -10,16 +10,16 @@ TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Point>", "", int, 
     };
 
     auto const empty = juce::Point<TestType> {};
-    CHECK(empty == convert(empty));
+    REQUIRE(empty == convert(empty));
 
     auto const zero = juce::Point<TestType> { 0, 0 };
-    CHECK(zero == convert(zero));
+    REQUIRE(zero == convert(zero));
 
     auto const positive = juce::Point<TestType> { 75, 75 };
-    CHECK(positive == convert(positive));
+    REQUIRE(positive == convert(positive));
 
     auto const negative = juce::Point<TestType> { -25, -25 };
-    CHECK(negative == convert(negative));
+    REQUIRE(negative == convert(negative));
 }
 
 TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Line>", "", int, float, double)
@@ -30,13 +30,13 @@ TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Line>", "", int, f
     };
 
     auto const empty = juce::Line<TestType> {};
-    CHECK(empty == convert(empty));
+    REQUIRE(empty == convert(empty));
 
     auto const oneHundred = juce::Line<TestType> { 0, 0, 100, 100 };
-    CHECK(oneHundred == convert(oneHundred));
+    REQUIRE(oneHundred == convert(oneHundred));
 
     auto const negative = juce::Line<TestType> { -25, -25, 25, 25 };
-    CHECK(negative == convert(negative));
+    REQUIRE(negative == convert(negative));
 }
 
 TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Rectangle>", "", int, float, double)
@@ -47,11 +47,11 @@ TEMPLATE_TEST_CASE("graphics/geometry: VariantConverter<juce::Rectangle>", "", i
     };
 
     auto const empty = juce::Rectangle<TestType> {};
-    CHECK(empty == convert(empty));
+    REQUIRE(empty == convert(empty));
 
     auto const oneHundred = juce::Rectangle<TestType> { 0, 0, 100, 100 };
-    CHECK(oneHundred == convert(oneHundred));
+    REQUIRE(oneHundred == convert(oneHundred));
 
     auto const negative = juce::Rectangle<TestType> { -25, -25, 25, 25 };
-    CHECK(negative == convert(negative));
+    REQUIRE(negative == convert(negative));
 }

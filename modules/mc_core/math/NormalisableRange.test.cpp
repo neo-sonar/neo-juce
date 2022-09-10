@@ -10,11 +10,11 @@ TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::NormalisableRange>", "", f
         auto const var      = juce::VariantConverter<juce::NormalisableRange<TestType>>::toVar(expected);
         auto const testCase = juce::VariantConverter<juce::NormalisableRange<TestType>>::fromVar(var);
 
-        CHECK(expected.start == testCase.start);
-        CHECK(expected.end == testCase.end);
-        CHECK(expected.interval == testCase.interval);
-        CHECK(expected.skew == testCase.skew);
-        CHECK(expected.symmetricSkew == testCase.symmetricSkew);
+        REQUIRE(expected.start == testCase.start);
+        REQUIRE(expected.end == testCase.end);
+        REQUIRE(expected.interval == testCase.interval);
+        REQUIRE(expected.skew == testCase.skew);
+        REQUIRE(expected.symmetricSkew == testCase.symmetricSkew);
     }
 
     SECTION("0.0 - 10.0")
@@ -23,10 +23,10 @@ TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::NormalisableRange>", "", f
         auto const var      = juce::VariantConverter<juce::NormalisableRange<TestType>>::toVar(expected);
         auto const testCase = juce::VariantConverter<juce::NormalisableRange<TestType>>::fromVar(var);
 
-        CHECK(expected.start == testCase.start);
-        CHECK(expected.end == testCase.end);
-        CHECK(expected.interval == testCase.interval);
-        CHECK(expected.skew == testCase.skew);
-        CHECK(expected.symmetricSkew == testCase.symmetricSkew);
+        REQUIRE(expected.start == testCase.start);
+        REQUIRE(expected.end == testCase.end);
+        REQUIRE(expected.interval == testCase.interval);
+        REQUIRE(expected.skew == testCase.skew);
+        REQUIRE(expected.symmetricSkew == testCase.symmetricSkew);
     }
 }

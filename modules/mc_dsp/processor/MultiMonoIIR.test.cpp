@@ -15,6 +15,6 @@ TEMPLATE_TEST_CASE("dsp/processor: MultiMonoIIR", "", float, double)
     filter.reset();
     filter.process(context);
 
-    CHECK_FALSE(mc::AudioBufferUtils::containsNANs(buffer));
-    CHECK_FALSE(mc::AudioBufferUtils::containsINFs(buffer));
+    REQUIRE_FALSE(mc::AudioBufferUtils::containsNANs(buffer));
+    REQUIRE_FALSE(mc::AudioBufferUtils::containsINFs(buffer));
 }

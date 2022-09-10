@@ -19,18 +19,18 @@ inline auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<Float
     return buffer;
 }
 
-#define CHECK_FOR_NANS(buffer)                                                                                         \
+#define REQUIRE_FOR_NANS(buffer)                                                                                       \
     for (auto channel = 0; channel < (buffer).getNumChannels(); ++channel) {                                           \
         auto* samples = (buffer).getWritePointer(channel);                                                             \
-        for (int i = 0; i < (buffer).getNumSamples(); ++i) { CHECK_FALSE(std::isnan(samples[i])); }                    \
+        for (int i = 0; i < (buffer).getNumSamples(); ++i) { REQUIRE_FALSE(std::isnan(samples[i])); }                  \
     }                                                                                                                  \
     do {                                                                                                               \
     } while (false)
 
-#define CHECK_FOR_INFS(buffer)                                                                                         \
+#define REQUIRE_FOR_INFS(buffer)                                                                                       \
     for (auto channel = 0; channel < (buffer).getNumChannels(); ++channel) {                                           \
         auto* samples = (buffer).getWritePointer(channel);                                                             \
-        for (int i = 0; i < (buffer).getNumSamples(); ++i) { CHECK_FALSE(std::isinf(samples[i])); }                    \
+        for (int i = 0; i < (buffer).getNumSamples(); ++i) { REQUIRE_FALSE(std::isinf(samples[i])); }                  \
     }                                                                                                                  \
     do {                                                                                                               \
     } while (false)
@@ -55,15 +55,15 @@ TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "", float, double)
         dspChain.process(context);
 
         // check
-        CHECK_FOR_NANS(buffer);
-        CHECK_FOR_INFS(buffer);
+        REQUIRE_FOR_NANS(buffer);
+        REQUIRE_FOR_INFS(buffer);
         for (auto channel = 0; channel < buffer.getNumChannels(); ++channel) {
             auto* originalData  = originalBuffer.getWritePointer(channel);
             auto* processedData = buffer.getWritePointer(channel);
 
             // check that original & processed buffer contain the same data
             for (int i = 0; i < buffer.getNumSamples(); ++i) {
-                CHECK(processedData[i] == Catch::Approx(originalData[i]));
+                REQUIRE(processedData[i] == Catch::Approx(originalData[i]));
             }
         }
     }
@@ -85,14 +85,14 @@ TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "", float, double)
         dspChain.process(context);
 
         // check
-        CHECK_FOR_NANS(buffer);
-        CHECK_FOR_INFS(buffer);
+        REQUIRE_FOR_NANS(buffer);
+        REQUIRE_FOR_INFS(buffer);
         auto* left  = buffer.getWritePointer(0);
         auto* right = buffer.getWritePointer(1);
 
         for (int i = 0; i < buffer.getNumSamples(); ++i) {
             // check that left & right buffers contain the same data.
-            CHECK(left[i] == Catch::Approx(right[i]));
+            REQUIRE(left[i] == Catch::Approx(right[i]));
         }
     }
 }

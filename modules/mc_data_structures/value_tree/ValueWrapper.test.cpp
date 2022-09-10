@@ -14,7 +14,7 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "", int, float, 
     });
 
     read.wait();
-    CHECK(static_cast<TestType>(start.get()) == iterations);
+    REQUIRE(static_cast<TestType>(start.get()) == iterations);
 }
 
 TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "", int, float, double)
@@ -29,7 +29,7 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "", int, fl
     struct CachedValueClip : public juce::ReferenceCountedObject {
         explicit CachedValueClip(juce::ValueTree const& v) : state { v }
         {
-            CHECK(v.hasType("CLIP"));
+            REQUIRE(v.hasType("CLIP"));
             start.referTo(state, "start", nullptr);
         }
 
@@ -41,14 +41,14 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "", int, fl
     CachedValueClip c(clipState);
 
     c.start = 0;
-    CHECK(c.start.get().value == 0);
+    REQUIRE(c.start.get().value == 0);
 
     c.start = TestType { 10 };
-    CHECK(c.start.get().value == TestType { 10 });
+    REQUIRE(c.start.get().value == TestType { 10 });
 
     c.start = TestType { 43 };
-    CHECK(c.start.get().value == TestType { 42 });
+    REQUIRE(c.start.get().value == TestType { 42 });
 
     c.start = TestType { -1 };
-    CHECK(c.start.get().value == TestType { 0 });
+    REQUIRE(c.start.get().value == TestType { 0 });
 }
