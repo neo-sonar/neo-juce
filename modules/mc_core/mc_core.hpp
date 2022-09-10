@@ -79,7 +79,11 @@
 #include "container/Registry.hpp"
 
 #include "javascript/JSONUtils.hpp"
+
+#include "math/NormalisableRange.hpp"
+#include "math/Range.hpp"
 #include "math/RangeUtils.hpp"
+
 #include "time/Duration.hpp"
 #include "time/TimeUtils.hpp"
 

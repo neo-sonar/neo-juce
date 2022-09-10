@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_RANGE_UTILS_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_RANGE_UTILS_HPP
+#pragma once
 
 namespace mc {
 
@@ -7,71 +6,15 @@ namespace mc {
 struct RangeUtils {
 
     /// \brief Returns a normalized range.
-    static auto defaultNormalizedRange() noexcept -> juce::NormalisableRange<float>
-    {
-        auto range = juce::NormalisableRange<float> { 0.0F, 1.0F, 0.01F };
-        return range;
-    }
+    static auto defaultNormalizedRange() noexcept -> juce::NormalisableRange<float>;
 
     /// \brief Returns a range for gain parameters.
-    static auto defaultGainRange() noexcept -> juce::NormalisableRange<float>
-    {
-        auto range = juce::NormalisableRange<float> { 0.0F, 4.0F, 0.01F };
-        range.setSkewForCentre(1.0F);
-        return range;
-    }
+    static auto defaultGainRange() noexcept -> juce::NormalisableRange<float>;
 
     /// \brief Returns a range for full range frequency parameters.
-    static auto defaultFrequencyRange() noexcept -> juce::NormalisableRange<float>
-    {
-        auto range = juce::NormalisableRange<float> { 20.0F, 22'000.0F, 1.0F };
-        range.setSkewForCentre(3'000.0F);
-        return range;
-    }
+    static auto defaultFrequencyRange() noexcept -> juce::NormalisableRange<float>;
 
-    static auto defaultTimeRange() noexcept -> juce::NormalisableRange<float>
-    {
-        auto range = juce::NormalisableRange<float> { 0.0F, 2000.0F, 0.1F };
-        range.setSkewForCentre(100.F);
-        return range;
-    }
+    static auto defaultTimeRange() noexcept -> juce::NormalisableRange<float>;
 };
 
 } // namespace mc
-
-template <typename ValueType>
-struct juce::VariantConverter<juce::Range<ValueType>> {
-    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Range<ValueType>
-    {
-        auto const splits = mc::StringUtils::split(v.toString(), ':');
-        auto const start  = mc::StringUtils::toValue<ValueType>(splits[0]);
-        auto const end    = mc::StringUtils::toValue<ValueType>(splits[1]);
-        return juce::Range<ValueType> { start, end };
-    }
-
-    MC_NODISCARD static auto toVar(juce::Range<ValueType> const& r) -> juce::var
-    {
-        return mc::jformat("{}:{}", r.getStart(), r.getEnd());
-    }
-};
-
-template <typename ValueType>
-struct juce::VariantConverter<juce::NormalisableRange<ValueType>> {
-    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::NormalisableRange<ValueType>
-    {
-        auto const splits        = mc::StringUtils::split(v.toString(), ':');
-        auto const start         = mc::StringUtils::toValue<ValueType>(splits[0]);
-        auto const end           = mc::StringUtils::toValue<ValueType>(splits[1]);
-        auto const interval      = mc::StringUtils::toValue<ValueType>(splits[2]);
-        auto const skew          = mc::StringUtils::toValue<ValueType>(splits[3]);
-        auto const symmetricSkew = static_cast<int>(mc::StringUtils::toValue<ValueType>(splits[4])) == 1;
-        return juce::NormalisableRange<ValueType> { start, end, interval, skew, symmetricSkew };
-    }
-
-    MC_NODISCARD static auto toVar(juce::NormalisableRange<ValueType> const& nr) -> juce::var
-    {
-        return mc::jformat("{}:{}:{}:{}:{}", nr.start, nr.end, nr.interval, nr.skew, nr.symmetricSkew);
-    }
-};
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_RANGE_UTILS_HPP
