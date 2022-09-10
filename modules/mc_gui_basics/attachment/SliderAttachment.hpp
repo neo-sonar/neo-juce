@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_SLIDER_ATTACHMENT_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_SLIDER_ATTACHMENT_HPP
+#pragma once
 
 namespace mc {
 struct SliderValueTreeAttachment : juce::Slider::Listener {
@@ -22,4 +21,3 @@ private:
     bool _ignoreCallbacks = false;
 };
 } // namespace mc
-#endif // MODERN_CIRCUITS_JUCE_MODULES_SLIDER_ATTACHMENT_HPP

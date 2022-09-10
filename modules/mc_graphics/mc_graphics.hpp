@@ -11,11 +11,10 @@
  END_JUCE_MODULE_DECLARATION
  */
 
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_GRAPHICS_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MC_GRAPHICS_HPP
+#pragma once
 
 #ifndef USE_MC_GRAPHICS
-    #define USE_MC_GRAPHICS 1
+    #define USE_MC_GRAPHICS
 #endif
 
 #include <juce_graphics/juce_graphics.h>
@@ -27,5 +26,3 @@
 #include "geometry/Rectangle.hpp"
 #include "images/Image.hpp"
 #include "images/ImageUtils.hpp"
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_GRAPHICS_HPP

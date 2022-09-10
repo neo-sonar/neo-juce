@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_PLUGINS_XY_PAD_HPP
-#define MODERN_CIRCUITS_PLUGINS_XY_PAD_HPP
+#pragma once
 
 namespace mc {
 struct XYPad : juce::Component {
@@ -91,5 +90,3 @@ private:
 };
 
 } // namespace mc
-
-#endif // MODERN_CIRCUITS_PLUGINS_XY_PAD_HPP

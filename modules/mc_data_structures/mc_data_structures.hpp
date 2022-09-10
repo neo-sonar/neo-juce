@@ -11,11 +11,10 @@
  END_JUCE_MODULE_DECLARATION
  */
 
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_DATA_STRUCTURES_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MC_DATA_STRUCTURES_HPP
+#pragma once
 
 #ifndef USE_MC_DATA_STRUCTURES
-    #define USE_MC_DATA_STRUCTURES 1
+    #define USE_MC_DATA_STRUCTURES
 #endif
 
 #include <juce_data_structures/juce_data_structures.h>
@@ -26,5 +25,3 @@
 #include "value_tree/Attachment.hpp"
 #include "value_tree/ConstrainerWrapper.hpp"
 #include "value_tree/ObjectList.hpp"
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DATA_STRUCTURES_HPP

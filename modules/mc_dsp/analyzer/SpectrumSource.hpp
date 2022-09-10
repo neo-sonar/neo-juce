@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_PLUGINS_SPECTRUM_ANALYZER_HPP
-#define MODERN_CIRCUITS_PLUGINS_SPECTRUM_ANALYZER_HPP
+#pragma once
 
 namespace mc {
 
@@ -45,4 +44,3 @@ private:
     JUCE_LEAK_DETECTOR(SpectrumSource) // NOLINT
 };
 } // namespace mc
-#endif // MODERN_CIRCUITS_PLUGINS_SPECTRUM_ANALYZER_HPP

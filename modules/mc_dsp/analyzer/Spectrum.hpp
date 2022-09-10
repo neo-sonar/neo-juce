@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_SPECTRUM_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_SPECTRUM_HPP
+#pragma once
 
 namespace mc {
 
@@ -53,4 +52,3 @@ private:
 };
 
 } // namespace mc
-#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_SPECTRUM_HPP

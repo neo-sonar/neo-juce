@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_PROFILE_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_PROFILE_HPP
+#pragma once
 
 namespace mc {
 
@@ -149,5 +148,3 @@ private:
   /// \brief Profile a function
     #define MC_PROFILE_FUNCTION()
 #endif
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_PROFILE_HPP

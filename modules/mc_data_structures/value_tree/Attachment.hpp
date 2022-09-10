@@ -1,7 +1,4 @@
-#include <utility>
-
-#ifndef MODERN_CIRCUITS_PLUGINS_ATTACHMENT_HPP
-    #define MODERN_CIRCUITS_PLUGINS_ATTACHMENT_HPP
+#pragma once
 
 namespace mc {
 
@@ -91,5 +88,3 @@ private:
 };
 
 } // namespace mc
-
-#endif // MODERN_CIRCUITS_PLUGINS_ATTACHMENT_HPP

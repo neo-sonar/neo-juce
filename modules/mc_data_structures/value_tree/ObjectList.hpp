@@ -1,5 +1,4 @@
-#ifndef MC_JUCE_BUNDLE_VALUE_TREE_OBJECT_LIST_HPP
-#define MC_JUCE_BUNDLE_VALUE_TREE_OBJECT_LIST_HPP
+#pragma once
 
 namespace mc {
 
@@ -312,5 +311,3 @@ public:
 };
 
 } // namespace mc
-
-#endif // MC_JUCE_BUNDLE_VALUE_TREE_OBJECT_LIST_HPP

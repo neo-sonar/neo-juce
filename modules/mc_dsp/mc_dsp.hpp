@@ -11,8 +11,7 @@
  END_JUCE_MODULE_DECLARATION
  */
 
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP
+#pragma once
 
 #ifndef USE_MC_DSP
     #define USE_MC_DSP
@@ -48,5 +47,3 @@
 
 // #include "airwindows/AirWindowsCoils2.hpp"
 //#include "airwindows/AirWindowsVerbity.hpp"
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_DSP_HPP

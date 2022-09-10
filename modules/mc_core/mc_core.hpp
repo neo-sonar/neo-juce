@@ -11,11 +11,10 @@
  END_JUCE_MODULE_DECLARATION
  */
 
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP
+#pragma once
 
 #ifndef USE_MC_CORE
-    #define USE_MC_CORE 1
+    #define USE_MC_CORE
 #endif
 
 #include <juce_audio_basics/juce_audio_basics.h>
@@ -50,5 +49,3 @@
 #include "thread/BackgroundProcess.hpp"
 
 #include "benchmark/Profile.hpp"
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_CORE_HPP

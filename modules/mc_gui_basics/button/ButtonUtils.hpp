@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_BUTTON_UTILS_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_BUTTON_UTILS_HPP
+#pragma once
 
 namespace mc {
 
@@ -11,5 +10,3 @@ struct ButtonUtils {
 };
 
 } // namespace mc
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_BUTTON_UTILS_HPP

@@ -11,11 +11,10 @@
  END_JUCE_MODULE_DECLARATION
  */
 
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_METERS_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MC_METERS_HPP
+#pragma once
 
 #ifndef USE_MC_METERS
-    #define USE_MC_METERS 1
+    #define USE_MC_METERS
 #endif
 
 #include <juce_audio_basics/juce_audio_basics.h>
@@ -29,5 +28,3 @@
 #include "Visualisers/OutlineBuffer.hpp"
 #include "Visualisers/StereoFieldBuffer.hpp"
 #include "Visualisers/StereoFieldComponent.hpp"
-
-#endif

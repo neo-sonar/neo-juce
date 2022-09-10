@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_AIRWINDOWSVERBITY_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_AIRWINDOWSVERBITY_HPP
+#pragma once
 
 namespace mc {
 struct AirWindowsVerbity {
@@ -308,4 +307,3 @@ private:
     uint32_t fpd;
 };
 } // namespace mc
-#endif // MODERN_CIRCUITS_JUCE_MODULES_AIRWINDOWSVERBITY_HPP

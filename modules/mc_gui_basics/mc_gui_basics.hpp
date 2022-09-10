@@ -11,11 +11,10 @@
  END_JUCE_MODULE_DECLARATION
  */
 
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP
+#pragma once
 
 #ifndef USE_MC_GUI_BASICS
-    #define USE_MC_GUI_BASICS 1
+    #define USE_MC_GUI_BASICS
 #endif
 
 #include <juce_gui_basics/juce_gui_basics.h>
@@ -31,5 +30,3 @@
 #include "attachment/LabelAttachment.hpp"
 #include "attachment/SliderAttachment.hpp"
 // #include "attachment/XYPadAttachment.hpp"
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_GUI_BASICS_HPP

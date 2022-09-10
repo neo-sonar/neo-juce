@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_MC_AIRWINDOWSCOILS2_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_MC_AIRWINDOWSCOILS2_HPP
+#pragma once
 
 namespace mc {
 struct AirWindowsCoils2 {
@@ -175,5 +174,3 @@ private:
     //    float C;
 };
 } // namespace mc
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_MC_AIRWINDOWSCOILS2_HPP

@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_PLUGINS_TEXT_VALUE_CONVERTER_HPP
-#define MODERN_CIRCUITS_PLUGINS_TEXT_VALUE_CONVERTER_HPP
+#pragma once
 
 namespace mc {
 
@@ -154,5 +153,3 @@ public:
 };
 
 } // namespace mc
-
-#endif // MODERN_CIRCUITS_PLUGINS_TEXT_VALUE_CONVERTER_HPP

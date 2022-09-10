@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_UTILS_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_UTILS_HPP
+#pragma once
 
 namespace mc {
 struct AudioBufferUtils {
@@ -46,5 +45,3 @@ auto AudioBufferUtils::createNoiseBuffer(int const channels, int const size, Flo
     return buffer;
 }
 } // namespace mc
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_AUDIO_BUFFER_UTILS_HPP

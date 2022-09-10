@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_LABEL_ATTACHMENT_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_LABEL_ATTACHMENT_HPP
+#pragma once
 
 namespace mc {
 
@@ -67,5 +66,3 @@ private:
     LabelValueTreeAttachment<value_type> _attachment;
 };
 } // namespace mc
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_LABEL_ATTACHMENT_HPP

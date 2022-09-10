@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_REGISTRY_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_REGISTRY_HPP
+#pragma once
 
 namespace mc {
 
@@ -145,5 +144,3 @@ auto Registry<T>::shrinkToFit() -> void
 }
 
 } // namespace mc
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_REGISTRY_HPP
