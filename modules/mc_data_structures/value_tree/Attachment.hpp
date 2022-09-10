@@ -18,7 +18,7 @@ struct ValueTreeAttachment : private juce::ValueTree::Listener, private juce::As
         , _undoManager(undoManager)
         , _setValue(std::move(parameterChangedCallback))
     {
-        jassert(state_.isValid());
+        jassert(_state.isValid());
         _state.addListener(this);
     }
 

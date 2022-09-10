@@ -29,7 +29,7 @@ auto XYPadAttachment::sendInitialUpdate() -> void
 auto XYPadAttachment::xypadChanged(XYPad* pad, juce::Point<float> position) -> void
 {
     juce::ignoreUnused(pad);
-    jassert(pad == &pad_);
+    jassert(pad == &_pad);
 
     if (_ignoreCallbacks) { return; }
 

@@ -13,7 +13,7 @@ struct ValueTreeObjectList : public juce::ValueTree::Listener {
     ~ValueTreeObjectList() override // NOLINT
     {
         // must call freeObjects() in the subclass destructor!
-        jassert(objects_.empty());
+        jassert(_objects.empty());
     }
 
     MC_NODISCARD virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
@@ -27,12 +27,12 @@ struct ValueTreeObjectList : public juce::ValueTree::Listener {
     /// \brief Call in the sub-class when being created.
     void rebuildObjects()
     {
-        jassert(objects_.empty()); // must only call this method once at construction
+        jassert(_objects.empty()); // must only call this method once at construction
 
         for (const auto& v : parent_) {
             if (isSuitableType(v)) {
                 auto* newObject = makeObject(v);
-                if (newObject != nullptr) { objects_.push_back(newObject); }
+                if (newObject != nullptr) { _objects.push_back(newObject); }
             }
         }
     }
@@ -44,29 +44,29 @@ struct ValueTreeObjectList : public juce::ValueTree::Listener {
         deleteAllObjects();
     }
 
-    MC_NODISCARD auto getObjects() -> Vector<ObjectType*>& { return objects_; }
-    MC_NODISCARD auto getObjects() const -> Vector<ObjectType*> const& { return objects_; }
+    MC_NODISCARD auto getObjects() -> Vector<ObjectType*>& { return _objects; }
+    MC_NODISCARD auto getObjects() const -> Vector<ObjectType*> const& { return _objects; }
     MC_NODISCARD auto getValueTree() noexcept -> juce::ValueTree& { return parent_; }
 
 protected:
     using ScopedLockType = typename CriticalSectionType::ScopedLockType;
     CriticalSectionType objectsMutex_;
-    Vector<ObjectType*> objects_ {};
+    Vector<ObjectType*> _objects {};
     juce::ValueTree parent_ {};
 
     void deleteAllObjects()
     {
         ScopedLockType lock(objectsMutex_);
-        std::for_each(std::begin(objects_), std::end(objects_), [this](auto* obj) { deleteObject(obj); });
-        objects_.clear();
+        std::for_each(std::begin(_objects), std::end(_objects), [this](auto* obj) { deleteObject(obj); });
+        _objects.clear();
     }
 
     auto isChildTree(juce::ValueTree& v) const -> bool { return isSuitableType(v) && v.getParent() == parent_; }
 
     MC_NODISCARD auto indexOf(juce::ValueTree const& v) const noexcept -> int
     {
-        for (std::size_t i = 0; i < objects_.size(); ++i) {
-            if (objects_[i]->getValueTree() == v) { return static_cast<int>(i); }
+        for (std::size_t i = 0; i < _objects.size(); ++i) {
+            if (_objects[i]->getValueTree() == v) { return static_cast<int>(i); }
         }
 
         return -1;
@@ -84,7 +84,7 @@ private:
             if (newObject != nullptr) {
                 {
                     ScopedLockType lock(objectsMutex_);
-                    objects_.push_back(newObject);
+                    _objects.push_back(newObject);
                     if (index != parent_.getNumChildren() - 1) { sortArray(); }
                 }
 
@@ -105,8 +105,8 @@ private:
 
                 {
                     ScopedLockType const lock(objectsMutex_);
-                    o = objects_.back();
-                    objects_.pop_back();
+                    o = _objects.back();
+                    _objects.pop_back();
                 }
 
                 objectRemoved(o);
@@ -141,7 +141,7 @@ private:
     void sortArray()
     {
         auto compare = [this](auto* lhs, auto* rhs) { return compareElements(lhs, rhs); };
-        std::sort(std::begin(objects_), std::end(objects_), compare);
+        std::sort(std::begin(_objects), std::end(_objects), compare);
     }
 
     auto compareElements(ObjectType* first, ObjectType* second) const -> int

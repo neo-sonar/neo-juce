@@ -47,7 +47,7 @@ public:
 
     void pushSampleBlock(juce::AudioBuffer<FloatType> buffer, int numSamples)
     {
-        jassert(buffer.getNumChannels() == sampleBuffer_.getNumChannels());
+        jassert(buffer.getNumChannels() == _sampleBuffer.getNumChannels());
 
         auto pos   = _writePosition.load();
         auto space = _sampleBuffer.getNumSamples() - pos;
