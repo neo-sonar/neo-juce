@@ -58,7 +58,7 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_core/text/Format.test.cpp
         modules/mc_core/text/TextValueConverters.test.cpp
         modules/mc_core/time/Duration.test.cpp
-        modules/mc_core/time/TimeUtils.test.cpp
+        modules/mc_core/time/Time.test.cpp
 
         modules/mc_data_structures/value_tree/ValueWrapper.test.cpp
 

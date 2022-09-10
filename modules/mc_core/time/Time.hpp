@@ -1,5 +1,4 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_TIME_UTILS_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_TIME_UTILS_HPP
+#pragma once
 
 template <>
 struct juce::VariantConverter<juce::Time> {
@@ -11,5 +10,3 @@ struct juce::VariantConverter<juce::Time> {
         return str;
     }
 };
-
-#endif // MODERN_CIRCUITS_JUCE_MODULES_TIME_UTILS_HPP

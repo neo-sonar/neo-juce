@@ -1,23 +1,40 @@
-#ifndef MODERN_CIRCUITS_JUCE_MODULES_FORMAT_HPP
-#define MODERN_CIRCUITS_JUCE_MODULES_FORMAT_HPP
-
-namespace juce {
-
-inline auto to_string_view(juce::String const& string) -> ::fmt::string_view // NOLINT(readability-identifier-naming)
-{
-    return ::fmt::string_view { string.begin(), static_cast<std::size_t>(string.length()) };
-}
-
-} // namespace juce
+#pragma once
 
 namespace mc {
 
-template <typename... Args>
-MC_NODISCARD inline auto jformat(juce::String const& formatStr, Args&&... args) -> juce::String
+using ::fmt::format;
+
+template <typename... T>
+auto jformat(::fmt::format_string<T...> fmt, T&&... args) -> juce::String
 {
-    return juce::String { fmt::vformat(to_string_view(formatStr), fmt::make_format_args(args...)) };
+    return juce::String { ::fmt::format(fmt, std::forward<T>(args)...) };
 }
 
 } // namespace mc
 
-#endif // MODERN_CIRCUITS_JUCE_MODULES_FORMAT_HPP
+template <>
+struct fmt::formatter<juce::String> : formatter<string_view> {
+    template <typename FormatContext>
+    auto format(juce::String const& str, FormatContext& ctx) const
+    {
+        return fmt::format_to(ctx.out(), "{}", str.getCharPointer());
+    }
+};
+
+template <>
+struct fmt::formatter<juce::File> : formatter<string_view> {
+    template <typename FormatContext>
+    auto format(juce::File const& file, FormatContext& ctx) const
+    {
+        return fmt::format_to(ctx.out(), "{}", file.getFullPathName());
+    }
+};
+
+template <>
+struct fmt::formatter<juce::StringArray> : formatter<string_view> {
+    template <typename FormatContext>
+    auto format(juce::StringArray const& array, FormatContext& ctx) const
+    {
+        return fmt::format_to(ctx.out(), "{}", fmt::join(array, ", "));
+    }
+};

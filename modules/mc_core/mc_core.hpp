@@ -85,7 +85,7 @@
 #include "math/RangeUtils.hpp"
 
 #include "time/Duration.hpp"
-#include "time/TimeUtils.hpp"
+#include "time/Time.hpp"
 
 #include "thread/BackgroundProcess.hpp"
 
