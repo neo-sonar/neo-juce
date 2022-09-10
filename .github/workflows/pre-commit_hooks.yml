@@ -27,6 +27,3 @@ jobs:
 
       - name: Check Pre-Commit Hooks
         run: make check
-
-      - name: Check RST
-        run: make format-rst-check

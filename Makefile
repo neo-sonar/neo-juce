@@ -3,14 +3,18 @@ CXX_STD ?= 14
 BUILD_DIR ?= cmake-build-debug
 
 CLANG_FORMAT_BINARY ?= clang-format
-CLANG_TIDY_BINARY ?= clang-tidy-12
-CLANG_APPLY_BINARY ?= clang-apply-replacements-12
+CLANG_TIDY_BINARY ?= clang-tidy
+CLANG_APPLY_BINARY ?= clang-apply-replacements
 
 CLANG_TIDY_ARGS += -clang-tidy-binary ${CLANG_TIDY_BINARY}
 CLANG_TIDY_ARGS += -clang-apply-replacements-binary ${CLANG_APPLY_BINARY}
 CLANG_TIDY_ARGS += -j $(shell nproc)
 CLANG_TIDY_ARGS += -quiet
 CLANG_TIDY_ARGS += -p $(BUILD_DIR)
+
+.PHONY: check
+check:
+	pre-commit run --all-files
 
 .PHONY: tidy-check
 tidy-check:
