@@ -1,5 +1,7 @@
+#include <utility>
+
 #ifndef MODERN_CIRCUITS_PLUGINS_ATTACHMENT_HPP
-#define MODERN_CIRCUITS_PLUGINS_ATTACHMENT_HPP
+    #define MODERN_CIRCUITS_PLUGINS_ATTACHMENT_HPP
 
 namespace mc {
 
@@ -8,52 +10,52 @@ struct ValueTreeAttachment : private juce::ValueTree::Listener, private juce::As
     using value_type = T;
 
     ValueTreeAttachment(juce::ValueTree state,
-        juce::Identifier const& id,
+        juce::Identifier id,
         std::function<void(value_type)> parameterChangedCallback,
         juce::UndoManager* undoManager = nullptr)
-        : state_ { std::move(state) }
-        , id_ { id }
-        , undoManager_(undoManager)
-        , setValue_(std::move(parameterChangedCallback))
+        : _state { std::move(state) }
+        , _id { std::move(id) }
+        , _undoManager(undoManager)
+        , _setValue(std::move(parameterChangedCallback))
     {
         jassert(state_.isValid());
-        state_.addListener(this);
+        _state.addListener(this);
     }
 
     ~ValueTreeAttachment() override
     {
-        state_.removeListener(this);
+        _state.removeListener(this);
         cancelPendingUpdate();
     }
 
-    void sendInitialUpdate() { valueTreePropertyChanged(state_, id_); }
+    void sendInitialUpdate() { valueTreePropertyChanged(_state, _id); }
 
     void setValueAsCompleteGesture(value_type value)
     {
         callIfValueChanged(value, [this](value_type f) {
             beginGesture();
-            state_.setProperty(id_, f, undoManager_);
+            _state.setProperty(_id, f, _undoManager);
             endGesture();
         });
     }
 
     void beginGesture()
     {
-        if (undoManager_ != nullptr) { undoManager_->beginNewTransaction(); }
+        if (_undoManager != nullptr) { _undoManager->beginNewTransaction(); }
     }
 
     void setValueAsPartOfGesture(value_type value)
     {
-        callIfValueChanged(value, [this](value_type f) { state_.setProperty(id_, f, undoManager_); });
+        callIfValueChanged(value, [this](value_type f) { _state.setProperty(_id, f, _undoManager); });
     }
 
     void endGesture()
     {
-        if (undoManager_ != nullptr) { undoManager_->beginNewTransaction(); }
+        if (_undoManager != nullptr) { _undoManager->beginNewTransaction(); }
     }
 
 private:
-    MC_NODISCARD auto getValue() const -> value_type { return state_[id_]; }
+    MC_NODISCARD auto getValue() const -> value_type { return _state[_id]; }
 
     template <typename Callback>
     void callIfValueChanged(value_type newValue, Callback&& callback)
@@ -63,8 +65,8 @@ private:
 
     void valueTreePropertyChanged(juce::ValueTree& tree, juce::Identifier const& property) override
     {
-        if (property == id_) {
-            lastValue_ = juce::VariantConverter<value_type>::fromVar(tree[property]);
+        if (property == _id) {
+            _lastValue = juce::VariantConverter<value_type>::fromVar(tree[property]);
             if (juce::MessageManager::getInstance()->isThisTheMessageThread()) {
                 cancelPendingUpdate();
                 handleAsyncUpdate();
@@ -76,14 +78,14 @@ private:
 
     void handleAsyncUpdate() override
     {
-        if (setValue_ != nullptr) { setValue_(lastValue_); }
+        if (_setValue != nullptr) { _setValue(_lastValue); }
     }
 
-    juce::ValueTree state_;
-    juce::Identifier id_;
-    value_type lastValue_;
-    juce::UndoManager* undoManager_;
-    std::function<void(value_type)> setValue_;
+    juce::ValueTree _state;
+    juce::Identifier _id;
+    value_type _lastValue;
+    juce::UndoManager* _undoManager;
+    std::function<void(value_type)> _setValue;
 
     JUCE_LEAK_DETECTOR(ValueTreeAttachment) // NOLINT
 };

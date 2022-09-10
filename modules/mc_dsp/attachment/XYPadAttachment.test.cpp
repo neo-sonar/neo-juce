@@ -7,31 +7,31 @@
 TEST_CASE("dsp/attachment: XYPadAttachment", "") // NOLINT
 {
     mc::XYPad xypad {};
-    CHECK(xypad.getXRange().start == Catch::Approx(0.0f));
-    CHECK(xypad.getXRange().end == Catch::Approx(1.0f));
+    CHECK(xypad.getXRange().start == Catch::Approx(0.0F));
+    CHECK(xypad.getXRange().end == Catch::Approx(1.0F));
 
-    CHECK(xypad.getValueX() == Catch::Approx(0.0f));
-    CHECK(xypad.getValueY() == Catch::Approx(0.0f));
+    CHECK(xypad.getValueX() == Catch::Approx(0.0F));
+    CHECK(xypad.getValueY() == Catch::Approx(0.0F));
 
-    xypad.setValueX(0.5f);
-    xypad.setValueY(0.75f);
-    CHECK(xypad.getValueX() == Catch::Approx(0.5f));
-    CHECK(xypad.getValueY() == Catch::Approx(0.75f));
+    xypad.setValueX(0.5F);
+    xypad.setValueY(0.75F);
+    CHECK(xypad.getValueX() == Catch::Approx(0.5F));
+    CHECK(xypad.getValueY() == Catch::Approx(0.75F));
 
-    juce::AudioParameterFloat paramA { "a", "a", 0.0f, 100.0f, 0.0f };
-    juce::AudioParameterFloat paramB { "b", "b", 0.0f, 50.0f, 0.0f };
+    juce::AudioParameterFloat paramA { "a", "a", 0.0F, 100.0F, 0.0F };
+    juce::AudioParameterFloat paramB { "b", "b", 0.0F, 50.0F, 0.0F };
 
     mc::XYPadAttachment attachment { paramA, paramB, xypad, nullptr };
-    CHECK(xypad.getXRange().start == Catch::Approx(0.0f));
-    CHECK(xypad.getXRange().end == Catch::Approx(100.0f));
-    CHECK(xypad.getYRange().start == Catch::Approx(0.0f));
-    CHECK(xypad.getYRange().end == Catch::Approx(50.0f));
+    CHECK(xypad.getXRange().start == Catch::Approx(0.0F));
+    CHECK(xypad.getXRange().end == Catch::Approx(100.0F));
+    CHECK(xypad.getYRange().start == Catch::Approx(0.0F));
+    CHECK(xypad.getYRange().end == Catch::Approx(50.0F));
 
-    CHECK(xypad.getValueX() == Catch::Approx(0.0f));
-    CHECK(xypad.getValueY() == Catch::Approx(0.0f));
+    CHECK(xypad.getValueX() == Catch::Approx(0.0F));
+    CHECK(xypad.getValueY() == Catch::Approx(0.0F));
 
-    paramA = 50.0f;
-    paramB = 25.0f;
-    CHECK(xypad.getValueX() == Catch::Approx(50.0f));
-    CHECK(xypad.getValueY() == Catch::Approx(25.0f));
+    paramA = 50.0F;
+    paramB = 25.0F;
+    CHECK(xypad.getValueX() == Catch::Approx(50.0F));
+    CHECK(xypad.getValueY() == Catch::Approx(25.0F));
 }

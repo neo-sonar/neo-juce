@@ -52,8 +52,8 @@ struct XYPad : juce::Component {
     MC_NODISCARD auto isOverThumb() const noexcept -> bool;
     MC_NODISCARD auto isDragging() const noexcept -> bool;
 
-    auto addListener(Listener* listener) -> void { listeners_.add(listener); }
-    auto removeListener(Listener* listener) -> void { listeners_.remove(listener); }
+    auto addListener(Listener* listener) -> void { _listeners.add(listener); }
+    auto removeListener(Listener* listener) -> void { _listeners.remove(listener); }
 
 private:
     auto paint(juce::Graphics& g) -> void override;
@@ -73,19 +73,19 @@ private:
     auto startDragging() -> void;
     auto stopDragging() -> void;
 
-    juce::Point<float> normalizedValues_ {};
-    juce::NormalisableRange<float> xRange_ {};
-    juce::NormalisableRange<float> yRange_ {};
-    bool startShouldBeOnLeft_ { true };
-    bool startShouldBeOnTop_ { true };
+    juce::Point<float> _normalizedValues {};
+    juce::NormalisableRange<float> _xRange {};
+    juce::NormalisableRange<float> _yRange {};
+    bool _startShouldBeOnLeft { true };
+    bool _startShouldBeOnTop { true };
 
-    juce::Rectangle<int> thumb_ { 0, 0, 8, 8 };
-    juce::Colour thumbColor_ { juce::Colours::grey };
-    juce::Rectangle<int> bounds_ {};
-    bool isDragging_ { false };
-    bool isOverThumb_ { false };
+    juce::Rectangle<int> _thumb { 0, 0, 8, 8 };
+    juce::Colour _thumbColor { juce::Colours::grey };
+    juce::Rectangle<int> _bounds {};
+    bool _isDragging { false };
+    bool _isOverThumb { false };
 
-    juce::ListenerList<Listener> listeners_ {};
+    juce::ListenerList<Listener> _listeners {};
 
     JUCE_LEAK_DETECTOR(XYPad) // NOLINT
 };

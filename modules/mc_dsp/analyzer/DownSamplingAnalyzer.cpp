@@ -19,7 +19,7 @@ auto processDownSamplingAnalyzer(Queue& queue, Buffer const& buffer, std::size_t
         auto const f = scratchBuffer.data() + i * ChunkSize;
         auto const l = scratchBuffer.data() + i * ChunkSize + s;
 
-        auto chunk = StaticVector<float, ChunkSize>(s, 0.0f);
+        auto chunk = StaticVector<float, ChunkSize>(s, 0.0F);
 
         // We use transform instead of copy, so that we can explicitly
         // cast the value to the type required by the queue chunks.
@@ -31,32 +31,32 @@ auto processDownSamplingAnalyzer(Queue& queue, Buffer const& buffer, std::size_t
 }
 } // namespace
 
-DownSamplingAnalyzer::DownSamplingAnalyzer(std::size_t downSampleFactor) : downSampleFactor_ { downSampleFactor }
+DownSamplingAnalyzer::DownSamplingAnalyzer(std::size_t downSampleFactor) : _downSampleFactor { downSampleFactor }
 {
-    buffer_.resize(128U);
+    _buffer.resize(128U);
     startTimerHz(25);
 }
 
 auto DownSamplingAnalyzer::process(juce::AudioBuffer<float> const& buffer) -> void
 {
-    processDownSamplingAnalyzer<decltype(queue_), juce::AudioBuffer<float>, ChunkSize>(
-        queue_, buffer, downSampleFactor_);
+    processDownSamplingAnalyzer<decltype(_queue), juce::AudioBuffer<float>, ChunkSize>(
+        _queue, buffer, _downSampleFactor);
 }
 
 auto DownSamplingAnalyzer::process(juce::AudioBuffer<double> const& buffer) -> void
 {
-    processDownSamplingAnalyzer<decltype(queue_), juce::AudioBuffer<double>, ChunkSize>(
-        queue_, buffer, downSampleFactor_);
+    processDownSamplingAnalyzer<decltype(_queue), juce::AudioBuffer<double>, ChunkSize>(
+        _queue, buffer, _downSampleFactor);
 }
 
-auto DownSamplingAnalyzer::buffer() const noexcept -> Span<float const> { return buffer_; }
+auto DownSamplingAnalyzer::buffer() const noexcept -> Span<float const> { return _buffer; }
 
 auto DownSamplingAnalyzer::timerCallback() -> void
 {
     auto chunk = StaticVector<float, ChunkSize> {};
-    if (queue_.try_dequeue(chunk)) {
+    if (_queue.try_dequeue(chunk)) {
         // Remove oldest elements & insert new
-        auto oldFirst = std::rotate(begin(buffer_), begin(buffer_) + chunk.size(), end(buffer_));
+        auto oldFirst = std::rotate(begin(_buffer), begin(_buffer) + chunk.size(), end(_buffer));
         std::copy(std::begin(chunk), std::end(chunk), oldFirst);
 
         // Notify UI elements

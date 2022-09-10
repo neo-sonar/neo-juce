@@ -5,18 +5,18 @@
 template <typename T>
 struct Equals {
 private:
-    T expected_;
+    T _expected;
 
 public:
     constexpr explicit Equals(T expected) noexcept(std::is_nothrow_copy_constructible<T>::value)
-        : expected_ { expected }
+        : _expected { expected }
     {
     }
 
-    MC_NODISCARD constexpr auto operator()(T actual) const noexcept(noexcept(expected_ == actual))
-        -> decltype(expected_ == actual)
+    MC_NODISCARD constexpr auto operator()(T actual) const noexcept(noexcept(_expected == actual))
+        -> decltype(_expected == actual)
     {
-        return expected_ == actual;
+        return _expected == actual;
     }
 };
 
@@ -32,9 +32,9 @@ TEST_CASE("dsp/algorithm: sizeAfterDownSample", "")
 TEST_CASE("dsp/algorithm: downSample", "")
 {
     auto input = std::array<float, 8> {};
-    std::fill(begin(input), end(input), 1.0f);
+    std::fill(begin(input), end(input), 1.0F);
 
     auto output = std::array<float, 4> {};
     REQUIRE(mc::downSample(mc::data(input), mc::size(input), mc::data(output), 2U) == 4U);
-    REQUIRE(std::all_of(begin(output), end(output), Equals<float> { 1.0f }));
+    REQUIRE(std::all_of(begin(output), end(output), Equals<float> { 1.0F }));
 }

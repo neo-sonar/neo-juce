@@ -44,10 +44,10 @@ struct Spectrum : juce::Component, juce::Timer {
 private:
     auto timerCallback() -> void override;
 
-    SpectrumSource& processor_;
-    juce::Rectangle<int> plotFrame_;
-    juce::Rectangle<int> textFrame_;
-    juce::Path path_;
+    SpectrumSource& _processor;
+    juce::Rectangle<int> _plotFrame;
+    juce::Rectangle<int> _textFrame;
+    juce::Path _path;
 
     JUCE_LEAK_DETECTOR(Spectrum) // NOLINT
 };

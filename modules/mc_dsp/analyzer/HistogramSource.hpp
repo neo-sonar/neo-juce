@@ -12,10 +12,10 @@ struct HistogramSource {
     MC_NODISCARD auto popSample() -> float;
 
 private:
-    double sampleRate_ { 44'100.0 };
-    juce::AudioBuffer<float> summingBuffer_;
-    Microseconds<double> timeSinceLastSample_ { 0 };
-    Atomic<float> lastValue_ { 0.0f };
+    double _sampleRate { 44'100.0 };
+    juce::AudioBuffer<float> _summingBuffer;
+    Microseconds<double> _timeSinceLastSample { 0 };
+    Atomic<float> _lastValue { 0.0F };
 };
 
 } // namespace mc

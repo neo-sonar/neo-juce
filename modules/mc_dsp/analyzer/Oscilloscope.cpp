@@ -1,8 +1,8 @@
 namespace mc {
 
-Oscilloscope::Oscilloscope(OscilloscopeSource& source) : source_ { source } { source_.addChangeListener(this); }
+Oscilloscope::Oscilloscope(OscilloscopeSource& source) : _source { source } { _source.addChangeListener(this); }
 
-Oscilloscope::~Oscilloscope() { source_.removeChangeListener(this); }
+Oscilloscope::~Oscilloscope() { _source.removeChangeListener(this); }
 
 auto Oscilloscope::paint(juce::Graphics& g) -> void
 {
@@ -10,7 +10,7 @@ auto Oscilloscope::paint(juce::Graphics& g) -> void
     if (lnf != nullptr) {
         auto const area = getLocalBounds();
         lnf->drawOscilloscopeBackground(g, area);
-        lnf->drawOscilloscopePlot(g, area, source_, 1.5f, static_cast<float>(area.getHeight()) / 2.0f);
+        lnf->drawOscilloscopePlot(g, area, _source, 1.5F, static_cast<float>(area.getHeight()) / 2.0F);
     }
 }
 

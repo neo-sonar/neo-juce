@@ -1,14 +1,14 @@
 namespace mc {
-Spectrum::Spectrum(SpectrumSource& analyser) : processor_ { analyser } { startTimerHz(30); }
+Spectrum::Spectrum(SpectrumSource& analyser) : _processor { analyser } { startTimerHz(30); }
 
 auto Spectrum::paint(juce::Graphics& g) -> void
 {
     auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
     if (lnf != nullptr) {
         juce::Graphics::ScopedSaveState state(g);
-        lnf->drawAnalyzerLabels(g, textFrame_);
-        lnf->drawAnalyzerGrid(g, plotFrame_);
-        lnf->drawAnalyzerPath(g, plotFrame_, path_);
+        lnf->drawAnalyzerLabels(g, _textFrame);
+        lnf->drawAnalyzerGrid(g, _plotFrame);
+        lnf->drawAnalyzerPath(g, _plotFrame, _path);
         return;
     }
 
@@ -21,15 +21,15 @@ auto Spectrum::resized() -> void
     auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
     if (lnf != nullptr) {
         auto area  = getLocalBounds().reduced(3);
-        plotFrame_ = lnf->getAnalyserPathBounds(area);
-        textFrame_ = lnf->getAnalyserFrequencyLabelBounds(area);
+        _plotFrame = lnf->getAnalyserPathBounds(area);
+        _textFrame = lnf->getAnalyserFrequencyLabelBounds(area);
     }
 }
 
 auto Spectrum::timerCallback() -> void
 {
-    if (processor_.checkForNewData()) {
-        processor_.createPath(path_, plotFrame_.toFloat(), 10.0f);
+    if (_processor.checkForNewData()) {
+        _processor.createPath(_path, _plotFrame.toFloat(), 10.0F);
         repaint();
     }
 }

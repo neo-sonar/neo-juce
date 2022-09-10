@@ -20,9 +20,9 @@ struct RingBuffer {
     MC_NODISCARD auto operator[](size_type index) const noexcept -> float;
 
 private:
-    std::unique_ptr<T[]> buffer_ { nullptr }; // NOLINT(modernize-avoid-c-arrays)
-    size_type size_ { 0 };
-    size_type writePosition_ { 0 };
+    std::unique_ptr<T[]> _buffer { nullptr }; // NOLINT(modernize-avoid-c-arrays)
+    size_type _size { 0 };
+    size_type _writePosition { 0 };
 };
 
 template <typename T>
@@ -39,29 +39,29 @@ RingBuffer<T>::RingBuffer(size_type size)
 template <typename T>
 auto RingBuffer<T>::operator[](size_type index) const noexcept -> float
 {
-    auto const i = writePosition_ + index;
-    if (i < size_) { return buffer_[i]; }
-    return buffer_[i - size_];
+    auto const i = _writePosition + index;
+    if (i < _size) { return _buffer[i]; }
+    return _buffer[i - _size];
 }
 
 template <typename T>
 auto RingBuffer<T>::clear() -> void
 {
-    std::fill(buffer_.get(), std::next(buffer_.get(), size_), T {});
+    std::fill(_buffer.get(), std::next(_buffer.get(), _size), T {});
 }
 
 template <typename T>
 auto RingBuffer<T>::resize(size_type size) -> void
 {
-    size_   = size;
-    buffer_ = std::make_unique<T[]>(size); // NOLINT(modernize-avoid-c-arrays)
+    _size   = size;
+    _buffer = std::make_unique<T[]>(size); // NOLINT(modernize-avoid-c-arrays)
     clear();
 }
 
 template <typename T>
 auto RingBuffer<T>::size() const noexcept -> size_type
 {
-    return size_;
+    return _size;
 }
 
 template <typename T>
@@ -73,7 +73,7 @@ auto RingBuffer<T>::empty() const noexcept -> bool
 template <typename T>
 auto RingBuffer<T>::push(T value) -> void
 {
-    buffer_[writePosition_++] = value;
-    if (writePosition_ == size_) { writePosition_ = 0; }
+    _buffer[_writePosition++] = value;
+    if (_writePosition == _size) { _writePosition = 0; }
 }
 } // namespace mc

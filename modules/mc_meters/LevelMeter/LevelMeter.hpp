@@ -264,19 +264,19 @@ struct LevelMeter : juce::Component, juce::Timer {
 private:
     JUCE_LEAK_DETECTOR(LevelMeter) // NOLINT
 
-    juce::WeakReference<LevelMeterSource> source_;
+    juce::WeakReference<LevelMeterSource> _source;
 
-    int selectedChannel_     = -1;
-    int fixedNumChannels_    = -1;
-    MeterFlags meterType_    = HasBorder;
-    int refreshRate_         = 30;
-    bool useBackgroundImage_ = false;
-    juce::Image backgroundImage_;
-    bool backgroundNeedsRepaint_ = true;
+    int _selectedChannel     = -1;
+    int _fixedNumChannels    = -1;
+    MeterFlags _meterType    = HasBorder;
+    int _refreshRate         = 30;
+    bool _useBackgroundImage = false;
+    juce::Image _backgroundImage;
+    bool _backgroundNeedsRepaint = true;
 
-    LevelMeter::LookAndFeelMethods* lmLookAndFeel_ = nullptr;
+    LevelMeter::LookAndFeelMethods* _lmLookAndFeel = nullptr;
 
-    juce::ListenerList<LevelMeter::Listener> listeners_;
+    juce::ListenerList<LevelMeter::Listener> _listeners;
 };
 
 inline auto operator|(LevelMeter::MeterFlags a, LevelMeter::MeterFlags b) -> LevelMeter::MeterFlags

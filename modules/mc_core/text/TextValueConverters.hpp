@@ -8,7 +8,7 @@ struct ActiveTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
-        return value > 0.5f ? juce::translate("active") : juce::translate("bypassed");
+        return value > 0.5F ? juce::translate("active") : juce::translate("bypassed");
     }
 
     MC_NODISCARD auto operator()(juce::String const& text) const -> float
@@ -38,7 +38,7 @@ struct QualityTextConverter {
     {
 
         juce::ignoreUnused(maxStringLength);
-        return juce::String(value, 1);
+        return { value, 1 };
     }
 
     MC_NODISCARD auto operator()(juce::String const& text) const -> float { return text.getFloatValue(); }
@@ -49,12 +49,12 @@ struct PercentTextConverter {
     MC_NODISCARD auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
         juce::ignoreUnused(maxStringLength);
-        return juce::String(value * 100.0f, 1) + " %";
+        return juce::String(value * 100.0F, 1) + " %";
     }
 
     MC_NODISCARD auto operator()(juce::String const& text) const -> float
     {
-        return text.dropLastCharacters(2).getFloatValue() / 100.0f;
+        return text.dropLastCharacters(2).getFloatValue() / 100.0F;
     }
 };
 
@@ -108,7 +108,7 @@ struct InvertPhaseTextConverter {
         return value < 0.5 ? "Normal" : "Inverted";
     }
 
-    MC_NODISCARD auto operator()(juce::String const& text) const -> float { return text == "Normal" ? 0.0f : 1.0f; }
+    MC_NODISCARD auto operator()(juce::String const& text) const -> float { return text == "Normal" ? 0.0F : 1.0F; }
 };
 
 struct InvertPhaseBoolTextConverter {
@@ -128,8 +128,8 @@ public:
     {
         juce::ignoreUnused(maxStringLength);
 
-        if (value > 30.f) { return "Limiter"; }
-        if (value < 10.f) { return "1:" + juce::String(value, 1); }
+        if (value > 30.F) { return "Limiter"; }
+        if (value < 10.F) { return "1:" + juce::String(value, 1); }
         return "1:" + juce::String(static_cast<int>(value));
     }
 
@@ -142,8 +142,8 @@ public:
     {
         juce::ignoreUnused(maxStringLength);
 
-        if (value == 21.f) { return "Gate"; }
-        if (value < 10.f) { return juce::String(value, 1) + ":1"; }
+        if (value == 21.F) { return "Gate"; }
+        if (value < 10.F) { return juce::String(value, 1) + ":1"; }
         return juce::String(static_cast<int>(value)) + ":1";
     }
 

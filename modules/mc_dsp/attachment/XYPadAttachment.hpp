@@ -19,7 +19,7 @@ struct XYPadAttachment final : XYPad::Listener {
     XYPadAttachment(juce::RangedAudioParameter& parameterX,
         juce::RangedAudioParameter& parameterY,
         XYPad& pad,
-        juce::UndoManager* undoManager = nullptr);
+        juce::UndoManager* um = nullptr);
 
     ~XYPadAttachment() override;
 
@@ -39,11 +39,11 @@ private:
 
     auto setPosition(float newValue, bool isX) -> void;
 
-    XYPad& pad_;
-    juce::ParameterAttachment attachmentX_;
-    juce::ParameterAttachment attachmentY_;
-    juce::Point<float> lastPosition_ {};
-    bool ignoreCallbacks_ = false;
-    bool isDragging_ { false };
+    XYPad& _pad;
+    juce::ParameterAttachment _attachmentX;
+    juce::ParameterAttachment _attachmentY;
+    juce::Point<float> _lastPosition {};
+    bool _ignoreCallbacks = false;
+    bool _isDragging { false };
 };
 } // namespace mc

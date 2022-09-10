@@ -44,12 +44,12 @@ struct ConstrainerWrapper {
     ConstrainerWrapper() = default;
 
     template <typename OtherType>
-    ConstrainerWrapper(const OtherType& other) // NOLINT(hicpp-explicit-conversions)
+    ConstrainerWrapper(const OtherType& other)
+        : value(Constrainer::constrain(static_cast<Type>(other))) // NOLINT(hicpp-explicit-conversions)
     {
-        value = Constrainer::constrain(static_cast<Type>(other));
     }
 
-    ConstrainerWrapper(const ConstrainerWrapper& other) { value = other.value; }
+    ConstrainerWrapper(const ConstrainerWrapper& other) : value(other.value) { }
 
     auto operator=(const ConstrainerWrapper& other) noexcept -> ConstrainerWrapper&
     {

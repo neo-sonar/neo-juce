@@ -17,9 +17,9 @@ private:
     void sliderDragStarted(juce::Slider* /*slider*/) override;
     void sliderDragEnded(juce::Slider* /*slider*/) override;
 
-    juce::Slider& slider_;
-    ValueTreeAttachment<float> attachment_;
-    bool ignoreCallbacks_ = false;
+    juce::Slider& _slider;
+    ValueTreeAttachment<float> _attachment;
+    bool _ignoreCallbacks = false;
 };
 } // namespace mc
 #endif // MODERN_CIRCUITS_JUCE_MODULES_SLIDER_ATTACHMENT_HPP

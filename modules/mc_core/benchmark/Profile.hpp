@@ -22,15 +22,15 @@ struct Profiler {
 
     void beginSession(std::string const& name, std::string const& filepath = "results.json")
     {
-        std::lock_guard<std::mutex> lock(mutex_);
-        if (currentSession_ != nullptr) { internalEndSession(); }
+        std::lock_guard<std::mutex> lock(_mutex);
+        if (_currentSession != nullptr) { internalEndSession(); }
 
-        buffer_.reserve(1'000'000);
+        _buffer.reserve(1'000'000);
 
-        outputStream_.open(filepath);
-        if (outputStream_.is_open()) {
-            currentSession_       = std::make_unique<InstrumentationSession>();
-            currentSession_->Name = name;
+        _outputStream.open(filepath);
+        if (_outputStream.is_open()) {
+            _currentSession       = std::make_unique<InstrumentationSession>();
+            _currentSession->Name = name;
             writeHeader();
         } else {
             DBG(mc::jformat("Profiler could not open results file '{0}'.", filepath));
@@ -39,7 +39,7 @@ struct Profiler {
 
     void endSession()
     {
-        std::lock_guard<std::mutex> lock(mutex_);
+        std::lock_guard<std::mutex> lock(_mutex);
         internalEndSession();
     }
 
@@ -56,8 +56,8 @@ struct Profiler {
             result.Start.count()                                                                         //
         );
 
-        std::lock_guard<std::mutex> lock(mutex_);
-        if (currentSession_ != nullptr) { buffer_.push_back(json); }
+        std::lock_guard<std::mutex> lock(_mutex);
+        if (_currentSession != nullptr) { _buffer.push_back(json); }
     }
 
     static auto get() -> Profiler&
@@ -69,14 +69,14 @@ struct Profiler {
 private:
     void writeHeader()
     {
-        outputStream_ << R"({"otherData": {},"traceEvents":[{})";
-        outputStream_.flush();
+        _outputStream << R"({"otherData": {},"traceEvents":[{})";
+        _outputStream.flush();
     }
 
     void writeFooter()
     {
-        outputStream_ << "]}";
-        outputStream_.flush();
+        _outputStream << "]}";
+        _outputStream.flush();
     }
 
     // Note: you must already own lock on mutex_ before
@@ -84,32 +84,29 @@ private:
     void internalEndSession()
     {
 
-        if (currentSession_ != nullptr) {
-            for (auto const& item : buffer_) { outputStream_ << item; }
+        if (_currentSession != nullptr) {
+            for (auto const& item : _buffer) { _outputStream << item; }
 
-            outputStream_.flush();
+            _outputStream.flush();
             writeFooter();
-            outputStream_.close();
-            currentSession_.reset(nullptr);
-            currentSession_ = nullptr;
+            _outputStream.close();
+            _currentSession.reset(nullptr);
+            _currentSession = nullptr;
         }
     }
 
-    std::mutex mutex_;
-    std::unique_ptr<InstrumentationSession> currentSession_ { nullptr };
-    std::ofstream outputStream_;
-    Vector<std::string> buffer_;
+    std::mutex _mutex;
+    std::unique_ptr<InstrumentationSession> _currentSession { nullptr };
+    std::ofstream _outputStream;
+    Vector<std::string> _buffer;
 };
 
 struct ProfileTimer {
-    explicit ProfileTimer(const char* name) : name_(name), stopped_(false)
-    {
-        startTimepoint_ = std::chrono::steady_clock::now();
-    }
+    explicit ProfileTimer(const char* name) : _name(name) { _startTimepoint = std::chrono::steady_clock::now(); }
 
     ~ProfileTimer() // NOLINT(bugprone-exception-escape)
     {
-        if (!stopped_) { stop(); }
+        if (!_stopped) { stop(); }
     }
 
     ProfileTimer(const ProfileTimer& other)                  = delete;
@@ -120,20 +117,20 @@ struct ProfileTimer {
     void stop()
     {
         auto endTimepoint = std::chrono::steady_clock::now();
-        auto highResStart = FloatingPointMicroseconds { startTimepoint_.time_since_epoch() };
+        auto highResStart = FloatingPointMicroseconds { _startTimepoint.time_since_epoch() };
         auto elapsedTime
             = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch()
-              - std::chrono::time_point_cast<std::chrono::microseconds>(startTimepoint_).time_since_epoch();
+              - std::chrono::time_point_cast<std::chrono::microseconds>(_startTimepoint).time_since_epoch();
 
-        Profiler::get().writeProfile({ name_, highResStart, elapsedTime, std::this_thread::get_id() });
+        Profiler::get().writeProfile({ _name, highResStart, elapsedTime, std::this_thread::get_id() });
 
-        stopped_ = true;
+        _stopped = true;
     }
 
 private:
-    const char* name_;
-    std::chrono::time_point<std::chrono::steady_clock> startTimepoint_;
-    bool stopped_;
+    const char* _name;
+    std::chrono::time_point<std::chrono::steady_clock> _startTimepoint;
+    bool _stopped { false };
 };
 } // namespace mc
 

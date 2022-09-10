@@ -1,29 +1,30 @@
+#include <cstddef>
 
 namespace mc {
 
-BackgroundProcess::BackgroundProcess(juce::ThreadPool* threadPool) : threadPool_ { threadPool } { }
+BackgroundProcess::BackgroundProcess(juce::ThreadPool* threadPool) : _threadPool { threadPool } { }
 
 auto BackgroundProcess::startProcess(const juce::String& command) -> void
 {
-    if (threadPool_ != nullptr) {
-        threadPool_->addJob([command, this] {
+    if (_threadPool != nullptr) {
+        _threadPool->addJob([command, this] {
             juce::ChildProcess proc {};
             if (proc.start(command)) {
-                this->processHasStarted_.store(true);
+                this->_processHasStarted.store(true);
 
-                auto buffer = Vector<std::uint8_t>(1024 * 16, std::uint8_t {});
+                auto buffer = Vector<std::uint8_t>(static_cast<size_t>(1024 * 16), std::uint8_t {});
                 while (proc.isRunning()) {
                     std::fill(std::begin(buffer), std::end(buffer), std::uint8_t {});
                     auto* const data   = static_cast<void*>(buffer.data());
                     auto const maxSize = static_cast<int>(buffer.size());
                     auto num           = proc.readProcessOutput(data, maxSize);
                     if (num != 0) {
-                        queue_.push(juce::String::createStringFromData(static_cast<void*>(buffer.data()), num));
+                        _queue.push(juce::String::createStringFromData(static_cast<void*>(buffer.data()), num));
                     }
                 }
 
-                this->processExitCode_.store(proc.getExitCode());
-                this->processHasFinished_.store(true);
+                this->_processExitCode.store(proc.getExitCode());
+                this->_processHasFinished.store(true);
             }
         });
 
@@ -35,27 +36,27 @@ auto BackgroundProcess::startProcess(const juce::String& command) -> void
     jassertfalse;
 }
 
-auto BackgroundProcess::addListener(Listener* listener) -> void { listeners_.add(listener); }
+auto BackgroundProcess::addListener(Listener* listener) -> void { _listeners.add(listener); }
 
-auto BackgroundProcess::removeListener(Listener* listener) -> void { listeners_.remove(listener); }
+auto BackgroundProcess::removeListener(Listener* listener) -> void { _listeners.remove(listener); }
 
 auto BackgroundProcess::timerCallback() -> void
 {
-    if (processHasStarted_.load()) {
-        processHasStarted_.store(false);
-        listeners_.call([this](Listener& l) { l.backgroundProcessStarted(this); });
+    if (_processHasStarted.load()) {
+        _processHasStarted.store(false);
+        _listeners.call([this](Listener& l) { l.backgroundProcessStarted(this); });
     }
 
-    if (processHasFinished_.load()) {
-        processHasFinished_.store(false);
-        listeners_.call([this, ec = processExitCode_.load()](Listener& l) { l.backgroundProcessFinished(this, ec); });
+    if (_processHasFinished.load()) {
+        _processHasFinished.store(false);
+        _listeners.call([this, ec = _processExitCode.load()](Listener& l) { l.backgroundProcessFinished(this, ec); });
         stopTimer();
     }
 
-    auto output = queue_.pop();
+    auto output = _queue.pop();
     while (output.has_value()) {
-        listeners_.call([this, s = output.value()](Listener& l) { l.backgroundProcessOutputReceived(this, s); });
-        output = queue_.pop();
+        _listeners.call([this, s = output.value()](Listener& l) { l.backgroundProcessOutputReceived(this, s); });
+        output = _queue.pop();
     }
 }
 

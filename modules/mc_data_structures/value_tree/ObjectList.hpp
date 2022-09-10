@@ -101,7 +101,7 @@ private:
             auto const oldIndex = indexOf(tree);
 
             if (oldIndex >= 0) {
-                ObjectType* o;
+                ObjectType* o = nullptr;
 
                 {
                     ScopedLockType const lock(objectsMutex_);
@@ -237,7 +237,7 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
             auto oldIndex = indexOf(tree);
 
             if (oldIndex >= 0) {
-                ObjectType* o;
+                ObjectType* o = nullptr;
 
                 {
                     const ScopedLockType sl(arrayLock);

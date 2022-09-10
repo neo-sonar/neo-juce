@@ -9,23 +9,23 @@ TEST_CASE("gui_basics/attachment: SliderValueTreeAttachment", "")
     juce::UndoManager undoManager {};
     juce::ValueTree valueTree { "test" };
     mc::CachedAtomicFloat value { valueTree, id, &undoManager };
-    value = 2.0f;
+    value = 2.0F;
 
     juce::Slider slider { "slider" };
     mc::SliderValueTreeAttachment attachment { valueTree, id, slider, &undoManager };
-    CHECK(slider.getValue() == Catch::Approx(2.0f));
+    CHECK(slider.getValue() == Catch::Approx(2.0F));
 
-    slider.setValue(3.0f, juce::sendNotificationSync);
-    CHECK(value.get() == Catch::Approx(3.0f));
-    CHECK(slider.getValue() == Catch::Approx(3.0f));
+    slider.setValue(3.0F, juce::sendNotificationSync);
+    CHECK(value.get() == Catch::Approx(3.0F));
+    CHECK(slider.getValue() == Catch::Approx(3.0F));
 
     slider.startedDragging();
-    slider.setValue(3.1f, juce::sendNotificationSync);
-    CHECK(value.get() == Catch::Approx(3.1f));
-    CHECK(slider.getValue() == Catch::Approx(3.1f));
+    slider.setValue(3.1F, juce::sendNotificationSync);
+    CHECK(value.get() == Catch::Approx(3.1F));
+    CHECK(slider.getValue() == Catch::Approx(3.1F));
 
-    slider.setValue(3.2f, juce::sendNotificationSync);
-    CHECK(value.get() == Catch::Approx(3.2f));
-    CHECK(slider.getValue() == Catch::Approx(3.2f));
+    slider.setValue(3.2F, juce::sendNotificationSync);
+    CHECK(value.get() == Catch::Approx(3.2F));
+    CHECK(slider.getValue() == Catch::Approx(3.2F));
     slider.stoppedDragging();
 }

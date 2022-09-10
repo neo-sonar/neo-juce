@@ -10,11 +10,11 @@ struct OutlineBuffer {
 private:
     struct ChannelData {
     private:
-        Vector<float> minBuffer_;
-        Vector<float> maxBuffer_;
-        Atomic<size_t> writePointer_ { 0 };
-        int fraction_        = 0;
-        int samplesPerBlock_ = 128;
+        Vector<float> _minBuffer;
+        Vector<float> _maxBuffer;
+        Atomic<size_t> _writePointer { 0 };
+        int _fraction        = 0;
+        int _samplesPerBlock = 128;
 
         JUCE_LEAK_DETECTOR(ChannelData) // NOLINT
     public:
@@ -28,9 +28,9 @@ private:
         /**
          @return the number of values the buffer will store.
          */
-        MC_NODISCARD auto getSize() const -> int { return static_cast<int>(minBuffer_.size()); }
+        MC_NODISCARD auto getSize() const -> int { return static_cast<int>(_minBuffer.size()); }
 
-        void setSamplesPerBlock(const int numSamples) { samplesPerBlock_ = numSamples; }
+        void setSamplesPerBlock(const int numSamples) { _samplesPerBlock = numSamples; }
 
         /**
          @param numBlocks is the number of values the buffer will store. Allow a little safety buffer, so you
@@ -38,9 +38,9 @@ private:
          */
         void setSize(const int numBlocks)
         {
-            minBuffer_.resize(size_t(numBlocks), 0.0f);
-            maxBuffer_.resize(size_t(numBlocks), 0.0f);
-            writePointer_ = writePointer_ % size_t(numBlocks);
+            _minBuffer.resize(size_t(numBlocks), 0.0F);
+            _maxBuffer.resize(size_t(numBlocks), 0.0F);
+            _writePointer = _writePointer % size_t(numBlocks);
         }
 
         void pushChannelData(const float* input, const int numSamples)
@@ -50,25 +50,25 @@ private:
             juce::Range<float> minMax;
             while (samples < numSamples) {
                 auto leftover = numSamples - samples;
-                if (fraction_ > 0) {
-                    minMax = juce::FloatVectorOperations::findMinAndMax(input, samplesPerBlock_ - fraction_);
-                    maxBuffer_[(size_t)writePointer_] = std::max(maxBuffer_[(size_t)writePointer_], minMax.getEnd());
-                    minBuffer_[(size_t)writePointer_] = std::min(minBuffer_[(size_t)writePointer_], minMax.getStart());
-                    samples += samplesPerBlock_ - fraction_;
-                    fraction_     = 0;
-                    writePointer_ = (writePointer_ + 1) % maxBuffer_.size();
-                } else if (leftover > samplesPerBlock_) {
-                    minMax = juce::FloatVectorOperations::findMinAndMax(input + samples, samplesPerBlock_);
-                    maxBuffer_[(size_t)writePointer_] = minMax.getEnd();
-                    minBuffer_[(size_t)writePointer_] = minMax.getStart();
-                    samples += samplesPerBlock_;
-                    writePointer_ = (writePointer_ + 1) % maxBuffer_.size();
+                if (_fraction > 0) {
+                    minMax = juce::FloatVectorOperations::findMinAndMax(input, _samplesPerBlock - _fraction);
+                    _maxBuffer[(size_t)_writePointer] = std::max(_maxBuffer[(size_t)_writePointer], minMax.getEnd());
+                    _minBuffer[(size_t)_writePointer] = std::min(_minBuffer[(size_t)_writePointer], minMax.getStart());
+                    samples += _samplesPerBlock - _fraction;
+                    _fraction     = 0;
+                    _writePointer = (_writePointer + 1) % _maxBuffer.size();
+                } else if (leftover > _samplesPerBlock) {
+                    minMax = juce::FloatVectorOperations::findMinAndMax(input + samples, _samplesPerBlock);
+                    _maxBuffer[(size_t)_writePointer] = minMax.getEnd();
+                    _minBuffer[(size_t)_writePointer] = minMax.getStart();
+                    samples += _samplesPerBlock;
+                    _writePointer = (_writePointer + 1) % _maxBuffer.size();
                 } else {
                     minMax = juce::FloatVectorOperations::findMinAndMax(input + samples, leftover);
-                    maxBuffer_[(size_t)writePointer_] = minMax.getEnd();
-                    minBuffer_[(size_t)writePointer_] = minMax.getStart();
-                    samples += samplesPerBlock_ - fraction_;
-                    fraction_ = leftover;
+                    _maxBuffer[(size_t)_writePointer] = minMax.getEnd();
+                    _minBuffer[(size_t)_writePointer] = minMax.getStart();
+                    samples += _samplesPerBlock - _fraction;
+                    _fraction = leftover;
                 }
                 jassert(minMax.getStart() == minMax.getStart() && minMax.getEnd() == minMax.getEnd());
             }
@@ -78,20 +78,20 @@ private:
         getChannelOutline(juce::Path& outline, const juce::Rectangle<float> bounds, const int numSamplesToPlot) const
         {
             auto numSamples = size_t(numSamplesToPlot);
-            auto latest     = writePointer_ > 0 ? writePointer_ - 1 : maxBuffer_.size() - 1;
-            auto oldest     = (latest >= numSamples) ? latest - numSamples : latest + maxBuffer_.size() - numSamples;
+            auto latest     = _writePointer > 0 ? _writePointer - 1 : _maxBuffer.size() - 1;
+            auto oldest     = (latest >= numSamples) ? latest - numSamples : latest + _maxBuffer.size() - numSamples;
 
             const auto dx = bounds.getWidth() / static_cast<float>(numSamples);
-            const auto dy = bounds.getHeight() * 0.35f;
+            const auto dy = bounds.getHeight() * 0.35F;
             const auto my = bounds.getCentreY();
             auto x        = bounds.getX();
             auto s        = oldest;
 
             outline.startNewSubPath(x, my);
             for (size_t i = 0; i < numSamples; ++i) {
-                outline.lineTo(x, my + minBuffer_[s] * dy);
+                outline.lineTo(x, my + _minBuffer[s] * dy);
                 x += dx;
-                if (s < minBuffer_.size() - 1) {
+                if (s < _minBuffer.size() - 1) {
                     s += 1;
                 } else {
                     s = 0;
@@ -99,19 +99,19 @@ private:
             }
 
             for (size_t i = 0; i < numSamples; ++i) {
-                outline.lineTo(x, my + maxBuffer_[s] * dy);
+                outline.lineTo(x, my + _maxBuffer[s] * dy);
                 x -= dx;
                 if (s > 1) {
                     s -= 1;
                 } else {
-                    s = maxBuffer_.size() - 1;
+                    s = _maxBuffer.size() - 1;
                 }
             }
         }
     };
 
-    Vector<ChannelData> channelDatas_;
-    int samplesPerBlock_ = 128;
+    Vector<ChannelData> _channelDatas;
+    int _samplesPerBlock = 128;
 
     JUCE_LEAK_DETECTOR(OutlineBuffer) // NOLINT
 public:
@@ -124,10 +124,10 @@ public:
      */
     void setSize(const int numChannels, const int numBlocks)
     {
-        channelDatas_.resize(size_t(numChannels));
-        for (auto& data : channelDatas_) {
+        _channelDatas.resize(size_t(numChannels));
+        for (auto& data : _channelDatas) {
             data.setSize(numBlocks);
-            data.setSamplesPerBlock(samplesPerBlock_);
+            data.setSamplesPerBlock(_samplesPerBlock);
         }
     }
 
@@ -136,8 +136,8 @@ public:
      */
     void setSamplesPerBlock(const int numSamples)
     {
-        samplesPerBlock_ = numSamples;
-        for (auto& data : channelDatas_) { data.setSamplesPerBlock(numSamples); }
+        _samplesPerBlock = numSamples;
+        for (auto& data : _channelDatas) { data.setSamplesPerBlock(numSamples); }
     }
 
     /**
@@ -146,8 +146,8 @@ public:
     void pushBlock(const juce::AudioBuffer<float>& buffer, const int numSamples)
     {
         for (int i = 0; i < buffer.getNumChannels(); ++i) {
-            if (i < int(channelDatas_.size())) {
-                channelDatas_[size_t(i)].pushChannelData(buffer.getReadPointer(i), numSamples);
+            if (i < int(_channelDatas.size())) {
+                _channelDatas[size_t(i)].pushChannelData(buffer.getReadPointer(i), numSamples);
             }
         }
     }
@@ -166,8 +166,8 @@ public:
         const int channel,
         const int numSamples) const
     {
-        if (channel < int(channelDatas_.size())) {
-            return channelDatas_[size_t(channel)].getChannelOutline(path, bounds, numSamples);
+        if (channel < int(_channelDatas.size())) {
+            return _channelDatas[size_t(channel)].getChannelOutline(path, bounds, numSamples);
         }
     }
 
@@ -182,7 +182,7 @@ public:
     void getChannelOutline(juce::Path& path, const juce::Rectangle<float> bounds, const int numSamples) const
     {
         juce::Rectangle<float> b(bounds);
-        auto const numChannels = static_cast<int>(channelDatas_.size());
+        auto const numChannels = static_cast<int>(_channelDatas.size());
         auto const h           = bounds.getHeight() / static_cast<float>(numChannels);
         for (int i = 0; i < numChannels; ++i) { getChannelOutline(path, b.removeFromTop(h), i, numSamples); }
     }

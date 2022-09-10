@@ -15,7 +15,7 @@ struct OscilloscopeSource {
     auto removeChangeListener(juce::ChangeListener* l) -> void;
 
 private:
-    DownSamplingAnalyzer source_ { 16U };
+    DownSamplingAnalyzer _source { 16U };
 };
 
 } // namespace mc

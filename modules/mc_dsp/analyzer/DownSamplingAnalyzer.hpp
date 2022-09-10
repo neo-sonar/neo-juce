@@ -3,7 +3,7 @@
 namespace mc {
 
 struct DownSamplingAnalyzer final : juce::Timer, juce::ChangeBroadcaster {
-    DownSamplingAnalyzer(std::size_t downSampleFactor);
+    explicit DownSamplingAnalyzer(std::size_t downSampleFactor);
     ~DownSamplingAnalyzer() override = default;
 
     void process(juce::AudioBuffer<float> const& buffer);
@@ -15,10 +15,10 @@ private:
     auto timerCallback() -> void override;
 
     enum { ChunkSize = 64U };
-    LockFreeQueue<StaticVector<float, ChunkSize>> queue_ { 8U };
-    std::size_t downSampleFactor_ { 8U };
+    LockFreeQueue<StaticVector<float, ChunkSize>> _queue { 8U };
+    std::size_t _downSampleFactor { 8U };
 
-    Vector<float> buffer_;
+    Vector<float> _buffer;
 };
 
 } // namespace mc

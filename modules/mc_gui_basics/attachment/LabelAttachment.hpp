@@ -10,40 +10,40 @@ struct LabelValueTreeAttachment : juce::ValueTree::Listener {
         juce::Identifier const& id,
         juce::Label& label,
         juce::UndoManager* undoManager = nullptr)
-        : state_ { state }
-        , id_ { id }
-        , label_ { label }
-        , attachment_ { state, id, [this](auto f) { setValue(std::move(f)); }, undoManager }
+        : _state { state }
+        , _id { id }
+        , _label { label }
+        , _attachment { state, id, [this](auto f) { setValue(std::move(f)); }, undoManager }
     {
         sendInitialUpdate();
-        state_.addListener(this);
+        _state.addListener(this);
     }
 
-    ~LabelValueTreeAttachment() override { state_.removeListener(this); }
+    ~LabelValueTreeAttachment() override { _state.removeListener(this); }
 
-    void sendInitialUpdate() { attachment_.sendInitialUpdate(); }
+    void sendInitialUpdate() { _attachment.sendInitialUpdate(); }
 
 private:
     auto setValue(value_type content) -> void
     {
         auto text = juce::String { content };
-        juce::ScopedValueSetter<bool> svs(ignoreCallbacks_, true);
-        label_.setText(text, juce::dontSendNotification);
+        juce::ScopedValueSetter<bool> svs(_ignoreCallbacks, true);
+        _label.setText(text, juce::dontSendNotification);
     }
 
     void valueTreePropertyChanged(juce::ValueTree& tree, juce::Identifier const& id) override
     {
-        if (tree == state_ && id == id_) {
-            if (ignoreCallbacks_) { return; }
-            attachment_.setValueAsCompleteGesture(tree[id]);
+        if (tree == _state && id == _id) {
+            if (_ignoreCallbacks) { return; }
+            _attachment.setValueAsCompleteGesture(tree[id]);
         }
     }
 
-    juce::ValueTree state_;
-    juce::Identifier const& id_;
-    juce::Label& label_;
-    ValueTreeAttachment<value_type> attachment_;
-    bool ignoreCallbacks_ = false;
+    juce::ValueTree _state;
+    juce::Identifier const& _id;
+    juce::Label& _label;
+    ValueTreeAttachment<value_type> _attachment;
+    bool _ignoreCallbacks = false;
 };
 
 template <typename T = juce::String>
@@ -51,20 +51,20 @@ struct ValueTreeLabel : juce::Component {
     using value_type = T;
 
     explicit ValueTreeLabel(juce::CachedValue<value_type>& value)
-        : value_ { value }
-        , attachment_ { value_.getValueTree(), value_.getPropertyID(), label_, value_.getUndoManager() }
+        : _value { value }
+        , _attachment { _value.getValueTree(), _value.getPropertyID(), _label, _value.getUndoManager() }
     {
-        addAndMakeVisible(label_);
+        addAndMakeVisible(_label);
     }
 
     ~ValueTreeLabel() override = default;
 
-    auto resized() -> void override { label_.setBounds(getLocalBounds()); }
+    auto resized() -> void override { _label.setBounds(getLocalBounds()); }
 
 private:
-    juce::CachedValue<value_type>& value_;
-    juce::Label label_;
-    LabelValueTreeAttachment<value_type> attachment_;
+    juce::CachedValue<value_type>& _value;
+    juce::Label _label;
+    LabelValueTreeAttachment<value_type> _attachment;
 };
 } // namespace mc
 

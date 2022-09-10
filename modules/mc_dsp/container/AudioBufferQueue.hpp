@@ -19,18 +19,18 @@ struct AudioBufferQueue {
         auto size1  = 0;
         auto start2 = 0;
         auto size2  = 0;
-        abstractFifo_.prepareToWrite(1, start1, size1, start2, size2);
+        _abstractFifo.prepareToWrite(1, start1, size1, start2, size2);
 
         jassert(size1 <= 1);
         jassert(size2 == 0);
 
         if (size1 > 0) {
-            auto* const dest = buffers_[static_cast<std::size_t>(start1)].data();
+            auto* const dest = _buffers[static_cast<std::size_t>(start1)].data();
             auto const num   = static_cast<int>(juce::jmin(bufferSize, numSamples));
             juce::FloatVectorOperations::copy(dest, dataToPush, num);
         }
 
-        abstractFifo_.finishedWrite(size1);
+        _abstractFifo.finishedWrite(size1);
     }
 
     void pop(SampleType* outputBuffer)
@@ -39,22 +39,22 @@ struct AudioBufferQueue {
         auto size1  = 0;
         auto start2 = 0;
         auto size2  = 0;
-        abstractFifo_.prepareToRead(1, start1, size1, start2, size2);
+        _abstractFifo.prepareToRead(1, start1, size1, start2, size2);
 
         jassert(size1 <= 1);
         jassert(size2 == 0);
 
         if (size1 > 0) {
-            auto const* const src = buffers_[(std::size_t)start1].data();
+            auto const* const src = _buffers[(std::size_t)start1].data();
             juce::FloatVectorOperations::copy(outputBuffer, src, static_cast<int>(bufferSize));
         }
 
-        abstractFifo_.finishedRead(size1);
+        _abstractFifo.finishedRead(size1);
     }
 
 private:
-    juce::AbstractFifo abstractFifo_ { numBuffers };
-    std::array<std::array<SampleType, bufferSize>, numBuffers> buffers_ {};
+    juce::AbstractFifo _abstractFifo { numBuffers };
+    std::array<std::array<SampleType, bufferSize>, numBuffers> _buffers {};
 
     JUCE_DECLARE_NON_COPYABLE(AudioBufferQueue) // NOLINT
 };

@@ -33,12 +33,12 @@ struct BackgroundProcess : private juce::Timer {
 private:
     auto timerCallback() -> void override;
 
-    juce::ListenerList<Listener> listeners_ {};
-    ThreadSafeQueue<juce::String> queue_ {};
-    juce::ThreadPool* threadPool_ { nullptr };
-    Atomic<bool> processHasStarted_ { false };
-    Atomic<bool> processHasFinished_ { false };
-    Atomic<uint32_t> processExitCode_ { 0 };
+    juce::ListenerList<Listener> _listeners {};
+    ThreadSafeQueue<juce::String> _queue {};
+    juce::ThreadPool* _threadPool { nullptr };
+    Atomic<bool> _processHasStarted { false };
+    Atomic<bool> _processHasFinished { false };
+    Atomic<uint32_t> _processExitCode { 0 };
 };
 
 } // namespace mc

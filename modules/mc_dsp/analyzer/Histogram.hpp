@@ -12,7 +12,7 @@ struct HistogramLookAndFeelMethods {
 struct Histogram : juce::Component, juce::Timer {
     using LookAndFeelMethods = HistogramLookAndFeelMethods;
 
-    explicit Histogram(HistogramSource* source, juce::Range<float> range = juce::Range<float> { 0.0f, 1.3f });
+    explicit Histogram(HistogramSource* source, juce::Range<float> range = juce::Range<float> { 0.0F, 1.3F });
     ~Histogram() override = default;
 
     MC_NODISCARD auto historyBuffer() const noexcept -> RingBuffer<float> const&;
@@ -29,10 +29,10 @@ private:
     auto timerCallback() -> void override;
     auto resizeBuffer() -> void;
 
-    HistogramSource* source_ {};
-    juce::Range<float> range_ { 1.0, 0.0 };
-    RingBuffer<float> history_ {};
-    Seconds<float> historyToKeep_ { 6.0f };
-    int refreshRate_ { 30 };
+    HistogramSource* _source {};
+    juce::Range<float> _range { 1.0, 0.0 };
+    RingBuffer<float> _history {};
+    Seconds<float> _historyToKeep { 6.0F };
+    int _refreshRate { 30 };
 };
 } // namespace mc

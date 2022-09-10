@@ -9,9 +9,9 @@ namespace mc {
 template <typename FloatType>
 struct StereoFieldBuffer {
 private:
-    juce::AudioBuffer<FloatType> sampleBuffer_;
-    Atomic<int> writePosition_   = { 0 };
-    Vector<FloatType> maxValues_ = { 180, 0.0 };
+    juce::AudioBuffer<FloatType> _sampleBuffer;
+    Atomic<int> _writePosition   = { 0 };
+    Vector<FloatType> _maxValues = { 180, 0.0 };
 
     inline void computeDirection(Vector<float>& directions, const FloatType left, const FloatType right) const
     {
@@ -40,32 +40,32 @@ public:
 
     void setBufferSize(int newNumChannels, int newNumSamples)
     {
-        sampleBuffer_.setSize(newNumChannels, newNumSamples);
-        sampleBuffer_.clear();
-        writePosition_ = 0;
+        _sampleBuffer.setSize(newNumChannels, newNumSamples);
+        _sampleBuffer.clear();
+        _writePosition = 0;
     }
 
     void pushSampleBlock(juce::AudioBuffer<FloatType> buffer, int numSamples)
     {
         jassert(buffer.getNumChannels() == sampleBuffer_.getNumChannels());
 
-        auto pos   = writePosition_.load();
-        auto space = sampleBuffer_.getNumSamples() - pos;
+        auto pos   = _writePosition.load();
+        auto space = _sampleBuffer.getNumSamples() - pos;
         if (space >= numSamples) {
-            for (int c = 0; c < sampleBuffer_.getNumChannels(); ++c) {
-                sampleBuffer_.copyFrom(c, pos, buffer.getReadPointer(c), numSamples);
+            for (int c = 0; c < _sampleBuffer.getNumChannels(); ++c) {
+                _sampleBuffer.copyFrom(c, pos, buffer.getReadPointer(c), numSamples);
             }
-            writePosition_ = pos + numSamples;
+            _writePosition = pos + numSamples;
         } else {
-            for (int c = 0; c < sampleBuffer_.getNumChannels(); ++c) {
-                sampleBuffer_.copyFrom(c, pos, buffer.getReadPointer(c), space);
-                sampleBuffer_.copyFrom(c, 0, buffer.getReadPointer(c, space), numSamples - space);
+            for (int c = 0; c < _sampleBuffer.getNumChannels(); ++c) {
+                _sampleBuffer.copyFrom(c, pos, buffer.getReadPointer(c), space);
+                _sampleBuffer.copyFrom(c, 0, buffer.getReadPointer(c, space), numSamples - space);
             }
-            writePosition_ = numSamples - space;
+            _writePosition = numSamples - space;
         }
     }
 
-    void resetMaxValues() { std::fill(maxValues_.begin(), maxValues_.end(), 0.0); }
+    void resetMaxValues() { std::fill(_maxValues.begin(), _maxValues.end(), 0.0); }
 
     //  ==============================================================================
 
@@ -74,10 +74,10 @@ public:
         -> juce::Path
     {
         juce::Path curve;
-        auto pos = writePosition_.load();
+        auto pos = _writePosition.load();
         if (pos >= numSamples) {
-            auto* left  = sampleBuffer_.getReadPointer(leftIdx, pos - numSamples);
-            auto* right = sampleBuffer_.getReadPointer(rightIdx, pos - numSamples);
+            auto* left  = _sampleBuffer.getReadPointer(leftIdx, pos - numSamples);
+            auto* right = _sampleBuffer.getReadPointer(rightIdx, pos - numSamples);
             curve.startNewSubPath(computePosition(bounds, *left, *right));
             ++left;
             ++right;
@@ -88,8 +88,8 @@ public:
             }
         } else {
             auto leftover = numSamples - pos;
-            auto* left    = sampleBuffer_.getReadPointer(leftIdx, sampleBuffer_.getNumSamples() - leftover);
-            auto* right   = sampleBuffer_.getReadPointer(rightIdx, sampleBuffer_.getNumSamples() - leftover);
+            auto* left    = _sampleBuffer.getReadPointer(leftIdx, _sampleBuffer.getNumSamples() - leftover);
+            auto* right   = _sampleBuffer.getReadPointer(rightIdx, _sampleBuffer.getNumSamples() - leftover);
             curve.startNewSubPath(computePosition(bounds, *left, *right));
             ++left;
             ++right;
@@ -98,8 +98,8 @@ public:
                 ++left;
                 ++right;
             }
-            left  = sampleBuffer_.getReadPointer(leftIdx);
-            right = sampleBuffer_.getReadPointer(rightIdx);
+            left  = _sampleBuffer.getReadPointer(leftIdx);
+            right = _sampleBuffer.getReadPointer(rightIdx);
             for (int i = 0; i < numSamples - leftover; ++i) {
                 curve.lineTo(computePosition(bounds, *left, *right));
                 ++left;
@@ -116,11 +116,11 @@ public:
     {
         jassert(directions.size() == 180);
         std::fill(directions.begin(), directions.end(), 0.0);
-        auto pos = writePosition_.load();
+        auto pos = _writePosition.load();
 
         if (pos >= numSamples) {
-            auto* left  = sampleBuffer_.getReadPointer(leftIdx, pos - numSamples);
-            auto* right = sampleBuffer_.getReadPointer(rightIdx, pos - numSamples);
+            auto* left  = _sampleBuffer.getReadPointer(leftIdx, pos - numSamples);
+            auto* right = _sampleBuffer.getReadPointer(rightIdx, pos - numSamples);
             for (int i = 0; i < numSamples; ++i) {
                 computeDirection(directions, *left, *right);
                 ++left;
@@ -128,15 +128,15 @@ public:
             }
         } else {
             auto leftover = numSamples - pos;
-            auto* left    = sampleBuffer_.getReadPointer(leftIdx, sampleBuffer_.getNumSamples() - leftover);
-            auto* right   = sampleBuffer_.getReadPointer(rightIdx, sampleBuffer_.getNumSamples() - leftover);
+            auto* left    = _sampleBuffer.getReadPointer(leftIdx, _sampleBuffer.getNumSamples() - leftover);
+            auto* right   = _sampleBuffer.getReadPointer(rightIdx, _sampleBuffer.getNumSamples() - leftover);
             for (int i = 0; i < leftover; ++i) {
                 computeDirection(directions, *left, *right);
                 ++left;
                 ++right;
             }
-            left  = sampleBuffer_.getReadPointer(leftIdx);
-            right = sampleBuffer_.getReadPointer(rightIdx);
+            left  = _sampleBuffer.getReadPointer(leftIdx);
+            right = _sampleBuffer.getReadPointer(rightIdx);
             for (int i = 0; i < numSamples - leftover; ++i) {
                 computeDirection(directions, *left, *right);
                 ++left;

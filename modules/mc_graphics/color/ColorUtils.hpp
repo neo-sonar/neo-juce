@@ -7,7 +7,7 @@ inline auto makeColor(int r, int g, int b) -> juce::Colour
     jassert(r <= 255);
     jassert(g <= 255);
     jassert(b <= 255);
-    return juce::Colour(static_cast<uint8_t>(r), static_cast<uint8_t>(g), static_cast<uint8_t>(b));
+    return { static_cast<uint8_t>(r), static_cast<uint8_t>(g), static_cast<uint8_t>(b) };
 }
 } // namespace mc
 

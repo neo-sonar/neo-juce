@@ -10,9 +10,9 @@ struct TriggerClock {
     MC_NODISCARD auto advance(std::int64_t numSamples) -> bool;
 
 private:
-    std::int64_t sampleCount_ { 0 };
-    std::uint64_t tickLength_ { 0 };
-    double sampleRate_ { 0 };
+    std::int64_t _sampleCount { 0 };
+    std::uint64_t _tickLength { 0 };
+    double _sampleRate { 0 };
 };
 
 } // namespace mc

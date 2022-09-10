@@ -42,7 +42,7 @@ TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "", float, double)
         // test subject
         juce::dsp::ProcessorChain<mc::dsp::StereoWidth> dspChain;
         dspChain.get<0>().prepare({ 44'100.0, uint32_t(512), uint32_t(2) });
-        dspChain.get<0>().setParameters({ 1.0f });
+        dspChain.get<0>().setParameters({ 1.0F });
         dspChain.get<0>().reset();
 
         // audio data
@@ -73,7 +73,7 @@ TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "", float, double)
         // test subject
         juce::dsp::ProcessorChain<mc::dsp::StereoWidth> dspChain;
         dspChain.get<0>().prepare({ 96'000.0, uint32_t(512), uint32_t(2) });
-        dspChain.get<0>().setParameters({ 0.0f });
+        dspChain.get<0>().setParameters({ 0.0F });
         dspChain.get<0>().reset();
 
         // audio data

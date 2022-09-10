@@ -10,24 +10,24 @@ struct MultiMonoIIR {
 
     MultiMonoIIR() = default;
 
-    MC_NODISCARD auto getCoefficients() const noexcept -> juce::IIRCoefficients { return coefficients_; }
+    MC_NODISCARD auto getCoefficients() const noexcept -> juce::IIRCoefficients { return _coefficients; }
 
     auto setCoefficients(juce::IIRCoefficients const& newCoefficients) noexcept -> void
     {
-        coefficients_ = newCoefficients;
+        _coefficients = newCoefficients;
         updateFilters();
     }
 
     auto prepare(juce::dsp::ProcessSpec const& specs)
     {
-        specs_ = specs;
+        _specs = specs;
         createFilters();
         updateFilters();
     }
 
     auto reset() -> void
     {
-        std::for_each(begin(filters_), end(filters_), [](auto& f) { f.reset(); });
+        std::for_each(begin(_filters), end(_filters), [](auto& f) { f.reset(); });
     }
 
     template <typename ProcessContext>
@@ -46,7 +46,7 @@ struct MultiMonoIIR {
             auto* const channel = outputBlock.getChannelPointer(i);
             for (std::size_t j = 0; j < numSamples; ++j) {
                 auto const input  = static_cast<float>(channel[j]);
-                auto const output = filters_[i].processSingleSampleRaw(input);
+                auto const output = _filters[i].processSingleSampleRaw(input);
                 channel[j]        = static_cast<SampleType>(output);
             }
         }
@@ -55,18 +55,18 @@ struct MultiMonoIIR {
 private:
     auto createFilters() -> void
     {
-        filters_.clear();
-        std::generate_n(std::back_inserter(filters_), specs_.numChannels, [] { return juce::IIRFilter {}; });
+        _filters.clear();
+        std::generate_n(std::back_inserter(_filters), _specs.numChannels, [] { return juce::IIRFilter {}; });
     }
 
     auto updateFilters() -> void
     {
-        std::for_each(begin(filters_), end(filters_), [this](auto& f) { f.setCoefficients(coefficients_); });
+        std::for_each(begin(_filters), end(_filters), [this](auto& f) { f.setCoefficients(_coefficients); });
     }
 
-    juce::dsp::ProcessSpec specs_ {};
-    juce::IIRCoefficients coefficients_ {};
-    Vector<juce::IIRFilter> filters_ {};
+    juce::dsp::ProcessSpec _specs {};
+    juce::IIRCoefficients _coefficients {};
+    Vector<juce::IIRFilter> _filters {};
 };
 } // namespace mc
 

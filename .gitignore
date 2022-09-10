@@ -11,3 +11,4 @@ cmake-build-*
 assets
 docs/doxygen/doc
 /out
+/venv

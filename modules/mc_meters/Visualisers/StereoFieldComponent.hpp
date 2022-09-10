@@ -51,7 +51,7 @@ struct StereoFieldComponent : juce::Component {
             = 0;
     };
 
-    explicit StereoFieldComponent(StereoFieldBuffer<float>& stereo) : stereoBuffer_(stereo) { }
+    explicit StereoFieldComponent(StereoFieldBuffer<float>& stereo) : _stereoBuffer(stereo) { }
 
     ~StereoFieldComponent() override = default;
 
@@ -65,14 +65,14 @@ struct StereoFieldComponent : juce::Component {
         juce::Graphics::ScopedSaveState saved(g);
 
         if (auto* lnf = dynamic_cast<StereoFieldComponent::LookAndFeelMethods*>(&getLookAndFeel())) {
-            if (type_ == GonioMeter) {
+            if (_type == GonioMeter) {
                 auto bounds = getLocalBounds().toFloat();
-                lnf->drawGonioBackground(g, bounds, margin_, border_);
-                lnf->drawGonioMeter(g, bounds.reduced(margin_), stereoBuffer_, 0, 1);
-            } else if (type_ == StereoField) {
+                lnf->drawGonioBackground(g, bounds, _margin, _border);
+                lnf->drawGonioMeter(g, bounds.reduced(_margin), _stereoBuffer, 0, 1);
+            } else if (_type == StereoField) {
                 auto bounds = getLocalBounds().toFloat();
-                lnf->drawStereoFieldBackground(g, bounds, margin_, border_);
-                lnf->drawStereoField(g, bounds.reduced(margin_), stereoBuffer_, 0, 1);
+                lnf->drawStereoFieldBackground(g, bounds, _margin, _border);
+                lnf->drawStereoField(g, bounds.reduced(_margin), _stereoBuffer, 0, 1);
             }
         } else {
             // This LookAndFeel is missing the StereoFieldComponent::LookAndFeelMethods.
@@ -81,11 +81,11 @@ struct StereoFieldComponent : juce::Component {
     }
 
 private:
-    StereoFieldBuffer<float>& stereoBuffer_;
-    int type_ = GonioMeter;
+    StereoFieldBuffer<float>& _stereoBuffer;
+    int _type = GonioMeter;
 
-    float margin_ = 5.0f;
-    float border_ = 2.0f;
+    float _margin = 5.0F;
+    float _border = 2.0F;
 
     JUCE_LEAK_DETECTOR(StereoFieldComponent) // NOLINT
 };

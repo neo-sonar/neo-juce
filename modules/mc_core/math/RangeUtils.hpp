@@ -9,30 +9,30 @@ struct RangeUtils {
     /// \brief Returns a normalized range.
     static auto defaultNormalizedRange() noexcept -> juce::NormalisableRange<float>
     {
-        auto range = juce::NormalisableRange<float> { 0.0f, 1.0f, 0.01f };
+        auto range = juce::NormalisableRange<float> { 0.0F, 1.0F, 0.01F };
         return range;
     }
 
     /// \brief Returns a range for gain parameters.
     static auto defaultGainRange() noexcept -> juce::NormalisableRange<float>
     {
-        auto range = juce::NormalisableRange<float> { 0.0f, 4.0f, 0.01f };
-        range.setSkewForCentre(1.0f);
+        auto range = juce::NormalisableRange<float> { 0.0F, 4.0F, 0.01F };
+        range.setSkewForCentre(1.0F);
         return range;
     }
 
     /// \brief Returns a range for full range frequency parameters.
     static auto defaultFrequencyRange() noexcept -> juce::NormalisableRange<float>
     {
-        auto range = juce::NormalisableRange<float> { 20.0f, 22'000.0f, 1.0f };
-        range.setSkewForCentre(3'000.0f);
+        auto range = juce::NormalisableRange<float> { 20.0F, 22'000.0F, 1.0F };
+        range.setSkewForCentre(3'000.0F);
         return range;
     }
 
     static auto defaultTimeRange() noexcept -> juce::NormalisableRange<float>
     {
-        auto range = juce::NormalisableRange<float> { 0.0f, 2000.0f, 0.1f };
-        range.setSkewForCentre(100.f);
+        auto range = juce::NormalisableRange<float> { 0.0F, 2000.0F, 0.1F };
+        range.setSkewForCentre(100.F);
         return range;
     }
 };

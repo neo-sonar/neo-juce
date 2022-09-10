@@ -26,21 +26,21 @@ private:
     MC_NODISCARD auto indexToX(float index, float minFreq) const -> float;
     MC_NODISCARD static auto binToY(float bin, juce::Rectangle<float> const& bounds) -> float;
 
-    float sampleRate_ {};
+    float _sampleRate {};
 
-    juce::AbstractFifo abstractFifo_ { 48000 };
-    juce::AudioBuffer<float> audioFifo_;
-    juce::AudioBuffer<float> fftBuffer_;
-    juce::AudioBuffer<float> averager_;
+    juce::AbstractFifo _abstractFifo { 48000 };
+    juce::AudioBuffer<float> _audioFifo;
+    juce::AudioBuffer<float> _fftBuffer;
+    juce::AudioBuffer<float> _averager;
 
-    int averagerPtr_ = 1;
-    Atomic<bool> newDataAvailable_ { false };
+    int _averagerPtr = 1;
+    Atomic<bool> _newDataAvailable { false };
 
-    juce::WaitableEvent waitForData_;
-    juce::CriticalSection pathCreationLock_;
+    juce::WaitableEvent _waitForData;
+    juce::CriticalSection _pathCreationLock;
 
-    juce::dsp::FFT fft_;
-    juce::dsp::WindowingFunction<float> windowing_;
+    juce::dsp::FFT _fft;
+    juce::dsp::WindowingFunction<float> _windowing;
 
     JUCE_LEAK_DETECTOR(SpectrumSource) // NOLINT
 };

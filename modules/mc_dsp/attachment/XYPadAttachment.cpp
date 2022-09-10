@@ -4,26 +4,26 @@ XYPadAttachment::XYPadAttachment(juce::RangedAudioParameter& parameterX,
     juce::RangedAudioParameter& parameterY,
     XYPad& pad,
     juce::UndoManager* um)
-    : pad_ { pad }
-    , attachmentX_ { parameterX, [this](float val) { setPosition(val, true); }, um }
-    , attachmentY_ { parameterY, [this](float val) { setPosition(val, false); }, um }
+    : _pad { pad }
+    , _attachmentX { parameterX, [this](float val) { setPosition(val, true); }, um }
+    , _attachmentY { parameterY, [this](float val) { setPosition(val, false); }, um }
 {
-    pad_.setXRange(parameterX.getNormalisableRange());
-    pad_.setYRange(parameterY.getNormalisableRange());
+    _pad.setXRange(parameterX.getNormalisableRange());
+    _pad.setYRange(parameterY.getNormalisableRange());
     sendInitialUpdate();
-    pad_.addListener(this);
+    _pad.addListener(this);
 }
 
 XYPadAttachment::~XYPadAttachment()
 {
     sendInitialUpdate();
-    pad_.removeListener(this);
+    _pad.removeListener(this);
 }
 
 auto XYPadAttachment::sendInitialUpdate() -> void
 {
-    attachmentX_.sendInitialUpdate();
-    attachmentY_.sendInitialUpdate();
+    _attachmentX.sendInitialUpdate();
+    _attachmentY.sendInitialUpdate();
 }
 
 auto XYPadAttachment::xypadChanged(XYPad* pad, juce::Point<float> position) -> void
@@ -31,43 +31,43 @@ auto XYPadAttachment::xypadChanged(XYPad* pad, juce::Point<float> position) -> v
     juce::ignoreUnused(pad);
     jassert(pad == &pad_);
 
-    if (ignoreCallbacks_) { return; }
+    if (_ignoreCallbacks) { return; }
 
-    if (isDragging_) {
-        if (lastPosition_.x != position.x) { attachmentX_.setValueAsPartOfGesture(position.x); }
-        if (lastPosition_.y != position.y) { attachmentY_.setValueAsPartOfGesture(position.y); }
+    if (_isDragging) {
+        if (_lastPosition.x != position.x) { _attachmentX.setValueAsPartOfGesture(position.x); }
+        if (_lastPosition.y != position.y) { _attachmentY.setValueAsPartOfGesture(position.y); }
     } else {
-        if (lastPosition_.x != position.x) { attachmentX_.setValueAsCompleteGesture(position.x); }
-        if (lastPosition_.y != position.y) { attachmentY_.setValueAsCompleteGesture(position.y); }
+        if (_lastPosition.x != position.x) { _attachmentX.setValueAsCompleteGesture(position.x); }
+        if (_lastPosition.y != position.y) { _attachmentY.setValueAsCompleteGesture(position.y); }
     }
 
-    lastPosition_ = position;
+    _lastPosition = position;
 }
 
 auto XYPadAttachment::xypadDragStarted(XYPad* pad) -> void
 {
     juce::ignoreUnused(pad);
-    if (!isDragging_) {
-        attachmentX_.beginGesture();
-        attachmentY_.beginGesture();
-        isDragging_ = true;
+    if (!_isDragging) {
+        _attachmentX.beginGesture();
+        _attachmentY.beginGesture();
+        _isDragging = true;
     }
 }
 auto XYPadAttachment::xypadDragEnded(XYPad* pad) -> void
 {
     juce::ignoreUnused(pad);
-    if (isDragging_) {
-        attachmentX_.endGesture();
-        attachmentY_.endGesture();
-        isDragging_ = false;
+    if (_isDragging) {
+        _attachmentX.endGesture();
+        _attachmentY.endGesture();
+        _isDragging = false;
     }
 }
 
 auto XYPadAttachment::setPosition(float newValue, bool isX) -> void
 {
-    juce::ScopedValueSetter<bool> svs { ignoreCallbacks_, true };
-    if (isX) { pad_.setValueX(newValue); }
-    if (!isX) { pad_.setValueY(newValue); }
+    juce::ScopedValueSetter<bool> svs { _ignoreCallbacks, true };
+    if (isX) { _pad.setValueX(newValue); }
+    if (!isX) { _pad.setValueY(newValue); }
 }
 
 } // namespace mc

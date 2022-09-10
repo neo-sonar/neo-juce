@@ -50,39 +50,39 @@ struct Registry {
     auto shrinkToFit() -> void;
 
 private:
-    Vector<std::pair<size_type, Optional<T>>> map_;
-    size_type size_ = 0;
-    ticket_type id_ = 0;
+    Vector<std::pair<size_type, Optional<T>>> _map;
+    size_type _size = 0;
+    ticket_type _id = 0;
 };
 
 template <typename T>
-Registry<T>::Registry(size_type capacity) : map_ { capacity }
+Registry<T>::Registry(size_type capacity) : _map { capacity }
 {
 }
 
 template <typename T>
 auto Registry<T>::size() const noexcept -> size_type
 {
-    return size_;
+    return _size;
 }
 
 template <typename T>
 auto Registry<T>::maxID() const noexcept -> ticket_type
 {
-    return id_ - 1;
+    return _id - 1;
 }
 
 template <typename T>
 auto Registry<T>::capacity() const noexcept -> size_type
 {
-    return map_.capacity();
+    return _map.capacity();
 }
 
 template <typename T>
 template <typename F>
 auto Registry<T>::forEach(F f) const -> void
 {
-    for (auto const& e : map_) {
+    for (auto const& e : _map) {
         if (e.second) { f(*e.second); }
     }
 }
@@ -91,7 +91,7 @@ template <typename T>
 template <typename F>
 auto Registry<T>::forEach(F f) -> void
 {
-    for (auto& e : map_) {
+    for (auto& e : _map) {
         if (e.second) { f(*e.second); }
     }
 }
@@ -103,8 +103,8 @@ auto Registry<T>::forID(ticket_type ticket, F f) const -> bool
     MC_ASSERT(ticket < id_ && "ID must be in range for this registry");
 
     auto compare = [](auto const& a, auto const& b) { return a.first < b; };
-    auto p       = std::lower_bound(begin(map_), end(map_), ticket, compare);
-    if (p == end(map_) || p->first != ticket) { return false; }
+    auto p       = std::lower_bound(begin(_map), end(_map), ticket, compare);
+    if (p == end(_map) || p->first != ticket) { return false; }
 
     if (p->second) {
         f(*p->second);
@@ -117,9 +117,9 @@ auto Registry<T>::forID(ticket_type ticket, F f) const -> bool
 template <typename T>
 auto Registry<T>::append(T element) -> ticket_type
 {
-    map_.emplace_back(id_, std::move(element));
-    ++size_;
-    return id_++;
+    _map.emplace_back(_id, std::move(element));
+    ++_size;
+    return _id++;
 }
 
 template <typename T>
@@ -128,20 +128,20 @@ auto Registry<T>::erase(size_type id) -> void
     MC_ASSERT(id < id_ && "ID must be in range for this registry");
 
     auto compare = [](auto const& a, auto const& b) { return a.first < b; };
-    auto p       = std::lower_bound(begin(map_), end(map_), id, compare);
-    if (p == end(map_) || p->first != id) { return; }
+    auto p       = std::lower_bound(begin(_map), end(_map), id, compare);
+    if (p == end(_map) || p->first != id) { return; }
 
     p->second.reset();
-    --size_;
+    --_size;
 
-    if (size_ < (map_.size() / 2)) { shrinkToFit(); }
+    if (_size < (_map.size() / 2)) { shrinkToFit(); }
 }
 
 template <typename T>
 auto Registry<T>::shrinkToFit() -> void
 {
-    map_.erase(std::remove_if(begin(map_), end(map_), [](auto const& e) { return !e.second; }), end(map_));
-    map_.shrink_to_fit();
+    _map.erase(std::remove_if(begin(_map), end(_map), [](auto const& e) { return !e.second; }), end(_map));
+    _map.shrink_to_fit();
 }
 
 } // namespace mc

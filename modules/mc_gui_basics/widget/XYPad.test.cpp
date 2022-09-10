@@ -15,26 +15,26 @@ TEST_CASE("gui_basics/widget: XYPad", "")
     SECTION("setX")
     {
         mc::XYPad pad {};
-        pad.setXRange(juce::NormalisableRange<float> { 20.0f, 20'000.0f, 1.0f });
-        CHECK(pad.getValueX() == Catch::Approx(20.0f));
-        CHECK(pad.getNormalizedX() == Catch::Approx(0.0f));
-        pad.setValueX(578.0f);
-        CHECK(pad.getValueX() == Catch::Approx(578.0f));
-        pad.setNormalizedX(0.5f);
-        CHECK(pad.getValueX() == Catch::Approx(10010.0f));
-        CHECK(pad.getNormalizedX() == Catch::Approx(0.5f));
+        pad.setXRange(juce::NormalisableRange<float> { 20.0F, 20'000.0F, 1.0F });
+        CHECK(pad.getValueX() == Catch::Approx(20.0F));
+        CHECK(pad.getNormalizedX() == Catch::Approx(0.0F));
+        pad.setValueX(578.0F);
+        CHECK(pad.getValueX() == Catch::Approx(578.0F));
+        pad.setNormalizedX(0.5F);
+        CHECK(pad.getValueX() == Catch::Approx(10010.0F));
+        CHECK(pad.getNormalizedX() == Catch::Approx(0.5F));
     }
 
     SECTION("setY")
     {
         mc::XYPad pad {};
-        pad.setYRange(juce::NormalisableRange<float> { 100.0f, 15'000.0f, 1.0f });
-        CHECK(pad.getValueY() == 100.0f);
-        CHECK(pad.getNormalizedY() == 0.0f);
-        pad.setValueY(3244.0f);
-        CHECK(pad.getValueY() == 3244.0f);
-        pad.setNormalizedY(0.5f);
-        CHECK(pad.getValueY() == Catch::Approx(7550.0f));
-        CHECK(pad.getNormalizedY() == Catch::Approx(0.5f));
+        pad.setYRange(juce::NormalisableRange<float> { 100.0F, 15'000.0F, 1.0F });
+        CHECK(pad.getValueY() == 100.0F);
+        CHECK(pad.getNormalizedY() == 0.0F);
+        pad.setValueY(3244.0F);
+        CHECK(pad.getValueY() == 3244.0F);
+        pad.setNormalizedY(0.5F);
+        CHECK(pad.getValueY() == Catch::Approx(7550.0F));
+        CHECK(pad.getNormalizedY() == Catch::Approx(0.5F));
     }
 }

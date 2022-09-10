@@ -26,7 +26,7 @@ struct Oscilloscope final : juce::Component, juce::ChangeListener {
     auto changeListenerCallback(juce::ChangeBroadcaster* source) -> void override;
 
 private:
-    OscilloscopeSource& source_;
+    OscilloscopeSource& _source;
 
     JUCE_LEAK_DETECTOR(Oscilloscope) // NOLINT
 };
