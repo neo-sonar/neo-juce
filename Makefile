@@ -2,27 +2,32 @@ CXX_STD ?= 14
 
 BUILD_DIR ?= cmake-build-debug
 
-CLANG_FORMAT_BINARY ?= clang-format
-CLANG_TIDY_BINARY ?= clang-tidy
-CLANG_APPLY_BINARY ?= clang-apply-replacements
+BUILD_DIR ?= build
+PYTHON_BIN ?= python3
+CLANG_FORMAT_BIN ?= clang-format
+CLANG_REPLACEMENTS_BIN ?= clang-apply-replacements
+CLANG_TIDY_BIN ?= clang-tidy
+RUN_CLANGTIDY_BIN ?= $(shell which run-clang-tidy)
 
-CLANG_TIDY_ARGS += -clang-tidy-binary ${CLANG_TIDY_BINARY}
-CLANG_TIDY_ARGS += -clang-apply-replacements-binary ${CLANG_APPLY_BINARY}
+CLANG_TIDY_ARGS =  ${PYTHON_BIN}
+CLANG_TIDY_ARGS += ${RUN_CLANGTIDY_BIN}
+CLANG_TIDY_ARGS += -clang-tidy-binary
+CLANG_TIDY_ARGS += ${CLANG_TIDY_BIN}
+CLANG_TIDY_ARGS += -clang-apply-replacements-binary
+CLANG_TIDY_ARGS += ${CLANG_REPLACEMENTS_BIN}
 CLANG_TIDY_ARGS += -j $(shell nproc)
-CLANG_TIDY_ARGS += -quiet
-CLANG_TIDY_ARGS += -p $(BUILD_DIR)
+
+.PHONY: tidy-check
+tidy-check:
+	${CLANG_TIDY_ARGS} -quiet -p $(BUILD_DIR) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
+
+.PHONY: tidy-fix
+tidy-fix:
+	${CLANG_TIDY_ARGS} -fix -quiet -p $(BUILD_DIR) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
 
 .PHONY: check
 check:
 	pre-commit run --all-files
-
-.PHONY: tidy-check
-tidy-check:
-	 ./scripts/run-clang-tidy.py $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
-
-.PHONY: tidy-fix
-tidy-fix:
-	 ./scripts/run-clang-tidy.py -fix $(CLANG_TIDY_ARGS) -header-filter $(shell realpath ./modules) $(shell realpath ./modules)
 
 .PHONY: coverage
 coverage:
@@ -32,11 +37,11 @@ coverage:
 
 .PHONY: coverage-html
 coverage-html: coverage
-	cd cmake-build-coverage && gcovr --html --html-details -e ".*test\.cpp" --exclude-unreachable-branches -o coverage.html -r ../modules -j ${shell nproc} -s .
+	gcovr --html --html-details -e ".*test\.cpp" --exclude-unreachable-branches -r modules -j ${shell nproc} -s cmake-build-coverage -o cmake-build-coverage/coverage.html
 
 .PHONY: coverage-xml
 coverage-xml: coverage
-	cd cmake-build-coverage && gcovr --xml-pretty -e ".*test\.cpp" --exclude-unreachable-branches -o coverage.xml  -r ../modules -j ${shell nproc} -s .
+	gcovr --xml-pretty -e ".*test\.cpp" --exclude-unreachable-branches -r modules -j ${shell nproc} -s cmake-build-coverage -o cmake-build-coverage/coverage.xml
 
 
 .PHONY: report
@@ -49,8 +54,8 @@ stats:
 
 .PHONY: format
 format:
-	@find modules -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs ${CLANG_FORMAT_BINARY} -i
+	@find modules -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs ${CLANG_FORMAT_BIN} -i
 
 .PHONY: format-check
 format-check:
-	@find modules -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c '${CLANG_FORMAT_BINARY} -style=file {} | diff - {}'
+	@find modules -iname '*.hpp' -o -iname '*.h' -o -iname '*.cpp' | xargs -n 1 -P 1 -I{} -t sh -c '${CLANG_FORMAT_BIN} -style=file {} | diff - {}'
