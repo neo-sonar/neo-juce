@@ -1,7 +1,6 @@
 #pragma once
 
-namespace mc {
-namespace fx {
+namespace mc::fx {
 
 /// @brief Controls the width of a stereo signal
 struct StereoWidth {
@@ -77,5 +76,4 @@ private:
     Parameters _parameters = { 1.0F };
 };
 
-} // namespace fx
-} // namespace mc
+} // namespace mc::fx

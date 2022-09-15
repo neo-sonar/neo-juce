@@ -2,8 +2,6 @@
 
 namespace mc {
 
-using ::fmt::format;
-
 template <typename... T>
 auto jformat(::fmt::format_string<T...> fmt, T&&... args) -> juce::String
 {
