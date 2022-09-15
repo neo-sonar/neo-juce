@@ -64,7 +64,7 @@ jobs:
           -D CMAKE_CXX_STANDARD="${{ matrix.cxx }}"
           -D MC_BUILD_WERROR=ON
 
-      - name: Install LLVM
+      - name: CMake configure - CLANG
         if: matrix.compiler == 'clang'
         run: >
           cmake
