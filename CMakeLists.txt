@@ -89,6 +89,7 @@ target_compile_definitions(${PROJECT_NAME}_tests
         JUCE_WEB_BROWSER=0
         JUCE_USE_OGGVORBIS=0
         JUCE_DISABLE_JUCE_VERSION_PRINTING=1
+        _SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING=1
 )
 
 target_link_libraries(${PROJECT_NAME}_tests
