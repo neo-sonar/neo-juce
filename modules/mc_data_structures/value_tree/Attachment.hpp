@@ -52,7 +52,7 @@ struct ValueTreeAttachment : private juce::ValueTree::Listener, private juce::As
     }
 
 private:
-    MC_NODISCARD auto getValue() const -> value_type { return _state[_id]; }
+    [[nodiscard]] auto getValue() const -> value_type { return _state[_id]; }
 
     template <typename Callback>
     void callIfValueChanged(value_type newValue, Callback&& callback)

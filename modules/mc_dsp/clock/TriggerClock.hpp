@@ -7,7 +7,7 @@ struct TriggerClock {
     auto setTickLength(Milliseconds<double> milli) -> void;
     auto setSampleRate(double sampleRate) -> void;
 
-    MC_NODISCARD auto advance(std::int64_t numSamples) -> bool;
+    [[nodiscard]] auto advance(std::int64_t numSamples) -> bool;
 
 private:
     std::int64_t _sampleCount { 0 };

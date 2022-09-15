@@ -2,7 +2,7 @@
 
 template <typename ValueType>
 struct juce::VariantConverter<juce::Rectangle<ValueType>> {
-    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Rectangle<ValueType>
+    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Rectangle<ValueType>
     {
         auto const splits = mc::strings::split(v.toString(), ':');
         auto const x      = mc::strings::toValue<ValueType>(splits[0]);
@@ -12,7 +12,7 @@ struct juce::VariantConverter<juce::Rectangle<ValueType>> {
         return juce::Rectangle<ValueType> { x, y, width, height };
     }
 
-    MC_NODISCARD static auto toVar(juce::Rectangle<ValueType> const& l) -> juce::var
+    [[nodiscard]] static auto toVar(juce::Rectangle<ValueType> const& l) -> juce::var
     {
         return mc::jformat("{}:{}:{}:{}", l.getX(), l.getY(), l.getWidth(), l.getHeight());
     }

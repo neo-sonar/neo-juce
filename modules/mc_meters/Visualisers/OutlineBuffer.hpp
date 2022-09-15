@@ -28,7 +28,7 @@ private:
         /**
          @return the number of values the buffer will store.
          */
-        MC_NODISCARD auto getSize() const -> int { return static_cast<int>(_minBuffer.size()); }
+        [[nodiscard]] auto getSize() const -> int { return static_cast<int>(_minBuffer.size()); }
 
         void setSamplesPerBlock(const int numSamples) { _samplesPerBlock = numSamples; }
 

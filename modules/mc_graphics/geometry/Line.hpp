@@ -2,7 +2,7 @@
 
 template <typename ValueType>
 struct juce::VariantConverter<juce::Line<ValueType>> {
-    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Line<ValueType>
+    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Line<ValueType>
     {
         auto const splits = mc::strings::split(v.toString(), ':');
         auto const startX = mc::strings::toValue<ValueType>(splits[0]);
@@ -12,7 +12,7 @@ struct juce::VariantConverter<juce::Line<ValueType>> {
         return juce::Line<ValueType> { { startX, startY }, { endX, endY } };
     }
 
-    MC_NODISCARD static auto toVar(juce::Line<ValueType> const& l) -> juce::var
+    [[nodiscard]] static auto toVar(juce::Line<ValueType> const& l) -> juce::var
     {
         return mc::jformat("{}:{}:{}:{}", l.getStart().x, l.getStart().y, l.getEnd().x, l.getEnd().y);
     }

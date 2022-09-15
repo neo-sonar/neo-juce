@@ -6,7 +6,7 @@ namespace mc {
 /// \tags{Core}
 struct JSONUtils {
     /// \brief Loads a JSON web-response into a var object.
-    MC_NODISCARD static auto loadFromURL(juce::URL const& url) -> juce::var;
+    [[nodiscard]] static auto loadFromURL(juce::URL const& url) -> juce::var;
 };
 
 } // namespace mc

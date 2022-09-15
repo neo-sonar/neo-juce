@@ -15,9 +15,9 @@ struct ValueTreeObjectList : public juce::ValueTree::Listener {
         jassert(_objects.empty());
     }
 
-    MC_NODISCARD virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
-    virtual auto makeObject(juce::ValueTree const&) -> ObjectType*                 = 0;
-    virtual void deleteObject(ObjectType*)                                         = 0;
+    [[nodiscard]] virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
+    virtual auto makeObject(juce::ValueTree const&) -> ObjectType*                  = 0;
+    virtual void deleteObject(ObjectType*)                                          = 0;
 
     virtual void objectAdded(ObjectType*)   = 0;
     virtual void objectRemoved(ObjectType*) = 0;
@@ -43,9 +43,9 @@ struct ValueTreeObjectList : public juce::ValueTree::Listener {
         deleteAllObjects();
     }
 
-    MC_NODISCARD auto getObjects() -> Vector<ObjectType*>& { return _objects; }
-    MC_NODISCARD auto getObjects() const -> Vector<ObjectType*> const& { return _objects; }
-    MC_NODISCARD auto getValueTree() noexcept -> juce::ValueTree& { return parent_; }
+    [[nodiscard]] auto getObjects() -> Vector<ObjectType*>& { return _objects; }
+    [[nodiscard]] auto getObjects() const -> Vector<ObjectType*> const& { return _objects; }
+    [[nodiscard]] auto getValueTree() noexcept -> juce::ValueTree& { return parent_; }
 
 protected:
     using ScopedLockType = typename CriticalSectionType::ScopedLockType;
@@ -62,7 +62,7 @@ protected:
 
     auto isChildTree(juce::ValueTree& v) const -> bool { return isSuitableType(v) && v.getParent() == parent_; }
 
-    MC_NODISCARD auto indexOf(juce::ValueTree const& v) const noexcept -> int
+    [[nodiscard]] auto indexOf(juce::ValueTree const& v) const noexcept -> int
     {
         for (std::size_t i = 0; i < _objects.size(); ++i) {
             if (_objects[i]->getValueTree() == v) { return static_cast<int>(i); }
@@ -165,8 +165,8 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
         jassert(objects.isEmpty()); // must call freeObjects() in the subclass destructor!
     }
 
-    MC_NODISCARD inline auto size() const -> int { return objects.size(); }
-    MC_NODISCARD inline auto isEmpty() const noexcept -> bool { return size() == 0; }
+    [[nodiscard]] inline auto size() const -> int { return objects.size(); }
+    [[nodiscard]] inline auto isEmpty() const noexcept -> bool { return size() == 0; }
     auto operator[](int idx) const -> ObjectType* { return objects[idx]; }
     auto at(int idx) -> ObjectType* { return objects[idx]; }
     auto begin() -> ObjectType** { return objects.begin(); }
@@ -194,9 +194,9 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
     }
 
     //==============================================================================
-    MC_NODISCARD virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
-    virtual auto createNewObject(juce::ValueTree const&) -> ObjectType*            = 0;
-    virtual void deleteObject(ObjectType*)                                         = 0;
+    [[nodiscard]] virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
+    virtual auto createNewObject(juce::ValueTree const&) -> ObjectType*             = 0;
+    virtual void deleteObject(ObjectType*)                                          = 0;
 
     virtual void newObjectAdded(ObjectType*) = 0;
     virtual void objectRemoved(ObjectType*)  = 0;
@@ -288,7 +288,7 @@ protected:
 
     auto isChildTree(juce::ValueTree& v) const -> bool { return isSuitableType(v) && v.getParent() == parent; }
 
-    MC_NODISCARD auto indexOf(juce::ValueTree const& v) const noexcept -> int
+    [[nodiscard]] auto indexOf(juce::ValueTree const& v) const noexcept -> int
     {
         for (int i = 0; i < objects.size(); ++i) {
             if (objects.getUnchecked(i)->state == v) { return i; }

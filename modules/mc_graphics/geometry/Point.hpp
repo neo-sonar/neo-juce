@@ -2,7 +2,7 @@
 
 template <typename ValueType>
 struct juce::VariantConverter<juce::Point<ValueType>> {
-    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Point<ValueType>
+    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Point<ValueType>
     {
         auto const splits = mc::strings::split(v.toString(), ':');
         auto const x      = mc::strings::toValue<ValueType>(splits[0]);
@@ -10,7 +10,7 @@ struct juce::VariantConverter<juce::Point<ValueType>> {
         return juce::Point<ValueType> { x, y };
     }
 
-    MC_NODISCARD static auto toVar(juce::Point<ValueType> const& p) -> juce::var
+    [[nodiscard]] static auto toVar(juce::Point<ValueType> const& p) -> juce::var
     {
         return mc::jformat("{}:{}", p.x, p.y);
     }

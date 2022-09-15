@@ -1,7 +1,7 @@
 #pragma once
 
 namespace mc {
-MC_NODISCARD inline auto sizeAfterDownSample(std::size_t signalSize, std::size_t factor) noexcept -> std::size_t
+[[nodiscard]] inline auto sizeAfterDownSample(std::size_t signalSize, std::size_t factor) noexcept -> std::size_t
 {
     return (signalSize - 1U) / factor + 1U;
 }

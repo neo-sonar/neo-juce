@@ -16,13 +16,13 @@ struct Registry {
     explicit Registry(size_type capacity);
 
     /// \brief Returns the number of elements inside the registry.
-    MC_NODISCARD auto size() const noexcept -> size_type;
+    [[nodiscard]] auto size() const noexcept -> size_type;
 
     /// \brief Returns the last ticket number which was issued.
-    MC_NODISCARD auto maxID() const noexcept -> ticket_type;
+    [[nodiscard]] auto maxID() const noexcept -> ticket_type;
 
     /// \brief Returns the currently allocated space.
-    MC_NODISCARD auto capacity() const noexcept -> size_type;
+    [[nodiscard]] auto capacity() const noexcept -> size_type;
 
     /// \brief Apply a functor to all elements.
     template <typename F>
@@ -37,10 +37,10 @@ struct Registry {
     /// \details Returns true if the ticket was valid and the functor was called.
     /// False otherwise.
     template <typename F>
-    MC_NODISCARD auto forID(ticket_type ticket, F f) const -> bool;
+    [[nodiscard]] auto forID(ticket_type ticket, F f) const -> bool;
 
     /// \brief Append an element to the registry. A handle will be returned.
-    MC_NODISCARD auto append(T element) -> ticket_type;
+    [[nodiscard]] auto append(T element) -> ticket_type;
 
     /// \brief Erase an element from the registry.
     auto erase(size_type id) -> void;

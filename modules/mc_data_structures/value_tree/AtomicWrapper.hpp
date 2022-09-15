@@ -12,11 +12,11 @@ struct AtomicWrapper {
     AtomicWrapper(AtomicWrapper const& other);
     auto operator=(AtomicWrapper const& other) noexcept -> AtomicWrapper&;
 
-    MC_NODISCARD auto operator==(AtomicWrapper const& other) const noexcept -> bool;
-    MC_NODISCARD auto operator!=(AtomicWrapper const& other) const noexcept -> bool;
+    [[nodiscard]] auto operator==(AtomicWrapper const& other) const noexcept -> bool;
+    [[nodiscard]] auto operator!=(AtomicWrapper const& other) const noexcept -> bool;
 
-    MC_NODISCARD operator juce::var() const noexcept; // NOLINT(hicpp-explicit-conversions)
-    MC_NODISCARD operator Type() const noexcept;      // NOLINT(hicpp-explicit-conversions)
+    [[nodiscard]] operator juce::var() const noexcept; // NOLINT(hicpp-explicit-conversions)
+    [[nodiscard]] operator Type() const noexcept;      // NOLINT(hicpp-explicit-conversions)
 
     Atomic<Type> value { Type() };
 };

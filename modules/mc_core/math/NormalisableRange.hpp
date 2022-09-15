@@ -2,7 +2,7 @@
 
 template <typename T>
 struct juce::VariantConverter<juce::NormalisableRange<T>> {
-    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::NormalisableRange<T>
+    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::NormalisableRange<T>
     {
         auto const splits        = mc::strings::split(v.toString(), ':');
         auto const start         = mc::strings::toValue<T>(splits[0]);
@@ -13,7 +13,7 @@ struct juce::VariantConverter<juce::NormalisableRange<T>> {
         return juce::NormalisableRange<T> { start, end, interval, skew, symmetricSkew };
     }
 
-    MC_NODISCARD static auto toVar(juce::NormalisableRange<T> const& nr) -> juce::var
+    [[nodiscard]] static auto toVar(juce::NormalisableRange<T> const& nr) -> juce::var
     {
         return mc::jformat("{}:{}:{}:{}:{}", nr.start, nr.end, nr.interval, nr.skew, nr.symmetricSkew);
     }

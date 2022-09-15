@@ -21,7 +21,7 @@ private:
         }
     }
 
-    MC_NODISCARD inline auto computePosition(const juce::Rectangle<FloatType>& b,
+    [[nodiscard]] inline auto computePosition(const juce::Rectangle<FloatType>& b,
         const FloatType left,
         const FloatType right) const -> juce::Point<FloatType>
     {
@@ -69,7 +69,7 @@ public:
 
     //  ==============================================================================
 
-    MC_NODISCARD auto
+    [[nodiscard]] auto
     getOscilloscope(const int numSamples, const juce::Rectangle<FloatType> bounds, int leftIdx, int rightIdx) const
         -> juce::Path
     {

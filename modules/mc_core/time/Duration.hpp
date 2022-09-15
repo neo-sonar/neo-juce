@@ -32,12 +32,12 @@ struct DurationToVarImpl<T, R, true> {
 /// \internal
 template <typename T, typename R>
 struct juce::VariantConverter<std::chrono::duration<T, R>> {
-    MC_NODISCARD static auto fromVar(juce::var const& v) -> std::chrono::duration<T, R>
+    [[nodiscard]] static auto fromVar(juce::var const& v) -> std::chrono::duration<T, R>
     {
         return std::chrono::duration<T, R> { mc::detail::DurationFromVarImpl<T> {}(v) };
     }
 
-    MC_NODISCARD static auto toVar(std::chrono::duration<T, R> const& d) -> juce::var
+    [[nodiscard]] static auto toVar(std::chrono::duration<T, R> const& d) -> juce::var
     {
         return mc::detail::DurationToVarImpl<T, R> {}(d);
     }

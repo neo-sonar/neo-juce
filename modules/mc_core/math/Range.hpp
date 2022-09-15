@@ -2,7 +2,7 @@
 
 template <typename T>
 struct juce::VariantConverter<juce::Range<T>> {
-    MC_NODISCARD static auto fromVar(juce::var const& v) -> juce::Range<T>
+    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::Range<T>
     {
         auto const splits = mc::strings::split(v.toString(), ':');
         auto const start  = mc::strings::toValue<T>(splits[0]);
@@ -10,7 +10,7 @@ struct juce::VariantConverter<juce::Range<T>> {
         return juce::Range<T> { start, end };
     }
 
-    MC_NODISCARD static auto toVar(juce::Range<T> const& r) -> juce::var
+    [[nodiscard]] static auto toVar(juce::Range<T> const& r) -> juce::var
     {
         return mc::jformat("{}:{}", r.getStart(), r.getEnd());
     }

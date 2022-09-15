@@ -53,7 +53,7 @@ private:
         Atomic<bool> clip;
         Atomic<float> reduction;
 
-        MC_NODISCARD auto getAvgRMS() const -> float
+        [[nodiscard]] auto getAvgRMS() const -> float
         {
             if (!_rmsHistory.empty()) {
                 auto const sum = std::accumulate(_rmsHistory.begin(), _rmsHistory.end(), 0.0);
@@ -202,7 +202,7 @@ public:
      Returns the reduction level. This value is not computed but can be set
      manually via \see setReductionLevel.
      */
-    MC_NODISCARD auto getReductionLevel(const int channel) const -> float
+    [[nodiscard]] auto getReductionLevel(const int channel) const -> float
     {
         if (juce::isPositiveAndBelow(channel, static_cast<int>(_levels.size()))) {
             return _levels[size_t(channel)].reduction;
@@ -215,13 +215,13 @@ public:
      This is the max level as displayed by the little line above the RMS bar.
      It is reset by \see setMaxHoldMS.
      */
-    MC_NODISCARD auto getMaxLevel(const int channel) const -> float { return _levels.at(size_t(channel)).max; }
+    [[nodiscard]] auto getMaxLevel(const int channel) const -> float { return _levels.at(size_t(channel)).max; }
 
     /**
      This is the max level as displayed under the bar as number.
      It will stay up until \see clearMaxNum was called.
      */
-    MC_NODISCARD auto getMaxOverallLevel(const int channel) const -> float
+    [[nodiscard]] auto getMaxOverallLevel(const int channel) const -> float
     {
         return _levels.at(size_t(channel)).maxOverall;
     }
@@ -230,12 +230,12 @@ public:
      This is the RMS level that the bar will indicate. It is
      summed over rmsWindow number of blocks/measureBlock calls.
      */
-    MC_NODISCARD auto getRMSLevel(const int channel) const -> float { return _levels.at(size_t(channel)).getAvgRMS(); }
+    [[nodiscard]] auto getRMSLevel(const int channel) const -> float { return _levels.at(size_t(channel)).getAvgRMS(); }
 
     /**
      Returns the status of the clip flag.
      */
-    MC_NODISCARD auto getClipFlag(const int channel) const -> bool { return _levels.at(size_t(channel)).clip; }
+    [[nodiscard]] auto getClipFlag(const int channel) const -> bool { return _levels.at(size_t(channel)).clip; }
 
     /**
      Reset the clip flag to reset the indicator in the meter
@@ -263,7 +263,7 @@ public:
     /**
      Get the number of channels to be displayed
      */
-    MC_NODISCARD auto getNumChannels() const -> int { return static_cast<int>(_levels.size()); }
+    [[nodiscard]] auto getNumChannels() const -> int { return static_cast<int>(_levels.size()); }
 
     /**
      The measure can be suspended, e.g. to save CPU when no meter is displayed.
@@ -271,7 +271,7 @@ public:
      */
     void setSuspended(const bool shouldBeSuspended) { _suspended = shouldBeSuspended; }
 
-    MC_NODISCARD auto checkNewDataFlag() const -> bool { return _newDataFlag; }
+    [[nodiscard]] auto checkNewDataFlag() const -> bool { return _newDataFlag; }
 
     void resetNewDataFlag() { _newDataFlag = false; }
 

@@ -13,7 +13,7 @@ public:
     {
     }
 
-    MC_NODISCARD constexpr auto operator()(T actual) const noexcept(noexcept(_expected == actual))
+    [[nodiscard]] constexpr auto operator()(T actual) const noexcept(noexcept(_expected == actual))
         -> decltype(_expected == actual)
     {
         return _expected == actual;

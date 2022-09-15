@@ -19,7 +19,7 @@ struct ToValueImpl<float> {
 } // namespace detail
 
 namespace strings {
-MC_NODISCARD inline auto split(juce::String const& str, char delimiter) -> Vector<juce::String>
+[[nodiscard]] inline auto split(juce::String const& str, char delimiter) -> Vector<juce::String>
 {
     Vector<juce::String> tokens {};
     std::string token {};
@@ -29,7 +29,7 @@ MC_NODISCARD inline auto split(juce::String const& str, char delimiter) -> Vecto
 }
 
 template <typename ValueType>
-MC_NODISCARD inline auto toValue(juce::String const& str) -> ValueType
+[[nodiscard]] inline auto toValue(juce::String const& str) -> ValueType
 {
     return detail::ToValueImpl<ValueType> {}(str);
 }

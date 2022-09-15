@@ -9,7 +9,7 @@ struct HistogramSource {
     auto processSample(float sample, std::uint32_t sampleCountToAdvance) -> void;
     auto reset() -> void;
 
-    MC_NODISCARD auto popSample() -> float;
+    [[nodiscard]] auto popSample() -> float;
 
 private:
     double _sampleRate { 44'100.0 };

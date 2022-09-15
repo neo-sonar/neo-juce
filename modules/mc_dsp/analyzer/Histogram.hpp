@@ -15,10 +15,10 @@ struct Histogram : juce::Component, juce::Timer {
     explicit Histogram(HistogramSource* source, juce::Range<float> range = juce::Range<float> { 0.0F, 1.3F });
     ~Histogram() override = default;
 
-    MC_NODISCARD auto historyBuffer() const noexcept -> RingBuffer<float> const&;
+    [[nodiscard]] auto historyBuffer() const noexcept -> RingBuffer<float> const&;
 
     auto valueRange(juce::Range<float> const& range) noexcept -> void;
-    MC_NODISCARD auto valueRange() const noexcept -> juce::Range<float> const&;
+    [[nodiscard]] auto valueRange() const noexcept -> juce::Range<float> const&;
 
     auto historyToShow(Seconds<float> seconds) noexcept -> void;
     auto refreshRate(int rate) -> void;

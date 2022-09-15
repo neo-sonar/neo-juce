@@ -13,13 +13,13 @@ struct StereoWidth {
     StereoWidth() = default;
 
     /// @brief Returns true if the process is enabled.
-    MC_NODISCARD auto isEnabled() const noexcept -> bool { return _enabled; }
+    [[nodiscard]] auto isEnabled() const noexcept -> bool { return _enabled; }
 
     /// @brief Enables/disables the process.
     void setEnabled(bool newValue) noexcept { _enabled = newValue; }
 
     /// @brief Returns the process's current parameters.
-    MC_NODISCARD auto getParameters() const noexcept -> Parameters { return _parameters; }
+    [[nodiscard]] auto getParameters() const noexcept -> Parameters { return _parameters; }
 
     /// @brief Applies a new set of parameters to the process.
     ///

@@ -17,13 +17,13 @@ struct SpectrumSource final : juce::Thread {
     auto setupAnalyser(int audioFifoSize, double sampleRateToUse) -> void;
 
     auto createPath(juce::Path& p, juce::Rectangle<float> const& bounds, float minFreq) -> void;
-    MC_NODISCARD auto checkForNewData() -> bool;
+    [[nodiscard]] auto checkForNewData() -> bool;
 
 private:
     auto run() -> void override;
 
-    MC_NODISCARD auto indexToX(float index, float minFreq) const -> float;
-    MC_NODISCARD static auto binToY(float bin, juce::Rectangle<float> const& bounds) -> float;
+    [[nodiscard]] auto indexToX(float index, float minFreq) const -> float;
+    [[nodiscard]] static auto binToY(float bin, juce::Rectangle<float> const& bounds) -> float;
 
     float _sampleRate {};
 

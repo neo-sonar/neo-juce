@@ -10,14 +10,14 @@ struct RingBuffer {
     RingBuffer();
     explicit RingBuffer(size_type size);
 
-    MC_NODISCARD auto empty() const noexcept -> bool;
-    MC_NODISCARD auto size() const noexcept -> size_type;
+    [[nodiscard]] auto empty() const noexcept -> bool;
+    [[nodiscard]] auto size() const noexcept -> size_type;
 
     auto clear() -> void;
     auto resize(size_type size) -> void;
 
     auto push(T value) -> void;
-    MC_NODISCARD auto operator[](size_type index) const noexcept -> float;
+    [[nodiscard]] auto operator[](size_type index) const noexcept -> float;
 
 private:
     std::unique_ptr<T[]> _buffer { nullptr }; // NOLINT(modernize-avoid-c-arrays)
