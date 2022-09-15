@@ -19,7 +19,9 @@
 
 #include <juce_core/juce_core.h>
 
+JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE("-Wmacro-redefined")
 #include <mc/core.hpp>
+JUCE_END_IGNORE_WARNINGS_GCC_LIKE
 
 #include "text/Format.hpp"
 #include "text/String.hpp"
