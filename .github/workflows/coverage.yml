@@ -11,7 +11,7 @@ jobs:
     name: Linux
     strategy:
       matrix:
-        cxx: [14, 17, 20]
+        cxx: [17, 20, 23]
       fail-fast: false
     runs-on: ubuntu-22.04
     steps:
