@@ -36,7 +36,7 @@
 #include "util/TextValueConverters.hpp"
 #include "util/TrueFalseTextConverter.hpp"
 
-#include "processor/StereoWidth.hpp"
+#include "fx/StereoWidth.hpp"
 
 #include "analyzer/DownSamplingAnalyzer.hpp"
 #include "analyzer/HistogramSource.hpp"

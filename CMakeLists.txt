@@ -12,7 +12,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 if(NOT "${CMAKE_CXX_STANDARD}")
-    set(CMAKE_CXX_STANDARD 14)
+    set(CMAKE_CXX_STANDARD 17)
 endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -66,7 +66,7 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_dsp/algorithm/downSample.test.cpp
         modules/mc_dsp/clock/TriggerClock.test.cpp
         modules/mc_dsp/container/AudioBufferUtils.test.cpp
-        modules/mc_dsp/processor/StereoWidth.test.cpp
+        modules/mc_dsp/fx/StereoWidth.test.cpp
         modules/mc_dsp/util/BusesLayout.test.cpp
         modules/mc_dsp/util/TextValueConverters.test.cpp
         modules/mc_dsp/util/TrueFalseTextConverter.test.cpp
