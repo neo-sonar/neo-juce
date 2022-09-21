@@ -13,8 +13,8 @@
 
 #pragma once
 
-#ifndef USE_MC_CORE
-    #define USE_MC_CORE
+#ifndef USE_MC_EVENTS
+    #define USE_MC_EVENTS
 #endif
 
 #include <juce_events/juce_events.h>
