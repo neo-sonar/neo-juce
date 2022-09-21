@@ -21,6 +21,12 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+include(FetchContent)
+FetchContent_Declare(JUCE GIT_REPOSITORY "https://github.com/juce-framework/JUCE" GIT_TAG "7.0.2")
+FetchContent_MakeAvailable(JUCE)
+
+juce_disable_default_flags()
+
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR})
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR})
@@ -31,10 +37,6 @@ include(mcCodeCoverage)
 
 find_package(mc-core REQUIRED)
 find_package(mc-dsp REQUIRED)
-
-include(FetchContent)
-FetchContent_Declare(JUCE GIT_REPOSITORY "https://github.com/juce-framework/JUCE" GIT_TAG "7.0.2")
-FetchContent_MakeAvailable(JUCE)
 
 add_subdirectory(modules)
 
@@ -94,19 +96,25 @@ target_compile_definitions(${PROJECT_NAME}_tests
 
 target_link_libraries(${PROJECT_NAME}_tests
     PRIVATE
+        Catch2::Catch2
+
         mc-core::mc-core
         mc-dsp::mc-dsp
+
         mc::mc_core
-        mc::mc_events
         mc::mc_data_structures
         mc::mc_dsp
+        mc::mc_events
         mc::mc_graphics
         mc::mc_gui_basics
         mc::mc_meters
+
         mc::compiler_options
         mc::compiler_warnings
         mc::coverage
-        Catch2::Catch2
+
+        juce::juce_recommended_warning_flags
+        juce::juce_recommended_config_flags
 )
 
 
