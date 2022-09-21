@@ -3,12 +3,8 @@ namespace {
 template <typename T>
 auto getParameter(juce::AudioProcessorValueTreeState& vts, juce::StringRef id) -> T
 {
-    auto* raw = vts.getParameter(id);
-    jassert(raw != nullptr);
-
+    auto* raw       = vts.getParameter(id);
     auto* parameter = dynamic_cast<T>(raw);
-    jassert(parameter != nullptr);
-
     return parameter;
 }
 } // namespace

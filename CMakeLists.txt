@@ -53,6 +53,8 @@ target_sources(${PROJECT_NAME}_tests
     PRIVATE
         MainTest.cpp
 
+        modules/mc_audio_processors/parameter/AudioProcessorValueTreeState.test.cpp
+
         modules/mc_core/container/Registry.test.cpp
         # modules/mc_core/javascript/JSONUtils.test.cpp
         modules/mc_core/math/NormalisableRange.test.cpp
@@ -101,6 +103,7 @@ target_link_libraries(${PROJECT_NAME}_tests
         mc-core::mc-core
         mc-dsp::mc-dsp
 
+        mc::mc_audio_processors
         mc::mc_core
         mc::mc_data_structures
         mc::mc_dsp
