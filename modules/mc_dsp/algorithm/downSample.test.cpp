@@ -31,10 +31,10 @@ TEST_CASE("dsp/algorithm: sizeAfterDownSample", "[dsp]")
 
 TEST_CASE("dsp/algorithm: downSample", "[dsp]")
 {
-    auto input = std::array<float, 8> {};
-    std::fill(begin(input), end(input), 1.0F);
+    auto input = mc::Array<float, 8> {};
+    ranges::fill(input, 1.0F);
 
-    auto output = std::array<float, 4> {};
+    auto output = mc::Array<float, 4> {};
     REQUIRE(mc::downSample(mc::data(input), mc::size(input), mc::data(output), 2U) == 4U);
-    REQUIRE(std::all_of(begin(output), end(output), Equals<float> { 1.0F }));
+    REQUIRE(ranges::all_of(output, Equals<float> { 1.0F }));
 }

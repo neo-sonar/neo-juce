@@ -20,7 +20,7 @@ struct RingBuffer {
     [[nodiscard]] auto operator[](size_type index) const noexcept -> float;
 
 private:
-    std::unique_ptr<T[]> _buffer { nullptr }; // NOLINT(modernize-avoid-c-arrays)
+    UniquePtr<T[]> _buffer { nullptr }; // NOLINT(modernize-avoid-c-arrays)
     size_type _size { 0 };
     size_type _writePosition { 0 };
 };
@@ -47,14 +47,14 @@ auto RingBuffer<T>::operator[](size_type index) const noexcept -> float
 template <typename T>
 auto RingBuffer<T>::clear() -> void
 {
-    std::fill(_buffer.get(), std::next(_buffer.get(), _size), T {});
+    ranges::fill(_buffer.get(), std::next(_buffer.get(), _size), T {});
 }
 
 template <typename T>
 auto RingBuffer<T>::resize(size_type size) -> void
 {
     _size   = size;
-    _buffer = std::make_unique<T[]>(size); // NOLINT(modernize-avoid-c-arrays)
+    _buffer = makeUnique<T[]>(size); // NOLINT(modernize-avoid-c-arrays)
     clear();
 }
 
