@@ -1,15 +1,14 @@
 #pragma once
 
-namespace mc
-{
+namespace mc {
 
-class TwoValueSliderAttachment
-    : private juce::Slider::Listener
-    , private juce::Value::Listener
-{
+class TwoValueSliderAttachment : private juce::Slider::Listener, private juce::Value::Listener {
 public:
-    TwoValueSliderAttachment(juce::ValueTree const& state, juce::Identifier const& idMin, juce::Identifier const& idMax,
-                             juce::Slider& slider, juce::UndoManager* undoManager = nullptr);
+    TwoValueSliderAttachment(juce::ValueTree const& state,
+        juce::Identifier const& idMin,
+        juce::Identifier const& idMax,
+        juce::Slider& slider,
+        juce::UndoManager* undoManager = nullptr);
     ~TwoValueSliderAttachment() override;
 
     auto sendInitialUpdate() -> void;
@@ -35,4 +34,4 @@ private:
     bool _ignoreCallbacksMax = false;
 };
 
-}  // namespace mc
+} // namespace mc

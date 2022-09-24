@@ -17,9 +17,9 @@ struct SliderListener final : juce::Slider::Listener {
     std::function<void()> onDragEnded {};
 
 private:
-    auto sliderValueChanged(juce::Slider* slider) -> void;
-    auto sliderDragStarted(juce::Slider* slider) -> void;
-    auto sliderDragEnded(juce::Slider* slider) -> void;
+    auto sliderValueChanged(juce::Slider* slider) -> void override;
+    auto sliderDragStarted(juce::Slider* slider) -> void override;
+    auto sliderDragEnded(juce::Slider* slider) -> void override;
 
     juce::Slider& _slider;
 };

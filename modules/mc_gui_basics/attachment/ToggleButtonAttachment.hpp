@@ -1,10 +1,8 @@
 #pragma once
 
-namespace mc
-{
+namespace mc {
 
-struct ToggleButtonAttachment final
-{
+struct ToggleButtonAttachment final {
     ToggleButtonAttachment(juce::ValueTree state, juce::Identifier const& id, juce::Button& btn, juce::UndoManager* um);
     ~ToggleButtonAttachment() = default;
 
@@ -18,4 +16,4 @@ private:
     bool _ignoreCallbacks = false;
 };
 
-}  // namespace mc
+} // namespace mc

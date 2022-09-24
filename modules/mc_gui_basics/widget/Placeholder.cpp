@@ -1,8 +1,7 @@
 
-namespace mc
-{
+namespace mc {
 
-Placeholder::Placeholder(juce::Colour color, juce::String text) : _color{color}, _text{std::move(text)} {}
+Placeholder::Placeholder(juce::Colour color, juce::String text) : _color { color }, _text { std::move(text) } { }
 
 auto Placeholder::paint(juce::Graphics& g) -> void
 {
@@ -11,4 +10,4 @@ auto Placeholder::paint(juce::Graphics& g) -> void
     g.drawText(_text, getLocalBounds().toFloat(), juce::Justification::centred);
 }
 
-}  // namespace mc
+} // namespace mc

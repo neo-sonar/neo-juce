@@ -1,7 +1,6 @@
 #pragma once
 
-namespace mc
-{
+namespace mc {
 
 /// \brief An object of this class maintains a connection between a
 /// RadioGroupAttachment and a plug-in parameter of type choice.
@@ -10,16 +9,16 @@ namespace mc
 /// making it easy to connect a selector to a parameter. When this object is deleted,
 /// the connection is broken. Make sure that your parameter and Selector are not
 /// deleted before this object!
-template<typename ButtonType>
-struct RadioGroupAttachment final : juce::Button::Listener
-{
+template <typename ButtonType>
+struct RadioGroupAttachment final : juce::Button::Listener {
 
     /// \brief Creates a connection between a plug-in parameter and a Slider.
     /// \param parameter     The parameter to use
     /// \param buttons       Group of buttons to be attached
     /// \param undoManager   An optional juce::UndoManager
-    RadioGroupAttachment(juce::RangedAudioParameter& parameter, juce::OwnedArray<ButtonType>& buttons,
-                         juce::UndoManager* um = nullptr);
+    RadioGroupAttachment(juce::RangedAudioParameter& parameter,
+        juce::OwnedArray<ButtonType>& buttons,
+        juce::UndoManager* um = nullptr);
 
     /// \brief Destructor
     ~RadioGroupAttachment() override;
@@ -37,14 +36,14 @@ private:
     bool _ignoreCallbacks = false;
 };
 
-template<typename ButtonType>
+template <typename ButtonType>
 RadioGroupAttachment<ButtonType>::RadioGroupAttachment(juce::RangedAudioParameter& parameter,
-                                                       juce::OwnedArray<ButtonType>& buttons, juce::UndoManager* um)
-    : _buttons{buttons}, _attachment{parameter, [this](float f) { setValue(f); }, um}
+    juce::OwnedArray<ButtonType>& buttons,
+    juce::UndoManager* um)
+    : _buttons { buttons }, _attachment { parameter, [this](float f) { setValue(f); }, um }
 {
     auto const groupID = juce::Random::getSystemRandom().nextInt();
-    for (auto* button : _buttons)
-    {
+    for (auto* button : _buttons) {
         button->addListener(this);
         button->setRadioGroupId(groupID);
         button->setClickingTogglesState(true);
@@ -53,38 +52,36 @@ RadioGroupAttachment<ButtonType>::RadioGroupAttachment(juce::RangedAudioParamete
     sendInitialUpdate();
 }
 
-template<typename ButtonType>
+template <typename ButtonType>
 RadioGroupAttachment<ButtonType>::~RadioGroupAttachment()
 {
     sendInitialUpdate();
     for (auto* button : _buttons) { button->removeListener(this); }
 }
 
-template<typename ButtonType>
+template <typename ButtonType>
 void RadioGroupAttachment<ButtonType>::sendInitialUpdate()
 {
     _attachment.sendInitialUpdate();
 }
 
-template<typename ButtonType>
+template <typename ButtonType>
 void RadioGroupAttachment<ButtonType>::buttonClicked(juce::Button* b)
 {
     if (_ignoreCallbacks) { return; }
-    for (auto i = 0; i < _buttons.size(); ++i)
-    {
-        if (_buttons[i] == b && b->getToggleState())
-        {
+    for (auto i = 0; i < _buttons.size(); ++i) {
+        if (_buttons[i] == b && b->getToggleState()) {
             _attachment.setValueAsCompleteGesture(static_cast<float>(i));
             return;
         }
     }
 }
 
-template<typename ButtonType>
+template <typename ButtonType>
 void RadioGroupAttachment<ButtonType>::setValue(float newValue)
 {
-    juce::ScopedValueSetter<bool> const svs{_ignoreCallbacks, true};
+    juce::ScopedValueSetter<bool> const svs { _ignoreCallbacks, true };
     _buttons[static_cast<int>(newValue)]->setToggleState(true, juce::NotificationType::sendNotificationSync);
 }
 
-}  // namespace mc
+} // namespace mc
