@@ -41,7 +41,7 @@ auto SpectrumSource::createPath(juce::Path& p, juce::Rectangle<float> const& bou
 {
     p.clear();
 
-    juce::ScopedLock lockedForReading(_pathCreationLock);
+    juce::ScopedLock const lockedForReading(_pathCreationLock);
     auto const* fftData = _averager.getReadPointer(0);
     auto const factor   = bounds.getWidth() / 10.0F;
 
@@ -84,7 +84,7 @@ auto SpectrumSource::run() -> void
             _windowing.multiplyWithWindowingTable(_fftBuffer.getWritePointer(0), size_t(_fft.getSize()));
             _fft.performFrequencyOnlyForwardTransform(_fftBuffer.getWritePointer(0));
 
-            juce::ScopedLock lockedForWriting(_pathCreationLock);
+            juce::ScopedLock const lockedForWriting(_pathCreationLock);
             _averager.addFrom(0, 0, _averager.getReadPointer(_averagerPtr), _averager.getNumSamples(), -1.0F);
             _averager.copyFrom(_averagerPtr,
                 0,

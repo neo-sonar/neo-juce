@@ -22,7 +22,7 @@ TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "[data_stru
         juce::CachedValue<mc::ConstrainerWrapper<TestType, StartTimeConstrainer>> start;
     };
 
-    juce::ValueTree clipState("CLIP");
+    juce::ValueTree const clipState("CLIP");
     CachedValueClip c(clipState);
 
     c.start = 0;

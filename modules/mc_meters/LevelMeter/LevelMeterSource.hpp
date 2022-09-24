@@ -157,7 +157,7 @@ public:
      */
     void decayIfNeeded()
     {
-        juce::int64 time = juce::Time::currentTimeMillis();
+        juce::int64 const time = juce::Time::currentTimeMillis();
         if (time - _lastMeasurement < 100) { return; }
 
         _lastMeasurement = time;

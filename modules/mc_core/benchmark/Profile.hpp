@@ -21,7 +21,7 @@ struct Profiler {
 
     void beginSession(std::string const& name, std::string const& filepath = "results.json")
     {
-        std::lock_guard<std::mutex> lock(_mutex);
+        std::lock_guard<std::mutex> const lock(_mutex);
         if (_currentSession != nullptr) { internalEndSession(); }
 
         _buffer.reserve(1'000'000);
@@ -38,7 +38,7 @@ struct Profiler {
 
     void endSession()
     {
-        std::lock_guard<std::mutex> lock(_mutex);
+        std::lock_guard<std::mutex> const lock(_mutex);
         internalEndSession();
     }
 
@@ -55,7 +55,7 @@ struct Profiler {
             result.Start.count()                                                                         //
         );
 
-        std::lock_guard<std::mutex> lock(_mutex);
+        std::lock_guard<std::mutex> const lock(_mutex);
         if (_currentSession != nullptr) { _buffer.push_back(json); }
     }
 

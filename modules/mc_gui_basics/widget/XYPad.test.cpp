@@ -7,7 +7,7 @@ TEST_CASE("gui_basics/widget: XYPad", "[gui_basics]")
 {
     SECTION("default")
     {
-        mc::XYPad pad {};
+        mc::XYPad const pad {};
         REQUIRE(pad.getValueX() == 0);
         REQUIRE(pad.getValueY() == 0);
     }

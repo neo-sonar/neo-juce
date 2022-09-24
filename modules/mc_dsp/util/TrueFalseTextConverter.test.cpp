@@ -14,7 +14,7 @@ TEST_CASE("core/text: TrueFalseTextConverter", "[core]")
     SECTION("float -> String")
     {
         mc::TrueFalseTextConverter const converter {};
-        REQUIRE(converter(1.0f) == "true");
-        REQUIRE(converter(0.0f) == "false");
+        REQUIRE(converter(1.0F) == "true");
+        REQUIRE(converter(0.0F) == "false");
     }
 }

@@ -26,7 +26,7 @@ private:
     auto setValue(value_type content) -> void
     {
         auto text = juce::String { content };
-        juce::ScopedValueSetter<bool> svs(_ignoreCallbacks, true);
+        juce::ScopedValueSetter<bool> const svs(_ignoreCallbacks, true);
         _label.setText(text, juce::dontSendNotification);
     }
 

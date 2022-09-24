@@ -17,7 +17,7 @@ void SliderValueTreeAttachment::sendInitialUpdate() { _attachment.sendInitialUpd
 
 void SliderValueTreeAttachment::setValue(float newValue)
 {
-    juce::ScopedValueSetter<bool> svs(_ignoreCallbacks, true);
+    juce::ScopedValueSetter<bool> const svs(_ignoreCallbacks, true);
     _slider.setValue(newValue, juce::sendNotificationSync);
 }
 void SliderValueTreeAttachment::sliderValueChanged(juce::Slider* /*slider*/)

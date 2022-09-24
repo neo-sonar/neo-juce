@@ -12,7 +12,7 @@ TEST_CASE("gui_basics/attachment: SliderValueTreeAttachment", "[gui_basics]")
     value = 2.0F;
 
     juce::Slider slider { "slider" };
-    mc::SliderValueTreeAttachment attachment { valueTree, id, slider, &undoManager };
+    mc::SliderValueTreeAttachment const attachment { valueTree, id, slider, &undoManager };
     REQUIRE(slider.getValue() == Catch::Approx(2.0F));
 
     slider.setValue(3.0F, juce::sendNotificationSync);

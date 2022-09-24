@@ -62,7 +62,7 @@ struct StereoFieldComponent : juce::Component {
 
     void paint(juce::Graphics& g) override
     {
-        juce::Graphics::ScopedSaveState saved(g);
+        juce::Graphics::ScopedSaveState const saved(g);
 
         if (auto* lnf = dynamic_cast<StereoFieldComponent::LookAndFeelMethods*>(&getLookAndFeel())) {
             if (_type == GonioMeter) {

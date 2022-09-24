@@ -12,6 +12,6 @@ TEST_CASE("gui_basics/attachment: LabelValueTreeAttachment", "[gui_basics]")
     juce::Label label { "label", "label" };
     REQUIRE(label.getText() == juce::String { "label" });
 
-    mc::LabelValueTreeAttachment<juce::String> attachment { valueTree, id, label, &um };
+    mc::LabelValueTreeAttachment<juce::String> const attachment { valueTree, id, label, &um };
     REQUIRE(label.getText() == juce::String { "test" });
 }

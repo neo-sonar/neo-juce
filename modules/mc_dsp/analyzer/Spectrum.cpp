@@ -5,7 +5,7 @@ auto Spectrum::paint(juce::Graphics& g) -> void
 {
     auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
     if (lnf != nullptr) {
-        juce::Graphics::ScopedSaveState state(g);
+        juce::Graphics::ScopedSaveState const state(g);
         lnf->drawAnalyzerLabels(g, _textFrame);
         lnf->drawAnalyzerGrid(g, _plotFrame);
         lnf->drawAnalyzerPath(g, _plotFrame, _path);
