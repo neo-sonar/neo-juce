@@ -19,5 +19,7 @@
 
 #include <juce_audio_processors/juce_audio_processors.h>
 
+#include "attachment/RadioGroupAttachment.hpp"
+
 #include "parameter/AudioProcessorValueTreeState.hpp"
 #include "parameter/makeParameter.hpp"

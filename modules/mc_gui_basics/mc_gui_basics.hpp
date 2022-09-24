@@ -26,8 +26,13 @@
 #include "mouse/MouseUtils.hpp"
 
 #include "widget/Components.hpp"
+#include "widget/Placeholder.hpp"
+#include "widget/Slider.hpp"
 #include "widget/XYPad.hpp"
 
 #include "attachment/LabelAttachment.hpp"
 #include "attachment/SliderAttachment.hpp"
+#include "attachment/ToggleButtonAttachment.hpp"
+#include "attachment/TwoValueSliderAttachment.hpp"
+
 // #include "attachment/XYPadAttachment.hpp"

@@ -1,0 +1,4 @@
+namespace mc
+{
+
+}  // namespace mc
