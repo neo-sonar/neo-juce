@@ -55,11 +55,11 @@ target_sources(${PROJECT_NAME}_tests
 
         modules/mcj_audio_basics/buffers/audio_buffers.test.cpp
 
-        modules/mcj_audio_processors/attachment/XYPadAttachment.test.cpp
-        modules/mcj_audio_processors/parameter/AudioProcessorValueTreeState.test.cpp
-        modules/mcj_audio_processors/parameter/TextValueConverters.test.cpp
-        modules/mcj_audio_processors/parameter/TrueFalseTextConverter.test.cpp
-        modules/mcj_audio_processors/processors/BusesLayout.test.cpp
+        modules/mcj_audio_processors/attachment/xypad_attachment.test.cpp
+        modules/mcj_audio_processors/parameter/audio_processor_value_tree_state.test.cpp
+        modules/mcj_audio_processors/processors/buses_layout.test.cpp
+        modules/mcj_audio_processors/text_value_converter/TextValueConverters.test.cpp
+        modules/mcj_audio_processors/text_value_converter/TrueFalseTextConverter.test.cpp
 
         modules/mcj_core/container/Registry.test.cpp
         # modules/mcj_core/javascript/JSONUtils.test.cpp

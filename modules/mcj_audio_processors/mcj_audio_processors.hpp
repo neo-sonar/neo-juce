@@ -23,10 +23,10 @@ END_JUCE_MODULE_DECLARATION
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <mcj_gui_basics/mcj_gui_basics.hpp>
 
-#include "attachment/RadioGroupAttachment.hpp"
-#include "attachment/XYPadAttachment.hpp"
-#include "parameter/AudioProcessorValueTreeState.hpp"
-#include "parameter/TextValueConverters.hpp"
-#include "parameter/TrueFalseTextConverter.hpp"
-#include "parameter/makeParameter.hpp"
-#include "processors/BusesLayout.hpp"
+#include "attachment/radio_group_attachment.hpp"
+#include "attachment/xypad_attachment.hpp"
+#include "parameter/audio_processor_value_tree_state.hpp"
+#include "parameter/make_parameter.hpp"
+#include "processors/buses_layout.hpp"
+#include "text_value_converter/TextValueConverters.hpp"
+#include "text_value_converter/TrueFalseTextConverter.hpp"
