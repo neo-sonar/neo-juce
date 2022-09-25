@@ -30,6 +30,7 @@ END_JUCE_MODULE_DECLARATION
 #include "algorithm/downSample.hpp"
 
 #include "container/RingBuffer.hpp"
+#include "container/audio_block.hpp"
 
 #include "clock/Bars.hpp"
 #include "clock/TriggerClock.hpp"
