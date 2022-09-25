@@ -15,4 +15,4 @@ template <typename T>
 
 } // namespace mc
 
-#include "audio_buffer.cpp"
+#include "audio_buffer.cpp" // NOLINT(bugprone-suspicious-include)

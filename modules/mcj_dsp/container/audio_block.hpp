@@ -10,4 +10,4 @@ auto addStereoFrame(juce::dsp::AudioBlock<T> const& block, size_t index, dsp::St
 
 } // namespace mc
 
-#include "audio_block.cpp"
+#include "audio_block.cpp" // NOLINT(bugprone-suspicious-include)
