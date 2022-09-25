@@ -53,40 +53,40 @@ target_sources(${PROJECT_NAME}_tests
     PRIVATE
         MainTest.cpp
 
-        modules/mc_audio_basics/buffers/AudioBufferUtils.test.cpp
+        modules/mcj_audio_basics/buffers/AudioBufferUtils.test.cpp
 
-        modules/mc_audio_processors/attachment/XYPadAttachment.test.cpp
-        modules/mc_audio_processors/parameter/AudioProcessorValueTreeState.test.cpp
-        modules/mc_audio_processors/parameter/TextValueConverters.test.cpp
-        modules/mc_audio_processors/parameter/TrueFalseTextConverter.test.cpp
-        modules/mc_audio_processors/processors/BusesLayout.test.cpp
+        modules/mcj_audio_processors/attachment/XYPadAttachment.test.cpp
+        modules/mcj_audio_processors/parameter/AudioProcessorValueTreeState.test.cpp
+        modules/mcj_audio_processors/parameter/TextValueConverters.test.cpp
+        modules/mcj_audio_processors/parameter/TrueFalseTextConverter.test.cpp
+        modules/mcj_audio_processors/processors/BusesLayout.test.cpp
 
-        modules/mc_core/container/Registry.test.cpp
-        # modules/mc_core/javascript/JSONUtils.test.cpp
-        modules/mc_core/math/NormalisableRange.test.cpp
-        modules/mc_core/math/Range.test.cpp
-        modules/mc_core/misc/Result.test.cpp
-        modules/mc_core/text/Format.test.cpp
-        modules/mc_core/time/Duration.test.cpp
-        modules/mc_core/time/Time.test.cpp
+        modules/mcj_core/container/Registry.test.cpp
+        # modules/mcj_core/javascript/JSONUtils.test.cpp
+        modules/mcj_core/math/NormalisableRange.test.cpp
+        modules/mcj_core/math/Range.test.cpp
+        modules/mcj_core/misc/Result.test.cpp
+        modules/mcj_core/text/Format.test.cpp
+        modules/mcj_core/time/Duration.test.cpp
+        modules/mcj_core/time/Time.test.cpp
 
-        modules/mc_data_structures/value_tree/AtomicWrapper.test.cpp
-        modules/mc_data_structures/value_tree/ConstrainerWrapper.test.cpp
+        modules/mcj_data_structures/value_tree/AtomicWrapper.test.cpp
+        modules/mcj_data_structures/value_tree/ConstrainerWrapper.test.cpp
 
-        modules/mc_dsp/algorithm/downSample.test.cpp
-        modules/mc_dsp/clock/TriggerClock.test.cpp
-        modules/mc_dsp/fx/StereoWidth.test.cpp
+        modules/mcj_dsp/algorithm/downSample.test.cpp
+        modules/mcj_dsp/clock/TriggerClock.test.cpp
+        modules/mcj_dsp/fx/StereoWidth.test.cpp
 
-        modules/mc_graphics/color/Color.test.cpp
-        modules/mc_graphics/geometry/Line.test.cpp
-        modules/mc_graphics/geometry/Point.test.cpp
-        modules/mc_graphics/geometry/Rectangle.test.cpp
-        modules/mc_graphics/images/Image.test.cpp
+        modules/mcj_graphics/color/Color.test.cpp
+        modules/mcj_graphics/geometry/Line.test.cpp
+        modules/mcj_graphics/geometry/Point.test.cpp
+        modules/mcj_graphics/geometry/Rectangle.test.cpp
+        modules/mcj_graphics/images/Image.test.cpp
 
-        modules/mc_gui_basics/attachment/LabelAttachment.test.cpp
-        modules/mc_gui_basics/attachment/SliderAttachment.test.cpp
+        modules/mcj_gui_basics/attachment/LabelAttachment.test.cpp
+        modules/mcj_gui_basics/attachment/SliderAttachment.test.cpp
 
-        modules/mc_gui_basics/widget/XYPad.test.cpp
+        modules/mcj_gui_basics/widget/XYPad.test.cpp
 )
 
 target_compile_definitions(${PROJECT_NAME}_tests
@@ -104,15 +104,15 @@ target_link_libraries(${PROJECT_NAME}_tests
         mc-core::mc-core
         mc-dsp::mc-dsp
 
-        mc::mc_audio_basics
-        mc::mc_audio_processors
-        mc::mc_core
-        mc::mc_data_structures
-        mc::mc_dsp
-        mc::mc_events
-        mc::mc_graphics
-        mc::mc_gui_basics
-        mc::mc_meters
+        mc::mcj_audio_basics
+        mc::mcj_audio_processors
+        mc::mcj_core
+        mc::mcj_data_structures
+        mc::mcj_dsp
+        mc::mcj_events
+        mc::mcj_graphics
+        mc::mcj_gui_basics
+        mc::mcj_meters
 
         mc::compiler_options
         mc::compiler_warnings
