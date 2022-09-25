@@ -11,4 +11,4 @@ template <typename T>
 
 } // namespace mc::strings
 
-#include "Strings.cpp" // NOLINT
+#include "strings.cpp" // NOLINT(bugprone-suspicious-include)

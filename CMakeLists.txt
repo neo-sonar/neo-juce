@@ -61,8 +61,8 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_audio_processors/text_value_converter/TextValueConverters.test.cpp
         modules/mcj_audio_processors/text_value_converter/TrueFalseTextConverter.test.cpp
 
-        modules/mcj_core/container/Registry.test.cpp
-        # modules/mcj_core/javascript/JSONUtils.test.cpp
+        modules/mcj_core/container/registry.test.cpp
+        # modules/mcj_core/javascript/json_utils.test.cpp
         modules/mcj_core/math/normalisable_range.test.cpp
         modules/mcj_core/math/range.test.cpp
         modules/mcj_core/misc/result.test.cpp
