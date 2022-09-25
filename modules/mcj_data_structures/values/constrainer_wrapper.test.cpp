@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("data_structures/value_tree: ConstrainerWrapper", "[data_structures]", int, float, double)
+TEMPLATE_TEST_CASE("data_structures/values: ConstrainerWrapper", "[data_structures]", int, float, double)
 {
     struct StartTimeConstrainer {
         static auto constrain(const TestType& v) -> TestType

@@ -3,7 +3,7 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("core/time: samplesToMicroseconds", "[dsp]")
+TEST_CASE("dsp/clock: samplesToMicroseconds", "[dsp]")
 {
     auto test = [](auto actual, auto expected) -> bool { return actual.count() == Catch::Approx(expected); };
     REQUIRE(test(mc::samplesToMicroseconds(44'100, 44'100.0), 1'000'000));
@@ -14,7 +14,7 @@ TEST_CASE("core/time: samplesToMicroseconds", "[dsp]")
     REQUIRE(test(mc::samplesToMicroseconds(11'025, 44'100.0), 250'000));
 }
 
-TEST_CASE("core/time: samplesToMilliseconds", "[dsp]")
+TEST_CASE("dsp/clock: samplesToMilliseconds", "[dsp]")
 {
     auto test = [](auto actual, auto expected) -> bool { return actual.count() == Catch::Approx(expected); };
     REQUIRE(test(mc::samplesToMilliseconds(44'100, 44'100.0), 1'000));
@@ -25,7 +25,7 @@ TEST_CASE("core/time: samplesToMilliseconds", "[dsp]")
     REQUIRE(test(mc::samplesToMilliseconds(11'025, 44'100.0), 250));
 }
 
-TEST_CASE("core/time: samplesToSeconds", "[dsp]")
+TEST_CASE("dsp/clock: samplesToSeconds", "[dsp]")
 {
     auto test = [](auto actual, auto expected) -> bool { return actual.count() == Catch::Approx(expected); };
     REQUIRE(test(mc::samplesToSeconds(44'100, 44'100.0), 1));
@@ -36,7 +36,7 @@ TEST_CASE("core/time: samplesToSeconds", "[dsp]")
     REQUIRE(test(mc::samplesToSeconds(11'025, 44'100.0), 0.25));
 }
 
-TEST_CASE("core/time: toSampleCount(Microseconds)", "[dsp]")
+TEST_CASE("dsp/clock: toSampleCount(Microseconds)", "[dsp]")
 {
     REQUIRE(mc::toSampleCount(mc::Microseconds<double> { 1'000'000 }, 44'100.0) == Catch::Approx(44'100));
     REQUIRE(mc::toSampleCount(mc::Microseconds<double> { 1'000'000 }, 48'000.0) == Catch::Approx(48'000));
@@ -46,7 +46,7 @@ TEST_CASE("core/time: toSampleCount(Microseconds)", "[dsp]")
     REQUIRE(mc::toSampleCount(mc::Microseconds<double> { 250'000 }, 44'100.0) == Catch::Approx(11'025));
 }
 
-TEST_CASE("core/time: toSampleCount(Milliseconds)", "[dsp]")
+TEST_CASE("dsp/clock: toSampleCount(Milliseconds)", "[dsp]")
 {
     REQUIRE(mc::toSampleCount(mc::Milliseconds<double> { 1'000 }, 44'100.0) == Catch::Approx(44'100));
     REQUIRE(mc::toSampleCount(mc::Milliseconds<double> { 1'000 }, 48'000.0) == Catch::Approx(48'000));
@@ -56,7 +56,7 @@ TEST_CASE("core/time: toSampleCount(Milliseconds)", "[dsp]")
     REQUIRE(mc::toSampleCount(mc::Milliseconds<double> { 250 }, 44'100.0) == Catch::Approx(11'025));
 }
 
-TEST_CASE("core/time: toSampleCount(Seconds)", "[dsp]")
+TEST_CASE("dsp/clock: toSampleCount(Seconds)", "[dsp]")
 {
     REQUIRE(mc::toSampleCount(mc::Seconds<double> { 1 }, 44'100.0) == Catch::Approx(44'100));
     REQUIRE(mc::toSampleCount(mc::Seconds<double> { 1 }, 48'000.0) == Catch::Approx(48'000));
@@ -66,7 +66,7 @@ TEST_CASE("core/time: toSampleCount(Seconds)", "[dsp]")
     REQUIRE(mc::toSampleCount(mc::Seconds<double> { 0.25 }, 44'100.0) == Catch::Approx(11'025));
 }
 
-TEST_CASE("core/time: barsToSamples", "[dsp]")
+TEST_CASE("dsp/clock: barsToSamples", "[dsp]")
 {
     REQUIRE(mc::barsToSamples(1.0, 240.0, 44'100.0) == Catch::Approx(44'100.0));
     REQUIRE(mc::barsToSamples(1.0, 120.0, 44'100.0) == Catch::Approx(88'200.0));
@@ -77,20 +77,20 @@ TEST_CASE("core/time: barsToSamples", "[dsp]")
     REQUIRE(mc::barsToSamples(1.0 / 8.0, 240.0, 44'100.0) == Catch::Approx(5512.5));
 }
 
-TEST_CASE("core/time: barsToSeconds", "[dsp]")
+TEST_CASE("dsp/clock: barsToSeconds", "[dsp]")
 {
     REQUIRE(mc::barsToSeconds(120.0, 2.0, 1.0) == mc::Seconds<double> { 4.0 });
     REQUIRE(mc::barsToSeconds(120.0, 1.0, 1.0) == mc::Seconds<double> { 2.0 });
     REQUIRE(mc::barsToSeconds(120.0, 1.0, 4.0) == mc::Seconds<double> { 0.5 });
 }
 
-TEST_CASE("core/time: bpmToHertz", "[dsp]")
+TEST_CASE("dsp/clock: bpmToHertz", "[dsp]")
 {
     REQUIRE(mc::bpmToHertz(60.0) == 1.0);
     REQUIRE(mc::bpmToHertz(120.0) == 2.0);
 }
 
-TEST_CASE("core/time: TriggerClock", "[dsp]")
+TEST_CASE("dsp/clock: TriggerClock", "[dsp]")
 {
     auto clock = mc::TriggerClock {};
     clock.setSampleRate(44'100.0);

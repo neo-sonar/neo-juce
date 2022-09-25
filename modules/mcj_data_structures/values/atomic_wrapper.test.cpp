@@ -2,7 +2,7 @@
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("data_structures/value_tree: AtomicWrapper", "[data_structures]", int, float, double)
+TEMPLATE_TEST_CASE("data_structures/values: AtomicWrapper", "[data_structures]", int, float, double)
 {
     constexpr auto iterations = 1'000;
     auto c                    = juce::ValueTree("CLIP");
