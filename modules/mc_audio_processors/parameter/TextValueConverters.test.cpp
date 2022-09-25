@@ -1,9 +1,9 @@
-#include <mc_dsp/mc_dsp.hpp>
+#include <mc_audio_processors/mc_audio_processors.hpp>
 
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("core/text: ActiveTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: ActiveTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -20,7 +20,7 @@ TEST_CASE("core/text: ActiveTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: FrequencyTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: FrequencyTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -37,7 +37,7 @@ TEST_CASE("core/text: FrequencyTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: QualityTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: QualityTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -55,7 +55,7 @@ TEST_CASE("core/text: QualityTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: GainTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: GainTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -74,7 +74,7 @@ TEST_CASE("core/text: GainTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: PercentTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: PercentTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -93,7 +93,7 @@ TEST_CASE("core/text: PercentTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: TimeSecondsTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: TimeSecondsTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -112,7 +112,7 @@ TEST_CASE("core/text: TimeSecondsTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: TimeMillisecondsTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: TimeMillisecondsTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -131,7 +131,7 @@ TEST_CASE("core/text: TimeMillisecondsTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: RatioCompTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: RatioCompTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -152,7 +152,7 @@ TEST_CASE("core/text: RatioCompTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: RatioExpTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: RatioExpTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -173,7 +173,7 @@ TEST_CASE("core/text: RatioExpTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: InvertPhaseTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: InvertPhaseTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {
@@ -190,7 +190,7 @@ TEST_CASE("core/text: InvertPhaseTextConverter", "[core]")
     }
 }
 
-TEST_CASE("core/text: InvertPhaseBoolTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: InvertPhaseBoolTextConverter", "[audio_processors]")
 {
     SECTION("String -> bool")
     {

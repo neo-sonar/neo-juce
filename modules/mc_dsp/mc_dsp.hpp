@@ -32,10 +32,6 @@
 #include "clock/Bars.hpp"
 #include "clock/TriggerClock.hpp"
 
-#include "util/BusesLayout.hpp"
-#include "util/TextValueConverters.hpp"
-#include "util/TrueFalseTextConverter.hpp"
-
 #include "fx/StereoWidth.hpp"
 
 #include "analyzer/DownSamplingAnalyzer.hpp"
@@ -48,4 +44,4 @@
 #include "analyzer/Spectrum.hpp"
 
 // #include "airwindows/AirWindowsCoils2.hpp"
-//#include "airwindows/AirWindowsVerbity.hpp"
+// #include "airwindows/AirWindowsVerbity.hpp"

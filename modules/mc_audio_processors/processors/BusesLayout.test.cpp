@@ -1,8 +1,8 @@
-#include <mc_dsp/mc_dsp.hpp>
+#include <mc_audio_processors/mc_audio_processors.hpp>
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("dsp/util: isSameInOut", "[dsp]")
+TEST_CASE("audio_processors/processors: isSameInOut", "[audio_processors]")
 {
     SECTION("mono/stereo")
     {
@@ -34,7 +34,7 @@ TEST_CASE("dsp/util: isSameInOut", "[dsp]")
     }
 }
 
-TEST_CASE("dsp/util: isStereoInOut", "[dsp]")
+TEST_CASE("audio_processors/processors: isStereoInOut", "[audio_processors]")
 {
     SECTION("mono/stereo")
     {

@@ -9,4 +9,3 @@
 #include "analyzer/SpectrumSource.cpp"       // NOLINT(bugprone-suspicious-include)
 #include "clock/TriggerClock.cpp"            // NOLINT(bugprone-suspicious-include)
 #include "container/AudioBufferUtils.cpp"    // NOLINT(bugprone-suspicious-include)
-#include "util/BusesLayout.cpp"              // NOLINT(bugprone-suspicious-include)

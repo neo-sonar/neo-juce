@@ -1,8 +1,8 @@
-#include <mc_dsp/mc_dsp.hpp>
+#include <mc_audio_processors/mc_audio_processors.hpp>
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEST_CASE("core/text: TrueFalseTextConverter", "[core]")
+TEST_CASE("audio_processors/parameter: TrueFalseTextConverter", "[audio_processors]")
 {
     SECTION("String -> float")
     {

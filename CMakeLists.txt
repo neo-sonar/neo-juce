@@ -55,6 +55,9 @@ target_sources(${PROJECT_NAME}_tests
 
         modules/mc_audio_processors/attachment/XYPadAttachment.test.cpp
         modules/mc_audio_processors/parameter/AudioProcessorValueTreeState.test.cpp
+        modules/mc_audio_processors/parameter/TextValueConverters.test.cpp
+        modules/mc_audio_processors/parameter/TrueFalseTextConverter.test.cpp
+        modules/mc_audio_processors/processors/BusesLayout.test.cpp
 
         modules/mc_core/container/Registry.test.cpp
         # modules/mc_core/javascript/JSONUtils.test.cpp
@@ -72,9 +75,6 @@ target_sources(${PROJECT_NAME}_tests
         modules/mc_dsp/clock/TriggerClock.test.cpp
         modules/mc_dsp/container/AudioBufferUtils.test.cpp
         modules/mc_dsp/fx/StereoWidth.test.cpp
-        modules/mc_dsp/util/BusesLayout.test.cpp
-        modules/mc_dsp/util/TextValueConverters.test.cpp
-        modules/mc_dsp/util/TrueFalseTextConverter.test.cpp
 
         modules/mc_graphics/color/Color.test.cpp
         modules/mc_graphics/geometry/Line.test.cpp

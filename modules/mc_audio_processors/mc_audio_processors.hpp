@@ -22,6 +22,8 @@
 
 #include "attachment/RadioGroupAttachment.hpp"
 #include "attachment/XYPadAttachment.hpp"
-
 #include "parameter/AudioProcessorValueTreeState.hpp"
+#include "parameter/TextValueConverters.hpp"
+#include "parameter/TrueFalseTextConverter.hpp"
 #include "parameter/makeParameter.hpp"
+#include "processors/BusesLayout.hpp"
