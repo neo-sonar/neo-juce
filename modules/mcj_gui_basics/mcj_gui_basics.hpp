@@ -1,14 +1,17 @@
 /*
- BEGIN_JUCE_MODULE_DECLARATION
+BEGIN_JUCE_MODULE_DECLARATION
 
- ID:            mcj_gui_basics
- vendor:        mc
- version:       0.1.0
- name:          Graphics
- description:   JUCE graphics extensions and utilities.
- dependencies:  juce_gui_basics, mcj_data_structures, mcj_graphics
+    ID:                 mcj_gui_basics
+    vendor:             Modern Circuits
+    version:            0.1.0
+    name:               GUI Basics
+    description:        JUCE gui extensions and utilities.
+    dependencies:       juce_gui_basics, mcj_data_structures, mcj_graphics
+    website:            http://github.com/ModernCircuits/mc-juce
+    license:            GPL/Commercial
+    minimumCppStandard: 17
 
- END_JUCE_MODULE_DECLARATION
+END_JUCE_MODULE_DECLARATION
 */
 
 #pragma once

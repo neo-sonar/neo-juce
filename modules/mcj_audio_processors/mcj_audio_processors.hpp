@@ -1,14 +1,17 @@
 /*
- BEGIN_JUCE_MODULE_DECLARATION
+BEGIN_JUCE_MODULE_DECLARATION
 
- ID:            mcj_audio_processors
- vendor:        mc
- version:       0.1.0
- name:          Modern Circuits JUCE Events module
- description:   Events JUCE extensions and utilities.
- dependencies:  juce_audio_processors, mcj_gui_basics
+    ID:                 mcj_audio_processors
+    vendor:             Modern Circuits
+    version:            0.1.0
+    name:               Modern Circuits JUCE Audio Processors module
+    description:        Audio Processors JUCE extensions and utilities.
+    dependencies:       juce_audio_processors, mcj_gui_basics
+    website:            http://github.com/ModernCircuits/mc-juce
+    license:            GPL/Commercial
+    minimumCppStandard: 17
 
- END_JUCE_MODULE_DECLARATION
+END_JUCE_MODULE_DECLARATION
 */
 
 #pragma once

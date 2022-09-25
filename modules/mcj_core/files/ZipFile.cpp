@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: BSL-1.0
+
 namespace mc {
 
 auto isZipFile(juce::File const& file) -> bool

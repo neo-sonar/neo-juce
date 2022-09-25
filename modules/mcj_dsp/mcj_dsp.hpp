@@ -1,14 +1,17 @@
 /*
- BEGIN_JUCE_MODULE_DECLARATION
+BEGIN_JUCE_MODULE_DECLARATION
 
- ID:            mcj_dsp
- vendor:        mc
- version:       0.1.0
- name:          DSP
- description:   JUCE dsp extensions and utilities.
- dependencies:  juce_dsp, mcj_audio_basics, mcj_data_structures, mcj_gui_basics
+    ID:                 mcj_dsp
+    vendor:             Modern Circuits
+    version:            0.1.0
+    name:               DSP
+    description:        JUCE dsp extensions and utilities.
+    dependencies:       juce_dsp, mcj_audio_basics, mcj_data_structures, mcj_gui_basics
+    website:            http://github.com/ModernCircuits/mc-juce
+    license:            GPL/Commercial
+    minimumCppStandard: 17
 
- END_JUCE_MODULE_DECLARATION
+END_JUCE_MODULE_DECLARATION
 */
 
 #pragma once

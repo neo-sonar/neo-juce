@@ -1,4 +1,4 @@
-#include "mcj_gui_basics/mcj_gui_basics.hpp"
+#include <mcj_gui_basics/mcj_gui_basics.hpp>
 
 #include "attachment/SliderAttachment.cpp"         // NOLINT(bugprone-suspicious-include)
 #include "attachment/ToggleButtonAttachment.cpp"   // NOLINT(bugprone-suspicious-include)

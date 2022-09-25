@@ -1,14 +1,19 @@
+// SPDX-License-Identifier: BSL-1.0
+
 /*
- BEGIN_JUCE_MODULE_DECLARATION
+BEGIN_JUCE_MODULE_DECLARATION
 
- ID:            mcj_audio_basics
- vendor:        mc
- version:       0.1.0
- name:          Modern Circuits JUCE Audio basics module
- description:   Audio basics JUCE extensions and utilities.
- dependencies:  juce_audio_basics, mcj_core
+    ID:                 mcj_audio_basics
+    vendor:             Modern Circuits
+    version:            0.1.0
+    name:               Modern Circuits JUCE Audio basics module
+    description:        Audio basics JUCE extensions and utilities.
+    dependencies:       juce_audio_basics, mcj_core
+    website:            http://github.com/ModernCircuits/mc-juce
+    license:            BSL-1.0
+    minimumCppStandard: 17
 
- END_JUCE_MODULE_DECLARATION
+END_JUCE_MODULE_DECLARATION
 */
 
 #pragma once

@@ -1,14 +1,17 @@
 /*
- BEGIN_JUCE_MODULE_DECLARATION
+BEGIN_JUCE_MODULE_DECLARATION
 
- ID:            mcj_data_structures
- vendor:        mc
- version:       0.1.0
- name:          Data Structures
- description:   JUCE data structure extensions and utilities.
- dependencies:  juce_data_structures, mcj_core
+    ID:                 mcj_data_structures
+    vendor:             Modern Circuits
+    version:            0.1.0
+    name:               Data Structures
+    description:        JUCE data structure extensions and utilities.
+    dependencies:       juce_data_structures, mcj_core
+    website:            http://github.com/ModernCircuits/mc-juce
+    license:            GPL/Commercial
+    minimumCppStandard: 17
 
- END_JUCE_MODULE_DECLARATION
+END_JUCE_MODULE_DECLARATION
 */
 
 #pragma once

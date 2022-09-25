@@ -1,4 +1,4 @@
-#include <cstddef>
+// SPDX-License-Identifier: BSL-1.0
 
 namespace mc {
 

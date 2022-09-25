@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: BSL-1.0
+
 #pragma once
 
 template <std::size_t Size>

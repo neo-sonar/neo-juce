@@ -1,4 +1,4 @@
-#include "mcj_dsp/mcj_dsp.hpp"
+#include <mcj_dsp/mcj_dsp.hpp>
 
 #include "analyzer/DownSamplingAnalyzer.cpp" // NOLINT(bugprone-suspicious-include)
 #include "analyzer/Histogram.cpp"            // NOLINT(bugprone-suspicious-include)

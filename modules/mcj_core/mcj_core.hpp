@@ -1,14 +1,19 @@
+// SPDX-License-Identifier: BSL-1.0
+
 /*
- BEGIN_JUCE_MODULE_DECLARATION
+BEGIN_JUCE_MODULE_DECLARATION
 
- ID:            mcj_core
- vendor:        mc
- version:       0.1.0
- name:          Modern Circuits JUCE Core module
- description:   Core JUCE extensions and utilities.
- dependencies:  juce_core
+    ID:                 mcj_core
+    vendor:             Modern Circuits
+    version:            0.1.0
+    name:               Modern Circuits JUCE Core module
+    description:        Core JUCE extensions and utilities.
+    dependencies:       juce_core
+    website:            http://github.com/ModernCircuits/mc-juce
+    license:            BSL-1.0
+    minimumCppStandard: 17
 
- END_JUCE_MODULE_DECLARATION
+END_JUCE_MODULE_DECLARATION
 */
 
 #pragma once

@@ -1,4 +1,4 @@
-#include "mcj_graphics/mcj_graphics.hpp"
+#include <mcj_graphics/mcj_graphics.hpp>
 
 #include <catch2/catch_template_test_macros.hpp>
 

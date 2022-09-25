@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: BSL-1.0
+
 #include <mcj_core/mcj_core.hpp>
 
 #include <catch2/catch_test_macros.hpp>
