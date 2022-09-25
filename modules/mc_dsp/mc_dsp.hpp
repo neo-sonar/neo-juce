@@ -6,7 +6,7 @@
  version:       0.1.0
  name:          DSP
  description:   JUCE dsp extensions and utilities.
- dependencies:  juce_audio_processors, juce_dsp, mc_audio_basics, mc_data_structures, mc_gui_basics
+ dependencies:  juce_dsp, mc_audio_basics, mc_data_structures, mc_gui_basics
 
  END_JUCE_MODULE_DECLARATION
 */
@@ -19,7 +19,6 @@
 
 #include <mc/dsp.hpp>
 
-#include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 #include <mc_audio_basics/mc_audio_basics.hpp>
 #include <mc_data_structures/mc_data_structures.hpp>
