@@ -1,3 +1,8 @@
+# mcj_meters
+
+## LICENSE: ff_meters
+
+```txt
   ==============================================================================
   Copyright (c) 2017 - 2020, Foleys Finest Audio Ltd. - Daniel Walz
   All rights reserved.
@@ -24,3 +29,4 @@
   OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
   OF THE POSSIBILITY OF SUCH DAMAGE.
   ==============================================================================
+```

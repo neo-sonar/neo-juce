@@ -36,12 +36,3 @@ END_JUCE_MODULE_DECLARATION
 #include "clock/TriggerClock.hpp"
 
 #include "fx/StereoWidth.hpp"
-
-#include "analyzer/DownSamplingAnalyzer.hpp"
-#include "analyzer/HistogramSource.hpp"
-#include "analyzer/OscilloscopeSource.hpp"
-#include "analyzer/SpectrumSource.hpp"
-
-#include "analyzer/Histogram.hpp"
-#include "analyzer/Oscilloscope.hpp"
-#include "analyzer/Spectrum.hpp"
