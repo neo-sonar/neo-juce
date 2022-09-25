@@ -105,6 +105,7 @@ target_link_libraries(${PROJECT_NAME}_tests
         mc-dsp::mc-dsp
 
         mc::mcj_audio_basics
+        mc::mcj_audio_formats
         mc::mcj_audio_processors
         mc::mcj_core
         mc::mcj_data_structures

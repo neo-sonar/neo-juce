@@ -12,6 +12,7 @@
 |         Module         |                     License                      |
 | :--------------------: | :----------------------------------------------: |
 |   `mcj_audio_basics`   | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
+|  `mcj_audio_formats`   |   [GPL/Commercial](https://juce.com/get-juce)    |
 | `mcj_audio_processors` |   [GPL/Commercial](https://juce.com/get-juce)    |
 |       `mcj_core`       | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
 | `mcj_data_structures`  |   [GPL/Commercial](https://juce.com/get-juce)    |

@@ -2,6 +2,7 @@ project(mc-juce VERSION 0.1.0)
 
 juce_add_modules(ALIAS_NAMESPACE mc
     mcj_audio_basics
+    mcj_audio_formats
     mcj_audio_processors
     mcj_core
     mcj_data_structures
