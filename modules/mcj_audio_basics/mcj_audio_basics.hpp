@@ -25,4 +25,6 @@ END_JUCE_MODULE_DECLARATION
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <mcj_core/mcj_core.hpp>
 
-#include "buffers/AudioBufferUtils.hpp"
+#include "buffers/audio_buffer.hpp"
+#include "buffers/audio_buffers.hpp"
+#include "buffers/buffer_with_samplerate.hpp"

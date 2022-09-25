@@ -53,7 +53,7 @@ target_sources(${PROJECT_NAME}_tests
     PRIVATE
         MainTest.cpp
 
-        modules/mcj_audio_basics/buffers/AudioBufferUtils.test.cpp
+        modules/mcj_audio_basics/buffers/audio_buffers.test.cpp
 
         modules/mcj_audio_processors/attachment/XYPadAttachment.test.cpp
         modules/mcj_audio_processors/parameter/AudioProcessorValueTreeState.test.cpp
