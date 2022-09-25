@@ -18,8 +18,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_CORE
-    #define USE_MC_CORE
+#ifndef USE_MCJ_CORE
+    #define USE_MCJ_CORE
 #endif
 
 #include <juce_core/juce_core.h>

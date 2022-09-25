@@ -18,8 +18,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_AUDIO_BASICS
-    #define USE_MC_AUDIO_BASICS
+#ifndef USE_MCJ_AUDIO_BASICS
+    #define USE_MCJ_AUDIO_BASICS
 #endif
 
 #include <juce_audio_basics/juce_audio_basics.h>

@@ -16,8 +16,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_GRAPHICS
-    #define USE_MC_GRAPHICS
+#ifndef USE_MCJ_GRAPHICS
+    #define USE_MCJ_GRAPHICS
 #endif
 
 #include <juce_graphics/juce_graphics.h>

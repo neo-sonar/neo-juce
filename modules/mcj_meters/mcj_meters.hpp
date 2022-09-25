@@ -18,8 +18,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_METERS
-    #define USE_MC_METERS
+#ifndef USE_MCJ_METERS
+    #define USE_MCJ_METERS
 #endif
 
 #include <juce_audio_basics/juce_audio_basics.h>

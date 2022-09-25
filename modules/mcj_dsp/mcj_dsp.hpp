@@ -16,8 +16,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_DSP
-    #define USE_MC_DSP
+#ifndef USE_MCJ_DSP
+    #define USE_MCJ_DSP
 #endif
 
 #include <mc/dsp.hpp>

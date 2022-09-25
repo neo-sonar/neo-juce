@@ -18,8 +18,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_EVENTS
-    #define USE_MC_EVENTS
+#ifndef USE_MCJ_EVENTS
+    #define USE_MCJ_EVENTS
 #endif
 
 #include <juce_events/juce_events.h>

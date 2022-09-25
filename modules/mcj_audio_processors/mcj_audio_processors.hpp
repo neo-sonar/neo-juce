@@ -16,8 +16,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_AUDIO_PROCESSORS
-    #define USE_MC_AUDIO_PROCESSORS
+#ifndef USE_MCJ_AUDIO_PROCESSORS
+    #define USE_MCJ_AUDIO_PROCESSORS
 #endif
 
 #include <juce_audio_processors/juce_audio_processors.h>

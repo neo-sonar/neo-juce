@@ -16,8 +16,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_DATA_STRUCTURES
-    #define USE_MC_DATA_STRUCTURES
+#ifndef USE_MCJ_DATA_STRUCTURES
+    #define USE_MCJ_DATA_STRUCTURES
 #endif
 
 #include <juce_data_structures/juce_data_structures.h>

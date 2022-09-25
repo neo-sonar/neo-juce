@@ -16,8 +16,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_AUDIO_FORMATS
-    #define USE_MC_AUDIO_FORMATS
+#ifndef USE_MCJ_AUDIO_FORMATS
+    #define USE_MCJ_AUDIO_FORMATS
 #endif
 
 #include <juce_audio_formats/juce_audio_formats.h>

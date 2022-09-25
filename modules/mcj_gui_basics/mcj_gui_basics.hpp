@@ -16,8 +16,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_GUI_BASICS
-    #define USE_MC_GUI_BASICS
+#ifndef USE_MCJ_GUI_BASICS
+    #define USE_MCJ_GUI_BASICS
 #endif
 
 #include <juce_gui_basics/juce_gui_basics.h>
