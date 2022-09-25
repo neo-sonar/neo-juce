@@ -19,13 +19,13 @@ auto XYPad::paint(juce::Graphics& g) -> void
 
 auto XYPad::resized() -> void { _bounds = getLocalBounds(); }
 
-auto XYPad::getValueX() const noexcept -> float { return _xRange.convertFrom0to1(_normalizedValues.x); }
+auto XYPad::getValueX() const -> float { return _xRange.convertFrom0to1(_normalizedValues.x); }
 
-auto XYPad::getValueY() const noexcept -> float { return _yRange.convertFrom0to1(_normalizedValues.y); }
+auto XYPad::getValueY() const -> float { return _yRange.convertFrom0to1(_normalizedValues.y); }
 
-auto XYPad::getNormalizedX() const noexcept -> float { return _normalizedValues.x; }
+auto XYPad::getNormalizedX() const -> float { return _normalizedValues.x; }
 
-auto XYPad::getNormalizedY() const noexcept -> float { return _normalizedValues.y; }
+auto XYPad::getNormalizedY() const -> float { return _normalizedValues.y; }
 
 auto XYPad::setValueX(float x) -> void { setNormalizedX(_xRange.convertTo0to1(x)); }
 
@@ -43,13 +43,13 @@ auto XYPad::setNormalizedY(float y) -> void
     updatePosition();
 }
 
-auto XYPad::getXRange() const noexcept -> juce::NormalisableRange<float> { return _xRange; }
+auto XYPad::getXRange() const -> juce::NormalisableRange<float> { return _xRange; }
 
-auto XYPad::getYRange() const noexcept -> juce::NormalisableRange<float> { return _yRange; }
+auto XYPad::getYRange() const -> juce::NormalisableRange<float> { return _yRange; }
 
-auto XYPad::getDirectionX() const noexcept -> bool { return _startShouldBeOnLeft; }
+auto XYPad::getDirectionX() const -> bool { return _startShouldBeOnLeft; }
 
-auto XYPad::getDirectionY() const noexcept -> bool { return _startShouldBeOnTop; }
+auto XYPad::getDirectionY() const -> bool { return _startShouldBeOnTop; }
 
 auto XYPad::setDirectionX(bool startShouldBeOnLeft) -> void { _startShouldBeOnLeft = startShouldBeOnLeft; }
 
@@ -59,8 +59,8 @@ auto XYPad::setXRange(juce::NormalisableRange<float> const& newRange) -> void { 
 
 auto XYPad::setYRange(juce::NormalisableRange<float> const& newRange) -> void { _yRange = newRange; }
 
-auto XYPad::isOverThumb() const noexcept -> bool { return _isOverThumb; }
-auto XYPad::isDragging() const noexcept -> bool { return _isDragging; }
+auto XYPad::isOverThumb() const -> bool { return _isOverThumb; }
+auto XYPad::isDragging() const -> bool { return _isDragging; }
 
 auto XYPad::mouseMove(juce::MouseEvent const& event) -> void
 {

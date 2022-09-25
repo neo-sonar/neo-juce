@@ -6,6 +6,7 @@ Checks: >
   -bugprone-macro-parentheses,
 
   cert-*,
+  -cert-oop54-cpp,
 
   clang-analyzer-*,
   clang-diagnostics-*,
@@ -15,6 +16,7 @@ Checks: >
   cppcoreguidelines-*,
   -cppcoreguidelines-avoid-magic-numbers,
   -cppcoreguidelines-special-member-functions,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
 
   hicpp-*,
   -hicpp-special-member-functions,
@@ -29,6 +31,10 @@ Checks: >
   -readability-const-return-type,
   -readability-identifier-length,
   -readability-magic-numbers,
+
+  -*non-private-member-variables-in-classes,
+  -*-avoid-c-arrays,
+
 WarningsAsErrors: "*"
 FormatStyle: none
 CheckOptions:

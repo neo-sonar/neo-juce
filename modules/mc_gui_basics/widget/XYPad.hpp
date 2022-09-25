@@ -28,28 +28,28 @@ struct XYPad : juce::Component {
     explicit XYPad(juce::String const& name = {});
     ~XYPad() override = default;
 
-    [[nodiscard]] auto getValueX() const noexcept -> float;
-    [[nodiscard]] auto getValueY() const noexcept -> float;
+    [[nodiscard]] auto getValueX() const -> float;
+    [[nodiscard]] auto getValueY() const -> float;
     auto setValueX(float x) -> void;
     auto setValueY(float y) -> void;
 
-    [[nodiscard]] auto getNormalizedX() const noexcept -> float;
-    [[nodiscard]] auto getNormalizedY() const noexcept -> float;
+    [[nodiscard]] auto getNormalizedX() const -> float;
+    [[nodiscard]] auto getNormalizedY() const -> float;
     auto setNormalizedX(float x) -> void;
     auto setNormalizedY(float y) -> void;
 
-    [[nodiscard]] auto getXRange() const noexcept -> juce::NormalisableRange<float>;
-    [[nodiscard]] auto getYRange() const noexcept -> juce::NormalisableRange<float>;
+    [[nodiscard]] auto getXRange() const -> juce::NormalisableRange<float>;
+    [[nodiscard]] auto getYRange() const -> juce::NormalisableRange<float>;
     auto setXRange(juce::NormalisableRange<float> const& newRange) -> void;
     auto setYRange(juce::NormalisableRange<float> const& newRange) -> void;
 
-    [[nodiscard]] auto getDirectionX() const noexcept -> bool;
-    [[nodiscard]] auto getDirectionY() const noexcept -> bool;
+    [[nodiscard]] auto getDirectionX() const -> bool;
+    [[nodiscard]] auto getDirectionY() const -> bool;
     auto setDirectionX(bool startShouldBeOnLeft) -> void;
     auto setDirectionY(bool startShouldBeOnTop) -> void;
 
-    [[nodiscard]] auto isOverThumb() const noexcept -> bool;
-    [[nodiscard]] auto isDragging() const noexcept -> bool;
+    [[nodiscard]] auto isOverThumb() const -> bool;
+    [[nodiscard]] auto isDragging() const -> bool;
 
     auto addListener(Listener* listener) -> void { _listeners.add(listener); }
     auto removeListener(Listener* listener) -> void { _listeners.remove(listener); }

@@ -4,7 +4,7 @@
 #include <catch2/catch_template_test_macros.hpp>
 
 template <typename FloatType>
-inline auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<FloatType>
+static auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<FloatType>
 {
     std::random_device rd;
     std::mt19937 e2(rd());
@@ -19,6 +19,7 @@ inline auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<Float
     return buffer;
 }
 
+// NOLINTNEXTLINE
 #define REQUIRE_FOR_NANS(buffer)                                                                                       \
     for (auto channel = 0; channel < (buffer).getNumChannels(); ++channel) {                                           \
         auto* samples = (buffer).getWritePointer(channel);                                                             \
@@ -27,6 +28,7 @@ inline auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<Float
     do {                                                                                                               \
     } while (false)
 
+// NOLINTNEXTLINE
 #define REQUIRE_FOR_INFS(buffer)                                                                                       \
     for (auto channel = 0; channel < (buffer).getNumChannels(); ++channel) {                                           \
         auto* samples = (buffer).getWritePointer(channel);                                                             \
@@ -35,7 +37,7 @@ inline auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<Float
     do {                                                                                                               \
     } while (false)
 
-TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "[dsp]", float, double)
+TEMPLATE_TEST_CASE("dsp/processor: StereoWidth", "[dsp]", float, double) // NOLINT
 {
     SECTION("width: 1.0 (no change)")
     {

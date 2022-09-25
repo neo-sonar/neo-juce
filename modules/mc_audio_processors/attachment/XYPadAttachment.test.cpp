@@ -20,7 +20,7 @@ TEST_CASE("audio_processors/attachment: XYPadAttachment", "[audio_processors]") 
     juce::AudioParameterFloat paramA { "a", "a", 0.0F, 100.0F, 0.0F };
     juce::AudioParameterFloat paramB { "b", "b", 0.0F, 50.0F, 0.0F };
 
-    mc::XYPadAttachment attachment { paramA, paramB, xypad, nullptr };
+    mc::XYPadAttachment const attachment { paramA, paramB, xypad, nullptr };
     REQUIRE(xypad.getXRange().start == Catch::Approx(0.0F));
     REQUIRE(xypad.getXRange().end == Catch::Approx(100.0F));
     REQUIRE(xypad.getYRange().start == Catch::Approx(0.0F));
