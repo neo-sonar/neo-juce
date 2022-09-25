@@ -63,12 +63,12 @@ target_sources(${PROJECT_NAME}_tests
 
         modules/mcj_core/container/Registry.test.cpp
         # modules/mcj_core/javascript/JSONUtils.test.cpp
-        modules/mcj_core/math/NormalisableRange.test.cpp
-        modules/mcj_core/math/Range.test.cpp
-        modules/mcj_core/misc/Result.test.cpp
-        modules/mcj_core/text/Format.test.cpp
-        modules/mcj_core/time/Duration.test.cpp
-        modules/mcj_core/time/Time.test.cpp
+        modules/mcj_core/math/normalisable_range.test.cpp
+        modules/mcj_core/math/range.test.cpp
+        modules/mcj_core/misc/result.test.cpp
+        modules/mcj_core/text/jformat.test.cpp
+        modules/mcj_core/time/duration.test.cpp
+        modules/mcj_core/time/time.test.cpp
 
         modules/mcj_data_structures/values/atomic_wrapper.test.cpp
         modules/mcj_data_structures/values/constrainer_wrapper.test.cpp

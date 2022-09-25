@@ -24,27 +24,23 @@ END_JUCE_MODULE_DECLARATION
 
 #include <juce_core/juce_core.h>
 
-JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE("-Wmacro-redefined")
 #include <mc/core.hpp>
-JUCE_END_IGNORE_WARNINGS_GCC_LIKE
 
-#include "text/Format.hpp"
-#include "text/String.hpp"
-#include "text/Strings.hpp"
+#include "text/jformat.hpp"
+#include "text/string.hpp"
+#include "text/strings.hpp"
 
-#include "container/Array.hpp"
-#include "container/BitSet.hpp"
-#include "container/Registry.hpp"
-#include "container/Span.hpp"
-#include "container/StringArray.hpp"
-#include "files/File.hpp"
-#include "files/ZipFile.hpp"
-#include "javascript/JSONUtils.hpp"
-#include "math/NormalisableRange.hpp"
-#include "math/Range.hpp"
-#include "math/RangeUtils.hpp"
-#include "misc/Result.hpp"
-#include "time/Duration.hpp"
-#include "time/Time.hpp"
-
-#include "benchmark/Profile.hpp"
+#include "container/array.hpp"
+#include "container/bitset.hpp"
+#include "container/registry.hpp"
+#include "container/span.hpp"
+#include "container/string_array.hpp"
+#include "files/file.hpp"
+#include "files/zip_file.hpp"
+#include "javascript/json_utils.hpp"
+#include "math/normalisable_range.hpp"
+#include "math/range.hpp"
+#include "math/ranges.hpp"
+#include "misc/result.hpp"
+#include "time/duration.hpp"
+#include "time/time.hpp"
