@@ -1,8 +1,8 @@
-#include <mc_dsp/mc_dsp.hpp>
+#include <mc_audio_basics/mc_audio_basics.hpp>
 
 #include <catch2/catch_template_test_macros.hpp>
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::sumToMono", "[dsp]", float, double)
+TEMPLATE_TEST_CASE("audio_basics/buffers: AudioBufferUtils::sumToMono", "[audio_basics]", float, double)
 {
     auto src = juce::AudioBuffer<TestType> { 2, 512 };
     auto dst = juce::AudioBuffer<TestType> { 1, 512 };
@@ -12,7 +12,7 @@ TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::sumToMono", "[dsp]", float,
     REQUIRE(mc::AudioBufferUtils::allOf(dst, TestType { 0.5 }));
 }
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::split", "[dsp]", float, double)
+TEMPLATE_TEST_CASE("audio_basics/buffers: AudioBufferUtils::split", "[audio_basics]", float, double)
 {
     auto src = juce::AudioBuffer<TestType> { 1, 512 };
     auto dst = juce::AudioBuffer<TestType> { 4, 512 };
@@ -22,21 +22,21 @@ TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::split", "[dsp]", float, dou
     REQUIRE(mc::AudioBufferUtils::allOf(dst, TestType { 2.0 }));
 }
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::containsNANs", "[dsp]", float, double)
+TEMPLATE_TEST_CASE("audio_basics/buffers: AudioBufferUtils::containsNANs", "[audio_basics]", float, double)
 {
     auto buffer = juce::AudioBuffer<TestType> { 2, 512 };
     mc::AudioBufferUtils::fill(buffer, TestType { 0.5 });
     REQUIRE_FALSE(mc::AudioBufferUtils::containsNANs(buffer));
 }
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::containsINFs", "[dsp]", float, double)
+TEMPLATE_TEST_CASE("audio_basics/buffers: AudioBufferUtils::containsINFs", "[audio_basics]", float, double)
 {
     auto buffer = juce::AudioBuffer<TestType> { 2, 512 };
     mc::AudioBufferUtils::fill(buffer, TestType { 0.5 });
     REQUIRE_FALSE(mc::AudioBufferUtils::containsINFs(buffer));
 }
 
-TEMPLATE_TEST_CASE("dsp/container: AudioBufferUtils::equal", "[dsp]", float, double)
+TEMPLATE_TEST_CASE("audio_basics/buffers: AudioBufferUtils::equal", "[audio_basics]", float, double)
 {
     SECTION("same buffer")
     {

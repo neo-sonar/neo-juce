@@ -53,6 +53,8 @@ target_sources(${PROJECT_NAME}_tests
     PRIVATE
         MainTest.cpp
 
+        modules/mc_audio_basics/buffers/AudioBufferUtils.test.cpp
+
         modules/mc_audio_processors/attachment/XYPadAttachment.test.cpp
         modules/mc_audio_processors/parameter/AudioProcessorValueTreeState.test.cpp
         modules/mc_audio_processors/parameter/TextValueConverters.test.cpp
@@ -73,7 +75,6 @@ target_sources(${PROJECT_NAME}_tests
 
         modules/mc_dsp/algorithm/downSample.test.cpp
         modules/mc_dsp/clock/TriggerClock.test.cpp
-        modules/mc_dsp/container/AudioBufferUtils.test.cpp
         modules/mc_dsp/fx/StereoWidth.test.cpp
 
         modules/mc_graphics/color/Color.test.cpp
@@ -103,6 +104,7 @@ target_link_libraries(${PROJECT_NAME}_tests
         mc-core::mc-core
         mc-dsp::mc-dsp
 
+        mc::mc_audio_basics
         mc::mc_audio_processors
         mc::mc_core
         mc::mc_data_structures
