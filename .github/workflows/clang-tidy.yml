@@ -1,0 +1,49 @@
+name: Clang-Tidy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  clang-tidy:
+    name: Clang-Tidy
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y ninja-build cmake
+          pip install conan
+          conan config init
+
+      - name: Install LLVM
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 15 all
+
+      - name: Configure CMake
+        run: >
+          cmake -S.
+          -B build
+          -G "Unix Makefiles"
+          -D CMAKE_BUILD_TYPE=Release
+          -D CMAKE_C_COMPILER="clang-15"
+          -D CMAKE_CXX_COMPILER="clang++-15"
+          -D CMAKE_CXX_STANDARD=17
+          -D MC_BUILD_WERROR=ON
+
+      - name: Clang-Tidy -- Release
+        run: >
+          BUILD_DIR=build
+          PYTHON_BIN=python3
+          CLANG_REPLACEMENTS_BIN=clang-apply-replacements-15
+          CLANG_TIDY_BIN=clang-tidy-15
+          make tidy-check
