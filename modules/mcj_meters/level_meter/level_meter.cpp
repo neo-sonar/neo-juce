@@ -1,5 +1,3 @@
-// SPDX-License-Identifier: BSL-1.0
-
 namespace mc {
 
 LevelMeter::LevelMeter(MeterFlags type) : _meterType(type)

@@ -1,5 +1,3 @@
-// SPDX-License-Identifier: BSL-1.0
-
 #include <mcj_meters/mcj_meters.hpp>
 
 #include "analyzer/down_sampling_analyzer.cpp" // NOLINT(bugprone-suspicious-include)

@@ -20,4 +20,4 @@
 |      `mcj_events`      | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
 |     `mcj_graphics`     |   [GPL/Commercial](https://juce.com/get-juce)    |
 |    `mcj_gui_basics`    |   [GPL/Commercial](https://juce.com/get-juce)    |
-|      `mcj_meters`      | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
+|      `mcj_meters`      |   [GPL/Commercial](https://juce.com/get-juce)    |

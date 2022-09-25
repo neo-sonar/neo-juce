@@ -1,5 +1,3 @@
-// SPDX-License-Identifier: BSL-1.0
-
 /*
 BEGIN_JUCE_MODULE_DECLARATION
 
@@ -10,7 +8,7 @@ BEGIN_JUCE_MODULE_DECLARATION
     description:        Audio modulators, routing matrix & utilities.
     dependencies:       juce_audio_basics, mcj_dsp
     website:            http://github.com/ModernCircuits/mc-juce
-    license:            BSL-1.0
+    license:            GPL/Commercial
     minimumCppStandard: 17
 
 END_JUCE_MODULE_DECLARATION
