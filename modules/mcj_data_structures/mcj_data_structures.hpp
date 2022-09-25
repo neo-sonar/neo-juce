@@ -24,7 +24,7 @@ END_JUCE_MODULE_DECLARATION
 
 #include <mcj_core/mcj_core.hpp>
 
-#include "value_tree/AtomicWrapper.hpp"
-#include "value_tree/Attachment.hpp"
-#include "value_tree/ConstrainerWrapper.hpp"
-#include "value_tree/ObjectList.hpp"
+#include "values/atomic_wrapper.hpp"
+#include "values/constrainer_wrapper.hpp"
+#include "values/value_tree_attachment.hpp"
+#include "values/value_tree_object_list.hpp"
