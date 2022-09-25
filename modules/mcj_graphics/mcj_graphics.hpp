@@ -23,9 +23,9 @@ END_JUCE_MODULE_DECLARATION
 #include <juce_graphics/juce_graphics.h>
 #include <mcj_core/mcj_core.hpp>
 
-#include "color/Color.hpp"
-#include "geometry/Line.hpp"
-#include "geometry/Point.hpp"
-#include "geometry/Rectangle.hpp"
-#include "images/Image.hpp"
-#include "images/ImageUtils.hpp"
+#include "color/color.hpp"
+#include "geometry/line.hpp"
+#include "geometry/point.hpp"
+#include "geometry/rectangle.hpp"
+#include "images/image.hpp"
+#include "images/images.hpp"

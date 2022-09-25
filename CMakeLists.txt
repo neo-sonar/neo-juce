@@ -77,11 +77,11 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_dsp/clock/TriggerClock.test.cpp
         modules/mcj_dsp/fx/StereoWidth.test.cpp
 
-        modules/mcj_graphics/color/Color.test.cpp
-        modules/mcj_graphics/geometry/Line.test.cpp
-        modules/mcj_graphics/geometry/Point.test.cpp
-        modules/mcj_graphics/geometry/Rectangle.test.cpp
-        modules/mcj_graphics/images/Image.test.cpp
+        modules/mcj_graphics/color/color.test.cpp
+        modules/mcj_graphics/geometry/line.test.cpp
+        modules/mcj_graphics/geometry/point.test.cpp
+        modules/mcj_graphics/geometry/rectangle.test.cpp
+        modules/mcj_graphics/images/image.test.cpp
 
         modules/mcj_gui_basics/attachment/LabelAttachment.test.cpp
         modules/mcj_gui_basics/attachment/SliderAttachment.test.cpp
