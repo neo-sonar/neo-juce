@@ -9,5 +9,3 @@
 #include "widget/Placeholder.cpp"                  // NOLINT(bugprone-suspicious-include)
 #include "widget/Slider.cpp"                       // NOLINT(bugprone-suspicious-include)
 #include "widget/XYPad.cpp"                        // NOLINT(bugprone-suspicious-include)
-
-// #include "attachment/XYPadAttachment.cpp"  // NOLINT(bugprone-suspicious-include)

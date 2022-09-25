@@ -1,9 +1,9 @@
-#include <mc_gui_basics/mc_gui_basics.hpp>
+#include <mc_audio_processors/mc_audio_processors.hpp>
 
 #include <catch2/catch_approx.hpp>
-#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("gui_basics/attachment: XYPadAttachment", "[gui_basics]") // NOLINT
+TEST_CASE("audio_processors/attachment: XYPadAttachment", "[audio_processors]") // NOLINT
 {
     mc::XYPad xypad {};
     REQUIRE(xypad.getXRange().start == Catch::Approx(0.0F));

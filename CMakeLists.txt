@@ -53,6 +53,7 @@ target_sources(${PROJECT_NAME}_tests
     PRIVATE
         MainTest.cpp
 
+        modules/mc_audio_processors/attachment/XYPadAttachment.test.cpp
         modules/mc_audio_processors/parameter/AudioProcessorValueTreeState.test.cpp
 
         modules/mc_core/container/Registry.test.cpp
@@ -83,7 +84,6 @@ target_sources(${PROJECT_NAME}_tests
 
         modules/mc_gui_basics/attachment/LabelAttachment.test.cpp
         modules/mc_gui_basics/attachment/SliderAttachment.test.cpp
-        # modules/mc_gui_basics/attachment/XYPadAttachment.test.cpp
 
         modules/mc_gui_basics/widget/XYPad.test.cpp
 )

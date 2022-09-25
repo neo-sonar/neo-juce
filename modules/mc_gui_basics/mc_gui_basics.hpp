@@ -34,5 +34,3 @@
 #include "attachment/SliderAttachment.hpp"
 #include "attachment/ToggleButtonAttachment.hpp"
 #include "attachment/TwoValueSliderAttachment.hpp"
-
-// #include "attachment/XYPadAttachment.hpp"
