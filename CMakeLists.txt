@@ -58,8 +58,17 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_audio_processors/attachment/xypad_attachment.test.cpp
         modules/mcj_audio_processors/parameter/audio_processor_value_tree_state.test.cpp
         modules/mcj_audio_processors/processors/buses_layout.test.cpp
-        modules/mcj_audio_processors/text_value_converter/TextValueConverters.test.cpp
-        modules/mcj_audio_processors/text_value_converter/TrueFalseTextConverter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/active_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/frequency_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/gain_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/invert_phase_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/milliseconds_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/percent_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/quality_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/ratio_or_gate_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/ratio_or_limiter_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/seconds_text_converter.test.cpp
+        modules/mcj_audio_processors/text_value_converter/true_false_text_converter.test.cpp
 
         modules/mcj_core/container/registry.test.cpp
         # modules/mcj_core/javascript/json_utils.test.cpp
