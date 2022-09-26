@@ -3,7 +3,7 @@
 namespace mc {
 
 /// \brief Component for the spectrum analyser.
-struct Spectrum : juce::Component, juce::Timer {
+struct Spectrum final : juce::Component, juce::ChangeListener {
     enum ColourIds {
         plot   = 0x1331600,
         grid   = 0x1331601,
@@ -29,8 +29,8 @@ struct Spectrum : juce::Component, juce::Timer {
             = 0;
     };
 
-    explicit Spectrum(SpectrumSource& analyser);
-    ~Spectrum() override = default;
+    explicit Spectrum(SpectrumSource& source);
+    ~Spectrum() override;
 
     Spectrum(const Spectrum& other)                  = delete;
     Spectrum(Spectrum&& other)                       = delete;
@@ -41,9 +41,9 @@ struct Spectrum : juce::Component, juce::Timer {
     auto resized() -> void override;
 
 private:
-    auto timerCallback() -> void override;
+    auto changeListenerCallback(juce::ChangeBroadcaster* source) -> void override;
 
-    SpectrumSource& _processor;
+    SpectrumSource& _source;
     juce::Rectangle<int> _plotFrame;
     juce::Rectangle<int> _textFrame;
     juce::Path _path;

@@ -1,117 +1,136 @@
 namespace mc {
-SpectrumSource::SpectrumSource()
-    : Thread("SpectrumSource")
-    , _fft { 11 }
-    , _windowing { static_cast<std::size_t>(_fft.getSize()), juce::dsp::WindowingFunction<float>::kaiser }
+
+static auto frequencyToX(float minFreq, float maxFreq, float freq, float width)
 {
+    auto const logMinFreq = std::log10(minFreq);
+    auto const diff       = std::log10(freq) - logMinFreq;
+    return diff * width / (std::log10(maxFreq) - logMinFreq);
 }
 
-auto SpectrumSource::addAudioData(juce::AudioBuffer<float> const& buffer, int startChannel, int numChannels) -> void
+static auto amplitudeToY(float amplitude, const juce::Rectangle<float> bounds) -> float
 {
-    if (_abstractFifo.getFreeSpace() < buffer.getNumSamples()) { return; }
+    auto const infinity = -60.0F;
+    auto const dB       = juce::Decibels::gainToDecibels(amplitude, infinity);
+    return juce::jmap(dB, infinity, 0.0F, bounds.getBottom(), bounds.getY());
+}
 
-    int start1 {};
-    int block1 {};
-    int start2 {};
-    int block2 {};
-    _abstractFifo.prepareToWrite(buffer.getNumSamples(), start1, block1, start2, block2);
-    _audioFifo.copyFrom(0, start1, buffer.getReadPointer(startChannel), block1);
-    if (block2 > 0) { _audioFifo.copyFrom(0, start2, buffer.getReadPointer(startChannel, block1), block2); }
+SpectrumSource::SpectrumSource(int fftOrder)
+    : _fft(fftOrder)
+    , _windowing { size_t(_fft.getSize()), juce::dsp::WindowingFunction<float>::hann, true }
+    , _queue { 64 }
+{
+    _monoBuffer.setSize(1, _fft.getSize());
+    _fftBuffer.resize(_fft.getSize() * 2U);
+    jassert(_fftBuffer.size() == _fft.getSize() * 2U);
+}
 
-    for (int channel = startChannel; channel < startChannel + numChannels; ++channel) {
-        if (block1 > 0) { _audioFifo.addFrom(0, start1, buffer.getReadPointer(channel), block1); }
-        if (block2 > 0) { _audioFifo.addFrom(0, start2, buffer.getReadPointer(channel, block1), block2); }
+SpectrumSource::~SpectrumSource() { reset(); }
+
+auto SpectrumSource::prepare(juce::dsp::ProcessSpec const& spec) -> void
+{
+    _spec = spec;
+    reset();
+    _shouldExit.store(false);
+    _thread = makeUnique<std::thread>([this] { backgroundThread(); });
+}
+
+auto SpectrumSource::reset() -> void
+{
+    if (_thread == nullptr) { return; }
+    _shouldExit.store(true);
+    if (_thread->joinable()) { _thread->join(); }
+    _thread.reset(nullptr);
+}
+
+auto SpectrumSource::makePath(juce::Rectangle<float> bounds) -> juce::Path
+{
+    auto const lock = std::unique_lock { _renderMutex };
+
+    auto const numBins       = static_cast<std::size_t>(_fft.getSize() / 2 + 1);
+    auto const* coefficients = reinterpret_cast<juce::dsp::Complex<float> const*>(data(_fftBuffer));
+    auto const bins          = Span<Complex<float> const> { coefficients, numBins };
+
+    auto const minFrequency = 20.0F;
+    auto const maxFrequency = static_cast<float>(_spec.sampleRate) / 2.0F;
+
+    auto const size = static_cast<int>(bins.size());
+    if (size == 0) return {};
+
+    auto p = juce::Path {};
+    p.preallocateSpace(8 + size * 3);
+
+    auto i { 0U };
+    while (frequencyForBin<float>(_fft.getSize(), i, _spec.sampleRate) < minFrequency) { ++i; }
+
+    auto const width  = bounds.getWidth();
+    auto const freq   = frequencyForBin<float>(_fft.getSize(), i, _spec.sampleRate);
+    auto const startY = amplitudeToY(std::abs(bins[i]) / static_cast<float>(size), bounds);
+    auto const startX = frequencyToX(minFrequency, maxFrequency, freq, width);
+    p.startNewSubPath(bounds.getX() + startX, startY);
+
+    for (; i < bins.size(); ++i) {
+        auto const frequency = frequencyForBin<float>(_fft.getSize(), i, _spec.sampleRate);
+        auto const amplitude = std::abs(bins[i]) / static_cast<float>(size);
+        auto const y         = amplitudeToY(amplitude, bounds);
+        p.lineTo(bounds.getX() + frequencyToX(minFrequency, maxFrequency, frequency, width), y);
     }
-    _abstractFifo.finishedWrite(block1 + block2);
-    _waitForData.signal();
+
+    return p;
 }
 
-auto SpectrumSource::setupAnalyser(int const audioFifoSize, double const sampleRateToUse) -> void
+auto SpectrumSource::processInternal(juce::dsp::AudioBlock<float> const& block) -> void
 {
-    _sampleRate = static_cast<float>(sampleRateToUse);
-    _audioFifo.setSize(1, audioFifoSize);
-    _abstractFifo.setTotalSize(audioFifoSize);
-    _fftBuffer.setSize(1, _fft.getSize() * 2);
-    _averager.setSize(3, _fft.getSize() / 2, false, true);
+    auto samplesRemaining = block.getNumSamples();
 
-    startThread(5);
+    while (true) {
+        if (samplesRemaining <= 0) { return; }
+        auto const nextBlockSize = std::min(maxSubBlockSize, samplesRemaining);
+
+        auto subBuffer = StaticVector<float, maxSubBlockSize> {};
+        for (std::size_t j = 0; j < nextBlockSize; ++j) {
+
+            auto sample      = 0.0F;
+            auto const index = block.getNumSamples() - samplesRemaining + j;
+            for (std::size_t ch = 0; ch < block.getNumChannels(); ++ch) { sample += channel(block, ch)[index]; }
+            subBuffer.push_back(sample / (float)block.getNumChannels());
+        }
+
+        samplesRemaining -= nextBlockSize;
+        _queue.try_enqueue(subBuffer);
+    }
 }
 
-auto SpectrumSource::createPath(juce::Path& p, juce::Rectangle<float> const& bounds, float const minFreq) -> void
+auto SpectrumSource::backgroundThread() -> void
 {
-    p.clear();
+    while (!_shouldExit.load()) {
+        auto block = StaticVector<float, maxSubBlockSize> {};
+        if (!_queue.try_dequeue(block)) { continue; }
 
-    juce::ScopedLock const lockedForReading(_pathCreationLock);
-    auto const* fftData = _averager.getReadPointer(0);
-    auto const factor   = bounds.getWidth() / 10.0F;
-
-    p.startNewSubPath(bounds.getX() + factor * indexToX(0, minFreq), binToY(fftData[0], bounds));
-    p.preallocateSpace(_averager.getNumSamples());
-    auto lastX = -100.0;
-    for (int i = 0; i < _averager.getNumSamples(); ++i) {
-        auto const x = bounds.getX() + factor * indexToX(static_cast<float>(i), minFreq);
-        auto const y = binToY(fftData[i], bounds);
-        if (lastX + 6 < x) {
-            p.lineTo(static_cast<float>(x), static_cast<float>(y));
-            lastX = x;
+        auto start = _numSamplesDequeued;
+        for (auto i { 0 }; i < block.size(); ++i) {
+            if (_numSamplesDequeued == _fft.getSize()) {
+                runTransform();
+                _numSamplesDequeued = 0;
+                start               = 0;
+            }
+            _monoBuffer.setSample(0, start + i, block[i]);
+            ++_numSamplesDequeued;
         }
     }
 }
 
-auto SpectrumSource::checkForNewData() -> bool
+auto SpectrumSource::runTransform() -> void
 {
-    auto const available = _newDataAvailable.load();
-    _newDataAvailable.store(false);
-    return available;
-}
+    assert(_numSamplesDequeued == _fft.getSize());
+    _windowing.multiplyWithWindowingTable(_monoBuffer.getWritePointer(0), (size_t)_monoBuffer.getNumSamples());
 
-auto SpectrumSource::run() -> void
-{
-    while (!threadShouldExit()) {
-        if (_abstractFifo.getNumReady() >= _fft.getSize()) {
-            _fftBuffer.clear();
-
-            auto start1 = 0;
-            auto block1 = 0;
-            auto start2 = 0;
-            auto block2 = 0;
-
-            _abstractFifo.prepareToRead(_fft.getSize(), start1, block1, start2, block2);
-            if (block1 > 0) { _fftBuffer.copyFrom(0, 0, _audioFifo.getReadPointer(0, start1), block1); }
-            if (block2 > 0) { _fftBuffer.copyFrom(0, block1, _audioFifo.getReadPointer(0, start2), block2); }
-            _abstractFifo.finishedRead(block1 + block2);
-
-            _windowing.multiplyWithWindowingTable(_fftBuffer.getWritePointer(0), size_t(_fft.getSize()));
-            _fft.performFrequencyOnlyForwardTransform(_fftBuffer.getWritePointer(0));
-
-            juce::ScopedLock const lockedForWriting(_pathCreationLock);
-            _averager.addFrom(0, 0, _averager.getReadPointer(_averagerPtr), _averager.getNumSamples(), -1.0F);
-            _averager.copyFrom(_averagerPtr,
-                0,
-                _fftBuffer.getReadPointer(0),
-                _averager.getNumSamples(),
-                1.0F / static_cast<float>(_averager.getNumSamples() * (_averager.getNumChannels() - 1)));
-            _averager.addFrom(0, 0, _averager.getReadPointer(_averagerPtr), _averager.getNumSamples());
-            if (++_averagerPtr == _averager.getNumChannels()) { _averagerPtr = 1; }
-
-            _newDataAvailable.store(true);
-        }
-
-        if (_abstractFifo.getNumReady() < _fft.getSize()) { _waitForData.wait(20); }
+    auto const lock = std::unique_lock { _renderMutex };
+    {
+        std::copy(_monoBuffer.getReadPointer(0), _monoBuffer.getReadPointer(0) + _fft.getSize(), _fftBuffer.begin());
+        _fft.performRealOnlyForwardTransform(data(_fftBuffer), true);
     }
+
+    sendChangeMessage();
 }
 
-auto SpectrumSource::indexToX(float const index, float const minFreq) const -> float
-{
-    auto const freq = (_sampleRate * index) / static_cast<float>(_fft.getSize());
-    return (freq > 0.01F) ? std::log(freq / minFreq) / std::log(2.0F) : 0.0F;
-}
-
-auto SpectrumSource::binToY(float const bin, juce::Rectangle<float> const& bounds) -> float
-{
-    auto const infinity   = -60.0F;
-    auto const topPadding = bounds.getHeight() * 0.05F;
-    auto const db         = juce::Decibels::gainToDecibels(bin, infinity);
-    return juce::jmap(db, infinity, 0.0F, bounds.getBottom(), bounds.getY() + topPadding);
-}
 } // namespace mc

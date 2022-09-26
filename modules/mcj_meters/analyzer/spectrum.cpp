@@ -1,5 +1,7 @@
 namespace mc {
-Spectrum::Spectrum(SpectrumSource& analyser) : _processor { analyser } { startTimerHz(30); }
+Spectrum::Spectrum(SpectrumSource& source) : _source { source } { _source.addChangeListener(this); }
+
+Spectrum::~Spectrum() { _source.removeChangeListener(this); }
 
 auto Spectrum::paint(juce::Graphics& g) -> void
 {
@@ -26,11 +28,10 @@ auto Spectrum::resized() -> void
     }
 }
 
-auto Spectrum::timerCallback() -> void
+auto Spectrum::changeListenerCallback(juce::ChangeBroadcaster* source) -> void
 {
-    if (_processor.checkForNewData()) {
-        _processor.createPath(_path, _plotFrame.toFloat(), 10.0F);
-        repaint();
-    }
+    jassertquiet(source == &_source);
+    _path = _source.makePath(_plotFrame.toFloat());
+    repaint();
 }
 } // namespace mc

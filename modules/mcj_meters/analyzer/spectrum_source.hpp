@@ -4,43 +4,55 @@ namespace mc {
 
 /// \brief Recieves data from the processor thread, calculates the FFT which is
 /// read by the GUI thread to plot a spectrum.
-struct SpectrumSource final : juce::Thread {
-    SpectrumSource();
-    ~SpectrumSource() override = default;
+struct SpectrumSource : juce::ChangeBroadcaster {
+    explicit SpectrumSource(int fftOrder = 10);
+    ~SpectrumSource();
 
-    SpectrumSource(const SpectrumSource& other)                  = delete;
-    SpectrumSource(SpectrumSource&& other)                       = delete;
-    auto operator=(const SpectrumSource& rhs) -> SpectrumSource& = delete;
-    auto operator=(SpectrumSource&& rhs) -> SpectrumSource&      = delete;
+    SpectrumSource(SpectrumSource const& other)                    = delete;
+    auto operator=(SpectrumSource const& other) -> SpectrumSource& = delete;
 
-    auto addAudioData(juce::AudioBuffer<float> const& buffer, int startChannel, int numChannels) -> void;
-    auto setupAnalyser(int audioFifoSize, double sampleRateToUse) -> void;
+    SpectrumSource(SpectrumSource&& other)                    = delete;
+    auto operator=(SpectrumSource&& other) -> SpectrumSource& = delete;
 
-    auto createPath(juce::Path& p, juce::Rectangle<float> const& bounds, float minFreq) -> void;
-    [[nodiscard]] auto checkForNewData() -> bool;
+    auto prepare(juce::dsp::ProcessSpec const& spec) -> void;
+
+    template <typename ProcessContext>
+    auto process(ProcessContext const& context) -> void;
+
+    auto reset() -> void;
+
+    auto makePath(juce::Rectangle<float> bounds) -> juce::Path;
 
 private:
-    auto run() -> void override;
+    auto processInternal(juce::dsp::AudioBlock<float> const& block) -> void;
+    auto runTransform() -> void;
+    auto backgroundThread() -> void;
 
-    [[nodiscard]] auto indexToX(float index, float minFreq) const -> float;
-    [[nodiscard]] static auto binToY(float bin, juce::Rectangle<float> const& bounds) -> float;
+    static constexpr auto maxSubBlockSize = std::size_t { 32 };
 
-    float _sampleRate {};
-
-    juce::AbstractFifo _abstractFifo { 48000 };
-    juce::AudioBuffer<float> _audioFifo;
-    juce::AudioBuffer<float> _fftBuffer;
-    juce::AudioBuffer<float> _averager;
-
-    int _averagerPtr = 1;
-    Atomic<bool> _newDataAvailable { false };
-
-    juce::WaitableEvent _waitForData;
-    juce::CriticalSection _pathCreationLock;
+    juce::dsp::ProcessSpec _spec {};
 
     juce::dsp::FFT _fft;
     juce::dsp::WindowingFunction<float> _windowing;
+    juce::AudioBuffer<float> _monoBuffer;
+    Vector<float> _fftBuffer {};
 
-    JUCE_LEAK_DETECTOR(SpectrumSource) // NOLINT
+    std::mutex mutable _renderMutex {};
+
+    LockFreeQueue<StaticVector<float, maxSubBlockSize>> _queue;
+    int _numSamplesDequeued { 0 };
+
+    Atomic<bool> _shouldExit { false };
+    UniquePtr<std::thread> _thread { nullptr };
 };
+
+template <typename ProcessContext>
+auto SpectrumSource::process(ProcessContext const& context) -> void
+{
+    auto inBlock  = context.getInputBlock();
+    auto outBlock = context.getOutputBlock();
+    if (ProcessContext::usesSeparateInputAndOutputBlocks()) { outBlock.copyFrom(inBlock); }
+    processInternal(outBlock);
+}
+
 } // namespace mc

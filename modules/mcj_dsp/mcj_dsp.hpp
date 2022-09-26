@@ -28,6 +28,7 @@ END_JUCE_MODULE_DECLARATION
 #include <mcj_gui_basics/mcj_gui_basics.hpp>
 
 #include "algorithm/downSample.hpp"
+#include "algorithm/frequency_for_bin.hpp"
 
 #include "container/RingBuffer.hpp"
 #include "container/audio_block.hpp"
