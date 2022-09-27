@@ -40,4 +40,24 @@ TEST_CASE("extension_pack/file: hasMagicHeader", "[extension_pack]") // NOLINT
 
         REQUIRE(hasMagicHeader(file, magicHeader));
     }
+
+    SECTION("long magic header")
+    {
+        auto const longHeader = [] {
+            auto arr = Array<char, 1024> {};
+            ranges::fill(arr, 42);
+            return arr;
+        }();
+
+        auto const tmp   = juce::TemporaryFile {};
+        auto const& file = tmp.getFile();
+
+        auto out = file.createOutputStream();
+        REQUIRE(out != nullptr);
+
+        REQUIRE(out->write(longHeader.data(), longHeader.size()));
+        out.reset(nullptr);
+
+        REQUIRE(hasMagicHeader(file, longHeader));
+    }
 }

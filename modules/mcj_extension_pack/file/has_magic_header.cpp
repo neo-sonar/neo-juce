@@ -12,10 +12,17 @@ auto hasMagicHeader(juce::File const& file, Span<char const> header) -> bool
 
 auto hasMagicHeader(juce::InputStream& in, Span<char const> header) -> bool
 {
-    auto buffer   = Array<char, maxMagicHeaderLength> {};
+    auto heapBuffer  = Vector<char> {};
+    auto stackBuffer = Array<char, 256> {};
+    auto buffer      = Span<char> { stackBuffer };
+
+    if (buffer.size() < header.size()) {
+        heapBuffer.resize(header.size());
+        buffer = heapBuffer;
+    }
+
     auto const sz = static_cast<int>(header.size());
     if (in.read(data(buffer), sz) != sz) { return false; }
-
     auto const content = Span<char const> { buffer }.first(header.size());
     return hasMagicHeader(content, header);
 }
