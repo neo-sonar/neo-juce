@@ -4,8 +4,8 @@ namespace mc {
 
 /// \brief Recieves data from the processor thread, calculates the FFT which is
 /// read by the GUI thread to plot a spectrum.
-struct SpectrumSource : juce::ChangeBroadcaster {
-    explicit SpectrumSource(int fftOrder = 10);
+struct SpectrumSource : juce::ChangeBroadcaster, juce::TimeSliceClient {
+    explicit SpectrumSource(juce::TimeSliceThread& worker, int fftOrder = 10);
     ~SpectrumSource();
 
     SpectrumSource(SpectrumSource const& other)                    = delete;
@@ -24,12 +24,15 @@ struct SpectrumSource : juce::ChangeBroadcaster {
     auto makePath(juce::Rectangle<float> bounds) -> juce::Path;
 
 private:
+    auto useTimeSlice() -> int override;
+
     auto processInternal(juce::dsp::AudioBlock<float> const& block) -> void;
     auto runTransform() -> void;
-    auto backgroundThread() -> void;
+    auto dequeueBuffers() -> void;
 
     static constexpr auto maxSubBlockSize = std::size_t { 32 };
 
+    juce::TimeSliceThread& _worker;
     juce::dsp::ProcessSpec _spec {};
 
     juce::dsp::FFT _fft;
