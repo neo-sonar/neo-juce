@@ -21,7 +21,7 @@ SpectrumSource::SpectrumSource(juce::TimeSliceThread& worker, int fftOrder)
     , _queue { 64 }
 {
     _monoBuffer.resize(static_cast<std::size_t>(_fft.getSize()));
-    _fftBuffer.resize(static_cast<std::size_t>(_fft.getSize() * 2U));
+    _fftBuffer.resize(static_cast<std::size_t>(_fft.getSize() * 2));
 }
 
 SpectrumSource::~SpectrumSource() { reset(); }
@@ -111,12 +111,12 @@ auto SpectrumSource::dequeueBuffers() -> void
     auto block = StaticVector<float, maxSubBlockSize> {};
     if (!_queue.try_dequeue(block)) { return; }
 
-    auto start = _numSamplesDequeued;
+    auto start = static_cast<std::size_t>(_numSamplesDequeued);
     for (auto i { 0U }; i < block.size(); ++i) {
         if (_numSamplesDequeued == _fft.getSize()) {
             runTransform();
             _numSamplesDequeued = 0;
-            start               = 0;
+            start               = 0U;
         }
         _monoBuffer[start + i] = block[i];
         ++_numSamplesDequeued;
