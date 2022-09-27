@@ -37,7 +37,7 @@ private:
 
     juce::dsp::FFT _fft;
     juce::dsp::WindowingFunction<float> _windowing;
-    juce::AudioBuffer<float> _monoBuffer;
+    Vector<float> _monoBuffer;
     Vector<float> _fftBuffer {};
 
     Averager<float> _averager;

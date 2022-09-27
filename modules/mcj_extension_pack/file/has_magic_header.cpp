@@ -30,7 +30,7 @@ auto hasMagicHeader(juce::InputStream& in, Span<char const> header) -> bool
 auto hasMagicHeader(Span<char const> content, Span<char const> header) -> bool
 {
     if (content.size() < header.size()) { return false; }
-    return std::equal(header.cbegin(), header.cend(), content.cbegin());
+    return std::equal(header.begin(), header.end(), content.begin());
 }
 
 } // namespace mc

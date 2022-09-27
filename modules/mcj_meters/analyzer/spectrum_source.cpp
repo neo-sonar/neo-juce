@@ -20,9 +20,8 @@ SpectrumSource::SpectrumSource(juce::TimeSliceThread& worker, int fftOrder)
     , _windowing { size_t(_fft.getSize()), juce::dsp::WindowingFunction<float>::hann, true }
     , _queue { 64 }
 {
-    _monoBuffer.setSize(1, _fft.getSize());
-    _fftBuffer.resize(_fft.getSize() * 2U);
-    jassert(_fftBuffer.size() == _fft.getSize() * 2U);
+    _monoBuffer.resize(static_cast<std::size_t>(_fft.getSize()));
+    _fftBuffer.resize(static_cast<std::size_t>(_fft.getSize() * 2U));
 }
 
 SpectrumSource::~SpectrumSource() { reset(); }
@@ -119,7 +118,7 @@ auto SpectrumSource::dequeueBuffers() -> void
             _numSamplesDequeued = 0;
             start               = 0;
         }
-        _monoBuffer.setSample(0, start + i, block[i]);
+        _monoBuffer[start + i] = block[i];
         ++_numSamplesDequeued;
     }
 }
@@ -127,9 +126,9 @@ auto SpectrumSource::dequeueBuffers() -> void
 auto SpectrumSource::runTransform() -> void
 {
     assert(_numSamplesDequeued == _fft.getSize());
-    _windowing.multiplyWithWindowingTable(_monoBuffer.getWritePointer(0), (size_t)_monoBuffer.getNumSamples());
+    _windowing.multiplyWithWindowingTable(_monoBuffer.data(), (size_t)_monoBuffer.size());
 
-    std::copy(_monoBuffer.getReadPointer(0), _monoBuffer.getReadPointer(0) + _fft.getSize(), _fftBuffer.begin());
+    std::copy(_monoBuffer.begin(), _monoBuffer.end(), _fftBuffer.begin());
     _fft.performRealOnlyForwardTransform(data(_fftBuffer), true);
 
     auto const numBins       = static_cast<std::size_t>(_fft.getSize() / 2 + 1);
