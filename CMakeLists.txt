@@ -86,6 +86,8 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_dsp/clock/TriggerClock.test.cpp
         modules/mcj_dsp/fx/StereoWidth.test.cpp
 
+        modules/mcj_extension_pack/file/has_magic_header.test.cpp
+
         modules/mcj_graphics/color/color.test.cpp
         modules/mcj_graphics/geometry/line.test.cpp
         modules/mcj_graphics/geometry/point.test.cpp
@@ -120,6 +122,7 @@ target_link_libraries(${PROJECT_NAME}_tests
         mc::mcj_data_structures
         mc::mcj_dsp
         mc::mcj_events
+        mc::mcj_extension_pack
         mc::mcj_graphics
         mc::mcj_gui_basics
         mc::mcj_meters

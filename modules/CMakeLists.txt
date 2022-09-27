@@ -8,6 +8,7 @@ juce_add_modules(ALIAS_NAMESPACE mc
     mcj_data_structures
     mcj_dsp
     mcj_events
+    mcj_extension_pack
     mcj_graphics
     mcj_gui_basics
     mcj_meters
