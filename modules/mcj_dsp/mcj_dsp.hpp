@@ -27,6 +27,7 @@ END_JUCE_MODULE_DECLARATION
 #include <mcj_data_structures/mcj_data_structures.hpp>
 #include <mcj_gui_basics/mcj_gui_basics.hpp>
 
+#include "algorithm/averager.hpp"
 #include "algorithm/downSample.hpp"
 #include "algorithm/frequency_for_bin.hpp"
 

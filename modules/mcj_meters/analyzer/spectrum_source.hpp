@@ -37,6 +37,7 @@ private:
     juce::AudioBuffer<float> _monoBuffer;
     Vector<float> _fftBuffer {};
 
+    Averager<float> _averager;
     std::mutex mutable _renderMutex {};
 
     LockFreeQueue<StaticVector<float, maxSubBlockSize>> _queue;
