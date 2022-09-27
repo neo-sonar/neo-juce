@@ -113,7 +113,7 @@ auto SpectrumSource::dequeueBuffers() -> void
     if (!_queue.try_dequeue(block)) { return; }
 
     auto start = _numSamplesDequeued;
-    for (auto i { 0 }; i < block.size(); ++i) {
+    for (auto i { 0U }; i < block.size(); ++i) {
         if (_numSamplesDequeued == _fft.getSize()) {
             runTransform();
             _numSamplesDequeued = 0;

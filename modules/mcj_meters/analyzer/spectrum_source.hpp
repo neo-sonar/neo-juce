@@ -6,7 +6,7 @@ namespace mc {
 /// read by the GUI thread to plot a spectrum.
 struct SpectrumSource : juce::ChangeBroadcaster, juce::TimeSliceClient {
     explicit SpectrumSource(juce::TimeSliceThread& worker, int fftOrder = 10);
-    ~SpectrumSource();
+    ~SpectrumSource() override;
 
     SpectrumSource(SpectrumSource const& other)                    = delete;
     auto operator=(SpectrumSource const& other) -> SpectrumSource& = delete;
