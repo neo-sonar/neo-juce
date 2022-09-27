@@ -36,7 +36,7 @@ include(mcCompilerWarnings)
 include(mcCodeCoverage)
 
 find_package(mc-core REQUIRED)
-find_package(mc-dsp REQUIRED)
+find_package(mc-audio REQUIRED)
 
 add_subdirectory(modules)
 
@@ -117,7 +117,7 @@ target_link_libraries(${PROJECT_NAME}_tests
         Catch2::Catch2
 
         mc-core::mc-core
-        mc-dsp::mc-dsp
+        mc-audio::mc-audio
 
         mc::mcj_audio_basics
         mc::mcj_audio_formats

@@ -20,8 +20,6 @@ END_JUCE_MODULE_DECLARATION
     #define USE_MCJ_DSP
 #endif
 
-#include <mc/dsp.hpp>
-
 #include <juce_dsp/juce_dsp.h>
 #include <mcj_audio_basics/mcj_audio_basics.hpp>
 #include <mcj_data_structures/mcj_data_structures.hpp>
