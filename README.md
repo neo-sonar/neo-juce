@@ -22,3 +22,4 @@
 |     `mcj_graphics`     |   [GPL/Commercial](https://juce.com/get-juce)    |
 |    `mcj_gui_basics`    |   [GPL/Commercial](https://juce.com/get-juce)    |
 |      `mcj_meters`      |   [GPL/Commercial](https://juce.com/get-juce)    |
+|      `mcj_synth`       |   [GPL/Commercial](https://juce.com/get-juce)    |

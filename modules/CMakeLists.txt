@@ -12,4 +12,5 @@ juce_add_modules(ALIAS_NAMESPACE mc
     mcj_graphics
     mcj_gui_basics
     mcj_meters
+    mcj_synth
 )
