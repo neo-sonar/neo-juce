@@ -21,4 +21,5 @@ END_JUCE_MODULE_DECLARATION
 
 #include <mcj_audio_formats/mcj_audio_formats.hpp>
 
+#include "math/hermite_interpolation.hpp"
 #include "wavetable/wavetable.hpp"
