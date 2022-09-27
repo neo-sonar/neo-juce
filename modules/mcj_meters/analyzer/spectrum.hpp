@@ -2,51 +2,37 @@
 
 namespace mc {
 
+struct Spectrum;
+
+struct SpectrumLookAndFeelMethods {
+    SpectrumLookAndFeelMethods()          = default;
+    virtual ~SpectrumLookAndFeelMethods() = default;
+
+    virtual auto drawSpectrum(juce::Graphics& g, juce::Rectangle<int> area, juce::Path const& path) -> void = 0;
+};
+
+struct SpectrumColorIDs {
+    inline static constexpr auto plot   = 0x1331600;
+    inline static constexpr auto grid   = 0x1331601;
+    inline static constexpr auto labels = 0x1331602;
+};
+
 /// \brief Component for the spectrum analyser.
-struct Spectrum final : juce::Component, juce::ChangeListener {
-    enum ColourIds {
-        plot   = 0x1331600,
-        grid   = 0x1331601,
-        labels = 0x1331602,
-    };
-
-    struct LookAndFeelMethods {
-        LookAndFeelMethods()          = default;
-        virtual ~LookAndFeelMethods() = default;
-
-        LookAndFeelMethods(const LookAndFeelMethods& other)                  = delete;
-        LookAndFeelMethods(LookAndFeelMethods&& other)                       = delete;
-        auto operator=(const LookAndFeelMethods& rhs) -> LookAndFeelMethods& = delete;
-        auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods&      = delete;
-
-        virtual auto getAnalyserPathBounds(juce::Rectangle<int> const& area) -> juce::Rectangle<int>           = 0;
-        virtual auto getAnalyserFrequencyLabelBounds(juce::Rectangle<int> const& area) -> juce::Rectangle<int> = 0;
-
-        virtual auto drawAnalyzerGrid(juce::Graphics& g, juce::Rectangle<int> const& area) -> void   = 0;
-        virtual auto drawAnalyzerLabels(juce::Graphics& g, juce::Rectangle<int> const& area) -> void = 0;
-        virtual auto drawAnalyzerPath(juce::Graphics& g, juce::Rectangle<int> const& area, juce::Path const& path)
-            -> void
-            = 0;
-    };
+struct Spectrum final : juce::Component, juce::ChangeListener, juce::Timer {
+    using ColorIDs           = SpectrumColorIDs;
+    using LookAndFeelMethods = SpectrumLookAndFeelMethods;
 
     explicit Spectrum(SpectrumSource& source);
     ~Spectrum() override;
 
-    Spectrum(const Spectrum& other)                  = delete;
-    Spectrum(Spectrum&& other)                       = delete;
-    auto operator=(const Spectrum& rhs) -> Spectrum& = delete;
-    auto operator=(Spectrum&& rhs) -> Spectrum&      = delete;
-
     auto paint(juce::Graphics& g) -> void override;
-    auto resized() -> void override;
 
 private:
+    auto timerCallback() -> void override;
     auto changeListenerCallback(juce::ChangeBroadcaster* source) -> void override;
 
     SpectrumSource& _source;
-    juce::Rectangle<int> _plotFrame;
-    juce::Rectangle<int> _textFrame;
-    juce::Path _path;
+    bool _newDataAvailable { false };
 
     JUCE_LEAK_DETECTOR(Spectrum) // NOLINT
 };

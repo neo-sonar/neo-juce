@@ -1,16 +1,18 @@
 namespace mc {
-Spectrum::Spectrum(SpectrumSource& source) : _source { source } { _source.addChangeListener(this); }
+Spectrum::Spectrum(SpectrumSource& source) : _source { source }
+{
+    _source.addChangeListener(this);
+    startTimerHz(30);
+}
 
 Spectrum::~Spectrum() { _source.removeChangeListener(this); }
 
 auto Spectrum::paint(juce::Graphics& g) -> void
 {
-    auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
-    if (lnf != nullptr) {
+    if (auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr) {
         juce::Graphics::ScopedSaveState const state(g);
-        lnf->drawAnalyzerLabels(g, _textFrame);
-        lnf->drawAnalyzerGrid(g, _plotFrame);
-        lnf->drawAnalyzerPath(g, _plotFrame, _path);
+        auto path = _source.makePath(getLocalBounds().toFloat());
+        lnf->drawSpectrum(g, getLocalBounds(), path);
         return;
     }
 
@@ -18,20 +20,17 @@ auto Spectrum::paint(juce::Graphics& g) -> void
     jassertfalse;
 }
 
-auto Spectrum::resized() -> void
+auto Spectrum::timerCallback() -> void
 {
-    auto* const lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel());
-    if (lnf != nullptr) {
-        auto area  = getLocalBounds().reduced(3);
-        _plotFrame = lnf->getAnalyserPathBounds(area);
-        _textFrame = lnf->getAnalyserFrequencyLabelBounds(area);
+    if (_newDataAvailable) {
+        _newDataAvailable = false;
+        repaint();
     }
 }
 
 auto Spectrum::changeListenerCallback(juce::ChangeBroadcaster* source) -> void
 {
     jassertquiet(source == &_source);
-    _path = _source.makePath(_plotFrame.toFloat());
-    repaint();
+    _newDataAvailable = true;
 }
 } // namespace mc
