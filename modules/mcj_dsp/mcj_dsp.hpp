@@ -30,6 +30,7 @@ END_JUCE_MODULE_DECLARATION
 #include "algorithm/averager.hpp"
 #include "algorithm/downSample.hpp"
 #include "algorithm/frequency_for_bin.hpp"
+#include "algorithm/rms_error.hpp"
 
 #include "container/RingBuffer.hpp"
 #include "container/audio_block.hpp"

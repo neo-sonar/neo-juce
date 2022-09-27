@@ -101,6 +101,7 @@ target_sources(${PROJECT_NAME}_tests
 
         modules/mcj_synth/math/hermite_interpolation.test.cpp
         modules/mcj_synth/wavetable/wavetable.test.cpp
+        modules/mcj_synth/wavetable/wavetable_oscillator.test.cpp
 )
 
 target_compile_definitions(${PROJECT_NAME}_tests
