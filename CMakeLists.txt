@@ -82,6 +82,7 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_data_structures/values/atomic_wrapper.test.cpp
         modules/mcj_data_structures/values/constrainer_wrapper.test.cpp
 
+        modules/mcj_dsp/algorithm/averager.test.cpp
         modules/mcj_dsp/algorithm/downSample.test.cpp
         modules/mcj_dsp/clock/TriggerClock.test.cpp
         modules/mcj_dsp/fx/StereoWidth.test.cpp
