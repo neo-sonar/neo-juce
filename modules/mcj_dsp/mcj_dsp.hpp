@@ -26,14 +26,17 @@ END_JUCE_MODULE_DECLARATION
 #include <mcj_gui_basics/mcj_gui_basics.hpp>
 
 #include "algorithm/averager.hpp"
-#include "algorithm/downSample.hpp"
+#include "algorithm/down_sample.hpp"
 #include "algorithm/frequency_for_bin.hpp"
 #include "algorithm/rms_error.hpp"
 
-#include "container/RingBuffer.hpp"
 #include "container/audio_block.hpp"
+#include "container/ring_buffer.hpp"
 
-#include "clock/Bars.hpp"
-#include "clock/TriggerClock.hpp"
+#include "units/bars.hpp"
+#include "units/bpm.hpp"
+#include "units/sample_count.hpp"
 
-#include "fx/StereoWidth.hpp"
+#include "clock/trigger_clock.hpp"
+
+#include "fx/stereo_width.hpp"

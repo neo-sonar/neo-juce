@@ -10,25 +10,6 @@ auto toSampleCount(Duration<T, R> const& duration, double sampleRate) noexcept -
     return toSeconds(duration).count() * sampleRate;
 }
 
-/// \brief Returns given bar count in samples.
-[[nodiscard]] constexpr auto barsToSamples(double bars, double bpm, double sampleRate) noexcept -> double
-{
-    auto const barsPerMin    = bpm / 4;
-    auto const samplesPerMin = sampleRate * 60.0;
-    auto const samplesPerBar = samplesPerMin / barsPerMin;
-    return samplesPerBar * bars;
-}
-
-[[nodiscard]] constexpr auto barsToMilliseconds(double bpm, double num, double denom) noexcept -> Milliseconds<double>
-{
-    return Milliseconds<double> { (60'000.0 / bpm) * 4.0 * (num / denom) };
-}
-
-[[nodiscard]] constexpr auto barsToSeconds(double bpm, double num, double denom) noexcept -> Seconds<double>
-{
-    return toSeconds(barsToMilliseconds(bpm, num, denom));
-}
-
 /// \brief Returns the sample count converted to microseconds.
 [[nodiscard]] constexpr auto samplesToMicroseconds(int samples, double sampleRate) noexcept -> Microseconds<double>
 {
@@ -47,9 +28,4 @@ auto toSampleCount(Duration<T, R> const& duration, double sampleRate) noexcept -
     return toSeconds(samplesToMicroseconds(samples, sampleRate));
 }
 
-template <typename T>
-[[nodiscard]] constexpr auto bpmToHertz(T bpm) noexcept -> T
-{
-    return bpm / T { 60 };
-}
 } // namespace mc
