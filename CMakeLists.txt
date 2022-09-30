@@ -86,6 +86,9 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_dsp/algorithm/down_sample.test.cpp
         modules/mcj_dsp/clock/trigger_clock.test.cpp
         modules/mcj_dsp/fx/stereo_width.test.cpp
+        modules/mcj_dsp/units/bars.test.cpp
+        modules/mcj_dsp/units/bpm.test.cpp
+        modules/mcj_dsp/units/sample_count.test.cpp
 
         modules/mcj_extension_pack/file/has_magic_header.test.cpp
 
