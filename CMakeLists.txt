@@ -55,6 +55,7 @@ target_sources(${PROJECT_NAME}_tests
 
         modules/mcj_audio_basics/buffers/audio_buffer.test.cpp
         modules/mcj_audio_basics/buffers/audio_buffers.test.cpp
+        modules/mcj_audio_basics/buffers/buffer_with_samplerate.test.cpp
 
         modules/mcj_audio_processors/attachment/xypad_attachment.test.cpp
         modules/mcj_audio_processors/parameter/audio_processor_value_tree_state.test.cpp
