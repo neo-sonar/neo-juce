@@ -1,0 +1,45 @@
+name: Sanitizer
+
+on: [pull_request]
+
+jobs:
+  sanitizer:
+    strategy:
+      matrix:
+        cxx: [17, 20]
+        build:
+          [
+            { "name": "asan", "flags": "MC_BUILD_ASAN=ON" },
+            { "name": "ubsan", "flags": "MC_BUILD_UBSAN=ON" },
+            { "name": "tsan", "flags": "MC_BUILD_TSAN=ON" },
+          ]
+      fail-fast: false
+    runs-on: macos-12
+    name: ${{ matrix.build.name }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+
+      - name: Install dependencies
+        run: |
+          brew update
+          brew install ninja conan
+          conan config set general.revisions_enabled=1
+
+      - name: CMake configure
+        run: >
+          cmake
+          -S .
+          -G Ninja
+          -B build
+          -D CMAKE_BUILD_TYPE=Debug
+          -D CMAKE_CXX_STANDARD=${{ matrix.cxx }}
+          -D ${{ matrix.build.flags }}
+
+      - name: CMake build
+        run: cmake --build build --config Debug
+
+      - name: CTest
+        run: ctest --test-dir build -C Debug --output-on-failure
