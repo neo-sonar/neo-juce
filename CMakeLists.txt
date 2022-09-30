@@ -85,6 +85,7 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_dsp/algorithm/averager.test.cpp
         modules/mcj_dsp/algorithm/down_sample.test.cpp
         modules/mcj_dsp/clock/trigger_clock.test.cpp
+        modules/mcj_dsp/container/audio_block.test.cpp
         modules/mcj_dsp/fx/stereo_width.test.cpp
         modules/mcj_dsp/units/bars.test.cpp
         modules/mcj_dsp/units/bpm.test.cpp
