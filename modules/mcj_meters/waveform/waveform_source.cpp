@@ -37,7 +37,7 @@ void WaveformSource::ChannelInfo::numBlocksToShow(int newSize)
     if (nextSample >= newSize) { nextSample = 0; }
 }
 
-WaveformSource::WaveformSource() : _numSamples(1024), _inputSamplesPerBlock(256) { }
+WaveformSource::WaveformSource() = default;
 
 WaveformSource::~WaveformSource() = default;
 
@@ -58,7 +58,7 @@ auto WaveformSource::prepare(juce::dsp::ProcessSpec const& spec) -> void
 {
     _spec = spec;
     _channels.clear();
-    for (auto i { 0U }; i < spec.numChannels; ++i) { _channels.add(new ChannelInfo(*this, _numSamples)); }
+    for (auto i { 0U }; i < spec.numChannels; ++i) { _channels.add(makeUnique<ChannelInfo>(*this, _numSamples)); }
     secondsToShow(_window);
 }
 

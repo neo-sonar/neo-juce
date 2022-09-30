@@ -11,7 +11,7 @@ struct WaveformSource {
     [[nodiscard]] auto levels(int channel) const -> Span<juce::Range<float> const>;
     [[nodiscard]] auto numChannels() const -> int;
 
-    void makeChannelPath(juce::Path& result, int channel) const;
+    void makeChannelPath(juce::Path& path, int channel) const;
 
     auto prepare(juce::dsp::ProcessSpec const& spec) -> void;
 
@@ -37,14 +37,14 @@ private:
         Atomic<int> subSample { 0 };
     };
 
-    void numBlocksToShow(int blocks);
-    void samplesPerBlock(int newNumInputSamplesPerBlock) noexcept;
+    void numBlocksToShow(int newNumSamples);
+    void samplesPerBlock(int newSamplesPerPixel) noexcept;
 
     juce::OwnedArray<ChannelInfo> _channels;
     juce::dsp::ProcessSpec _spec { 44'100.0, 512, 2 };
     Seconds<float> _window { 3.0F };
-    int _numSamples;
-    int _inputSamplesPerBlock;
+    int _numSamples { 1024 };
+    int _inputSamplesPerBlock { 256 };
 };
 
 template <typename ProcessContext>

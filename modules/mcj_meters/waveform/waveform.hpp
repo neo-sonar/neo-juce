@@ -22,12 +22,12 @@ struct Waveform final : juce::Component, juce::Timer {
     ~Waveform() override = default;
 
     auto source() -> WaveformSource&;
-    auto source() const -> WaveformSource const&;
+    [[nodiscard]] auto source() const -> WaveformSource const&;
 
     auto refreshRate(int frequencyInHz) -> void;
 
 private:
-    auto paint(juce::Graphics&) -> void override;
+    auto paint(juce::Graphics& /*g*/) -> void override;
     auto timerCallback() -> void override;
 
     WaveformSource& _source;
