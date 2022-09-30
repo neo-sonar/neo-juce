@@ -83,12 +83,20 @@ LevelMeterSource::LevelMeterSource() : _lastMeasurement(0) { }
 
 LevelMeterSource::~LevelMeterSource() { masterReference.clear(); }
 
-auto LevelMeterSource::resize(int channels, int rmsWindow) -> void
-{
-    _levels.resize(size_t(channels), ChannelData(size_t(rmsWindow)));
-    for (ChannelData& l : _levels) { l.rmsSize(size_t(rmsWindow)); }
+auto LevelMeterSource::rmsWindow(Milliseconds<int> millis) -> void { _rmsWindow = millis; }
 
+auto LevelMeterSource::prepare(juce::dsp::ProcessSpec const& spec) -> void
+{
+    auto const rmsWindowInSamples = _rmsWindow.count() * (float)spec.sampleRate / (float)spec.maximumBlockSize;
+    _levels.resize(spec.numChannels, ChannelData(size_t(rmsWindowInSamples)));
+    for (auto& l : _levels) { l.rmsSize(size_t(rmsWindowInSamples)); }
     _newDataFlag = true;
+}
+
+auto LevelMeterSource::reset() -> void
+{
+    clearAllClipFlags();
+    clearAllMaxNums();
 }
 
 auto LevelMeterSource::decayIfNeeded() -> void
@@ -107,14 +115,8 @@ auto LevelMeterSource::decayIfNeeded() -> void
 
 auto LevelMeterSource::reductionLevel(int channel, float const reduction) -> void
 {
-    if (juce::isPositiveAndBelow(channel, static_cast<int>(_levels.size()))) {
-        _levels[size_t(channel)].reduction = reduction;
-    }
-}
-
-auto LevelMeterSource::reductionLevel(float const reduction) -> void
-{
-    for (auto& channel : _levels) { channel.reduction = reduction; }
+    if (not juce::isPositiveAndBelow(channel, static_cast<int>(_levels.size()))) { return; }
+    _levels[size_t(channel)].reduction = reduction;
 }
 
 auto LevelMeterSource::setMaxHoldMS(const juce::int64 millis) -> void { _holdMSecs = millis; }

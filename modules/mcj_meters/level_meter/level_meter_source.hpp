@@ -10,20 +10,22 @@ struct LevelMeterSource {
     LevelMeterSource();
     ~LevelMeterSource();
 
-    ///  \brief Resize the meters data containers. Set the
-    ///
-    ///  \param numChannels to the number of channels. If you don't
-    ///         do this in prepareToPlay, it will be done when calling measureBlock,
-    ///         but a few bytes will be allocated on the audio thread, so be aware.
-    ///
-    ///  \param rmsWindow is the number of rms values to gather. Keep that aligned with
-    ///         the sampleRate and the blocksize to get reproducable results.
-    ///         e.g. `rmsWindow = msecs * 0.001f * sampleRate / blockSize;`
-    auto resize(int channels, int rmsWindow) -> void;
+    /// \brief Set's the window size of rms measurements.
+    auto rmsWindow(Milliseconds<int> millis) -> void;
+
+    /// \brief Needs to called before any processing.
+    auto prepare(juce::dsp::ProcessSpec const& spec) -> void;
+
+    /// \brief Call this method to measure a block af levels to be displayed in the meters.
+    template <typename ProcessContext>
+    auto process(ProcessContext const& context) -> void;
 
     /// \brief Call this method to measure a block af levels to be displayed in the meters.
     template <typename FloatType>
     auto measureBlock(juce::AudioBuffer<FloatType> const& buffer) -> void;
+
+    /// @brief Clears all levels & clip flags.
+    auto reset() -> void;
 
     /// \brief This is called from the GUI. If processing was stalled,
     // this will pump zeroes into the buffer, until the readings return to zero.
@@ -36,13 +38,6 @@ struct LevelMeterSource {
      @param reduction the factor for the reduction applied to the channel, 1.0=no reduction, 0.0=block completely
      */
     auto reductionLevel(int channel, float reduction) -> void;
-
-    /**
-     With the reduction level you can add an extra bar do indicate, by what amount the level was reduced.
-     This will be printed on top of the bar with half the width.
-     @param reduction the factor for the reduction applied to all channels, 1.0=no reduction, 0.0=muted completely
-     */
-    auto reductionLevel(float reduction) -> void;
 
     /**
      Set the timeout, how long the peak line will be displayed, before it resets to the
@@ -135,6 +130,9 @@ private:
         size_t _rmsPtr { 0 };
     };
 
+    template <typename FloatType>
+    auto processInternal(juce::dsp::AudioBlock<FloatType const> block) -> void;
+
     JUCE_LEAK_DETECTOR(LevelMeterSource)                           // NOLINT
     juce::WeakReference<LevelMeterSource>::Master masterReference; // NOLINT(readability-identifier-naming)
 
@@ -145,6 +143,7 @@ private:
     Vector<ChannelData> _levels;
     juce::int64 _holdMSecs { 500 };
     Atomic<juce::int64> _lastMeasurement;
+    Seconds<float> _rmsWindow { 300 };
     bool _newDataFlag = true;
     bool _suspended { false };
 };
@@ -152,19 +151,31 @@ private:
 template <typename FloatType>
 void LevelMeterSource::measureBlock(juce::AudioBuffer<FloatType> const& buffer)
 {
+    processInternal(juce::dsp::AudioBlock<FloatType const> { buffer });
+}
+
+template <typename ProcessContext>
+auto LevelMeterSource::process(ProcessContext const& context) -> void
+{
+    auto inBlock  = context.getInputBlock();
+    auto outBlock = context.getOutputBlock();
+    if (ProcessContext::usesSeparateInputAndOutputBlocks()) { outBlock.copyFrom(inBlock); }
+    processInternal(outBlock);
+}
+
+template <typename FloatType>
+auto LevelMeterSource::processInternal(juce::dsp::AudioBlock<FloatType const> block) -> void
+{
     _lastMeasurement = juce::Time::currentTimeMillis();
     if (!_suspended) {
-        int const numChannels = buffer.getNumChannels();
-        int const numSamples  = buffer.getNumSamples();
-
-        for (int channel = 0; channel < std::min(numChannels, int(_levels.size())); ++channel) {
-            _levels[size_t(channel)].levels(_lastMeasurement,
-                buffer.getMagnitude(channel, 0, numSamples),
-                buffer.rmsLevel(channel, 0, numSamples),
-                _holdMSecs);
+        auto const numChannels = block.getNumChannels();
+        for (size_t i { 0 }; i < std::min(numChannels, _levels.size()); ++i) {
+            auto const channel = block.getSingleChannelBlock(i);
+            auto const mag     = channel.findMinAndMax().getEnd();
+            auto const rms     = mc::rmsLevel(channel);
+            _levels[i].levels(_lastMeasurement, mag, rms, _holdMSecs);
         }
     }
-
     _newDataFlag = true;
 }
 

@@ -14,4 +14,16 @@ auto addStereoFrame(juce::dsp::AudioBlock<T> const& block, size_t index, StereoF
     block.addSample(1, static_cast<int>(index), frame.right);
 }
 
+template <typename T>
+auto rmsLevel(juce::dsp::AudioBlock<T> const& block) -> T
+{
+    auto sum = T { 0 };
+    for (auto i { 0UL }; i < block.getNumChannels(); ++i) {
+        auto const ch = channel(block, i);
+        sum += ranges::accumulate(ch, T { 0 });
+    }
+
+    return sqrt(sum / static_cast<T>(block.getNumSamples() * block.getNumChannels()));
+}
+
 } // namespace mc
