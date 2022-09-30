@@ -73,6 +73,7 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_audio_processors/text_value_converter/true_false_text_converter.test.cpp
 
         modules/mcj_core/container/registry.test.cpp
+        modules/mcj_core/files/file.test.cpp
         modules/mcj_core/files/zip_file.test.cpp
         # modules/mcj_core/javascript/json_utils.test.cpp
         modules/mcj_core/math/normalisable_range.test.cpp
