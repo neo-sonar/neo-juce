@@ -109,7 +109,7 @@ void LevelMeter::clearMaxLevelDisplay(int channel)
     }
 }
 
-void LevelMeter::mouseDown(const juce::MouseEvent& event)
+void LevelMeter::mouseDown(juce::MouseEvent const& event)
 {
     if (_source == nullptr) { return; }
 

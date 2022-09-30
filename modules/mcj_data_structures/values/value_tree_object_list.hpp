@@ -28,7 +28,7 @@ struct ValueTreeObjectList : public juce::ValueTree::Listener {
     {
         jassert(_objects.empty()); // must only call this method once at construction
 
-        for (const auto& v : parent_) {
+        for (auto const& v : parent_) {
             if (isSuitableType(v)) {
                 auto* newObject = makeObject(v);
                 if (newObject != nullptr) { _objects.push_back(newObject); }
@@ -179,7 +179,7 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
     {
         jassert(objects.isEmpty()); // must only call this method once at construction
 
-        for (const auto& v : parent) {
+        for (auto const& v : parent) {
             if (isSuitableType(v)) {
                 if (auto newObject = createNewObject(v)) { objects.add(newObject); }
             }
@@ -262,7 +262,7 @@ struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
     }
 
     void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/,
-        const juce::Identifier& /*property*/) override
+        juce::Identifier const& /*property*/) override
     {
     }
     void valueTreeParentChanged(juce::ValueTree& /*treeWhoseParentHasChanged*/) override { }

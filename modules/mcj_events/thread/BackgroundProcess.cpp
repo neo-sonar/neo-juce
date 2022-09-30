@@ -4,7 +4,7 @@ namespace mc {
 
 BackgroundProcess::BackgroundProcess(juce::ThreadPool* threadPool) : _threadPool { threadPool } { }
 
-auto BackgroundProcess::startProcess(const juce::String& command) -> void
+auto BackgroundProcess::startProcess(juce::String const& command) -> void
 {
     if (_threadPool != nullptr) {
         _threadPool->addJob([command, this] {

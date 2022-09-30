@@ -5,7 +5,7 @@
 TEMPLATE_TEST_CASE("data_structures/values: ConstrainerWrapper", "[data_structures]", int, float, double)
 {
     struct StartTimeConstrainer {
-        static auto constrain(const TestType& v) -> TestType
+        static auto constrain(TestType const& v) -> TestType
         {
             return juce::Range<TestType>(static_cast<TestType>(0), static_cast<TestType>(42)).clipValue(v);
         }

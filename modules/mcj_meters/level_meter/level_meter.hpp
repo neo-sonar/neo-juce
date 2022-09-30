@@ -84,7 +84,7 @@ struct LevelMeter : juce::Component, juce::Timer {
         virtual void drawMeterBars(juce::Graphics&,
             MeterFlags meterType,
             juce::Rectangle<float> bounds,
-            const LevelMeterSource* source,
+            LevelMeterSource const* source,
             int fixedNumChannels = -1,
             int selectedChannel  = -1)
             = 0;
@@ -101,7 +101,7 @@ struct LevelMeter : juce::Component, juce::Timer {
         virtual void drawMeterChannel(juce::Graphics&,
             MeterFlags meterType,
             juce::Rectangle<float> bounds,
-            const LevelMeterSource* source,
+            LevelMeterSource const* source,
             int selectedChannel)
             = 0;
 
@@ -153,14 +153,14 @@ struct LevelMeter : juce::Component, juce::Timer {
         virtual auto hitTestClipIndicator(juce::Point<int> position,
             MeterFlags meterType,
             juce::Rectangle<float> bounds,
-            const LevelMeterSource* source) const -> int
+            LevelMeterSource const* source) const -> int
             = 0;
 
         /// \brief This is called by the frontend to check, if the maximum level number was clicked (e.g. for reset)
         virtual auto hitTestMaxNumber(juce::Point<int> position,
             MeterFlags meterType,
             juce::Rectangle<float> bounds,
-            const LevelMeterSource* source) const -> int
+            LevelMeterSource const* source) const -> int
             = 0;
     };
 
@@ -216,7 +216,7 @@ struct LevelMeter : juce::Component, juce::Timer {
     /**
      \internal
     */
-    void mouseDown(const juce::MouseEvent& event) override;
+    void mouseDown(juce::MouseEvent const& event) override;
 
     void parentHierarchyChanged() override;
     void lookAndFeelChanged() override;

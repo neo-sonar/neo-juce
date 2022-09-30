@@ -35,7 +35,7 @@ struct StereoWidth {
 
     /// @brief Applies the process to a stereo buffer.
     template <typename ProcessContext>
-    void process(const ProcessContext& context) noexcept
+    void process(ProcessContext const& context) noexcept
     {
         auto const& inputBlock    = context.getInputBlock();
         auto& outputBlock         = context.getOutputBlock();

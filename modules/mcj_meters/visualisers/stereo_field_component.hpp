@@ -22,9 +22,9 @@ struct StereoFieldComponent : juce::Component {
         LookAndFeelMethods()          = default;
         virtual ~LookAndFeelMethods() = default;
 
-        LookAndFeelMethods(const LookAndFeelMethods& other)                  = delete;
+        LookAndFeelMethods(LookAndFeelMethods const& other)                  = delete;
         LookAndFeelMethods(LookAndFeelMethods&& other)                       = delete;
-        auto operator=(const LookAndFeelMethods& rhs) -> LookAndFeelMethods& = delete;
+        auto operator=(LookAndFeelMethods const& rhs) -> LookAndFeelMethods& = delete;
         auto operator=(LookAndFeelMethods&& rhs) -> LookAndFeelMethods&      = delete;
 
         virtual void setupDefaultStereoFieldColours() = 0;
@@ -34,7 +34,7 @@ struct StereoFieldComponent : juce::Component {
 
         virtual void drawGonioMeter(juce::Graphics& g,
             juce::Rectangle<float> bounds,
-            const StereoFieldBuffer<float>& stereoBuffer,
+            StereoFieldBuffer<float> const& stereoBuffer,
             int leftIdx,
             int rightIdx)
             = 0;
@@ -45,7 +45,7 @@ struct StereoFieldComponent : juce::Component {
 
         virtual void drawStereoField(juce::Graphics& g,
             juce::Rectangle<float> bounds,
-            const StereoFieldBuffer<float>&,
+            StereoFieldBuffer<float> const&,
             int leftIdx  = 0,
             int rightIdx = 1)
             = 0;
@@ -55,9 +55,9 @@ struct StereoFieldComponent : juce::Component {
 
     ~StereoFieldComponent() override = default;
 
-    StereoFieldComponent(const StereoFieldComponent& other)                  = delete;
+    StereoFieldComponent(StereoFieldComponent const& other)                  = delete;
     StereoFieldComponent(StereoFieldComponent&& other)                       = delete;
-    auto operator=(const StereoFieldComponent& rhs) -> StereoFieldComponent& = delete;
+    auto operator=(StereoFieldComponent const& rhs) -> StereoFieldComponent& = delete;
     auto operator=(StereoFieldComponent&& rhs) -> StereoFieldComponent&      = delete;
 
     void paint(juce::Graphics& g) override

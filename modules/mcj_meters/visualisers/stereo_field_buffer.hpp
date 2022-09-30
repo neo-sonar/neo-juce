@@ -20,7 +20,7 @@ private:
         }
     }
 
-    [[nodiscard]] inline auto computePosition(const juce::Rectangle<FloatType>& b,
+    [[nodiscard]] inline auto computePosition(juce::Rectangle<FloatType> const& b,
         const FloatType left,
         const FloatType right) const -> juce::Point<FloatType>
     {
@@ -32,9 +32,9 @@ public:
     StereoFieldBuffer()  = default;
     ~StereoFieldBuffer() = default;
 
-    StereoFieldBuffer(const StereoFieldBuffer& other)                  = delete;
+    StereoFieldBuffer(StereoFieldBuffer const& other)                  = delete;
     StereoFieldBuffer(StereoFieldBuffer&& other)                       = delete;
-    auto operator=(const StereoFieldBuffer& rhs) -> StereoFieldBuffer& = delete;
+    auto operator=(StereoFieldBuffer const& rhs) -> StereoFieldBuffer& = delete;
     auto operator=(StereoFieldBuffer&& rhs) -> StereoFieldBuffer&      = delete;
 
     void setBufferSize(int newNumChannels, int newNumSamples)
@@ -69,7 +69,7 @@ public:
     //  ==============================================================================
 
     [[nodiscard]] auto
-    getOscilloscope(const int numSamples, const juce::Rectangle<FloatType> bounds, int leftIdx, int rightIdx) const
+    getOscilloscope(int const numSamples, const juce::Rectangle<FloatType> bounds, int leftIdx, int rightIdx) const
         -> juce::Path
     {
         juce::Path curve;

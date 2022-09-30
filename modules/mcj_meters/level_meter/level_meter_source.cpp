@@ -7,7 +7,7 @@ LevelMeterSource::ChannelData::ChannelData(const size_t rmsWindow)
 {
 }
 
-LevelMeterSource::ChannelData::ChannelData(const ChannelData& other)
+LevelMeterSource::ChannelData::ChannelData(ChannelData const& other)
     : max(other.max.load())
     , maxOverall(other.maxOverall.load())
     , clip(other.clip.load())
@@ -19,7 +19,7 @@ LevelMeterSource::ChannelData::ChannelData(const ChannelData& other)
 {
 }
 
-auto LevelMeterSource::ChannelData::operator=(const ChannelData& other) -> ChannelData&
+auto LevelMeterSource::ChannelData::operator=(ChannelData const& other) -> ChannelData&
 {
     max.store(other.max.load());
     maxOverall.store(other.maxOverall.load());
@@ -43,8 +43,8 @@ auto LevelMeterSource::ChannelData::getAvgRMS() const -> float
 }
 
 void LevelMeterSource::ChannelData::setLevels(const juce::int64 time,
-    const float newMax,
-    const float newRms,
+    float const newMax,
+    float const newRms,
     const juce::int64 newHoldMSecs)
 {
     if (newMax > 1.0 || newRms > 1.0) { clip = true; }
@@ -70,9 +70,9 @@ void LevelMeterSource::ChannelData::setRMSsize(const size_t numBlocks)
     }
 }
 
-void LevelMeterSource::ChannelData::pushNextRMS(const float newRMS)
+void LevelMeterSource::ChannelData::pushNextRMS(float const newRMS)
 {
-    const double squaredRMS = std::min(newRMS * newRMS, 1.0F);
+    double const squaredRMS = std::min(newRMS * newRMS, 1.0F);
     if (!_rmsHistory.empty()) {
         _rmsHistory[(size_t)_rmsPtr] = squaredRMS;
         _rmsPtr                      = (_rmsPtr + 1) % _rmsHistory.size();
@@ -85,7 +85,7 @@ LevelMeterSource::LevelMeterSource() : _lastMeasurement(0) { }
 
 LevelMeterSource::~LevelMeterSource() { masterReference.clear(); }
 
-void LevelMeterSource::resize(const int channels, const int rmsWindow)
+void LevelMeterSource::resize(int const channels, int const rmsWindow)
 {
     _levels.resize(size_t(channels), ChannelData(size_t(rmsWindow)));
     for (ChannelData& l : _levels) { l.setRMSsize(size_t(rmsWindow)); }
@@ -107,21 +107,21 @@ void LevelMeterSource::decayIfNeeded()
     _newDataFlag = true;
 }
 
-void LevelMeterSource::setReductionLevel(const int channel, const float reduction)
+void LevelMeterSource::setReductionLevel(int const channel, float const reduction)
 {
     if (juce::isPositiveAndBelow(channel, static_cast<int>(_levels.size()))) {
         _levels[size_t(channel)].reduction = reduction;
     }
 }
 
-void LevelMeterSource::setReductionLevel(const float reduction)
+void LevelMeterSource::setReductionLevel(float const reduction)
 {
     for (auto& channel : _levels) { channel.reduction = reduction; }
 }
 
 void LevelMeterSource::setMaxHoldMS(const juce::int64 millis) { _holdMSecs = millis; }
 
-auto LevelMeterSource::getReductionLevel(const int channel) const -> float
+auto LevelMeterSource::getReductionLevel(int const channel) const -> float
 {
     if (juce::isPositiveAndBelow(channel, static_cast<int>(_levels.size()))) {
         return _levels[size_t(channel)].reduction;
@@ -130,25 +130,25 @@ auto LevelMeterSource::getReductionLevel(const int channel) const -> float
     return -1.0F;
 }
 
-auto LevelMeterSource::getMaxLevel(const int channel) const -> float { return _levels.at(size_t(channel)).max; }
+auto LevelMeterSource::getMaxLevel(int const channel) const -> float { return _levels.at(size_t(channel)).max; }
 
-auto LevelMeterSource::getMaxOverallLevel(const int channel) const -> float
+auto LevelMeterSource::getMaxOverallLevel(int const channel) const -> float
 {
     return _levels.at(size_t(channel)).maxOverall;
 }
 
-auto LevelMeterSource::getRMSLevel(const int channel) const -> float { return _levels.at(size_t(channel)).getAvgRMS(); }
+auto LevelMeterSource::getRMSLevel(int const channel) const -> float { return _levels.at(size_t(channel)).getAvgRMS(); }
 
-auto LevelMeterSource::getClipFlag(const int channel) const -> bool { return _levels.at(size_t(channel)).clip; }
+auto LevelMeterSource::getClipFlag(int const channel) const -> bool { return _levels.at(size_t(channel)).clip; }
 
-void LevelMeterSource::clearClipFlag(const int channel) { _levels.at(size_t(channel)).clip = false; }
+void LevelMeterSource::clearClipFlag(int const channel) { _levels.at(size_t(channel)).clip = false; }
 
 void LevelMeterSource::clearAllClipFlags()
 {
     for (ChannelData& l : _levels) { l.clip = false; }
 }
 
-void LevelMeterSource::clearMaxNum(const int channel) { _levels.at(size_t(channel)).maxOverall = infinity; }
+void LevelMeterSource::clearMaxNum(int const channel) { _levels.at(size_t(channel)).maxOverall = infinity; }
 
 void LevelMeterSource::clearAllMaxNums()
 {
@@ -157,7 +157,7 @@ void LevelMeterSource::clearAllMaxNums()
 
 auto LevelMeterSource::getNumChannels() const -> int { return static_cast<int>(_levels.size()); }
 
-void LevelMeterSource::setSuspended(const bool shouldBeSuspended) { _suspended = shouldBeSuspended; }
+void LevelMeterSource::setSuspended(bool const shouldBeSuspended) { _suspended = shouldBeSuspended; }
 
 auto LevelMeterSource::checkNewDataFlag() const -> bool { return _newDataFlag; }
 

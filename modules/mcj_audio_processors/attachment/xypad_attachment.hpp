@@ -23,9 +23,9 @@ struct XYPadAttachment final : XYPad::Listener {
 
     ~XYPadAttachment() override;
 
-    XYPadAttachment(const XYPadAttachment& other)                  = delete;
+    XYPadAttachment(XYPadAttachment const& other)                  = delete;
     XYPadAttachment(XYPadAttachment&& other)                       = delete;
-    auto operator=(const XYPadAttachment& rhs) -> XYPadAttachment& = delete;
+    auto operator=(XYPadAttachment const& rhs) -> XYPadAttachment& = delete;
     auto operator=(XYPadAttachment&& rhs) -> XYPadAttachment&      = delete;
 
     /// \brief Call this after setting up your slider in the case where you

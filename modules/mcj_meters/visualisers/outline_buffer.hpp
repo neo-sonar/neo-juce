@@ -22,27 +22,27 @@ private:
         /**
          This copy constructor does not really copy. It is only present to satisfy the vector.
          */
-        ChannelData(const ChannelData& other) { setSize(other.getSize()); }
+        ChannelData(ChannelData const& other) { setSize(other.getSize()); }
 
         /**
          @return the number of values the buffer will store.
          */
         [[nodiscard]] auto getSize() const -> int { return static_cast<int>(_minBuffer.size()); }
 
-        void setSamplesPerBlock(const int numSamples) { _samplesPerBlock = numSamples; }
+        void setSamplesPerBlock(int const numSamples) { _samplesPerBlock = numSamples; }
 
         /**
          @param numBlocks is the number of values the buffer will store. Allow a little safety buffer, so you
          don't write into the part, where it is currently read
          */
-        void setSize(const int numBlocks)
+        void setSize(int const numBlocks)
         {
             _minBuffer.resize(size_t(numBlocks), 0.0F);
             _maxBuffer.resize(size_t(numBlocks), 0.0F);
             _writePointer = _writePointer % size_t(numBlocks);
         }
 
-        void pushChannelData(const float* input, const int numSamples)
+        void pushChannelData(float const* input, int const numSamples)
         {
             // create peak values
             int samples = 0;
@@ -74,15 +74,15 @@ private:
         }
 
         void
-        getChannelOutline(juce::Path& outline, const juce::Rectangle<float> bounds, const int numSamplesToPlot) const
+        getChannelOutline(juce::Path& outline, const juce::Rectangle<float> bounds, int const numSamplesToPlot) const
         {
             auto numSamples = size_t(numSamplesToPlot);
             auto latest     = _writePointer > 0 ? _writePointer - 1 : _maxBuffer.size() - 1;
             auto oldest     = (latest >= numSamples) ? latest - numSamples : latest + _maxBuffer.size() - numSamples;
 
-            const auto dx = bounds.getWidth() / static_cast<float>(numSamples);
-            const auto dy = bounds.getHeight() * 0.35F;
-            const auto my = bounds.getCentreY();
+            auto const dx = bounds.getWidth() / static_cast<float>(numSamples);
+            auto const dy = bounds.getHeight() * 0.35F;
+            auto const my = bounds.getCentreY();
             auto x        = bounds.getX();
             auto s        = oldest;
 
@@ -121,7 +121,7 @@ public:
      @param numBlocks is the number of values the buffer will store. Allow a little safety buffer, so you
      don't write into the part, where it is currently read
      */
-    void setSize(const int numChannels, const int numBlocks)
+    void setSize(int const numChannels, int const numBlocks)
     {
         _channelDatas.resize(size_t(numChannels));
         for (auto& data : _channelDatas) {
@@ -133,7 +133,7 @@ public:
     /**
      @param numSamples sets the size of each analysed block
      */
-    void setSamplesPerBlock(const int numSamples)
+    void setSamplesPerBlock(int const numSamples)
     {
         _samplesPerBlock = numSamples;
         for (auto& data : _channelDatas) { data.setSamplesPerBlock(numSamples); }
@@ -142,7 +142,7 @@ public:
     /**
      Push a block of audio samples into the outline buffer.
      */
-    void pushBlock(const juce::AudioBuffer<float>& buffer, const int numSamples)
+    void pushBlock(juce::AudioBuffer<float> const& buffer, int const numSamples)
     {
         for (int i = 0; i < buffer.getNumChannels(); ++i) {
             if (i < int(_channelDatas.size())) {
@@ -162,8 +162,8 @@ public:
      */
     void getChannelOutline(juce::Path& path,
         const juce::Rectangle<float> bounds,
-        const int channel,
-        const int numSamples) const
+        int const channel,
+        int const numSamples) const
     {
         if (channel < int(_channelDatas.size())) {
             return _channelDatas[size_t(channel)].getChannelOutline(path, bounds, numSamples);
@@ -178,7 +178,7 @@ public:
      @param numSamples is the number of sample blocks
      @return a path with a single channel outline (min to max)
      */
-    void getChannelOutline(juce::Path& path, const juce::Rectangle<float> bounds, const int numSamples) const
+    void getChannelOutline(juce::Path& path, const juce::Rectangle<float> bounds, int const numSamples) const
     {
         juce::Rectangle<float> b(bounds);
         auto const numChannels = static_cast<int>(_channelDatas.size());

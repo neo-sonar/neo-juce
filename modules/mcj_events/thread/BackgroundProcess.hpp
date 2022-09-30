@@ -9,9 +9,9 @@ struct BackgroundProcess : private juce::Timer {
         Listener()          = default;
         virtual ~Listener() = default;
 
-        Listener(const Listener& other)                  = delete;
+        Listener(Listener const& other)                  = delete;
         Listener(Listener&& other)                       = delete;
-        auto operator=(const Listener& rhs) -> Listener& = delete;
+        auto operator=(Listener const& rhs) -> Listener& = delete;
         auto operator=(Listener&& rhs) -> Listener&      = delete;
 
         virtual auto backgroundProcessStarted(BackgroundProcess* process) -> void                             = 0;
@@ -22,12 +22,12 @@ struct BackgroundProcess : private juce::Timer {
     explicit BackgroundProcess(juce::ThreadPool* threadPool);
     ~BackgroundProcess() override = default;
 
-    BackgroundProcess(const BackgroundProcess& other)                  = delete;
+    BackgroundProcess(BackgroundProcess const& other)                  = delete;
     BackgroundProcess(BackgroundProcess&& other)                       = delete;
-    auto operator=(const BackgroundProcess& rhs) -> BackgroundProcess& = delete;
+    auto operator=(BackgroundProcess const& rhs) -> BackgroundProcess& = delete;
     auto operator=(BackgroundProcess&& rhs) -> BackgroundProcess&      = delete;
 
-    auto startProcess(const juce::String& command) -> void;
+    auto startProcess(juce::String const& command) -> void;
     auto addListener(Listener* listener) -> void;
     auto removeListener(Listener* listener) -> void;
 
