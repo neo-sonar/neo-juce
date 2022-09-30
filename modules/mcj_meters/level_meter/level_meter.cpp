@@ -1,6 +1,6 @@
 namespace mc {
 
-LevelMeter::LevelMeter(MeterFlags type) : _meterType(type)
+LevelMeter::LevelMeter(MeterFlags type) : _meterType { type }
 {
     lookAndFeelChanged();
 
@@ -23,8 +23,6 @@ LevelMeter::LevelMeter(MeterFlags type) : _meterType(type)
     startTimerHz(_refreshRate);
 }
 
-LevelMeter::~LevelMeter() { stopTimer(); }
-
 void LevelMeter::setMeterFlags(MeterFlags type) { _meterType = type; }
 
 void LevelMeter::setMeterSource(LevelMeterSource* src)
@@ -45,44 +43,22 @@ void LevelMeter::setRefreshRateHz(int newRefreshRate)
 
 void LevelMeter::paint(juce::Graphics& g)
 {
-    juce::Graphics::ScopedSaveState const saved(g);
-
-    const juce::Rectangle<float> bounds = getLocalBounds().toFloat();
-    int const numChannels               = _source != nullptr ? _source->numChannels() : 1;
-    if (_useBackgroundImage) {
-        // This seems to only speed up, if you use complex drawings on the background. For
-        // "normal" vector graphics the image approach seems actually slower
-        if (_backgroundNeedsRepaint) {
-            _backgroundImage = juce::Image(juce::Image::ARGB, getWidth(), getHeight(), true);
-            juce::Graphics backGraphics(_backgroundImage);
-            _lmLookAndFeel->drawBackground(backGraphics, _meterType, bounds);
-            _lmLookAndFeel->drawMeterBarsBackground(backGraphics, _meterType, bounds, numChannels, _fixedNumChannels);
-            _backgroundNeedsRepaint = false;
-        }
-        g.drawImageAt(_backgroundImage, 0, 0);
-        _lmLookAndFeel->drawMeterBars(g, _meterType, bounds, _source, _fixedNumChannels, _selectedChannel);
-    } else {
-        _lmLookAndFeel->drawBackground(g, _meterType, bounds);
-        _lmLookAndFeel->drawMeterBarsBackground(g, _meterType, bounds, numChannels, _fixedNumChannels);
-        _lmLookAndFeel->drawMeterBars(g, _meterType, bounds, _source, _fixedNumChannels, _selectedChannel);
-    }
-
+    auto const saved       = juce::Graphics::ScopedSaveState { g };
+    auto const bounds      = getLocalBounds().toFloat();
+    auto const numChannels = _source != nullptr ? _source->numChannels() : 1;
+    _lnf->drawBackground(g, _meterType, bounds);
+    _lnf->drawMeterBarsBackground(g, _meterType, bounds, numChannels, _fixedNumChannels);
+    _lnf->drawMeterBars(g, _meterType, bounds, _source, _fixedNumChannels, _selectedChannel);
     if (_source != nullptr) { _source->decayIfNeeded(); }
 }
 
-void LevelMeter::resized()
-{
-    _lmLookAndFeel->updateMeterGradients();
-    _backgroundNeedsRepaint = true;
-}
-
-void LevelMeter::visibilityChanged() { _backgroundNeedsRepaint = true; }
+void LevelMeter::resized() { _lnf->updateMeterGradients(); }
 
 void LevelMeter::timerCallback()
 {
-    if (((_source != nullptr) && _source->checkNewDataFlag()) || _backgroundNeedsRepaint) {
-        if (_source != nullptr) { _source->resetNewDataFlag(); }
-
+    if (_source == nullptr) { return; }
+    if (_source->checkNewDataFlag()) {
+        _source->resetNewDataFlag();
         repaint();
     }
 }
@@ -113,35 +89,25 @@ void LevelMeter::mouseDown(juce::MouseEvent const& event)
 {
     if (_source == nullptr) { return; }
 
-    const juce::Rectangle<float> innerBounds
-        = _lmLookAndFeel->getMeterInnerBounds(getLocalBounds().toFloat(), _meterType);
-    if (event.mods.isLeftButtonDown()) {
-        auto channel = _lmLookAndFeel->hitTestClipIndicator(event.getPosition(), _meterType, innerBounds, _source);
-        if (channel >= 0) {
-            _listeners.call(&LevelMeter::Listener::clipLightClicked, this, channel, event.mods);
-            if (onClipLightClicked) { onClipLightClicked(*this, channel, event.mods); }
-        }
+    auto const bounds = _lnf->getMeterInnerBounds(getLocalBounds().toFloat(), _meterType);
+    if (not event.mods.isLeftButtonDown()) { return; }
 
-        channel = _lmLookAndFeel->hitTestMaxNumber(event.getPosition(), _meterType, innerBounds, _source);
-        if (channel >= 0) {
-            _listeners.call(&LevelMeter::Listener::maxLevelClicked, this, channel, event.mods);
-            if (onMaxLevelClicked) { onMaxLevelClicked(*this, channel, event.mods); }
-        }
+    auto channel = _lnf->hitTestClipIndicator(event.getPosition(), _meterType, bounds, _source);
+    if (channel >= 0) {
+        if (onClipLightClicked) { onClipLightClicked(*this, channel, event.mods); }
+    }
+
+    channel = _lnf->hitTestMaxNumber(event.getPosition(), _meterType, bounds, _source);
+    if (channel >= 0) {
+        if (onMaxLevelClicked) { onMaxLevelClicked(*this, channel, event.mods); }
     }
 }
-
-void LevelMeter::addListener(LevelMeter::Listener* listener) { _listeners.add(listener); }
-
-void LevelMeter::removeListener(LevelMeter::Listener* listener) { _listeners.remove(listener); }
 
 void LevelMeter::parentHierarchyChanged() { lookAndFeelChanged(); }
 
 void LevelMeter::lookAndFeelChanged()
 {
-    if (auto* lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel())) {
-        _lmLookAndFeel = lnf;
-        return;
-    }
+    if (auto* lnf = dynamic_cast<LookAndFeelMethods*>(&getLookAndFeel()); lnf != nullptr) { _lnf = lnf; }
 }
 
 } // namespace mc

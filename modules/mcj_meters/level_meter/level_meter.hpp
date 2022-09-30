@@ -165,18 +165,10 @@ struct LevelMeter : juce::Component, juce::Timer {
     };
 
     explicit LevelMeter(MeterFlags type = HasBorder);
-    ~LevelMeter() override;
+    ~LevelMeter() override = default;
 
     /// \brief Allows to change the meter's configuration by setting a combination of MeterFlags  */
     void setMeterFlags(MeterFlags type);
-
-    void paint(juce::Graphics& /*g*/) override;
-
-    void resized() override;
-
-    void visibilityChanged() override;
-
-    void timerCallback() override;
 
     /// \brief Set a LevelMeterSource to display. This separation is used, so the source can work in the processing and
     /// the  GUI can display the values.
@@ -213,69 +205,23 @@ struct LevelMeter : juce::Component, juce::Timer {
      */
     std::function<void(LevelMeter& meter, int channel, juce::ModifierKeys mods)> onMaxLevelClicked;
 
-    /**
-     \internal
-    */
+private:
+    void paint(juce::Graphics& g) override;
+    void resized() override;
+    void timerCallback() override;
     void mouseDown(juce::MouseEvent const& event) override;
-
     void parentHierarchyChanged() override;
     void lookAndFeelChanged() override;
 
-    /**
-     DEPRECATED: Instead of using the Listener, use the new lambdas:
-     \see onMaxLevelClicked, onClipLightClicked
-
-     This Listener interface is meant to implement behaviour if either the clip indicator or the max level text
-     is clicked.
-
-     An example implementation could look like this (+alt means clear all, else clear the clicked number):
-     \code{.cpp}
-     void clipLightClicked (LevelMeter* clickedMeter, const int channel, ModifierKeys mods) override
-     {
-         clickedMeter->clearClipIndicator (mods.isAltDown() ? -1 : channel);
-     }
-
-     void maxLevelClicked (LevelMeter* clickedMeter, const int channel, ModifierKeys mods) override
-     {
-         clickedMeter->clearMaxLevelDisplay (mods.isAltDown() ? -1 : channel);
-     }
-     \endcode
-     */
-    struct Listener {
-        virtual ~Listener() = default;
-        /**
-         This is called, when the user clicks a clip indicator. It can be used to reset the clip indicator.
-         To allow different behaviour, e.g. resetting only one indicator or even all meters spread over the UI.
-         \see clearClipIndicator, maxLevelClicked
-         */
-        virtual void clipLightClicked(LevelMeter* meter, int channel, juce::ModifierKeys mods) = 0;
-        /**
-         This is called, when the user clicks a max level text. It can be used to reset the max number.
-         \see clearMaxLevelDisplay, clipLightClicked
-         */
-        virtual void maxLevelClicked(LevelMeter* meter, int channel, juce::ModifierKeys mods) = 0;
-    };
-
-    void addListener(LevelMeter::Listener* /*listener*/);
-
-    void removeListener(LevelMeter::Listener* /*listener*/);
-
-private:
     JUCE_LEAK_DETECTOR(LevelMeter) // NOLINT
 
     juce::WeakReference<LevelMeterSource> _source;
+    LevelMeter::LookAndFeelMethods* _lnf = nullptr;
 
-    int _selectedChannel     = -1;
-    int _fixedNumChannels    = -1;
-    MeterFlags _meterType    = HasBorder;
-    int _refreshRate         = 30;
-    bool _useBackgroundImage = false;
-    juce::Image _backgroundImage;
-    bool _backgroundNeedsRepaint = true;
-
-    LevelMeter::LookAndFeelMethods* _lmLookAndFeel = nullptr;
-
-    juce::ListenerList<LevelMeter::Listener> _listeners;
+    int _selectedChannel  = -1;
+    int _fixedNumChannels = -1;
+    MeterFlags _meterType = HasBorder;
+    int _refreshRate      = 30;
 };
 
 inline auto operator|(LevelMeter::MeterFlags a, LevelMeter::MeterFlags b) -> LevelMeter::MeterFlags
@@ -283,6 +229,4 @@ inline auto operator|(LevelMeter::MeterFlags a, LevelMeter::MeterFlags b) -> Lev
     return static_cast<LevelMeter::MeterFlags>(static_cast<unsigned>(a) | static_cast<unsigned>(b));
 }
 
-/*@}*/
-
-} // end namespace mc
+} // namespace mc
