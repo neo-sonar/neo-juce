@@ -36,7 +36,9 @@ END_JUCE_MODULE_DECLARATION
 #include "analyzer/histogram_source.hpp"
 #include "analyzer/oscilloscope_source.hpp"
 #include "analyzer/spectrum_source.hpp"
+#include "waveform/waveform_source.hpp"
 
 #include "analyzer/histogram.hpp"
 #include "analyzer/oscilloscope.hpp"
 #include "analyzer/spectrum.hpp"
+#include "waveform/waveform.hpp"
