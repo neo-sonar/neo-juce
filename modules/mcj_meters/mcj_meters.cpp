@@ -8,5 +8,6 @@
 #include "analyzer/spectrum.cpp"               // NOLINT(bugprone-suspicious-include)
 #include "analyzer/spectrum_source.cpp"        // NOLINT(bugprone-suspicious-include)
 #include "level_meter/level_meter.cpp"         // NOLINT(bugprone-suspicious-include)
+#include "level_meter/level_meter_source.cpp"  // NOLINT(bugprone-suspicious-include)
 #include "waveform/waveform.cpp"               // NOLINT(bugprone-suspicious-include)
 #include "waveform/waveform_source.cpp"        // NOLINT(bugprone-suspicious-include)
