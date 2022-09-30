@@ -21,7 +21,7 @@ SpectrumSource::SpectrumSource(juce::TimeSliceThread& worker, int fftOrder)
     , _queue { 64 }
 {
     _monoBuffer.resize(static_cast<std::size_t>(_fft.getSize()));
-    _fftBuffer.resize(static_cast<std::size_t>(_fft.getSize() * 2));
+    _fftBuffer.resize(static_cast<std::size_t>(_fft.getSize()) * 2UL);
 }
 
 SpectrumSource::~SpectrumSource() { reset(); }
@@ -31,7 +31,7 @@ auto SpectrumSource::prepare(juce::dsp::ProcessSpec const& spec) -> void
     reset();
 
     _spec = spec;
-    _averager.resize(3, static_cast<std::size_t>(_fft.getSize() / 2 + 1));
+    _averager.resize(3, static_cast<std::size_t>(_fft.getSize()) / 2UL + 1UL);
     _shouldExit.store(false);
     _worker.addTimeSliceClient(this);
 }
@@ -131,8 +131,8 @@ auto SpectrumSource::runTransform() -> void
     std::copy(_monoBuffer.begin(), _monoBuffer.end(), _fftBuffer.begin());
     _fft.performRealOnlyForwardTransform(data(_fftBuffer), true);
 
-    auto const numBins       = static_cast<std::size_t>(_fft.getSize() / 2 + 1);
-    auto const* coefficients = reinterpret_cast<juce::dsp::Complex<float> const*>(data(_fftBuffer));
+    auto const numBins       = static_cast<std::size_t>(_fft.getSize()) / 2UL + 1UL;
+    auto const* coefficients = reinterpret_cast<juce::dsp::Complex<float> const*>(data(_fftBuffer)); // NOLINT
     auto const bins          = Span<Complex<float> const> { coefficients, numBins };
     auto amplitudes          = Vector<float>(numBins, 0.0F);
     for (std::size_t i { 0 }; i < numBins; ++i) { amplitudes[i] = std::abs(bins[i]) / static_cast<float>(numBins); }
