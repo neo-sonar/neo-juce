@@ -47,7 +47,7 @@ find_package(Catch2 REQUIRED)
 include(Catch)
 
 juce_add_console_app(${PROJECT_NAME}_tests PRODUCT_NAME "${PROJECT_NAME}_tests" NEEDS_CURL TRUE)
-catch_discover_tests(${PROJECT_NAME}_tests)
+catch_discover_tests(${PROJECT_NAME}_tests WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 target_sources(${PROJECT_NAME}_tests
     PRIVATE
