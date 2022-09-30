@@ -76,14 +76,16 @@ void WaveformSource::makeChannelPath(juce::Path& path, int channel) const
     auto const nextSample = _channels[channel]->nextSample.load();
 
     path.preallocateSpace(4 * numLevels + 8);
-    path.startNewSubPath(0.0F, -(l[(nextSample) % numLevels].getEnd()));
+    path.startNewSubPath(0.0F, -(l[static_cast<size_t>((nextSample) % numLevels)].getEnd()));
 
     for (auto i = 1; i < numLevels; ++i) {
-        auto const level = -(l[(nextSample + i) % numLevels].getEnd());
+        auto const level = -(l[static_cast<size_t>((nextSample + i) % numLevels)].getEnd());
         path.lineTo((float)i, level);
     }
 
-    for (auto i = numLevels; --i >= 0;) { path.lineTo((float)i, -(l[(nextSample + i) % numLevels].getStart())); }
+    for (auto i = numLevels; --i >= 0;) {
+        path.lineTo((float)i, -(l[static_cast<size_t>((nextSample + i) % numLevels)].getStart()));
+    }
 
     path.closeSubPath();
 }
