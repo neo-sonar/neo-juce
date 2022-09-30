@@ -78,6 +78,7 @@ target_sources(${PROJECT_NAME}_tests
         # modules/mcj_core/javascript/json_utils.test.cpp
         modules/mcj_core/math/normalisable_range.test.cpp
         modules/mcj_core/math/range.test.cpp
+        modules/mcj_core/math/default_range.test.cpp
         modules/mcj_core/misc/result.test.cpp
         modules/mcj_core/text/jformat.test.cpp
         modules/mcj_core/time/duration.test.cpp
