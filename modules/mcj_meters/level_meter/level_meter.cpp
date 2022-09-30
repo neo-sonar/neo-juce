@@ -48,7 +48,7 @@ void LevelMeter::paint(juce::Graphics& g)
     juce::Graphics::ScopedSaveState const saved(g);
 
     const juce::Rectangle<float> bounds = getLocalBounds().toFloat();
-    int const numChannels               = _source != nullptr ? _source->getNumChannels() : 1;
+    int const numChannels               = _source != nullptr ? _source->numChannels() : 1;
     if (_useBackgroundImage) {
         // This seems to only speed up, if you use complex drawings on the background. For
         // "normal" vector graphics the image approach seems actually slower
