@@ -104,10 +104,10 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_graphics/geometry/rectangle.test.cpp
         modules/mcj_graphics/images/image.test.cpp
 
-        modules/mcj_gui_basics/attachment/LabelAttachment.test.cpp
-        modules/mcj_gui_basics/attachment/SliderAttachment.test.cpp
+        modules/mcj_gui_basics/attachment/label_attachment.test.cpp
+        modules/mcj_gui_basics/attachment/slider_attachment.test.cpp
 
-        modules/mcj_gui_basics/widget/XYPad.test.cpp
+        modules/mcj_gui_basics/widgets/xy_pad.test.cpp
 
         modules/mcj_synth/math/hermite_interpolation.test.cpp
         modules/mcj_synth/wavetable/wavetable.test.cpp

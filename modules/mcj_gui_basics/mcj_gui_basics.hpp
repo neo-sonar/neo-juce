@@ -24,16 +24,13 @@ END_JUCE_MODULE_DECLARATION
 #include <mcj_data_structures/mcj_data_structures.hpp>
 #include <mcj_graphics/mcj_graphics.hpp>
 
-#include "button/ButtonUtils.hpp"
+#include "mouse/mouse_event.hpp"
 
-#include "mouse/MouseUtils.hpp"
+#include "widgets/placeholder.hpp"
+#include "widgets/slider_listener.hpp"
+#include "widgets/xy_pad.hpp"
 
-#include "widget/Components.hpp"
-#include "widget/Placeholder.hpp"
-#include "widget/Slider.hpp"
-#include "widget/XYPad.hpp"
-
-#include "attachment/LabelAttachment.hpp"
-#include "attachment/SliderAttachment.hpp"
-#include "attachment/ToggleButtonAttachment.hpp"
-#include "attachment/TwoValueSliderAttachment.hpp"
+#include "attachment/label_attachment.hpp"
+#include "attachment/slider_attachment.hpp"
+#include "attachment/toggle_button_attachment.hpp"
+#include "attachment/two_value_slider_attachment.hpp"
