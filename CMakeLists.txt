@@ -97,6 +97,8 @@ target_sources(${PROJECT_NAME}_tests
         modules/mcj_dsp/units/sample_count.test.cpp
 
         modules/mcj_extension_pack/file/has_magic_header.test.cpp
+        modules/mcj_extension_pack/pack/asset_loader.test.cpp
+        modules/mcj_extension_pack/pack/extension_pack_builder.test.cpp
 
         modules/mcj_graphics/color/color.test.cpp
         modules/mcj_graphics/geometry/line.test.cpp
