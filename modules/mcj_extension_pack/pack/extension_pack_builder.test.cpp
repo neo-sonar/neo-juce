@@ -2,15 +2,11 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-namespace {
-
-} // namespace
-
 TEST_CASE("extension_pack/pack: build(AssetLoader)", "[extension_pack]") // NOLINT
 {
     using namespace mc;
 
-    auto const spec = ExtensionPackSpecs { 1, { "dummy" } };
+    auto const spec = ExtensionPackSpecs { 1, { "midi" } };
 
     SECTION("empty")
     {
@@ -21,9 +17,20 @@ TEST_CASE("extension_pack/pack: build(AssetLoader)", "[extension_pack]") // NOLI
 
     SECTION("validation failed")
     {
-        auto builder             = ExtensionPackBuilder { spec, {} };
-        builder.loaders["dummy"] = AssetLoader {};
+        auto builder            = ExtensionPackBuilder { spec, {} };
+        builder.loaders["midi"] = AssetLoader {};
         REQUIRE(build(builder).failed());
         REQUIRE(build(builder).getErrorMessage().contains("No search paths given"));
+    }
+
+    SECTION("validation passed")
+    {
+        auto builder            = ExtensionPackBuilder { spec, {} };
+        builder.loaders["midi"] = AssetLoader {
+            { makeFile("test_data/midi") },
+            FileSearcher { "*.mid", false },
+            {},
+        };
+        REQUIRE_FALSE(build(builder).failed());
     }
 }
