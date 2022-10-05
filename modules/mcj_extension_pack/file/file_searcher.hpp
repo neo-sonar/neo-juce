@@ -12,6 +12,4 @@ private:
     bool _recursive;
 };
 
-[[nodiscard]] auto relativePathsToFiles(Span<String const> relPaths) -> Vector<juce::File>;
-
 } // namespace mc

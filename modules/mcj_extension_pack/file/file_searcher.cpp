@@ -16,12 +16,4 @@ auto FileSearcher::operator()(juce::File const& root) -> Vector<juce::File>
     return files;
 }
 
-auto relativePathsToFiles(Span<String const> relPaths) -> Vector<juce::File>
-{
-    auto const cwd = juce::File::getCurrentWorkingDirectory();
-    auto toFile    = [&cwd](auto const& path) { return cwd.getChildFile(path); };
-    auto files     = Vector<juce::File>(relPaths.size());
-    ranges::transform(relPaths, ranges::begin(files), toFile);
-    return files;
-}
 } // namespace mc
