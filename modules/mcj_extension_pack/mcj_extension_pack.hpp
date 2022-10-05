@@ -27,4 +27,6 @@ END_JUCE_MODULE_DECLARATION
 #include "file/has_magic_header.hpp"
 
 #include "pack/asset_loader.hpp"
+#include "pack/extension_pack_spec.hpp"
+
 #include "pack/extension_pack_builder.hpp"
