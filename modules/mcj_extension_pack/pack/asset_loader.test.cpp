@@ -18,6 +18,7 @@ TEST_CASE("extension_pack/pack: validate(AssetLoader)", "[extension_pack]") // N
         auto loader = AssetLoader {
             /*.paths    = */ { juce::File {} },
             /*.searcher = */ nullptr,
+            /*.transformer = */ nullptr,
         };
         REQUIRE(validate(loader).failed());
         REQUIRE(validate(loader).getErrorMessage().contains("No searcher given"));
@@ -28,6 +29,7 @@ TEST_CASE("extension_pack/pack: validate(AssetLoader)", "[extension_pack]") // N
         auto loader = AssetLoader {
             /*.paths    = */ { juce::File {} },
             /*.searcher = */ FileSearcher { "*.wav", true },
+            /*.transformer = */ nullptr,
         };
         REQUIRE(static_cast<bool>(validate(loader)));
     }

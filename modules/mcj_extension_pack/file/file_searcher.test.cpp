@@ -23,7 +23,7 @@ TEST_CASE("extension_pack/file: FileSearcher", "[extension_pack]") // NOLINT
         auto images = FileSearcher { "*.jpg", false };
         REQUIRE(images(makeFile("test_data/img")).size() == 1UL);
 
-        auto all = FileSearcher { "*", false };
+        auto all = FileSearcher { "*", true };
         REQUIRE(all(makeFile("test_data")).size() == 2UL);
     }
 }
