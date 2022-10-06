@@ -41,5 +41,4 @@ TEST_CASE("core/files: copyFile", "[core]")
 
     auto const testFile = makeFile("test_data/midi/130bpm_drum_beat.mid");
     REQUIRE(copyFile(juce::File {}, testFile).failed()); // src invalid
-    REQUIRE(copyFile(testFile, juce::File {}).failed()); // dest invalid
 }
