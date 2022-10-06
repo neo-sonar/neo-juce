@@ -41,6 +41,7 @@ END_JUCE_MODULE_DECLARATION
 #include "math/default_range.hpp"
 #include "math/normalisable_range.hpp"
 #include "math/range.hpp"
+#include "memory/memory_block.hpp"
 #include "misc/result.hpp"
 #include "time/duration.hpp"
 #include "time/time.hpp"

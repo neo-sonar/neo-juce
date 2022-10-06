@@ -3,17 +3,16 @@
 #pragma once
 
 namespace mc {
-[[nodiscard]] inline auto makeFile(juce::StringRef relativeOrAbsolutePath) -> juce::File
-{
-    if (juce::File::isAbsolutePath(relativeOrAbsolutePath)) { return juce::File { relativeOrAbsolutePath }; }
-    return juce::File::getCurrentWorkingDirectory().getChildFile(relativeOrAbsolutePath);
-}
+[[nodiscard]] auto makeFile(juce::StringRef relativeOrAbsolutePath) -> juce::File;
+[[nodiscard]] auto makeTemporaryDirectory(juce::StringRef name) -> juce::File;
+[[nodiscard]] auto makeChildDirectory(juce::File const& parent, juce::StringRef name) -> juce::File;
+[[nodiscard]] auto copyFile(juce::File const& src, juce::File const& dest) -> juce::Result;
 } // namespace mc
 
 template <>
 struct juce::VariantConverter<juce::File> {
-    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::File { return juce::File { v.toString() }; }
-    [[nodiscard]] static auto toVar(juce::File const& file) -> juce::var { return file.getFullPathName(); }
+    [[nodiscard]] static auto fromVar(juce::var const& v) -> juce::File;
+    [[nodiscard]] static auto toVar(juce::File const& file) -> juce::var;
 };
 
 template <>
