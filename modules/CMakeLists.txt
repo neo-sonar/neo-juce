@@ -1,16 +1,16 @@
 project(mc-juce VERSION 0.1.0)
 
 juce_add_modules(ALIAS_NAMESPACE mc
-    mcj_audio_basics
-    mcj_audio_formats
-    mcj_audio_processors
-    mcj_core
-    mcj_data_structures
-    mcj_dsp
-    mcj_events
-    mcj_extension_pack
-    mcj_graphics
-    mcj_gui_basics
-    mcj_meters
-    mcj_synth
+    mc_audio_basics
+    mc_audio_formats
+    mc_audio_processors
+    mc_core
+    mc_data_structures
+    mc_dsp
+    mc_events
+    mc_extension_pack
+    mc_graphics
+    mc_gui_basics
+    mc_meters
+    mc_synth
 )

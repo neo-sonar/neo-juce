@@ -10,17 +10,17 @@
 
 ## License
 
-|         Module         |                     License                      |
-| :--------------------: | :----------------------------------------------: |
-|   `mcj_audio_basics`   | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
-|  `mcj_audio_formats`   |   [GPL/Commercial](https://juce.com/get-juce)    |
-| `mcj_audio_processors` |   [GPL/Commercial](https://juce.com/get-juce)    |
-|       `mcj_core`       | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
-| `mcj_data_structures`  |   [GPL/Commercial](https://juce.com/get-juce)    |
-|       `mcj_dsp`        |   [GPL/Commercial](https://juce.com/get-juce)    |
-|      `mcj_events`      | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
-|  `mcj_extension_pack`  | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
-|     `mcj_graphics`     |   [GPL/Commercial](https://juce.com/get-juce)    |
-|    `mcj_gui_basics`    |   [GPL/Commercial](https://juce.com/get-juce)    |
-|      `mcj_meters`      |   [GPL/Commercial](https://juce.com/get-juce)    |
-|      `mcj_synth`       |   [GPL/Commercial](https://juce.com/get-juce)    |
+|        Module         |                     License                      |
+| :-------------------: | :----------------------------------------------: |
+|   `mc_audio_basics`   | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
+|  `mc_audio_formats`   |   [GPL/Commercial](https://juce.com/get-juce)    |
+| `mc_audio_processors` |   [GPL/Commercial](https://juce.com/get-juce)    |
+|       `mc_core`       | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
+| `mc_data_structures`  |   [GPL/Commercial](https://juce.com/get-juce)    |
+|       `mc_dsp`        |   [GPL/Commercial](https://juce.com/get-juce)    |
+|      `mc_events`      | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
+|  `mc_extension_pack`  | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
+|     `mc_graphics`     |   [GPL/Commercial](https://juce.com/get-juce)    |
+|    `mc_gui_basics`    |   [GPL/Commercial](https://juce.com/get-juce)    |
+|      `mc_meters`      |   [GPL/Commercial](https://juce.com/get-juce)    |
+|      `mc_synth`       |   [GPL/Commercial](https://juce.com/get-juce)    |
