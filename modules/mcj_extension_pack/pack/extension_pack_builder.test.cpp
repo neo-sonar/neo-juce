@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: BSL-1.0
 #include <mcj_extension_pack/mcj_extension_pack.hpp>
 
 #include <catch2/catch_test_macros.hpp>
@@ -26,11 +27,7 @@ TEST_CASE("extension_pack/pack: build(AssetLoader)", "[extension_pack]") // NOLI
     SECTION("validation passed")
     {
         auto builder            = ExtensionPackBuilder { spec, {} };
-        builder.loaders["midi"] = AssetLoader {
-            { makeFile("test_data/midi") },
-            FileSearcher { "*.mid", false },
-            {},
-        };
+        builder.loaders["midi"] = AssetLoader { { makeFile("test_data/midi") }, FileSearcher { "*.mid", false }, {} };
         REQUIRE_FALSE(build(builder).failed());
     }
 }

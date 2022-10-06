@@ -2,7 +2,7 @@
 
 namespace mc {
 
-static auto validate(FlatMap<String, AssetLoader> const& loaders) -> juce::Result
+[[nodiscard]] static auto validate(FlatMap<String, AssetLoader> const& loaders) -> juce::Result
 {
     if (loaders.empty()) { return fail("No loaders registered"); }
     for (auto const& [type, loader] : loaders) {
@@ -11,7 +11,7 @@ static auto validate(FlatMap<String, AssetLoader> const& loaders) -> juce::Resul
     return juce::Result::ok();
 }
 
-static auto loadAssetFilePaths(FlatMap<String, AssetLoader> const& loaders)
+[[nodiscard]] static auto loadAssetFilePaths(FlatMap<String, AssetLoader> const& loaders)
 {
     auto files = FlatMap<String, Vector<juce::File>> {};
     for (auto const& [type, loader] : loaders) {
@@ -21,7 +21,7 @@ static auto loadAssetFilePaths(FlatMap<String, AssetLoader> const& loaders)
     return files;
 }
 
-static auto validate(FlatMap<String, Vector<juce::File>> const& fileGroups) -> juce::Result
+[[nodiscard]] static auto validate(FlatMap<String, Vector<juce::File>> const& fileGroups) -> juce::Result
 {
     if (fileGroups.empty()) { return fail("No fileGroups found with searchers"); }
     for (auto const& [type, files] : fileGroups) {
@@ -30,12 +30,47 @@ static auto validate(FlatMap<String, Vector<juce::File>> const& fileGroups) -> j
     return juce::Result::ok();
 }
 
+[[nodiscard]] static auto transformFileContent(juce::File const& srcFile,
+    juce::File const& destDir,
+    std::function<Vector<Byte>(Span<Byte const>)> const& transformer) -> juce::Result
+{
+    auto const destFile = destDir.getChildFile(srcFile.getFileName());
+    if (not transformer) { return copyFile(srcFile, destFile); }
+
+    auto input = juce::MemoryBlock {};
+    if (not srcFile.loadFileAsData(input)) { return fail("failed to load content of file: {}", srcFile); }
+
+    auto output = transformer(makeSpan(input));
+    if (output.empty()) { return fail("failed to transform content of file: {}", srcFile); }
+
+    auto out = destFile.createOutputStream();
+    if (out == nullptr) { return fail("failed to write content to file: {}", destFile); }
+    if (not out->write(output.data(), output.size())) { return fail("failed to write content to file: {}", destFile); }
+
+    return juce::Result::ok();
+}
+
 auto build(ExtensionPackBuilder const& builder) -> juce::Result
 {
     if (auto result = validate(builder.loaders); result.failed()) { return result; }
 
-    auto const files = loadAssetFilePaths(builder.loaders);
-    if (auto result = validate(files); result.failed()) { return result; }
+    auto const assetFilesGroups = loadAssetFilePaths(builder.loaders);
+    if (auto result = validate(assetFilesGroups); result.failed()) { return result; }
+
+    auto const workDir = makeTemporaryDirectory("builder_tmp");
+    if (not workDir.isDirectory()) { return fail("failed to create tmp work dir: {}", workDir); }
+    SCOPE_EXIT { workDir.deleteRecursively(); };
+
+    for (auto const& [type, group] : assetFilesGroups) {
+        auto const& transformer = builder.loaders.at(type).transformer;
+
+        auto const assetDir = makeChildDirectory(workDir, type);
+        if (not assetDir.isDirectory()) { return fail("failed to create tmp asset dir: {}", assetDir); }
+
+        for (auto const& asset : group) {
+            if (auto result = transformFileContent(asset, assetDir, transformer); result.failed()) { return result; }
+        }
+    }
 
     return juce::Result::ok();
 }
