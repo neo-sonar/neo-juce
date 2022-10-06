@@ -37,10 +37,10 @@ namespace mc {
     auto const destFile = destDir.getChildFile(srcFile.getFileName());
     if (not transformer) { return copyFile(srcFile, destFile); }
 
-    auto input = juce::MemoryBlock {};
-    if (not srcFile.loadFileAsData(input)) { return fail("failed to load content of file: {}", srcFile); }
+    auto const input = loadFileAsBytes(srcFile);
+    if (input.empty()) { return fail("failed to load content of file: {}", srcFile); }
 
-    auto output = transformer(makeSpan(input));
+    auto const output = transformer(input);
     if (output.empty()) { return fail("failed to transform content of file: {}", srcFile); }
 
     auto out = destFile.createOutputStream();

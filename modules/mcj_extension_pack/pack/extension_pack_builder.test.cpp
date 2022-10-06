@@ -27,7 +27,11 @@ TEST_CASE("extension_pack/pack: build(AssetLoader)", "[extension_pack]") // NOLI
     SECTION("validation passed")
     {
         auto builder            = ExtensionPackBuilder { spec, {} };
-        builder.loaders["midi"] = AssetLoader { { makeFile("test_data/midi") }, FileSearcher { "*.mid", false }, {} };
+        builder.loaders["midi"] = AssetLoader {
+            { makeFile("test_data/midi") },
+            FileSearcher { "*.mid", false },
+            [](auto input) { return Vector<Byte>(begin(input), end(input)); },
+        };
         REQUIRE_FALSE(build(builder).failed());
     }
 }

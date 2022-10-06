@@ -7,6 +7,7 @@ namespace mc {
 [[nodiscard]] auto makeTemporaryDirectory(juce::StringRef name) -> juce::File;
 [[nodiscard]] auto makeChildDirectory(juce::File const& parent, juce::StringRef name) -> juce::File;
 [[nodiscard]] auto copyFile(juce::File const& src, juce::File const& dest) -> juce::Result;
+[[nodiscard]] auto loadFileAsBytes(juce::File const& file) -> Vector<Byte>;
 } // namespace mc
 
 template <>

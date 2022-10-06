@@ -31,6 +31,16 @@ auto copyFile(juce::File const& src, juce::File const& dest) -> juce::Result
     return juce::Result::ok();
 }
 
+auto loadFileAsBytes(juce::File const& file) -> Vector<Byte>
+{
+    auto input = file.createInputStream();
+    if (input == nullptr) { return {}; }
+
+    auto bytes = Vector<Byte>(static_cast<size_t>(input->getTotalLength()));
+    if (static_cast<size_t>(input->read(bytes.data(), (int)bytes.size())) != bytes.size()) { return {}; }
+    return bytes;
+}
+
 } // namespace mc
 
 auto juce::VariantConverter<juce::File>::fromVar(juce::var const& v) -> juce::File
