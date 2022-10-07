@@ -6,11 +6,11 @@
 
 TEST_CASE("core/files: format(juce::File)", "[core]")
 {
-    REQUIRE(mc::format("{}", juce::File {}) == "");
-#if defined(MC_PLATFORM_WINDOWS)
-    REQUIRE(mc::format("{}", juce::File { R"(C:\foo\bar\baz.txt)" }) == R"(C:\foo\bar\baz.txt)");
-    REQUIRE(mc::format("{}", juce::File { "/foo/bar/baz.txt" }) == R"(C:\foo\bar\baz.txt)");
-#else
+    REQUIRE(mc::format("{}", juce::File {}).empty());
+
+    // Can't run on Windows, since the CI runners use a different root
+    // drive letter then most workstation installs. (C:\ vs. D:\)
+#if not defined(MC_PLATFORM_WINDOWS)
     REQUIRE(mc::format("{}", juce::File { "/foo/bar/baz.txt" }) == "/foo/bar/baz.txt");
 #endif
 }
