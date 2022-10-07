@@ -24,7 +24,7 @@ struct LevelMeterSource {
     template <typename FloatType>
     auto measureBlock(juce::AudioBuffer<FloatType> const& buffer) -> void;
 
-    /// @brief Clears all levels & clip flags.
+    /// \brief Clears all levels & clip flags.
     auto reset() -> void;
 
     /// \brief This is called from the GUI. If processing was stalled,

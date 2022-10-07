@@ -2,38 +2,38 @@
 
 namespace mc::fx {
 
-/// @brief Controls the width of a stereo signal
+/// \brief Controls the width of a stereo signal
 struct StereoWidth {
-    /// @brief Holds the parameters for this processor.
+    /// \brief Holds the parameters for this processor.
     struct Parameters {
         float width = 1.0F; // 0 to 2.0: 1 = Normal, 0 = Mono
     };
 
     StereoWidth() = default;
 
-    /// @brief Returns true if the process is enabled.
+    /// \brief Returns true if the process is enabled.
     [[nodiscard]] auto isEnabled() const noexcept -> bool { return _enabled; }
 
-    /// @brief Enables/disables the process.
+    /// \brief Enables/disables the process.
     void setEnabled(bool newValue) noexcept { _enabled = newValue; }
 
-    /// @brief Returns the process's current parameters.
+    /// \brief Returns the process's current parameters.
     [[nodiscard]] auto getParameters() const noexcept -> Parameters { return _parameters; }
 
-    /// @brief Applies a new set of parameters to the process.
+    /// \brief Applies a new set of parameters to the process.
     ///
     /// Note that this doesn't attempt to lock the process,
     /// so if you call this in parallel with
     /// the process method, you may get artifacts.
     void setParameters(Parameters const& newParams) { _parameters = newParams; }
 
-    /// @brief Initialises the process.
+    /// \brief Initialises the process.
     void prepare(juce::dsp::ProcessSpec const& /*unused*/) { }
 
-    /// @brief Resets the process's internal state.
+    /// \brief Resets the process's internal state.
     void reset() noexcept { }
 
-    /// @brief Applies the process to a stereo buffer.
+    /// \brief Applies the process to a stereo buffer.
     template <typename ProcessContext>
     void process(ProcessContext const& context) noexcept
     {
