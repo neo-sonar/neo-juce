@@ -87,6 +87,7 @@ auto LevelMeterSource::rmsWindow(Milliseconds<int> millis) -> void { _rmsWindow 
 
 auto LevelMeterSource::prepare(juce::dsp::ProcessSpec const& spec) -> void
 {
+    reset();
     auto const rmsWindowInSamples = _rmsWindow.count() * (float)spec.sampleRate / (float)spec.maximumBlockSize;
     _levels.resize(spec.numChannels, ChannelData(size_t(rmsWindowInSamples)));
     for (auto& l : _levels) { l.rmsSize(size_t(rmsWindowInSamples)); }

@@ -143,7 +143,7 @@ private:
     Vector<ChannelData> _levels;
     juce::int64 _holdMSecs { 500 };
     Atomic<juce::int64> _lastMeasurement;
-    Seconds<float> _rmsWindow { 300 };
+    Seconds<float> _rmsWindow { 0.3F };
     bool _newDataFlag = true;
     bool _suspended { false };
 };
