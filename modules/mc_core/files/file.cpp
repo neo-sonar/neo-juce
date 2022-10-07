@@ -11,8 +11,7 @@ auto makeFile(juce::StringRef relativeOrAbsolutePath) -> juce::File
 
 auto makeTemporaryDirectory(juce::StringRef name) -> juce::File
 {
-    auto const tmpDir = juce::File::getSpecialLocation(juce::File::tempDirectory);
-    auto const dir    = tmpDir.getChildFile(name);
+    auto dir = juce::File::getSpecialLocation(juce::File::tempDirectory).getChildFile(name);
     dir.deleteRecursively();
     dir.createDirectory();
     return dir;
