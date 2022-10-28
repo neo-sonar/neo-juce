@@ -46,79 +46,80 @@ include(CTest)
 find_package(Catch2 REQUIRED)
 include(Catch)
 
-juce_add_console_app(${PROJECT_NAME}_tests PRODUCT_NAME "${PROJECT_NAME}_tests" NEEDS_CURL TRUE)
-catch_discover_tests(${PROJECT_NAME}_tests WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+juce_add_console_app(mc-juce-dev_tests PRODUCT_NAME "mc-juce-dev_tests" NEEDS_CURL TRUE)
+catch_discover_tests(mc-juce-dev_tests WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_target_properties(mc-juce-dev_tests PROPERTIES UNITY_BUILD_MODE GROUP)
 
-target_sources(${PROJECT_NAME}_tests
-    PRIVATE
-        MainTest.cpp
+set(test_sources
+    modules/mc_audio_basics/buffers/audio_buffer.test.cpp
+    modules/mc_audio_basics/buffers/audio_buffers.test.cpp
+    modules/mc_audio_basics/buffers/buffer_with_samplerate.test.cpp
 
-        modules/mc_audio_basics/buffers/audio_buffer.test.cpp
-        modules/mc_audio_basics/buffers/audio_buffers.test.cpp
-        modules/mc_audio_basics/buffers/buffer_with_samplerate.test.cpp
+    modules/mc_audio_processors/attachment/xypad_attachment.test.cpp
+    modules/mc_audio_processors/parameter/audio_processor_value_tree_state.test.cpp
+    modules/mc_audio_processors/processors/buses_layout.test.cpp
+    modules/mc_audio_processors/text_value_converter/active_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/frequency_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/gain_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/invert_phase_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/milliseconds_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/percent_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/quality_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/ratio_or_gate_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/ratio_or_limiter_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/seconds_text_converter.test.cpp
+    modules/mc_audio_processors/text_value_converter/true_false_text_converter.test.cpp
 
-        modules/mc_audio_processors/attachment/xypad_attachment.test.cpp
-        modules/mc_audio_processors/parameter/audio_processor_value_tree_state.test.cpp
-        modules/mc_audio_processors/processors/buses_layout.test.cpp
-        modules/mc_audio_processors/text_value_converter/active_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/frequency_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/gain_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/invert_phase_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/milliseconds_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/percent_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/quality_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/ratio_or_gate_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/ratio_or_limiter_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/seconds_text_converter.test.cpp
-        modules/mc_audio_processors/text_value_converter/true_false_text_converter.test.cpp
+    modules/mc_core/container/registry.test.cpp
+    modules/mc_core/files/file.test.cpp
+    modules/mc_core/files/zip_file.test.cpp
+    # modules/mc_core/javascript/json_utils.test.cpp
+    modules/mc_core/math/normalisable_range.test.cpp
+    modules/mc_core/math/range.test.cpp
+    modules/mc_core/math/default_range.test.cpp
+    modules/mc_core/misc/result.test.cpp
+    modules/mc_core/text/jformat.test.cpp
+    modules/mc_core/time/duration.test.cpp
+    modules/mc_core/time/time.test.cpp
 
-        modules/mc_core/container/registry.test.cpp
-        modules/mc_core/files/file.test.cpp
-        modules/mc_core/files/zip_file.test.cpp
-        # modules/mc_core/javascript/json_utils.test.cpp
-        modules/mc_core/math/normalisable_range.test.cpp
-        modules/mc_core/math/range.test.cpp
-        modules/mc_core/math/default_range.test.cpp
-        modules/mc_core/misc/result.test.cpp
-        modules/mc_core/text/jformat.test.cpp
-        modules/mc_core/time/duration.test.cpp
-        modules/mc_core/time/time.test.cpp
+    modules/mc_data_structures/values/atomic_wrapper.test.cpp
+    modules/mc_data_structures/values/constrainer_wrapper.test.cpp
 
-        modules/mc_data_structures/values/atomic_wrapper.test.cpp
-        modules/mc_data_structures/values/constrainer_wrapper.test.cpp
+    modules/mc_dsp/algorithm/averager.test.cpp
+    modules/mc_dsp/algorithm/down_sample.test.cpp
+    modules/mc_dsp/clock/trigger_clock.test.cpp
+    modules/mc_dsp/container/audio_block.test.cpp
+    modules/mc_dsp/fx/stereo_width.test.cpp
+    modules/mc_dsp/units/bars.test.cpp
+    modules/mc_dsp/units/bpm.test.cpp
+    modules/mc_dsp/units/sample_count.test.cpp
 
-        modules/mc_dsp/algorithm/averager.test.cpp
-        modules/mc_dsp/algorithm/down_sample.test.cpp
-        modules/mc_dsp/clock/trigger_clock.test.cpp
-        modules/mc_dsp/container/audio_block.test.cpp
-        modules/mc_dsp/fx/stereo_width.test.cpp
-        modules/mc_dsp/units/bars.test.cpp
-        modules/mc_dsp/units/bpm.test.cpp
-        modules/mc_dsp/units/sample_count.test.cpp
+    modules/mc_extension_pack/file/file_searcher.test.cpp
+    modules/mc_extension_pack/file/has_magic_header.test.cpp
+    modules/mc_extension_pack/pack/asset_loader.test.cpp
+    modules/mc_extension_pack/pack/extension_pack_builder.test.cpp
 
-        modules/mc_extension_pack/file/file_searcher.test.cpp
-        modules/mc_extension_pack/file/has_magic_header.test.cpp
-        modules/mc_extension_pack/pack/asset_loader.test.cpp
-        modules/mc_extension_pack/pack/extension_pack_builder.test.cpp
+    modules/mc_graphics/color/color.test.cpp
+    modules/mc_graphics/geometry/line.test.cpp
+    modules/mc_graphics/geometry/point.test.cpp
+    modules/mc_graphics/geometry/rectangle.test.cpp
+    modules/mc_graphics/images/image.test.cpp
 
-        modules/mc_graphics/color/color.test.cpp
-        modules/mc_graphics/geometry/line.test.cpp
-        modules/mc_graphics/geometry/point.test.cpp
-        modules/mc_graphics/geometry/rectangle.test.cpp
-        modules/mc_graphics/images/image.test.cpp
+    modules/mc_gui_basics/attachment/label_attachment.test.cpp
+    modules/mc_gui_basics/attachment/slider_attachment.test.cpp
+    modules/mc_gui_basics/widgets/xy_pad.test.cpp
 
-        modules/mc_gui_basics/attachment/label_attachment.test.cpp
-        modules/mc_gui_basics/attachment/slider_attachment.test.cpp
-        modules/mc_gui_basics/widgets/xy_pad.test.cpp
+    modules/mc_meters/level_meter/level_meter_source.test.cpp
 
-        modules/mc_meters/level_meter/level_meter_source.test.cpp
-
-        modules/mc_synth/math/hermite_interpolation.test.cpp
-        modules/mc_synth/wavetable/wavetable.test.cpp
-        modules/mc_synth/wavetable/wavetable_oscillator.test.cpp
+    modules/mc_synth/math/hermite_interpolation.test.cpp
+    modules/mc_synth/wavetable/wavetable.test.cpp
+    modules/mc_synth/wavetable/wavetable_oscillator.test.cpp
 )
 
-target_compile_definitions(${PROJECT_NAME}_tests
+target_sources(mc-juce-dev_tests PRIVATE MainTest.cpp ${test_sources})
+set_source_files_properties(mc-juce-dev_tests ${test_sources} PROPERTIES UNITY_GROUP "tests")
+
+target_compile_definitions(mc-juce-dev_tests
     PRIVATE
         JUCE_WEB_BROWSER=0
         JUCE_USE_OGGVORBIS=0
@@ -126,7 +127,7 @@ target_compile_definitions(${PROJECT_NAME}_tests
         _SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING=1
 )
 
-target_link_libraries(${PROJECT_NAME}_tests
+target_link_libraries(mc-juce-dev_tests
     PRIVATE
         Catch2::Catch2
 

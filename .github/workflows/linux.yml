@@ -61,6 +61,7 @@ jobs:
           -B build
           -D CMAKE_BUILD_TYPE=${{ matrix.build_mode }}
           -D CMAKE_CXX_STANDARD="${{ matrix.cxx }}"
+          -D CMAKE_UNITY_BUILD=ON
           -D MC_BUILD_WERROR=ON
 
       - name: CMake configure - CLANG
@@ -74,6 +75,7 @@ jobs:
           -D CMAKE_CXX_STANDARD="${{ matrix.cxx }}"
           -D CMAKE_C_COMPILER="clang-14"
           -D CMAKE_CXX_COMPILER="clang++-14"
+          -D CMAKE_UNITY_BUILD=ON
           -D MC_BUILD_WERROR=ON
 
       - name: CMake build

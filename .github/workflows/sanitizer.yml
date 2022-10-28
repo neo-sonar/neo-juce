@@ -36,6 +36,7 @@ jobs:
           -B build
           -D CMAKE_BUILD_TYPE=Debug
           -D CMAKE_CXX_STANDARD=${{ matrix.cxx }}
+          -D CMAKE_UNITY_BUILD=ON
           -D ${{ matrix.build.flags }}
 
       - name: CMake build
