@@ -32,7 +32,7 @@ auto LottieAnimation::parse(juce::var const& root) -> Expected<LottieAnimation, 
 
     for (auto const& layerRoot : *layers) {
         auto layer = parseLottieLayer(layerRoot);
-        if (not layer.has_value()) { return makeUnexpected<String>("no layers defined in model"); }
+        if (not layer.has_value()) { return makeUnexpected<String>("could not parse layer"); }
         model->layers.push_back(*layer);
     }
 
