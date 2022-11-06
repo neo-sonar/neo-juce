@@ -12,7 +12,7 @@ auto LottieShapeGroup::parse(juce::var const& obj) -> LottieShapeGroup
     if (shapesArray == nullptr) { throw InvalidArgument { "no shapes in group" }; }
 
     group.shapes.reserve(static_cast<size_t>(shapesArray->size()));
-    for (auto const shapeObj : *shapesArray) {
+    for (auto const& shapeObj : *shapesArray) {
         auto shape = makeUnique<LottieShape>(LottieShape::parse(shapeObj));
         group.shapes.push_back(std::move(shape));
     }

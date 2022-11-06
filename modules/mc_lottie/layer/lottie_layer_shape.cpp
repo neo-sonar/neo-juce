@@ -15,7 +15,7 @@ auto LottieShapeLayer::parse(juce::var const& obj) -> Expected<LottieShapeLayer,
     if (shapesArray == nullptr) { throw InvalidArgument { "no shapes in layer" }; }
 
     layer.shapes.reserve(static_cast<size_t>(shapesArray->size()));
-    for (auto const shapeObj : *shapesArray) { layer.shapes.push_back(LottieShape::parse(shapeObj)); }
+    for (auto const& shapeObj : *shapesArray) { layer.shapes.push_back(LottieShape::parse(shapeObj)); }
 
     return layer;
 }
