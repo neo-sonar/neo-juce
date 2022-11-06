@@ -1,23 +1,15 @@
 #pragma once
 
+#include <variant>
+
 namespace mc {
 
-using LottieLayer = variant<LottieNullLayer, LottieShapeLayer>;
+using LottieLayer = std::variant<LottieNullLayer, LottieShapeLayer>;
 
 [[nodiscard]] auto parseLottieLayer(juce::var const& layer) -> Expected<LottieLayer, String>;
 
-inline auto parseLottieLayer(juce::var const& obj) -> Expected<LottieLayer, String>
-{
-    auto const& ty = obj["ty"];
-    if (ty.isUndefined()) { return makeUnexpected<String>("no layer type"); }
-
-    switch (static_cast<LottieLayerType>(static_cast<int>(ty))) {
-    case LottieLayerType::null: return parseLottieNullLayer(obj);
-    case LottieLayerType::shape: return parseLottieShapeLayer(obj);
-    default: break;
-    }
-
-    return makeUnexpected<String>("unhandled layer type");
-}
+[[nodiscard]] auto name(LottieLayer const& layer) -> Optional<String>;
+[[nodiscard]] auto inPoint(LottieLayer const& layer) -> double;
+[[nodiscard]] auto outPoint(LottieLayer const& layer) -> double;
 
 } // namespace mc
