@@ -2,6 +2,27 @@
 
 namespace mc {
 
+enum struct LottieBlendMode {
+    normal     = 0,
+    multiply   = 1,
+    screen     = 2,
+    overlay    = 3,
+    darken     = 4,
+    lighten    = 5,
+    colorDodge = 6,
+    colorBurn  = 7,
+    hardLight  = 8,
+    softLight  = 9,
+    difference = 10,
+    exclusion  = 11,
+    hue        = 12,
+    saturation = 13,
+    color      = 14,
+    luminosity = 15,
+    add        = 16,
+    hardMix    = 17,
+};
+
 enum struct LottieLayerType {
     precomposition   = 0,
     solidColor       = 1,
@@ -21,25 +42,43 @@ enum struct LottieLayerType {
     data             = 15,
 };
 
-struct LottieNullLayer { };
+struct LottieTransform { };
+
+struct LottieNullLayer {
+    inline static constexpr auto type = LottieLayerType::null;
+
+    LottieTransform transform {};
+    double inPoint { 0 };
+    double outPoint { 0 };
+
+    Optional<String> name {};
+    Optional<bool> is3D { false };
+};
 
 struct LottieShapeLayer {
-    int ip { 0 };
-    int op { 0 };
+    inline static constexpr auto type = LottieLayerType::shape;
+
+    double inPoint { 0 };
+    double outPoint { 0 };
+
+    Optional<String> name {};
+    Optional<bool> is3D { false };
 };
 
 using LottieLayer = variant<LottieNullLayer, LottieShapeLayer>;
 
 struct LottieModel {
-    String name {};
-    String version {};
-    int ip { 0 };
-    int op { 0 };
-    int framerate { 60 };
-    int width { 512 };
-    int height { 512 };
-    int ddd { false };
+    double inPoint { 0 };
+    double outPoint { 0 };
+    double framerate { 0 };
+    double width { 0 };
+    double height { 0 };
     Vector<LottieLayer> layers;
+
+    Optional<String> name {};
+    Optional<String> version {};
+
+    bool is3D { false };
 };
 
 [[nodiscard]] auto loadLottieModel(juce::File const& path) -> Expected<LottieModel, String>;

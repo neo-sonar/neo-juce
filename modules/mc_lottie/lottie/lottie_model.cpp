@@ -1,5 +1,68 @@
 namespace mc {
 
+[[nodiscard]] static auto parseBool(juce::var const& obj) -> bool { return static_cast<bool>(obj); }
+[[nodiscard]] static auto parseDouble(juce::var const& obj) -> double { return static_cast<double>(obj); }
+[[nodiscard]] static auto parseString(juce::var const& obj) -> String { return obj.toString().toStdString(); }
+
+[[nodiscard]] static auto parseBool(juce::var const& obj, char const* token) -> bool
+{
+    if (auto const& val = obj[token]; not val.isUndefined()) { return parseBool(val); }
+    throw RuntimeError { "invalid type" };
+}
+
+[[nodiscard]] static auto parseDouble(juce::var const& obj, char const* token) -> double
+{
+    if (auto const& val = obj[token]; not val.isUndefined()) { return parseDouble(val); }
+    throw RuntimeError { "invalid type" };
+}
+
+[[nodiscard]] static auto parseString(juce::var const& obj, char const* token) -> String
+{
+    if (auto const& val = obj[token]; not val.isUndefined()) { return parseString(val); }
+    throw RuntimeError { "invalid type" };
+}
+
+[[nodiscard]] static auto parseOptionalBool(juce::var const& obj, char const* token) -> Optional<bool>
+{
+    if (auto const& val = obj[token]; not val.isUndefined()) { return parseBool(val); }
+    return {};
+}
+
+[[nodiscard]] static auto parseOptionalDouble(juce::var const& obj, char const* token) -> Optional<double>
+{
+    if (auto const& val = obj[token]; not val.isUndefined()) { return parseDouble(val); }
+    return {};
+}
+
+[[nodiscard]] static auto parseOptionalString(juce::var const& obj, char const* token) -> Optional<String>
+{
+    if (auto const& val = obj[token]; not val.isUndefined()) { return parseString(val); }
+    return {};
+}
+
+[[nodiscard]] static auto parseLottieTopLevel(juce::var const& obj) -> Expected<LottieModel, String>
+{
+    auto model      = LottieModel {};
+    model.name      = parseOptionalString(obj, "nm");
+    model.version   = parseOptionalString(obj, "v");
+    model.inPoint   = parseDouble(obj, "ip");
+    model.outPoint  = parseDouble(obj, "op");
+    model.width     = parseDouble(obj, "w");
+    model.height    = parseDouble(obj, "h");
+    model.framerate = parseDouble(obj, "fr");
+    model.is3D      = parseOptionalBool(obj, "ddd").value_or(false);
+    return model;
+}
+
+template <typename T>
+static auto parseLottieLayerCommon(juce::var const& obj, T& layer)
+{
+    layer.inPoint  = parseDouble(obj, "ip");
+    layer.outPoint = parseDouble(obj, "op");
+    layer.name     = parseOptionalString(obj, "nm");
+    layer.is3D     = parseOptionalBool(obj, "ddd").value_or(false);
+}
+
 auto loadLottieModel(juce::File const& path) -> Expected<LottieModel, String>
 {
     if (not path.existsAsFile()) { return makeUnexpected<String>("invalid path"); }
@@ -8,17 +71,10 @@ auto loadLottieModel(juce::File const& path) -> Expected<LottieModel, String>
     return parseLottieModel(root);
 }
 
-[[nodiscard]] auto parseLottieModel(juce::var const& root) -> Expected<LottieModel, String>
+auto parseLottieModel(juce::var const& root) -> Expected<LottieModel, String>
 {
-    auto model = LottieModel {};
-
-    if (auto const& name = root["nm"]; not name.isUndefined()) { model.name = name.toString().toStdString(); }
-    if (auto const& ver = root["v"]; not ver.isUndefined()) { model.version = ver.toString().toStdString(); }
-    if (auto const& ip = root["ip"]; not ip.isUndefined()) { model.ip = static_cast<int>(ip); }
-    if (auto const& op = root["op"]; not op.isUndefined()) { model.op = static_cast<int>(op); }
-    if (auto const& w = root["w"]; not w.isUndefined()) { model.width = static_cast<int>(w); }
-    if (auto const& h = root["h"]; not h.isUndefined()) { model.height = static_cast<int>(h); }
-    if (auto const& ddd = root["ddd"]; not ddd.isUndefined()) { model.ddd = static_cast<int>(ddd); }
+    auto model = parseLottieTopLevel(root);
+    if (not model.has_value()) { return makeUnexpected<String>("failed to parse top-level of model"); }
 
     auto const* layers = root["layers"].getArray();
     if (layers == nullptr) { return makeUnexpected<String>("no layers defined in model"); }
@@ -26,13 +82,13 @@ auto loadLottieModel(juce::File const& path) -> Expected<LottieModel, String>
     for (auto const& layerRoot : *layers) {
         auto layer = parseLottieLayer(layerRoot);
         if (not layer.has_value()) { return makeUnexpected<String>("no layers defined in model"); }
-        model.layers.push_back(*layer);
+        model->layers.push_back(*layer);
     }
 
-    return model;
+    return *model;
 }
 
-[[nodiscard]] auto parseLottieLayer(juce::var const& obj) -> Expected<LottieLayer, String>
+auto parseLottieLayer(juce::var const& obj) -> Expected<LottieLayer, String>
 {
     auto const& ty = obj["ty"];
     if (ty.isUndefined()) { return makeUnexpected<String>("no layer type"); }
@@ -46,16 +102,17 @@ auto loadLottieModel(juce::File const& path) -> Expected<LottieModel, String>
     return makeUnexpected<String>("unhandled layer type");
 }
 
-[[nodiscard]] auto parseLottieNullLayer(juce::var const& /*obj*/) -> Expected<LottieNullLayer, String>
+auto parseLottieNullLayer(juce::var const& obj) -> Expected<LottieNullLayer, String>
 {
-    return LottieNullLayer {};
+    auto layer = LottieNullLayer {};
+    parseLottieLayerCommon(obj, layer);
+    return layer;
 }
 
-[[nodiscard]] auto parseLottieShapeLayer(juce::var const& obj) -> Expected<LottieShapeLayer, String>
+auto parseLottieShapeLayer(juce::var const& obj) -> Expected<LottieShapeLayer, String>
 {
     auto layer = LottieShapeLayer {};
-    if (auto const& ip = obj["ip"]; not ip.isUndefined()) { layer.ip = static_cast<int>(ip); }
-    if (auto const& op = obj["op"]; not op.isUndefined()) { layer.op = static_cast<int>(op); }
+    parseLottieLayerCommon(obj, layer);
     return layer;
 }
 

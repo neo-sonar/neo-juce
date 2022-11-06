@@ -21,8 +21,8 @@ TEST_CASE("lottie/types: LottieModel", "[lottie]") // NOLINT
         auto model = result.value();
         REQUIRE(model.name == "Frame 2");
         REQUIRE(model.version == "5.9.6");
-        REQUIRE(model.ip == 0);
-        REQUIRE(model.op == 120);
+        REQUIRE(model.inPoint == 0);
+        REQUIRE(model.outPoint == 120);
         REQUIRE(model.framerate == 60);
         REQUIRE(model.width == 150);
         REQUIRE(model.height == 150);
