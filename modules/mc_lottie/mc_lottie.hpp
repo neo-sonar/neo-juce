@@ -27,6 +27,7 @@ END_JUCE_MODULE_DECLARATION
 // clang-format off
 #include "detail/lottie_json_parser.hpp"
 #include "types/lottie_blend_mode.hpp"
+#include "types/lottie_vec2.hpp"
 #include "types/lottie_transform.hpp"
 #include "shape/lottie_shape_type.hpp"
 #include "shape/lottie_shape_ellipse.hpp"
