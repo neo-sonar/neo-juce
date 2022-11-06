@@ -2,6 +2,21 @@
 
 #include <catch2/catch_test_macros.hpp>
 
+TEST_CASE("lottie/model: LottieModel::load(not_found.json)", "[lottie]")
+{
+    auto const cwd = juce::File::getCurrentWorkingDirectory();
+    REQUIRE_THROWS(mc::LottieModel::load(cwd.getChildFile("test_data/lottie/not_found.json")));
+
+    auto const invalid = mc::LottieModel {};
+    REQUIRE_THROWS(mc::name(invalid));
+    REQUIRE_THROWS(mc::version(invalid));
+    REQUIRE_THROWS(mc::inPoint(invalid));
+    REQUIRE_THROWS(mc::outPoint(invalid));
+    REQUIRE_THROWS(mc::width(invalid));
+    REQUIRE_THROWS(mc::height(invalid));
+    REQUIRE_THROWS(mc::framerate(invalid));
+}
+
 TEST_CASE("lottie/model: LottieModel::load(bouncy_ball.json)", "[lottie]")
 {
     auto const cwd   = juce::File::getCurrentWorkingDirectory();
