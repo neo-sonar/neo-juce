@@ -6,6 +6,14 @@
 
 namespace mc {
 
+template <typename ComponentType>
+inline auto getComponent(StringView comp, entt::registry const& reg, entt::entity entity) -> ComponentType const&
+{
+    if (not reg.valid(entity)) { raise<RuntimeError>("invalid entity"); }
+    if (not reg.all_of<ComponentType>(entity)) { raisef<RuntimeError>("missing component: {}", comp); }
+    return reg.get<ComponentType>(entity);
+}
+
 struct LottieName {
     String name;
 };
@@ -63,7 +71,7 @@ struct LottieModel {
     [[nodiscard]] static auto load(juce::File const& file) -> LottieModel
     {
         auto const obj = juce::JSON::parse(file);
-        if (obj == juce::var{}) { raisef<InvalidArgument>("failed to parse lottie json: {}", file); }
+        if (obj == juce::var {}) { raisef<InvalidArgument>("failed to parse lottie json: {}", file); }
 
         auto model = LottieModel {};
         model.root = parseLottieHeader(model.registry, obj);
@@ -76,58 +84,37 @@ struct LottieModel {
 
 inline auto name(LottieModel const& model) -> String const&
 {
-    auto const& reg = model.registry;
-    if (not reg.valid(model.root)) { raise<RuntimeError>("invalid root entity"); }
-    if (not reg.all_of<LottieName>(model.root)) { raise<RuntimeError>("missing: LottieName"); }
-    return reg.get<LottieName>(model.root).name;
+    return getComponent<LottieName>("LottieName", model.registry, model.root).name;
 }
 
 inline auto version(LottieModel const& model) -> String const&
 {
-    auto const& reg = model.registry;
-    if (not reg.valid(model.root)) { raise<RuntimeError>("invalid root entity"); }
-    if (not reg.all_of<LottieVersion>(model.root)) { raise<RuntimeError>("missing: LottieVersion"); }
-    return reg.get<LottieVersion>(model.root).version;
+    return getComponent<LottieVersion>("LottieVersion", model.registry, model.root).version;
 }
 
 inline auto inPoint(LottieModel const& model) -> double
 {
-    auto const& reg = model.registry;
-    if (not reg.valid(model.root)) { raise<RuntimeError>("invalid root entity"); }
-    if (not reg.all_of<LottieInOutPoints>(model.root)) { raise<RuntimeError>("missing: LottieInOutPoints"); }
-    return reg.get<LottieInOutPoints>(model.root).in;
+    return getComponent<LottieInOutPoints>("LottieInOutPoints", model.registry, model.root).in;
 }
 
 inline auto outPoint(LottieModel const& model) -> double
 {
-    auto const& reg = model.registry;
-    if (not reg.valid(model.root)) { raise<RuntimeError>("invalid root entity"); }
-    if (not reg.all_of<LottieInOutPoints>(model.root)) { raise<RuntimeError>("missing: LottieInOutPoints"); }
-    return reg.get<LottieInOutPoints>(model.root).out;
+    return getComponent<LottieInOutPoints>("LottieInOutPoints", model.registry, model.root).out;
 }
 
 inline auto width(LottieModel const& model) -> double
 {
-    auto const& reg = model.registry;
-    if (not reg.valid(model.root)) { raise<RuntimeError>("invalid root entity"); }
-    if (not reg.all_of<LottieSize2D>(model.root)) { raise<RuntimeError>("missing: LottieSize2D"); }
-    return reg.get<LottieSize2D>(model.root).width;
+    return getComponent<LottieSize2D>("LottieSize2D", model.registry, model.root).width;
 }
 
 inline auto height(LottieModel const& model) -> double
 {
-    auto const& reg = model.registry;
-    if (not reg.valid(model.root)) { raise<RuntimeError>("invalid root entity"); }
-    if (not reg.all_of<LottieSize2D>(model.root)) { raise<RuntimeError>("missing: LottieSize2D"); }
-    return reg.get<LottieSize2D>(model.root).height;
+    return getComponent<LottieSize2D>("LottieSize2D", model.registry, model.root).height;
 }
 
 inline auto framerate(LottieModel const& model) -> double
 {
-    auto const& reg = model.registry;
-    if (not reg.valid(model.root)) { raise<RuntimeError>("invalid root entity"); }
-    if (not reg.all_of<LottieFramerate>(model.root)) { raise<RuntimeError>("missing: LottieFramerate"); }
-    return reg.get<LottieFramerate>(model.root).fps;
+    return getComponent<LottieFramerate>("LottieFramerate", model.registry, model.root).fps;
 }
 
 } // namespace mc
