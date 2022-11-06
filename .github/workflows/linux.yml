@@ -18,6 +18,9 @@ jobs:
         with:
           lfs: true
 
+      - name: Update apt
+        run: sudo apt update -y
+
       - name: Install JUCE dependencies
         run: >
           sudo apt install -y
@@ -48,7 +51,6 @@ jobs:
 
       - name: Install conan
         run: |
-          sudo apt update -y
           pip install conan
           conan config set general.revisions_enabled=1
 
