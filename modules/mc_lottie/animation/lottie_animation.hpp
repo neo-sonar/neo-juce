@@ -17,6 +17,6 @@ struct LottieAnimation {
 };
 
 [[nodiscard]] auto loadLottieAnimation(juce::File const& path) -> Expected<LottieAnimation, String>;
-[[nodiscard]] auto parseLottieAnimation(juce::var const& model) -> Expected<LottieAnimation, String>;
+[[nodiscard]] auto parseLottieAnimation(juce::var const& root) -> Expected<LottieAnimation, String>;
 
 } // namespace mc

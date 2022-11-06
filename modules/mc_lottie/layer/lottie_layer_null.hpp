@@ -13,7 +13,7 @@ struct LottieNullLayer {
     Optional<bool> is3D { false };
 };
 
-[[nodiscard]] auto parseLottieNullLayer(juce::var const& layer) -> Expected<LottieNullLayer, String>;
+[[nodiscard]] auto parseLottieNullLayer(juce::var const& obj) -> Expected<LottieNullLayer, String>;
 
 inline auto parseLottieNullLayer(juce::var const& obj) -> Expected<LottieNullLayer, String>
 {

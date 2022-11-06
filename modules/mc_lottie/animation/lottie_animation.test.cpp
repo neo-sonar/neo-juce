@@ -15,7 +15,7 @@ TEST_CASE("lottie/animation: loadLottieAnimation(knob.json)", "[lottie]")
     auto const result = mc::loadLottieAnimation(cwd.getChildFile("test_data/lottie/knob.json"));
     REQUIRE(result.has_value());
 
-    auto const model = result.value();
+    auto const& model = result.value();
     REQUIRE(model.name == "Frame 2");
     REQUIRE(model.version == "5.9.6");
     REQUIRE(model.inPoint == 0);
@@ -32,7 +32,7 @@ TEST_CASE("lottie/animation: loadLottieAnimation(bouncy_ball.json)", "[lottie]")
     auto const result = mc::loadLottieAnimation(cwd.getChildFile("test_data/lottie/bouncy_ball.json"));
     REQUIRE(result.has_value());
 
-    auto const model = result.value();
+    auto const& model = result.value();
     REQUIRE(model.name == "Bouncy Ball");
     REQUIRE(model.version == "5.5.2");
     REQUIRE(model.inPoint == 0);
@@ -55,5 +55,4 @@ TEST_CASE("lottie/animation: loadLottieAnimation(bouncy_ball.json)", "[lottie]")
 
     REQUIRE(mc::transform(layer).scale.x == 100.0);
     REQUIRE(mc::transform(layer).scale.y == 100.0);
-
 }
