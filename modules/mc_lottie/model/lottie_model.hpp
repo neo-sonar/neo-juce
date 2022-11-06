@@ -28,7 +28,7 @@ struct LottieSize2D {
     double height;
 };
 
-[[nodiscard]] inline static auto parseLottieAnimationHeader(entt::registry& reg, juce::var const& obj) -> entt::entity
+[[nodiscard]] inline auto parseLottieAnimationHeader(entt::registry& reg, juce::var const& obj) -> entt::entity
 {
     auto const root = reg.create();
 
@@ -73,53 +73,53 @@ struct LottieModel {
     entt::entity root;
 };
 
-inline static auto name(LottieModel const& model) -> String const&
+inline auto name(LottieModel const& model) -> String const&
 {
     auto const& reg = model.registry;
-    if (not reg.all_of<mc::LottieName>(model.root)) { raise<InvalidArgument>("missing: LottieName"); }
-    return reg.get<mc::LottieName>(model.root).name;
+    if (not reg.all_of<LottieName>(model.root)) { raise<RuntimeError>("missing: LottieName"); }
+    return reg.get<LottieName>(model.root).name;
 }
 
-inline static auto version(LottieModel const& model) -> String const&
+inline auto version(LottieModel const& model) -> String const&
 {
     auto const& reg = model.registry;
-    if (not reg.all_of<mc::LottieVersion>(model.root)) { raise<InvalidArgument>("missing: LottieVersion"); }
-    return reg.get<mc::LottieVersion>(model.root).version;
+    if (not reg.all_of<LottieVersion>(model.root)) { raise<RuntimeError>("missing: LottieVersion"); }
+    return reg.get<LottieVersion>(model.root).version;
 }
 
-inline static auto inPoint(LottieModel const& model) -> double
+inline auto inPoint(LottieModel const& model) -> double
 {
     auto const& reg = model.registry;
-    if (not reg.all_of<mc::LottieInOutPoints>(model.root)) { raise<InvalidArgument>("missing: LottieInOutPoints"); }
-    return reg.get<mc::LottieInOutPoints>(model.root).in;
+    if (not reg.all_of<LottieInOutPoints>(model.root)) { raise<RuntimeError>("missing: LottieInOutPoints"); }
+    return reg.get<LottieInOutPoints>(model.root).in;
 }
 
-inline static auto outPoint(LottieModel const& model) -> double
+inline auto outPoint(LottieModel const& model) -> double
 {
     auto const& reg = model.registry;
-    if (not reg.all_of<mc::LottieInOutPoints>(model.root)) { raise<InvalidArgument>("missing: LottieInOutPoints"); }
-    return reg.get<mc::LottieInOutPoints>(model.root).out;
+    if (not reg.all_of<LottieInOutPoints>(model.root)) { raise<RuntimeError>("missing: LottieInOutPoints"); }
+    return reg.get<LottieInOutPoints>(model.root).out;
 }
 
-inline static auto width(LottieModel const& model) -> double
+inline auto width(LottieModel const& model) -> double
 {
     auto const& reg = model.registry;
-    if (not reg.all_of<mc::LottieSize2D>(model.root)) { raise<InvalidArgument>("missing: LottieSize2D"); }
-    return reg.get<mc::LottieSize2D>(model.root).width;
+    if (not reg.all_of<LottieSize2D>(model.root)) { raise<RuntimeError>("missing: LottieSize2D"); }
+    return reg.get<LottieSize2D>(model.root).width;
 }
 
-inline static auto height(LottieModel const& model) -> double
+inline auto height(LottieModel const& model) -> double
 {
     auto const& reg = model.registry;
-    if (not reg.all_of<mc::LottieSize2D>(model.root)) { raise<InvalidArgument>("missing: LottieSize2D"); }
-    return reg.get<mc::LottieSize2D>(model.root).height;
+    if (not reg.all_of<LottieSize2D>(model.root)) { raise<RuntimeError>("missing: LottieSize2D"); }
+    return reg.get<LottieSize2D>(model.root).height;
 }
 
-inline static auto framerate(LottieModel const& model) -> double
+inline auto framerate(LottieModel const& model) -> double
 {
     auto const& reg = model.registry;
-    if (not reg.all_of<mc::LottieFramerate>(model.root)) { raise<InvalidArgument>("missing: LottieFramerate"); }
-    return reg.get<mc::LottieFramerate>(model.root).fps;
+    if (not reg.all_of<LottieFramerate>(model.root)) { raise<RuntimeError>("missing: LottieFramerate"); }
+    return reg.get<LottieFramerate>(model.root).fps;
 }
 
 } // namespace mc
