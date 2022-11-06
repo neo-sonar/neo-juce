@@ -30,7 +30,7 @@ TEST_CASE("lottie/shape: LottieShapeGradientStroke::parse", "[lottie]")
         }
     )";
 
-    auto const obj     = juce::JSON::parse(src);
-    auto const ellipse = mc::LottieShapeGradientStroke::parse(obj);
+    auto const obj = juce::JSON::parse(src);
+    REQUIRE_NOTHROW(mc::LottieShapeGradientStroke::parse(obj));
     SUCCEED();
 }

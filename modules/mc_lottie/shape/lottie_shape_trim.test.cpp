@@ -26,6 +26,6 @@ TEST_CASE("lottie/shape: LottieShapeTrim::parse", "[lottie]")
     )";
 
     auto const obj  = juce::JSON::parse(src);
-    auto const trim = mc::LottieShapeTrim::parse(obj);
+    REQUIRE_NOTHROW(mc::LottieShapeTrim::parse(obj));
     SUCCEED();
 }
