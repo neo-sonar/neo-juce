@@ -109,7 +109,7 @@ set(test_sources
     modules/mc_gui_basics/attachment/slider_attachment.test.cpp
     modules/mc_gui_basics/widgets/xy_pad.test.cpp
 
-    modules/mc_lottie/lottie/lottie_model.test.cpp
+    modules/mc_lottie/animation/lottie_animation.test.cpp
 
     modules/mc_meters/level_meter/level_meter_source.test.cpp
 

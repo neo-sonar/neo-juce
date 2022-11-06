@@ -2,20 +2,20 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("lottie/types: LottieModel", "[lottie]") // NOLINT
+TEST_CASE("lottie/types: LottieAnimation", "[lottie]") // NOLINT
 {
     using namespace mc;
     auto const cwd = juce::File::getCurrentWorkingDirectory();
 
     SECTION("invalid file path")
     {
-        auto result = loadLottieModel(cwd.getChildFile("test_data/lottie/notfound.json"));
+        auto result = loadLottieAnimation(cwd.getChildFile("test_data/lottie/notfound.json"));
         REQUIRE_FALSE(result.has_value());
     }
 
     SECTION("knob")
     {
-        auto result = loadLottieModel(cwd.getChildFile("test_data/lottie/lottie_knob.json"));
+        auto result = loadLottieAnimation(cwd.getChildFile("test_data/lottie/lottie_knob.json"));
         REQUIRE(result.has_value());
 
         auto model = result.value();

@@ -1,3 +1,3 @@
 #include "mc_lottie.hpp"
 
-#include "lottie/lottie_model.cpp" // NOLINT(bugprone-suspicious-include)
+#include "animation/lottie_animation.cpp" // NOLINT(bugprone-suspicious-include)

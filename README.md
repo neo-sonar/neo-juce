@@ -22,6 +22,6 @@
 |  `mc_extension_pack`  | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
 |     `mc_graphics`     |   [GPL/Commercial](https://juce.com/get-juce)    |
 |    `mc_gui_basics`    |   [GPL/Commercial](https://juce.com/get-juce)    |
-|      `mc_lottie`      |       [BSL-1.0](https://juce.com/get-juce)       |
+|      `mc_lottie`      |   [GPL/Commercial](https://juce.com/get-juce)    |
 |      `mc_meters`      |   [GPL/Commercial](https://juce.com/get-juce)    |
 |      `mc_synth`       |   [GPL/Commercial](https://juce.com/get-juce)    |
