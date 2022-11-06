@@ -3,6 +3,8 @@
 namespace mc {
 
 struct LottieNullLayer {
+    [[nodiscard]] static auto parse(juce::var const& obj) -> Expected<LottieNullLayer, String>;
+
     inline static constexpr auto type = LottieLayerType::null;
 
     LottieTransform transform {};
@@ -13,9 +15,7 @@ struct LottieNullLayer {
     Optional<bool> is3D { false };
 };
 
-[[nodiscard]] auto parseLottieNullLayer(juce::var const& obj) -> Expected<LottieNullLayer, String>;
-
-inline auto parseLottieNullLayer(juce::var const& obj) -> Expected<LottieNullLayer, String>
+inline auto LottieNullLayer::parse(juce::var const& obj) -> Expected<LottieNullLayer, String>
 {
     auto layer = LottieNullLayer {};
     parseLottieLayerCommon(obj, layer);

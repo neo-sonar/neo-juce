@@ -2,7 +2,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("lottie/shape: parseLottieShapeRectangle", "[lottie]")
+TEST_CASE("lottie/shape: LottieShapeRectangle::parse", "[lottie]")
 {
     auto const* src = R"(
         {
@@ -30,7 +30,7 @@ TEST_CASE("lottie/shape: parseLottieShapeRectangle", "[lottie]")
     )";
 
     auto const obj       = juce::JSON::parse(src);
-    auto const rectangle = mc::parseLottieShapeRectangle(obj);
+    auto const rectangle = mc::LottieShapeRectangle::parse(obj);
     REQUIRE(rectangle.name.has_value());
     REQUIRE(rectangle.name.value() == "Rectangle");
     REQUIRE(rectangle.position.x == 128);

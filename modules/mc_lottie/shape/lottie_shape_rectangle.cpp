@@ -1,6 +1,6 @@
 namespace mc {
 
-auto parseLottieShapeRectangle(juce::var const& obj) -> LottieShapeRectangle
+auto LottieShapeRectangle::parse(juce::var const& obj) -> LottieShapeRectangle
 {
     auto rectangle      = LottieShapeRectangle {};
     rectangle.name      = parseOptionalString(obj, "nm");

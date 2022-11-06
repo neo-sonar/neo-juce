@@ -3,6 +3,9 @@
 namespace mc {
 
 struct LottieShapeRectangle {
+    [[nodiscard]] static auto parse(juce::var const& obj) -> LottieShapeRectangle;
+
+    inline static constexpr auto const type   = LottieShapeType::rectangle;
     inline static constexpr auto const* token = "rc";
 
     LottieVec2 position {};
@@ -11,7 +14,5 @@ struct LottieShapeRectangle {
 
     Optional<String> name {};
 };
-
-[[nodiscard]] auto parseLottieShapeRectangle(juce::var const& obj) -> LottieShapeRectangle;
 
 } // namespace mc

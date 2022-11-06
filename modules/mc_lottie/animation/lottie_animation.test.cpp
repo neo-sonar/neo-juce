@@ -2,17 +2,17 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("lottie/animation: loadLottieAnimation(notfound.json)", "[lottie]")
+TEST_CASE("lottie/animation: LottieAnimation::load(notfound.json)", "[lottie]")
 {
     auto const cwd    = juce::File::getCurrentWorkingDirectory();
-    auto const result = mc::loadLottieAnimation(cwd.getChildFile("test_data/lottie/notfound.json"));
+    auto const result = mc::LottieAnimation::load(cwd.getChildFile("test_data/lottie/notfound.json"));
     REQUIRE_FALSE(result.has_value());
 }
 
-TEST_CASE("lottie/animation: loadLottieAnimation(knob.json)", "[lottie]")
+TEST_CASE("lottie/animation: LottieAnimation::load(knob.json)", "[lottie]")
 {
     auto const cwd    = juce::File::getCurrentWorkingDirectory();
-    auto const result = mc::loadLottieAnimation(cwd.getChildFile("test_data/lottie/knob.json"));
+    auto const result = mc::LottieAnimation::load(cwd.getChildFile("test_data/lottie/knob.json"));
     REQUIRE(result.has_value());
 
     auto const& model = result.value();
@@ -26,10 +26,10 @@ TEST_CASE("lottie/animation: loadLottieAnimation(knob.json)", "[lottie]")
     REQUIRE(model.layers.size() == 10);
 }
 
-TEST_CASE("lottie/animation: loadLottieAnimation(bouncy_ball.json)", "[lottie]")
+TEST_CASE("lottie/animation: LottieAnimation::load(bouncy_ball.json)", "[lottie]")
 {
     auto const cwd    = juce::File::getCurrentWorkingDirectory();
-    auto const result = mc::loadLottieAnimation(cwd.getChildFile("test_data/lottie/bouncy_ball.json"));
+    auto const result = mc::LottieAnimation::load(cwd.getChildFile("test_data/lottie/bouncy_ball.json"));
     REQUIRE(result.has_value());
 
     auto const& model = result.value();

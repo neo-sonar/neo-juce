@@ -14,15 +14,15 @@ namespace mc {
     return model;
 }
 
-auto loadLottieAnimation(juce::File const& path) -> Expected<LottieAnimation, String>
+auto LottieAnimation::load(juce::File const& path) -> Expected<LottieAnimation, String>
 {
     if (not path.existsAsFile()) { return makeUnexpected<String>("invalid path"); }
 
     auto root = juce::JSON::parse(path);
-    return parseLottieAnimation(root);
+    return LottieAnimation::parse(root);
 }
 
-auto parseLottieAnimation(juce::var const& root) -> Expected<LottieAnimation, String>
+auto LottieAnimation::parse(juce::var const& root) -> Expected<LottieAnimation, String>
 {
     auto model = parseLottieTopLevel(root);
     if (not model.has_value()) { return makeUnexpected<String>("failed to parse top-level of model"); }

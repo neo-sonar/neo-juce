@@ -3,6 +3,9 @@
 namespace mc {
 
 struct LottieAnimation {
+    [[nodiscard]] static auto load(juce::File const& path) -> Expected<LottieAnimation, String>;
+    [[nodiscard]] static auto parse(juce::var const& root) -> Expected<LottieAnimation, String>;
+
     double inPoint { 0 };
     double outPoint { 0 };
     double framerate { 0 };
@@ -15,8 +18,5 @@ struct LottieAnimation {
 
     bool is3D { false };
 };
-
-[[nodiscard]] auto loadLottieAnimation(juce::File const& path) -> Expected<LottieAnimation, String>;
-[[nodiscard]] auto parseLottieAnimation(juce::var const& root) -> Expected<LottieAnimation, String>;
 
 } // namespace mc

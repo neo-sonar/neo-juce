@@ -3,6 +3,8 @@
 namespace mc {
 
 struct LottieShapeLayer {
+    [[nodiscard]] static auto parse(juce::var const& obj) -> Expected<LottieShapeLayer, String>;
+
     inline static constexpr auto type = LottieLayerType::shape;
 
     LottieTransform transform {};
@@ -13,7 +15,5 @@ struct LottieShapeLayer {
     Optional<String> name {};
     Optional<bool> is3D { false };
 };
-
-[[nodiscard]] auto parseLottieShapeLayer(juce::var const& obj) -> Expected<LottieShapeLayer, String>;
 
 } // namespace mc

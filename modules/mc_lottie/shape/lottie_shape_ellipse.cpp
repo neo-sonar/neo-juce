@@ -1,6 +1,6 @@
 namespace mc {
 
-auto parseLottieShapeEllipse(juce::var const& obj) -> LottieShapeEllipse
+auto LottieShapeEllipse::parse(juce::var const& obj) -> LottieShapeEllipse
 {
     auto ellipse     = LottieShapeEllipse {};
     ellipse.name     = parseOptionalString(obj, "nm");

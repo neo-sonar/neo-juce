@@ -2,7 +2,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("lottie/shape: parseLottieShape(ellipse)", "[lottie]")
+TEST_CASE("lottie/shape: LottieShape::parse(ellipse)", "[lottie]")
 {
     auto const* src = R"(
         {
@@ -25,9 +25,9 @@ TEST_CASE("lottie/shape: parseLottieShape(ellipse)", "[lottie]")
         }
     )";
 
-    auto const obj     = juce::JSON::parse(src);
-    auto const shape   = mc::parseLottieShape(obj);
-    auto const ellipse = std::get_if<mc::LottieShapeEllipse>(&shape);
+    auto const obj      = juce::JSON::parse(src);
+    auto const shape    = mc::LottieShape::parse(obj);
+    auto const* ellipse = shape.get<mc::LottieShapeEllipse>();
     REQUIRE(ellipse != nullptr);
     REQUIRE(ellipse->name.has_value());
     REQUIRE(ellipse->name.value() == "Ellipse");
@@ -37,7 +37,7 @@ TEST_CASE("lottie/shape: parseLottieShape(ellipse)", "[lottie]")
     REQUIRE(ellipse->size.y == 1024);
 }
 
-TEST_CASE("lottie/shape: parseLottieShape(rectangle)", "[lottie]")
+TEST_CASE("lottie/shape: LottieShape::parse(rectangle)", "[lottie]")
 {
     auto const* src = R"(
         {
@@ -64,9 +64,9 @@ TEST_CASE("lottie/shape: parseLottieShape(rectangle)", "[lottie]")
         }
     )";
 
-    auto const obj       = juce::JSON::parse(src);
-    auto const shape     = mc::parseLottieShape(obj);
-    auto const rectangle = std::get_if<mc::LottieShapeRectangle>(&shape);
+    auto const obj        = juce::JSON::parse(src);
+    auto const shape      = mc::LottieShape::parse(obj);
+    auto const* rectangle = shape.get<mc::LottieShapeRectangle>();
     REQUIRE(rectangle != nullptr);
     REQUIRE(rectangle->name.has_value());
     REQUIRE(rectangle->name.value() == "Rectangle");
