@@ -111,6 +111,9 @@ set(test_sources
 
     modules/mc_lottie/animation/lottie_animation.test.cpp
     modules/mc_lottie/shape/lottie_shape_ellipse.test.cpp
+    modules/mc_lottie/shape/lottie_shape_group.test.cpp
+    modules/mc_lottie/shape/lottie_shape_fill.test.cpp
+    modules/mc_lottie/shape/lottie_shape_transform.test.cpp
     modules/mc_lottie/shape/lottie_shape_rectangle.test.cpp
     modules/mc_lottie/shape/lottie_shape.test.cpp
 

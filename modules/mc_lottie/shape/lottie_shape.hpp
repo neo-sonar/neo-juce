@@ -6,6 +6,8 @@ struct LottieShape {
 
     explicit LottieShape(LottieShapeRectangle rectangle);
     explicit LottieShape(LottieShapeEllipse ellipse);
+    explicit LottieShape(LottieShapeFill fill);
+    explicit LottieShape(LottieShapeTransform transform);
     explicit LottieShape(LottieShapeGroup group);
 
     [[nodiscard]] auto isType(LottieShapeType type) const -> bool;
@@ -19,6 +21,8 @@ private:
     using Shape = std::variant< //
         LottieShapeRectangle,   //
         LottieShapeEllipse,     //
+        LottieShapeFill,        //
+        LottieShapeTransform,   //
         LottieShapeGroup        //
         >;
 

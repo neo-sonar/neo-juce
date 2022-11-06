@@ -5,4 +5,7 @@
 #include "layer/lottie_layer_shape.cpp"     // NOLINT(bugprone-suspicious-include)
 #include "shape/lottie_shape.cpp"           // NOLINT(bugprone-suspicious-include)
 #include "shape/lottie_shape_ellipse.cpp"   // NOLINT(bugprone-suspicious-include)
+#include "shape/lottie_shape_fill.cpp"      // NOLINT(bugprone-suspicious-include)
+#include "shape/lottie_shape_group.cpp"     // NOLINT(bugprone-suspicious-include)
 #include "shape/lottie_shape_rectangle.cpp" // NOLINT(bugprone-suspicious-include)
+#include "shape/lottie_shape_transform.cpp" // NOLINT(bugprone-suspicious-include)
