@@ -8,7 +8,11 @@ struct LottieShape {
     explicit LottieShape(LottieShapeEllipse ellipse);
     explicit LottieShape(LottieShapeFill fill);
     explicit LottieShape(LottieShapeTransform transform);
+    explicit LottieShape(LottieShapeGradientFill gradient);
+    explicit LottieShape(LottieShapeGradientStroke gradient);
     explicit LottieShape(LottieShapeGroup group);
+    explicit LottieShape(LottieShapeTrim trim);
+    explicit LottieShape(LottieShapePath path);
 
     [[nodiscard]] auto isType(LottieShapeType type) const -> bool;
 
@@ -18,12 +22,16 @@ struct LottieShape {
     [[nodiscard]] static auto parse(juce::var const& obj) -> LottieShape;
 
 private:
-    using Shape = std::variant< //
-        LottieShapeRectangle,   //
-        LottieShapeEllipse,     //
-        LottieShapeFill,        //
-        LottieShapeTransform,   //
-        LottieShapeGroup        //
+    using Shape = std::variant<    //
+        LottieShapeRectangle,      //
+        LottieShapeEllipse,        //
+        LottieShapeFill,           //
+        LottieShapeGradientFill,   //
+        LottieShapeGradientStroke, //
+        LottieShapeTrim,           //
+        LottieShapePath,           //
+        LottieShapeTransform,      //
+        LottieShapeGroup           //
         >;
 
     Shape _shape;

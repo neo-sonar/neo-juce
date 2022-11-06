@@ -111,10 +111,14 @@ set(test_sources
 
     modules/mc_lottie/animation/lottie_animation.test.cpp
     modules/mc_lottie/shape/lottie_shape_ellipse.test.cpp
-    modules/mc_lottie/shape/lottie_shape_group.test.cpp
     modules/mc_lottie/shape/lottie_shape_fill.test.cpp
-    modules/mc_lottie/shape/lottie_shape_transform.test.cpp
+    modules/mc_lottie/shape/lottie_shape_gradient_fill.test.cpp
+    modules/mc_lottie/shape/lottie_shape_gradient_stroke.test.cpp
+    modules/mc_lottie/shape/lottie_shape_group.test.cpp
+    modules/mc_lottie/shape/lottie_shape_path.test.cpp
     modules/mc_lottie/shape/lottie_shape_rectangle.test.cpp
+    modules/mc_lottie/shape/lottie_shape_transform.test.cpp
+    modules/mc_lottie/shape/lottie_shape_trim.test.cpp
     modules/mc_lottie/shape/lottie_shape.test.cpp
 
     modules/mc_meters/level_meter/level_meter_source.test.cpp

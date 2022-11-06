@@ -28,10 +28,4 @@ TEST_CASE("lottie/shape: LottieShapeFill::parse", "[lottie]")
     auto const obj     = juce::JSON::parse(src);
     auto const ellipse = mc::LottieShapeFill::parse(obj);
     SUCCEED();
-    // REQUIRE(ellipse.name.has_value());
-    // REQUIRE(ellipse.name.value() == "Ellipse");
-    // REQUIRE(ellipse.position.x == 128);
-    // REQUIRE(ellipse.position.y == 256);
-    // REQUIRE(ellipse.size.x == 512);
-    // REQUIRE(ellipse.size.y == 1024);
 }

@@ -42,17 +42,21 @@ TEST_CASE("lottie/animation: LottieAnimation::load(bouncy_ball.json)", "[lottie]
     REQUIRE(model.height == 512);
     REQUIRE(model.layers.size() == 1);
 
-    auto const layer = model.layers[0];
-    REQUIRE(mc::name(layer) == "Layer");
-    REQUIRE(mc::inPoint(layer) == 0.0);
-    REQUIRE(mc::outPoint(layer) == 120.0);
+    auto const* layer = std::get_if<mc::LottieShapeLayer>(&model.layers[0]);
+    REQUIRE(layer != nullptr);
 
-    REQUIRE(mc::transform(layer).anchor.x == 0.0);
-    REQUIRE(mc::transform(layer).anchor.y == 0.0);
+    REQUIRE(layer->name == "Layer");
+    REQUIRE(layer->inPoint == 0.0);
+    REQUIRE(layer->outPoint == 120.0);
 
-    REQUIRE(mc::transform(layer).position.x == 0.0);
-    REQUIRE(mc::transform(layer).position.y == 0.0);
+    REQUIRE(layer->transform.anchor.x == 0.0);
+    REQUIRE(layer->transform.anchor.y == 0.0);
 
-    REQUIRE(mc::transform(layer).scale.x == 100.0);
-    REQUIRE(mc::transform(layer).scale.y == 100.0);
+    REQUIRE(layer->transform.position.x == 0.0);
+    REQUIRE(layer->transform.position.y == 0.0);
+
+    REQUIRE(layer->transform.scale.x == 100.0);
+    REQUIRE(layer->transform.scale.y == 100.0);
+
+    REQUIRE(layer->shapes.size() == 1);
 }
