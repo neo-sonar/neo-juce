@@ -15,8 +15,8 @@ END_JUCE_MODULE_DECLARATION
 
 #pragma once
 
-#ifndef USE_MC_EXTENSION_PACK
-    #define USE_MC_EXTENSION_PACK
+#ifndef USE_MC_SYNTH
+    #define USE_MC_SYNTH
 #endif
 
 #include <mc_audio_formats/mc_audio_formats.hpp>
