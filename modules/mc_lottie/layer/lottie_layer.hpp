@@ -11,5 +11,6 @@ using LottieLayer = std::variant<LottieNullLayer, LottieShapeLayer>;
 [[nodiscard]] auto name(LottieLayer const& layer) -> Optional<String>;
 [[nodiscard]] auto inPoint(LottieLayer const& layer) -> double;
 [[nodiscard]] auto outPoint(LottieLayer const& layer) -> double;
+[[nodiscard]] auto transform(LottieLayer const& layer) -> LottieTransform;
 
 } // namespace mc

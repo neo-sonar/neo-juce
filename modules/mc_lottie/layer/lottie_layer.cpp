@@ -7,9 +7,22 @@ auto parseLottieLayer(juce::var const& obj) -> Expected<LottieLayer, String>
     if (ty.isUndefined()) { return makeUnexpected<String>("no layer type"); }
 
     switch (static_cast<LottieLayerType>(static_cast<int>(ty))) {
+    case LottieLayerType::precomposition: break;
+    case LottieLayerType::solidColor: break;
+    case LottieLayerType::image: break;
     case LottieLayerType::null: return parseLottieNullLayer(obj);
     case LottieLayerType::shape: return parseLottieShapeLayer(obj);
-    default: break;
+    case LottieLayerType::text: break;
+    case LottieLayerType::audio: break;
+    case LottieLayerType::videoPlaceholder: break;
+    case LottieLayerType::imageSequence: break;
+    case LottieLayerType::video: break;
+    case LottieLayerType::imagePlaceholder: break;
+    case LottieLayerType::guide: break;
+    case LottieLayerType::adjustment: break;
+    case LottieLayerType::camera: break;
+    case LottieLayerType::light: break;
+    case LottieLayerType::data: break;
     }
 
     return makeUnexpected<String>("unhandled layer type");
@@ -30,4 +43,8 @@ auto outPoint(LottieLayer const& layer) -> double
     return std::visit([](auto const& l) { return l.outPoint; }, layer);
 }
 
+auto transform(LottieLayer const& layer) -> LottieTransform
+{
+    return std::visit([](auto const& l) { return l.transform; }, layer);
+}
 } // namespace mc

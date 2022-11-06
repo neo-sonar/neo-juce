@@ -5,7 +5,7 @@ namespace mc {
 struct LottieNullLayer {
     inline static constexpr auto type = LottieLayerType::null;
 
-    juce::AffineTransform transform {};
+    LottieTransform transform {};
     double inPoint { 0 };
     double outPoint { 0 };
 

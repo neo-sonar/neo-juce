@@ -46,4 +46,14 @@ TEST_CASE("lottie/animation: loadLottieAnimation(bouncy_ball.json)", "[lottie]")
     REQUIRE(mc::name(layer) == "Layer");
     REQUIRE(mc::inPoint(layer) == 0.0);
     REQUIRE(mc::outPoint(layer) == 120.0);
+
+    REQUIRE(mc::transform(layer).anchor.x == 0.0);
+    REQUIRE(mc::transform(layer).anchor.y == 0.0);
+
+    REQUIRE(mc::transform(layer).position.x == 0.0);
+    REQUIRE(mc::transform(layer).position.y == 0.0);
+
+    REQUIRE(mc::transform(layer).scale.x == 100.0);
+    REQUIRE(mc::transform(layer).scale.y == 100.0);
+
 }
