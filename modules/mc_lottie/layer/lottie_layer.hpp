@@ -1,7 +1,5 @@
 #pragma once
 
-#include <variant>
-
 namespace mc {
 
 using LottieLayer = std::variant<LottieNullLayer, LottieShapeLayer>;

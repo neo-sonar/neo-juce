@@ -19,6 +19,8 @@ END_JUCE_MODULE_DECLARATION
     #define USE_MC_LOTTIE
 #endif
 
+#include <variant>
+
 #include <mc_core/mc_core.hpp>
 #include <mc_graphics/mc_graphics.hpp>
 
@@ -26,6 +28,11 @@ END_JUCE_MODULE_DECLARATION
 #include "detail/lottie_json_parser.hpp"
 #include "types/lottie_blend_mode.hpp"
 #include "types/lottie_transform.hpp"
+#include "shape/lottie_shape_type.hpp"
+#include "shape/lottie_shape_ellipse.hpp"
+#include "shape/lottie_shape_rectangle.hpp"
+#include "shape/lottie_shape_group.hpp"
+#include "shape/lottie_shape.hpp"
 #include "layer/lottie_layer_type.hpp"
 #include "layer/lottie_layer_null.hpp"
 #include "layer/lottie_layer_shape.hpp"

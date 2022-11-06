@@ -110,6 +110,7 @@ set(test_sources
     modules/mc_gui_basics/widgets/xy_pad.test.cpp
 
     modules/mc_lottie/animation/lottie_animation.test.cpp
+    modules/mc_lottie/shape/lottie_shape_ellipse.test.cpp
 
     modules/mc_meters/level_meter/level_meter_source.test.cpp
 
