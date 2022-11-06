@@ -1,5 +1,6 @@
 [requires]
 mc-audio/0.12.0@modern-circuits/stable
+entt/3.10.3
 catch2/3.1.0
 
 [options]

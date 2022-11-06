@@ -37,6 +37,7 @@ include(mcCodeCoverage)
 
 find_package(mc-core REQUIRED)
 find_package(mc-audio REQUIRED)
+find_package(EnTT REQUIRED)
 
 add_subdirectory(modules)
 
@@ -110,6 +111,7 @@ set(test_sources
     modules/mc_gui_basics/widgets/xy_pad.test.cpp
 
     modules/mc_lottie/animation/lottie_animation.test.cpp
+    modules/mc_lottie/model/lottie_model.test.cpp
     modules/mc_lottie/shape/lottie_shape_ellipse.test.cpp
     modules/mc_lottie/shape/lottie_shape_fill.test.cpp
     modules/mc_lottie/shape/lottie_shape_gradient_fill.test.cpp
@@ -141,10 +143,11 @@ target_compile_definitions(mc-juce-dev_tests
 
 target_link_libraries(mc-juce-dev_tests
     PRIVATE
-        Catch2::Catch2
-
         mc-core::mc-core
         mc-audio::mc-audio
+
+        EnTT::EnTT
+        Catch2::Catch2
 
         mc::mc_audio_basics
         mc::mc_audio_formats
