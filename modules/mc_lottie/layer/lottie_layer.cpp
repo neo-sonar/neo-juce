@@ -7,21 +7,21 @@ auto parseLottieLayer(juce::var const& obj) -> Expected<LottieLayer, String>
     if (ty.isUndefined()) { return makeUnexpected<String>("no layer type"); }
 
     switch (static_cast<LottieLayerType>(static_cast<int>(ty))) {
-    case LottieLayerType::precomposition: break;
-    case LottieLayerType::solidColor: break;
-    case LottieLayerType::image: break;
     case LottieLayerType::null: return parseLottieNullLayer(obj);
     case LottieLayerType::shape: return parseLottieShapeLayer(obj);
-    case LottieLayerType::text: break;
-    case LottieLayerType::audio: break;
-    case LottieLayerType::videoPlaceholder: break;
-    case LottieLayerType::imageSequence: break;
-    case LottieLayerType::video: break;
-    case LottieLayerType::imagePlaceholder: break;
-    case LottieLayerType::guide: break;
-    case LottieLayerType::adjustment: break;
-    case LottieLayerType::camera: break;
-    case LottieLayerType::light: break;
+    case LottieLayerType::precomposition:
+    case LottieLayerType::solidColor:
+    case LottieLayerType::image:
+    case LottieLayerType::text:
+    case LottieLayerType::audio:
+    case LottieLayerType::videoPlaceholder:
+    case LottieLayerType::imageSequence:
+    case LottieLayerType::video:
+    case LottieLayerType::imagePlaceholder:
+    case LottieLayerType::guide:
+    case LottieLayerType::adjustment:
+    case LottieLayerType::camera:
+    case LottieLayerType::light:
     case LottieLayerType::data: break;
     }
 
