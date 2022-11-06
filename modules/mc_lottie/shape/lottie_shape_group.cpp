@@ -18,6 +18,6 @@ auto LottieShapeGroup::parse(juce::var const& obj) -> LottieShapeGroup
     }
 
     return group;
-};
+}
 
 } // namespace mc
