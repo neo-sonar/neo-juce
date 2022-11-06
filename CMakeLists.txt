@@ -109,6 +109,8 @@ set(test_sources
     modules/mc_gui_basics/attachment/slider_attachment.test.cpp
     modules/mc_gui_basics/widgets/xy_pad.test.cpp
 
+    modules/mc_lottie/lottie/lottie_model.test.cpp
+
     modules/mc_meters/level_meter/level_meter_source.test.cpp
 
     modules/mc_synth/math/hermite_interpolation.test.cpp
@@ -144,6 +146,7 @@ target_link_libraries(mc-juce-dev_tests
         mc::mc_extension_pack
         mc::mc_graphics
         mc::mc_gui_basics
+        mc::mc_lottie
         mc::mc_meters
 
         mc::compiler_options
