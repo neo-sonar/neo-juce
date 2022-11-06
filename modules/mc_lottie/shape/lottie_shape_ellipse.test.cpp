@@ -29,10 +29,8 @@ TEST_CASE("lottie/shape: parseLottieShapeEllipse", "[lottie]")
     auto const ellipse = mc::parseLottieShapeEllipse(obj);
     REQUIRE(ellipse.name.has_value());
     REQUIRE(ellipse.name.value() == "Ellipse");
-
     REQUIRE(ellipse.position.x == 128);
     REQUIRE(ellipse.position.y == 256);
-
-    REQUIRE(ellipse.scale.x == 512);
-    REQUIRE(ellipse.scale.y == 1024);
+    REQUIRE(ellipse.size.x == 512);
+    REQUIRE(ellipse.size.y == 1024);
 }
