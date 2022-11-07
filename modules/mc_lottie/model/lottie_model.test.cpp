@@ -24,11 +24,12 @@ TEST_CASE("lottie/model: LottieModel(bouncy_ball.json)", "[lottie]")
     auto const& layers = model.layers();
     REQUIRE(layers.size() == 1);
 
-    REQUIRE(layers[0].name() == "Layer");
-    REQUIRE(layers[0].inOutPoints()->in == 0.0);
-    REQUIRE(layers[0].inOutPoints()->out == 120.0);
+    auto const& layer = layers[0];
+    REQUIRE(layer.name() == "Layer");
+    REQUIRE(layer.inOutPoints()->in == 0.0);
+    REQUIRE(layer.inOutPoints()->out == 120.0);
 
-    auto const transform = layers[0].transform();
+    auto const transform = layer.transform();
     REQUIRE(transform.has_value());
     REQUIRE(transform->anchor.x == 0.0);
     REQUIRE(transform->anchor.y == 0.0);
@@ -36,6 +37,9 @@ TEST_CASE("lottie/model: LottieModel(bouncy_ball.json)", "[lottie]")
     REQUIRE(transform->position.y == 0.0);
     REQUIRE(transform->scale.x == 100.0);
     REQUIRE(transform->scale.y == 100.0);
+
+    REQUIRE(layer.shapes.size() == 1);
+    REQUIRE(layer.shapes[0].type() == mc::LottieShapeType::group);
 }
 
 TEST_CASE("lottie/model: LottieModel(knob.json)", "[lottie]")

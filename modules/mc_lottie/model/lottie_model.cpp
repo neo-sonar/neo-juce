@@ -2,6 +2,36 @@
 
 namespace mc {
 
+[[nodiscard]] static auto parseLottieShape(entt::registry& reg, juce::var const& obj) -> LottieShape2
+{
+    auto shape      = LottieShape2 { reg, reg.create() };
+    auto const type = makeLottieShapeType(obj);
+    reg.emplace<LottieShapeType>(shape.id, type);
+
+    if (type == LottieShapeType::rectangle) { return shape; }
+    if (type == LottieShapeType::ellipse) { return shape; }
+    if (type == LottieShapeType::fill) { return shape; }
+    if (type == LottieShapeType::gradientFill) { return shape; }
+    if (type == LottieShapeType::gradientStroke) { return shape; }
+    if (type == LottieShapeType::group) { return shape; }
+    if (type == LottieShapeType::path) { return shape; }
+    if (type == LottieShapeType::transform) { return shape; }
+    if (type == LottieShapeType::trim) { return shape; }
+
+    raisef<RuntimeError>("unimplemented shape: {}", toString(obj["ty"]));
+}
+
+[[nodiscard]] static auto parseLottieShapes(entt::registry& reg, juce::var const& obj) -> Vector<LottieShape2>
+{
+    auto const* shapesArray = obj["shapes"].getArray();
+    if (shapesArray == nullptr) { raise<InvalidArgument>("no shapes in layer"); }
+
+    auto shapes = Vector<LottieShape2> {};
+    shapes.reserve(static_cast<size_t>(shapesArray->size()));
+    for (auto const& shapeObj : *shapesArray) { shapes.push_back(parseLottieShape(reg, shapeObj)); }
+    return shapes;
+}
+
 static auto checkLayerType(juce::var const& obj, LottieLayerType expected) -> void
 {
     auto const& ty = obj["ty"];
@@ -35,9 +65,10 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
     // for (auto const& shapeObj : *shapesArray) { layer.shapes.push_back(LottieShape::parse(shapeObj)); }
 
     checkLayerType(obj, LottieLayerType::shape);
-    auto const layer = reg.create();
-    parseLottieLayerCommon(reg, layer, obj);
-    return { reg, layer };
+    auto layer = LottieLayer2 { reg, reg.create() };
+    parseLottieLayerCommon(reg, layer.id, obj);
+    layer.shapes = parseLottieShapes(reg, obj);
+    return layer;
 }
 
 [[nodiscard]] static auto parseLottieLayer(entt::registry& reg, juce::var const& obj) -> LottieLayer2
@@ -88,17 +119,22 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
     return root;
 }
 
-[[nodiscard]] auto LottieLayer2::name() const -> String
+auto LottieShape2::type() const -> LottieShapeType
+{
+    return getComponent<LottieShapeType>("LottieShapeType", registry, id);
+}
+
+auto LottieLayer2::name() const -> String
 {
     return tryGetComponent<LottieName>(registry, id).value_or(LottieName {}).name;
 }
 
-[[nodiscard]] auto LottieLayer2::inOutPoints() const -> Optional<LottieInOutPoints>
+auto LottieLayer2::inOutPoints() const -> Optional<LottieInOutPoints>
 {
     return tryGetComponent<LottieInOutPoints>(registry, id);
 }
 
-[[nodiscard]] auto LottieLayer2::transform() const -> Optional<LottieTransform>
+auto LottieLayer2::transform() const -> Optional<LottieTransform>
 {
     return tryGetComponent<LottieTransform>(registry, id);
 }

@@ -26,4 +26,6 @@ enum struct LottieShapeType {
     zigZag,
 };
 
+[[nodiscard]] auto makeLottieShapeType(juce::var const& obj) -> LottieShapeType;
+
 } // namespace mc
