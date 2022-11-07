@@ -2,7 +2,7 @@
 
 namespace mc {
 
-struct LottieLayer2 {
+struct LottieLayer {
     [[nodiscard]] auto name() const -> String;
     [[nodiscard]] auto inOutPoints() const -> Optional<LottieInOutPoints>;
     [[nodiscard]] auto transform() const -> Optional<LottieTransform>;

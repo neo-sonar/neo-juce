@@ -48,7 +48,7 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
     if (auto const t = tryParseLottieTransform(obj); t) { reg.emplace<LottieTransform>(entity, *t); }
 }
 
-[[nodiscard]] static auto parseLottieLayerNull(entt::registry& reg, juce::var const& obj) -> LottieLayer2
+[[nodiscard]] static auto parseLottieLayerNull(entt::registry& reg, juce::var const& obj) -> LottieLayer
 {
     checkLayerType(obj, LottieLayerType::null);
     auto const layer = reg.create();
@@ -56,16 +56,16 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
     return { reg, layer };
 }
 
-[[nodiscard]] static auto parseLottieLayerShape(entt::registry& reg, juce::var const& obj) -> LottieLayer2
+[[nodiscard]] static auto parseLottieLayerShape(entt::registry& reg, juce::var const& obj) -> LottieLayer
 {
     checkLayerType(obj, LottieLayerType::shape);
-    auto layer = LottieLayer2 { reg, reg.create() };
+    auto layer = LottieLayer { reg, reg.create() };
     parseLottieLayerCommon(reg, layer.id, obj);
     layer.shapes = parseLottieShapes(reg, obj);
     return layer;
 }
 
-[[nodiscard]] static auto parseLottieLayer(entt::registry& reg, juce::var const& obj) -> LottieLayer2
+[[nodiscard]] static auto parseLottieLayer(entt::registry& reg, juce::var const& obj) -> LottieLayer
 {
     auto const& ty = obj["ty"];
     if (ty.isUndefined()) { raise<InvalidArgument>("no layer type"); }
@@ -92,12 +92,12 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
     raise<InvalidArgument>("unhandled layer type");
 }
 
-[[nodiscard]] static auto parseLottieLayers(entt::registry& reg, juce::var const& obj) -> Vector<LottieLayer2>
+[[nodiscard]] static auto parseLottieLayers(entt::registry& reg, juce::var const& obj) -> Vector<LottieLayer>
 {
     auto const* layersObj = obj["layers"].getArray();
     if (layersObj == nullptr) { raise<InvalidArgument>("no layers defined in model"); }
 
-    auto layers = Vector<LottieLayer2> {};
+    auto layers = Vector<LottieLayer> {};
     for (auto const& layerObj : *layersObj) { layers.push_back(parseLottieLayer(reg, layerObj)); }
     return layers;
 }
@@ -153,6 +153,6 @@ auto LottieModel::framerate() const -> double
     return getComponent<LottieFramerate>("LottieFramerate", _registry, _root).fps;
 }
 
-auto LottieModel::layers() const -> Vector<LottieLayer2> const& { return _layers; }
+auto LottieModel::layers() const -> Vector<LottieLayer> const& { return _layers; }
 
 } // namespace mc
