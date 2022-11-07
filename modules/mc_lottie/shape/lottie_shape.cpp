@@ -53,4 +53,14 @@ auto makeLottieShapeType(juce::var const& obj) -> LottieShapeType
     raisef<RuntimeError>("unimplemented shape: {}", type);
 }
 
+auto LottieShape2::name() const -> String
+{
+    return tryGetComponent<LottieName>(registry, id).value_or(LottieName {}).name;
+}
+
+auto LottieShape2::type() const -> LottieShapeType
+{
+    return getComponent<LottieShapeType>("LottieShapeType", registry, id);
+}
+
 } // namespace mc

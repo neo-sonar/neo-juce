@@ -30,7 +30,8 @@ TEST_CASE("lottie/shape: LottieShapeGradientStroke::parse", "[lottie]")
         }
     )";
 
+    auto reg       = entt::registry {};
     auto const obj = juce::JSON::parse(src);
-    REQUIRE_NOTHROW(mc::LottieShapeGradientStroke::parse(obj));
+    REQUIRE_NOTHROW(mc::LottieShape2::parse(reg, obj));
     SUCCEED();
 }

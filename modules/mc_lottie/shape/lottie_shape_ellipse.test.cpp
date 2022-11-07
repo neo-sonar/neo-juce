@@ -25,12 +25,16 @@ TEST_CASE("lottie/shape: LottieShapeEllipse::parse", "[lottie]")
         }
     )";
 
-    auto const obj     = juce::JSON::parse(src);
-    auto const ellipse = mc::LottieShapeEllipse::parse(obj);
-    REQUIRE(ellipse.name.has_value());
-    REQUIRE(ellipse.name.value() == "Ellipse");
-    REQUIRE(ellipse.position.x == 128);
-    REQUIRE(ellipse.position.y == 256);
-    REQUIRE(ellipse.size.x == 512);
-    REQUIRE(ellipse.size.y == 1024);
+    auto reg         = entt::registry {};
+    auto const obj   = juce::JSON::parse(src);
+    auto const shape = mc::LottieShape2::parse(reg, obj);
+    REQUIRE(shape.type() == mc::LottieShapeType::ellipse);
+    REQUIRE(shape.name() == "Ellipse");
+
+    auto const ellipse = mc::tryGetComponent<mc::LottieShapeEllipse2>(reg, shape.id);
+    REQUIRE(ellipse.has_value());
+    REQUIRE(ellipse->position.x == 128);
+    REQUIRE(ellipse->position.y == 256);
+    REQUIRE(ellipse->size.x == 512);
+    REQUIRE(ellipse->size.y == 1024);
 }

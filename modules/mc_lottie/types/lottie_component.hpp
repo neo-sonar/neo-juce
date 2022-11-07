@@ -40,6 +40,11 @@ struct LottieSize2D {
     double height;
 };
 
+struct LottiePosition2D {
+    double x;
+    double y;
+};
+
 [[nodiscard]] inline auto parseLottieSize2D(juce::var const& obj) -> LottieSize2D
 {
     auto const& width  = obj["w"];
