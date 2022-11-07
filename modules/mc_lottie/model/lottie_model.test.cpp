@@ -40,6 +40,10 @@ TEST_CASE("lottie/model: LottieModel(bouncy_ball.json)", "[lottie]")
 
     REQUIRE(layer.shapes.size() == 1);
     REQUIRE(layer.shapes[0].type() == mc::LottieShapeType::group);
+
+    auto const& shape = layer.shapes[0];
+    auto const group  = mc::tryGetComponent<mc::LottieShapeGroup2>(shape.registry, shape.id);
+    REQUIRE(group.has_value());
 }
 
 TEST_CASE("lottie/model: LottieModel(knob.json)", "[lottie]")

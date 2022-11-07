@@ -50,4 +50,10 @@ struct LottieShape2 {
     entt::entity id;
 };
 
+struct LottieShapeGroup2 {
+    inline static constexpr auto const type   = LottieShapeType::group;
+    inline static constexpr auto const* token = "gr";
+    Vector<LottieShape2> shapes;
+};
+
 } // namespace mc

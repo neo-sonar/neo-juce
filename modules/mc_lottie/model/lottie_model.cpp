@@ -2,7 +2,21 @@
 
 namespace mc {
 
-[[nodiscard]] static auto parseLottieShape(entt::registry& reg, juce::var const& obj) -> LottieShape2
+[[nodiscard]] static auto parseLottieShape(entt::registry& reg, juce::var const& obj) -> LottieShape2;
+
+[[nodiscard]] static auto parseLottieShapeGroup(LottieShape2& group, juce::var const& obj) -> LottieShape2
+{
+    auto const* array = obj["it"].getArray();
+    if (array == nullptr) { raise<InvalidArgument>("no shapes in group"); }
+
+    auto children = Vector<LottieShape2> {};
+    for (auto const& shapeObj : *array) { children.push_back(parseLottieShape(group.registry, shapeObj)); }
+    group.registry.emplace<LottieShapeGroup2>(group.id, std::move(children));
+
+    return group;
+}
+
+static auto parseLottieShape(entt::registry& reg, juce::var const& obj) -> LottieShape2
 {
     auto shape      = LottieShape2 { reg, reg.create() };
     auto const type = makeLottieShapeType(obj);
@@ -13,7 +27,7 @@ namespace mc {
     if (type == LottieShapeType::fill) { return shape; }
     if (type == LottieShapeType::gradientFill) { return shape; }
     if (type == LottieShapeType::gradientStroke) { return shape; }
-    if (type == LottieShapeType::group) { return shape; }
+    if (type == LottieShapeType::group) { return parseLottieShapeGroup(shape, obj); }
     if (type == LottieShapeType::path) { return shape; }
     if (type == LottieShapeType::transform) { return shape; }
     if (type == LottieShapeType::trim) { return shape; }
