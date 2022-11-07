@@ -15,6 +15,7 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
 {
     if (auto const p = tryParseLottieInOutPoints(obj); p) { reg.emplace<LottieInOutPoints>(entity, *p); }
     if (auto const n = tryParseLottieName(obj); n) { reg.emplace<LottieName>(entity, std::move(*n)); }
+    if (auto const t = tryParseLottieTransform(obj); t) { reg.emplace<LottieTransform>(entity, *t); }
 }
 
 [[nodiscard]] static auto parseLottieLayerNull(entt::registry& reg, juce::var const& obj) -> LottieLayer2
@@ -22,18 +23,11 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
     checkLayerType(obj, LottieLayerType::null);
     auto const layer = reg.create();
     parseLottieLayerCommon(reg, layer, obj);
-    return { layer };
+    return { reg, layer };
 }
 
 [[nodiscard]] static auto parseLottieLayerShape(entt::registry& reg, juce::var const& obj) -> LottieLayer2
 {
-    // auto layer = LottieShapeLayer {};
-    // parseLottieLayerCommon(obj, layer);
-
-    // auto transform = parseLottieTransform(obj["ks"]);
-    // if (not transform.has_value()) { return makeUnexpected("missing transform"); }
-    // layer.transform = *transform;
-
     // auto const* shapesArray = obj["shapes"].getArray();
     // if (shapesArray == nullptr) { throw InvalidArgument { "no shapes in layer" }; }
 
@@ -43,7 +37,7 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
     checkLayerType(obj, LottieLayerType::shape);
     auto const layer = reg.create();
     parseLottieLayerCommon(reg, layer, obj);
-    return { layer };
+    return { reg, layer };
 }
 
 [[nodiscard]] static auto parseLottieLayer(entt::registry& reg, juce::var const& obj) -> LottieLayer2
@@ -92,6 +86,21 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
     reg.emplace<LottieSize2D>(root, parseLottieSize2D(obj));
     reg.emplace<LottieFramerate>(root, parseLottieFramerate(obj));
     return root;
+}
+
+[[nodiscard]] auto LottieLayer2::name() const -> String
+{
+    return tryGetComponent<LottieName>(registry, id).value_or(LottieName {}).name;
+}
+
+[[nodiscard]] auto LottieLayer2::inOutPoints() const -> Optional<LottieInOutPoints>
+{
+    return tryGetComponent<LottieInOutPoints>(registry, id);
+}
+
+[[nodiscard]] auto LottieLayer2::transform() const -> Optional<LottieTransform>
+{
+    return tryGetComponent<LottieTransform>(registry, id);
 }
 
 LottieModel::LottieModel(juce::File const& file)

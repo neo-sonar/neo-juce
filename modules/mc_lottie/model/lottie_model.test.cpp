@@ -20,7 +20,22 @@ TEST_CASE("lottie/model: LottieModel(bouncy_ball.json)", "[lottie]")
     REQUIRE(model.width() == 512.0);
     REQUIRE(model.height() == 512.0);
     REQUIRE(model.framerate() == 60.0);
-    REQUIRE(model.layers().size() == 1);
+
+    auto const& layers = model.layers();
+    REQUIRE(layers.size() == 1);
+
+    REQUIRE(layers[0].name() == "Layer");
+    REQUIRE(layers[0].inOutPoints()->in == 0.0);
+    REQUIRE(layers[0].inOutPoints()->out == 120.0);
+
+    auto const transform = layers[0].transform();
+    REQUIRE(transform.has_value());
+    REQUIRE(transform->anchor.x == 0.0);
+    REQUIRE(transform->anchor.y == 0.0);
+    REQUIRE(transform->position.x == 0.0);
+    REQUIRE(transform->position.y == 0.0);
+    REQUIRE(transform->scale.x == 100.0);
+    REQUIRE(transform->scale.y == 100.0);
 }
 
 TEST_CASE("lottie/model: LottieModel(knob.json)", "[lottie]")
@@ -35,5 +50,7 @@ TEST_CASE("lottie/model: LottieModel(knob.json)", "[lottie]")
     REQUIRE(model.framerate() == 60.0);
     REQUIRE(model.width() == 150.0);
     REQUIRE(model.height() == 150.0);
-    REQUIRE(model.layers().size() == 10);
+
+    auto const& layers = model.layers();
+    REQUIRE(layers.size() == 10);
 }

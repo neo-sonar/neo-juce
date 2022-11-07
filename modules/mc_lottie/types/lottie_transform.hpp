@@ -25,4 +25,13 @@ struct LottieTransform {
     return transform;
 }
 
+[[nodiscard]] inline auto tryParseLottieTransform(juce::var const& obj) -> Optional<LottieTransform>
+{
+    auto const& ks = obj["ks"];
+    if (ks.isUndefined()) { return {}; }
+    auto const transform = parseLottieTransform(ks);
+    if (not transform.has_value()) { return {}; }
+    return *transform;
+}
+
 } // namespace mc

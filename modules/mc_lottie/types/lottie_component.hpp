@@ -10,6 +10,14 @@ auto getComponent(StringView comp, entt::registry const& reg, entt::entity entit
     return reg.get<ComponentType>(entity);
 }
 
+template <typename ComponentType>
+auto tryGetComponent(entt::registry const& reg, entt::entity entity) -> Optional<ComponentType>
+{
+    if (not reg.valid(entity)) { return {}; }
+    if (not reg.all_of<ComponentType>(entity)) { return {}; }
+    return reg.get<ComponentType>(entity);
+}
+
 struct LottieName {
     String name;
 };
