@@ -20,7 +20,7 @@ TEST_CASE("lottie/model: LottieModel(bouncy_ball.json)", "[lottie]")
     REQUIRE(model.width() == 512.0);
     REQUIRE(model.height() == 512.0);
     REQUIRE(model.framerate() == 60.0);
-    // REQUIRE(model.layers.size() == 1);
+    REQUIRE(model.layers().size() == 1);
 }
 
 TEST_CASE("lottie/model: LottieModel(knob.json)", "[lottie]")
@@ -35,5 +35,5 @@ TEST_CASE("lottie/model: LottieModel(knob.json)", "[lottie]")
     REQUIRE(model.framerate() == 60.0);
     REQUIRE(model.width() == 150.0);
     REQUIRE(model.height() == 150.0);
-    // REQUIRE(model.layers.size() == 10);
+    REQUIRE(model.layers().size() == 10);
 }

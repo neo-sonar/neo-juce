@@ -2,6 +2,10 @@
 
 namespace mc {
 
+struct LottieLayer2 {
+    entt::entity id;
+};
+
 struct LottieModel {
     explicit LottieModel(juce::File const& file);
 
@@ -12,10 +16,12 @@ struct LottieModel {
     [[nodiscard]] auto width() const -> double;
     [[nodiscard]] auto height() const -> double;
     [[nodiscard]] auto framerate() const -> double;
+    [[nodiscard]] auto layers() const -> Vector<LottieLayer2> const&;
 
 private:
     entt::registry _registry;
     entt::entity _root;
+    Vector<LottieLayer2> _layers;
 };
 
 } // namespace mc
