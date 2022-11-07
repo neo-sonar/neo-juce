@@ -125,10 +125,10 @@ TEST_CASE("lottie/shape: LottieShapeGroup::parse", "[lottie]")
 
     auto reg         = entt::registry {};
     auto const obj   = juce::JSON::parse(src);
-    auto const shape = mc::LottieShape2::parse(reg, obj);
+    auto const shape = mc::LottieShape::parse(reg, obj);
     REQUIRE(shape.type() == mc::LottieShapeType::group);
     REQUIRE(shape.name() == "Ellipse Group");
 
-    auto const group = mc::tryGetComponent<mc::LottieShapeGroup2>(reg, shape.id);
+    auto const group = mc::tryGetComponent<mc::LottieShapeGroup>(reg, shape.id);
     REQUIRE(group->shapes.size() == 3);
 }

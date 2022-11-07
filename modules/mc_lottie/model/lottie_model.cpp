@@ -9,100 +9,100 @@ static auto parseLottieCommon(entt::registry& reg, entt::entity entity, juce::va
     if (auto const t = tryParseLottieTransform(obj); t) { reg.emplace<LottieTransform>(entity, *t); }
 }
 
-auto LottieShape2::parse(entt::registry& reg, juce::var const& obj) -> LottieShape2
+auto LottieShape::parse(entt::registry& reg, juce::var const& obj) -> LottieShape
 {
-    auto shape      = LottieShape2 { reg, reg.create() };
+    auto shape      = LottieShape { reg, reg.create() };
     auto const type = makeLottieShapeType(obj);
     reg.emplace<LottieShapeType>(shape.id, type);
 
     if (auto n = tryParseLottieName(obj); n) { reg.emplace<LottieName>(shape.id, std::move(*n)); }
 
-    if (type == LottieShapeType::rectangle) { return LottieShapeRectangle2::parse(shape, obj); }
-    if (type == LottieShapeType::ellipse) { return LottieShapeEllipse2::parse(shape, obj); }
-    if (type == LottieShapeType::fill) { return LottieShapeFill2::parse(shape, obj); }
-    if (type == LottieShapeType::gradientFill) { return LottieShapeGradientFill2::parse(shape, obj); }
-    if (type == LottieShapeType::gradientStroke) { return LottieShapeGradientStroke2::parse(shape, obj); }
-    if (type == LottieShapeType::group) { return LottieShapeGroup2::parse(shape, obj); }
-    if (type == LottieShapeType::path) { return LottieShapePath2::parse(shape, obj); }
-    if (type == LottieShapeType::transform) { return LottieShapeTransform2::parse(shape, obj); }
-    if (type == LottieShapeType::trim) { return LottieShapeTrim2::parse(shape, obj); }
+    if (type == LottieShapeType::rectangle) { return LottieShapeRectangle::parse(shape, obj); }
+    if (type == LottieShapeType::ellipse) { return LottieShapeEllipse::parse(shape, obj); }
+    if (type == LottieShapeType::fill) { return LottieShapeFill::parse(shape, obj); }
+    if (type == LottieShapeType::gradientFill) { return LottieShapeGradientFill::parse(shape, obj); }
+    if (type == LottieShapeType::gradientStroke) { return LottieShapeGradientStroke::parse(shape, obj); }
+    if (type == LottieShapeType::group) { return LottieShapeGroup::parse(shape, obj); }
+    if (type == LottieShapeType::path) { return LottieShapePath::parse(shape, obj); }
+    if (type == LottieShapeType::transform) { return LottieShapeTransform::parse(shape, obj); }
+    if (type == LottieShapeType::trim) { return LottieShapeTrim::parse(shape, obj); }
 
     raisef<RuntimeError>("unimplemented shape: {}", toString(obj["ty"]));
 }
 
-auto LottieShapeRectangle2::parse(LottieShape2& group, juce::var const& obj) -> LottieShape2
+auto LottieShapeRectangle::parse(LottieShape& group, juce::var const& obj) -> LottieShape
 {
-    auto rectangle      = LottieShapeRectangle2 {};
+    auto rectangle      = LottieShapeRectangle {};
     rectangle.position  = parseLottieVec2(obj["p"]["k"]);
     rectangle.size      = parseLottieVec2(obj["s"]["k"]);
     rectangle.roundness = parseDouble(obj["r"]["k"]);
-    group.registry.emplace<LottieShapeRectangle2>(group.id, rectangle);
+    group.registry.emplace<LottieShapeRectangle>(group.id, rectangle);
     return group;
 }
 
-auto LottieShapeEllipse2::parse(LottieShape2& group, juce::var const& obj) -> LottieShape2
+auto LottieShapeEllipse::parse(LottieShape& group, juce::var const& obj) -> LottieShape
 {
-    auto const ellipse = LottieShapeEllipse2 { parseLottieVec2(obj["p"]["k"]), parseLottieVec2(obj["s"]["k"]) };
-    group.registry.emplace<LottieShapeEllipse2>(group.id, ellipse);
+    auto const ellipse = LottieShapeEllipse { parseLottieVec2(obj["p"]["k"]), parseLottieVec2(obj["s"]["k"]) };
+    group.registry.emplace<LottieShapeEllipse>(group.id, ellipse);
     return group;
 }
 
-auto LottieShapeFill2::parse(LottieShape2& group, juce::var const&) -> LottieShape2
+auto LottieShapeFill::parse(LottieShape& group, juce::var const&) -> LottieShape
 {
-    group.registry.emplace<LottieShapeFill2>(group.id);
+    group.registry.emplace<LottieShapeFill>(group.id);
     return group;
 }
 
-auto LottieShapeGradientFill2::parse(LottieShape2& group, juce::var const&) -> LottieShape2
+auto LottieShapeGradientFill::parse(LottieShape& group, juce::var const&) -> LottieShape
 {
-    group.registry.emplace<LottieShapeGradientFill2>(group.id);
+    group.registry.emplace<LottieShapeGradientFill>(group.id);
     return group;
 }
 
-auto LottieShapeGradientStroke2::parse(LottieShape2& group, juce::var const&) -> LottieShape2
+auto LottieShapeGradientStroke::parse(LottieShape& group, juce::var const&) -> LottieShape
 {
-    group.registry.emplace<LottieShapeGradientStroke2>(group.id);
+    group.registry.emplace<LottieShapeGradientStroke>(group.id);
     return group;
 }
 
-auto LottieShapeGroup2::parse(LottieShape2& group, juce::var const& obj) -> LottieShape2
+auto LottieShapeGroup::parse(LottieShape& group, juce::var const& obj) -> LottieShape
 {
     auto const* array = obj["it"].getArray();
     if (array == nullptr) { raise<InvalidArgument>("no shapes in group"); }
 
-    auto children = Vector<LottieShape2> {};
-    for (auto const& shapeObj : *array) { children.push_back(LottieShape2::parse(group.registry, shapeObj)); }
-    group.registry.emplace<LottieShapeGroup2>(group.id, std::move(children));
+    auto children = Vector<LottieShape> {};
+    for (auto const& shapeObj : *array) { children.push_back(LottieShape::parse(group.registry, shapeObj)); }
+    group.registry.emplace<LottieShapeGroup>(group.id, std::move(children));
 
     return group;
 }
 
-auto LottieShapePath2::parse(LottieShape2& group, juce::var const&) -> LottieShape2
+auto LottieShapePath::parse(LottieShape& group, juce::var const&) -> LottieShape
 {
-    group.registry.emplace<LottieShapePath2>(group.id);
+    group.registry.emplace<LottieShapePath>(group.id);
     return group;
 }
 
-auto LottieShapeTransform2::parse(LottieShape2& group, juce::var const&) -> LottieShape2
+auto LottieShapeTransform::parse(LottieShape& group, juce::var const&) -> LottieShape
 {
-    group.registry.emplace<LottieShapeTransform2>(group.id);
+    group.registry.emplace<LottieShapeTransform>(group.id);
     return group;
 }
 
-auto LottieShapeTrim2::parse(LottieShape2& group, juce::var const&) -> LottieShape2
+auto LottieShapeTrim::parse(LottieShape& group, juce::var const&) -> LottieShape
 {
-    group.registry.emplace<LottieShapeTrim2>(group.id);
+    group.registry.emplace<LottieShapeTrim>(group.id);
     return group;
 }
 
-[[nodiscard]] static auto parseLottieShapes(entt::registry& reg, juce::var const& obj) -> Vector<LottieShape2>
+[[nodiscard]] static auto parseLottieShapes(entt::registry& reg, juce::var const& obj) -> Vector<LottieShape>
 {
     auto const* shapesArray = obj["shapes"].getArray();
     if (shapesArray == nullptr) { raise<InvalidArgument>("no shapes in layer"); }
 
-    auto shapes = Vector<LottieShape2> {};
+    auto shapes = Vector<LottieShape> {};
     shapes.reserve(static_cast<size_t>(shapesArray->size()));
-    for (auto const& shapeObj : *shapesArray) { shapes.push_back(LottieShape2::parse(reg, shapeObj)); }
+    for (auto const& shapeObj : *shapesArray) { shapes.push_back(LottieShape::parse(reg, shapeObj)); }
     return shapes;
 }
 

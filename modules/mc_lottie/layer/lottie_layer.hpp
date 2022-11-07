@@ -9,7 +9,7 @@ struct LottieLayer {
 
     entt::registry& registry;
     entt::entity id;
-    Vector<LottieShape2> shapes;
+    Vector<LottieShape> shapes;
 };
 
 } // namespace mc

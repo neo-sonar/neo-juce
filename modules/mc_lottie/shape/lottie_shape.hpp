@@ -3,8 +3,8 @@
 namespace mc {
 
 
-struct LottieShape2 {
-    [[nodiscard]] static auto parse(entt::registry& reg, juce::var const& obj) -> LottieShape2;
+struct LottieShape {
+    [[nodiscard]] static auto parse(entt::registry& reg, juce::var const& obj) -> LottieShape;
 
     [[nodiscard]] auto name() const -> String;
     [[nodiscard]] auto type() const -> LottieShapeType;
@@ -13,76 +13,76 @@ struct LottieShape2 {
     entt::entity id;
 };
 
-struct LottieShapeRectangle2 {
+struct LottieShapeRectangle {
     inline static constexpr auto const type   = LottieShapeType::rectangle;
     inline static constexpr auto const* token = "rc";
 
-    [[nodiscard]] static auto parse(LottieShape2& group, juce::var const& obj) -> LottieShape2;
+    [[nodiscard]] static auto parse(LottieShape& group, juce::var const& obj) -> LottieShape;
 
     LottieVec2 position {};
     LottieVec2 size {};
     double roundness {};
 };
 
-struct LottieShapeEllipse2 {
+struct LottieShapeEllipse {
     inline static constexpr auto const type   = LottieShapeType::ellipse;
     inline static constexpr auto const* token = "el";
 
-    [[nodiscard]] static auto parse(LottieShape2& group, juce::var const& obj) -> LottieShape2;
+    [[nodiscard]] static auto parse(LottieShape& group, juce::var const& obj) -> LottieShape;
 
     LottieVec2 position;
     LottieVec2 size;
 };
 
-struct LottieShapeFill2 {
+struct LottieShapeFill {
     inline static constexpr auto const type   = LottieShapeType::fill;
     inline static constexpr auto const* token = "fl";
 
-    [[nodiscard]] static auto parse(LottieShape2& group, juce::var const& obj) -> LottieShape2;
+    [[nodiscard]] static auto parse(LottieShape& group, juce::var const& obj) -> LottieShape;
 };
 
-struct LottieShapeGradientFill2 {
+struct LottieShapeGradientFill {
     inline static constexpr auto const type   = LottieShapeType::gradientFill;
     inline static constexpr auto const* token = "gf";
 
-    [[nodiscard]] static auto parse(LottieShape2& group, juce::var const& obj) -> LottieShape2;
+    [[nodiscard]] static auto parse(LottieShape& group, juce::var const& obj) -> LottieShape;
 };
 
-struct LottieShapeGradientStroke2 {
+struct LottieShapeGradientStroke {
     inline static constexpr auto const type   = LottieShapeType::gradientStroke;
     inline static constexpr auto const* token = "gs";
 
-    [[nodiscard]] static auto parse(LottieShape2& group, juce::var const& obj) -> LottieShape2;
+    [[nodiscard]] static auto parse(LottieShape& group, juce::var const& obj) -> LottieShape;
 };
 
-struct LottieShapeGroup2 {
+struct LottieShapeGroup {
     inline static constexpr auto const type   = LottieShapeType::group;
     inline static constexpr auto const* token = "gr";
 
-    [[nodiscard]] static auto parse(LottieShape2& group, juce::var const& obj) -> LottieShape2;
+    [[nodiscard]] static auto parse(LottieShape& group, juce::var const& obj) -> LottieShape;
 
-    Vector<LottieShape2> shapes;
+    Vector<LottieShape> shapes;
 };
 
-struct LottieShapePath2 {
+struct LottieShapePath {
     inline static constexpr auto const type   = LottieShapeType::path;
     inline static constexpr auto const* token = "sh";
 
-    [[nodiscard]] static auto parse(LottieShape2& group, juce::var const& obj) -> LottieShape2;
+    [[nodiscard]] static auto parse(LottieShape& group, juce::var const& obj) -> LottieShape;
 };
 
-struct LottieShapeTransform2 {
+struct LottieShapeTransform {
     inline static constexpr auto const type   = LottieShapeType::transform;
     inline static constexpr auto const* token = "tr";
 
-    [[nodiscard]] static auto parse(LottieShape2& group, juce::var const& obj) -> LottieShape2;
+    [[nodiscard]] static auto parse(LottieShape& group, juce::var const& obj) -> LottieShape;
 };
 
-struct LottieShapeTrim2 {
+struct LottieShapeTrim {
     inline static constexpr auto const type   = LottieShapeType::trim;
     inline static constexpr auto const* token = "tm";
 
-    [[nodiscard]] static auto parse(LottieShape2& group, juce::var const& obj) -> LottieShape2;
+    [[nodiscard]] static auto parse(LottieShape& group, juce::var const& obj) -> LottieShape;
 };
 
 } // namespace mc

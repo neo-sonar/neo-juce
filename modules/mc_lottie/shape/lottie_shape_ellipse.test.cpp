@@ -27,11 +27,11 @@ TEST_CASE("lottie/shape: LottieShapeEllipse::parse", "[lottie]")
 
     auto reg         = entt::registry {};
     auto const obj   = juce::JSON::parse(src);
-    auto const shape = mc::LottieShape2::parse(reg, obj);
+    auto const shape = mc::LottieShape::parse(reg, obj);
     REQUIRE(shape.type() == mc::LottieShapeType::ellipse);
     REQUIRE(shape.name() == "Ellipse");
 
-    auto const ellipse = mc::tryGetComponent<mc::LottieShapeEllipse2>(reg, shape.id);
+    auto const ellipse = mc::tryGetComponent<mc::LottieShapeEllipse>(reg, shape.id);
     REQUIRE(ellipse.has_value());
     REQUIRE(ellipse->position.x == 128);
     REQUIRE(ellipse->position.y == 256);
