@@ -43,8 +43,8 @@ static auto checkLayerType(juce::var const& obj, LottieLayerType expected) -> vo
 
 static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juce::var const& obj)
 {
+    if (auto n = tryParseLottieName(obj); n) { reg.emplace<LottieName>(entity, std::move(*n)); }
     if (auto const p = tryParseLottieInOutPoints(obj); p) { reg.emplace<LottieInOutPoints>(entity, *p); }
-    if (auto const n = tryParseLottieName(obj); n) { reg.emplace<LottieName>(entity, std::move(*n)); }
     if (auto const t = tryParseLottieTransform(obj); t) { reg.emplace<LottieTransform>(entity, *t); }
 }
 
@@ -58,12 +58,6 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
 
 [[nodiscard]] static auto parseLottieLayerShape(entt::registry& reg, juce::var const& obj) -> LottieLayer2
 {
-    // auto const* shapesArray = obj["shapes"].getArray();
-    // if (shapesArray == nullptr) { throw InvalidArgument { "no shapes in layer" }; }
-
-    // layer.shapes.reserve(static_cast<size_t>(shapesArray->size()));
-    // for (auto const& shapeObj : *shapesArray) { layer.shapes.push_back(LottieShape::parse(shapeObj)); }
-
     checkLayerType(obj, LottieLayerType::shape);
     auto layer = LottieLayer2 { reg, reg.create() };
     parseLottieLayerCommon(reg, layer.id, obj);
@@ -117,26 +111,6 @@ static auto parseLottieLayerCommon(entt::registry& reg, entt::entity entity, juc
     reg.emplace<LottieSize2D>(root, parseLottieSize2D(obj));
     reg.emplace<LottieFramerate>(root, parseLottieFramerate(obj));
     return root;
-}
-
-auto LottieShape2::type() const -> LottieShapeType
-{
-    return getComponent<LottieShapeType>("LottieShapeType", registry, id);
-}
-
-auto LottieLayer2::name() const -> String
-{
-    return tryGetComponent<LottieName>(registry, id).value_or(LottieName {}).name;
-}
-
-auto LottieLayer2::inOutPoints() const -> Optional<LottieInOutPoints>
-{
-    return tryGetComponent<LottieInOutPoints>(registry, id);
-}
-
-auto LottieLayer2::transform() const -> Optional<LottieTransform>
-{
-    return tryGetComponent<LottieTransform>(registry, id);
 }
 
 LottieModel::LottieModel(juce::File const& file)

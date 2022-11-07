@@ -47,6 +47,5 @@ END_JUCE_MODULE_DECLARATION
 #include "layer/lottie_layer_null.hpp"
 #include "layer/lottie_layer_shape.hpp"
 #include "layer/lottie_layer.hpp"
-#include "animation/lottie_animation.hpp"
 #include "model/lottie_model.hpp"
 // clang-format on

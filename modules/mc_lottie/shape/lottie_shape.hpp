@@ -43,4 +43,11 @@ auto LottieShape::get() const -> ShapeType const*
     return std::get_if<ShapeType>(&_shape);
 }
 
+struct LottieShape2 {
+    [[nodiscard]] auto type() const -> LottieShapeType;
+
+    entt::registry& registry;
+    entt::entity id;
+};
+
 } // namespace mc

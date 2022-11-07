@@ -2,13 +2,14 @@
 
 namespace mc {
 
-using LottieLayer = std::variant<LottieNullLayer, LottieShapeLayer>;
+struct LottieLayer2 {
+    [[nodiscard]] auto name() const -> String;
+    [[nodiscard]] auto inOutPoints() const -> Optional<LottieInOutPoints>;
+    [[nodiscard]] auto transform() const -> Optional<LottieTransform>;
 
-[[nodiscard]] auto parseLottieLayer(juce::var const& obj) -> Expected<LottieLayer, String>;
-
-[[nodiscard]] auto name(LottieLayer const& layer) -> Optional<String>;
-[[nodiscard]] auto inPoint(LottieLayer const& layer) -> double;
-[[nodiscard]] auto outPoint(LottieLayer const& layer) -> double;
-[[nodiscard]] auto transform(LottieLayer const& layer) -> LottieTransform;
+    entt::registry& registry;
+    entt::entity id;
+    Vector<LottieShape2> shapes;
+};
 
 } // namespace mc

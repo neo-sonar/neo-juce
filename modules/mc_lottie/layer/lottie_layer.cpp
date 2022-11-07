@@ -1,50 +1,24 @@
 
 namespace mc {
 
-auto parseLottieLayer(juce::var const& obj) -> Expected<LottieLayer, String>
+auto LottieShape2::type() const -> LottieShapeType
 {
-    auto const& ty = obj["ty"];
-    if (ty.isUndefined()) { return makeUnexpected<String>("no layer type"); }
-
-    switch (static_cast<LottieLayerType>(static_cast<int>(ty))) {
-    case LottieLayerType::null: return LottieNullLayer::parse(obj);
-    case LottieLayerType::shape: return LottieShapeLayer::parse(obj);
-    case LottieLayerType::precomposition:
-    case LottieLayerType::solidColor:
-    case LottieLayerType::image:
-    case LottieLayerType::text:
-    case LottieLayerType::audio:
-    case LottieLayerType::videoPlaceholder:
-    case LottieLayerType::imageSequence:
-    case LottieLayerType::video:
-    case LottieLayerType::imagePlaceholder:
-    case LottieLayerType::guide:
-    case LottieLayerType::adjustment:
-    case LottieLayerType::camera:
-    case LottieLayerType::light:
-    case LottieLayerType::data: break;
-    }
-
-    return makeUnexpected<String>("unhandled layer type");
+    return getComponent<LottieShapeType>("LottieShapeType", registry, id);
 }
 
-auto name(LottieLayer const& layer) -> Optional<String>
+auto LottieLayer2::name() const -> String
 {
-    return std::visit([](auto const& l) { return l.name; }, layer);
+    return tryGetComponent<LottieName>(registry, id).value_or(LottieName {}).name;
 }
 
-auto inPoint(LottieLayer const& layer) -> double
+auto LottieLayer2::inOutPoints() const -> Optional<LottieInOutPoints>
 {
-    return std::visit([](auto const& l) { return l.inPoint; }, layer);
+    return tryGetComponent<LottieInOutPoints>(registry, id);
 }
 
-auto outPoint(LottieLayer const& layer) -> double
+auto LottieLayer2::transform() const -> Optional<LottieTransform>
 {
-    return std::visit([](auto const& l) { return l.outPoint; }, layer);
+    return tryGetComponent<LottieTransform>(registry, id);
 }
 
-auto transform(LottieLayer const& layer) -> LottieTransform
-{
-    return std::visit([](auto const& l) { return l.transform; }, layer);
-}
 } // namespace mc

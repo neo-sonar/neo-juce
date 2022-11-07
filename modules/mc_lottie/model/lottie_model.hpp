@@ -2,23 +2,6 @@
 
 namespace mc {
 
-struct LottieShape2 {
-    [[nodiscard]] auto type() const -> LottieShapeType;
-
-    entt::registry& registry;
-    entt::entity id;
-};
-
-struct LottieLayer2 {
-    [[nodiscard]] auto name() const -> String;
-    [[nodiscard]] auto inOutPoints() const -> Optional<LottieInOutPoints>;
-    [[nodiscard]] auto transform() const -> Optional<LottieTransform>;
-
-    entt::registry& registry;
-    entt::entity id;
-    Vector<LottieShape2> shapes;
-};
-
 struct LottieModel {
     explicit LottieModel(juce::File const& file);
 
