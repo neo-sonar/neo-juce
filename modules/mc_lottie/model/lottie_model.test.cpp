@@ -5,13 +5,13 @@
 TEST_CASE("lottie/model: LottieModel(not_found.json)", "[lottie]")
 {
     auto const cwd = juce::File::getCurrentWorkingDirectory();
-    REQUIRE_THROWS(mc::LottieModel::LottieModel(cwd.getChildFile("test_data/lottie/not_found.json")));
+    REQUIRE_THROWS(mc::LottieModel { cwd.getChildFile("test_data/lottie/not_found.json") });
 }
 
 TEST_CASE("lottie/model: LottieModel(bouncy_ball.json)", "[lottie]")
 {
     auto const cwd   = juce::File::getCurrentWorkingDirectory();
-    auto const model = mc::LottieModel::LottieModel(cwd.getChildFile("test_data/lottie/bouncy_ball.json"));
+    auto const model = mc::LottieModel { cwd.getChildFile("test_data/lottie/bouncy_ball.json") };
 
     REQUIRE(model.name() == "Bouncy Ball");
     REQUIRE(model.version() == "5.5.2");
@@ -45,7 +45,7 @@ TEST_CASE("lottie/model: LottieModel(bouncy_ball.json)", "[lottie]")
 TEST_CASE("lottie/model: LottieModel(knob.json)", "[lottie]")
 {
     auto const cwd   = juce::File::getCurrentWorkingDirectory();
-    auto const model = mc::LottieModel::LottieModel(cwd.getChildFile("test_data/lottie/knob.json"));
+    auto const model = mc::LottieModel { cwd.getChildFile("test_data/lottie/knob.json") };
 
     REQUIRE(model.name() == "Frame 2");
     REQUIRE(model.version() == "5.9.6");
