@@ -1,7 +1,7 @@
 #include <mc_lottie/mc_lottie.hpp>
 
-#include <catch2/catch_test_macros.hpp>
 #include <catch2/catch_approx.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 TEST_CASE("lottie/model: LottieColor::parse", "[lottie]")
 {

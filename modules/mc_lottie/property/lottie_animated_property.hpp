@@ -19,5 +19,4 @@ using AnimatedLottieColor = LottieAnimatedProperty<LottieColor>;
 
 } // namespace mc
 
-
 #include "lottie_animated_property.ipp"
