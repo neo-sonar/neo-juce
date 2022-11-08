@@ -1,7 +1,7 @@
 
 namespace mc {
 
-auto LottieShapeGroup::parse(LottieShape& group, juce::var const& obj) -> LottieShape
+auto LottieShapeGroup::parse(LottieShape group, juce::var const& obj) -> LottieShape
 {
     auto const* array = obj["it"].getArray();
     if (array == nullptr) { raise<InvalidArgument>("no shapes in group"); }

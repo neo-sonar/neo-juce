@@ -1,6 +1,6 @@
 namespace mc {
 
-auto LottieShapeRectangle::parse(LottieShape& group, juce::var const& obj) -> LottieShape
+auto LottieShapeRectangle::parse(LottieShape group, juce::var const& obj) -> LottieShape
 {
     auto rectangle      = LottieShapeRectangle {};
     rectangle.position  = parseLottieVec2(obj["p"]["k"]);
