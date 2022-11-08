@@ -22,6 +22,7 @@ Checks: >
   -hicpp-special-member-functions,
 
   misc-*,
+  -misc-no-recursion,
 
   modernize-*,
 
