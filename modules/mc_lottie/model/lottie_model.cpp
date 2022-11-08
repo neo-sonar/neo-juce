@@ -2,84 +2,13 @@
 
 namespace mc {
 
-static auto parseLottieCommon(entt::registry& reg, entt::entity entity, juce::var const& obj)
-{
-    if (auto n = tryParseLottieName(obj); n) { reg.emplace<LottieName>(entity, std::move(*n)); }
-    if (auto const p = tryParseLottieInOutPoints(obj); p) { reg.emplace<LottieInOutPoints>(entity, *p); }
-    if (auto const t = tryParseLottieTransform(obj); t) { reg.emplace<LottieTransform>(entity, *t); }
-}
-
-[[nodiscard]] static auto parseLottieShapes(entt::registry& reg, juce::var const& obj) -> Vector<LottieShape>
-{
-    auto const* shapesArray = obj["shapes"].getArray();
-    if (shapesArray == nullptr) { raise<InvalidArgument>("no shapes in layer"); }
-
-    auto shapes = Vector<LottieShape> {};
-    shapes.reserve(static_cast<size_t>(shapesArray->size()));
-    for (auto const& shapeObj : *shapesArray) { shapes.push_back(LottieShape::parse(reg, shapeObj)); }
-    return shapes;
-}
-
-static auto checkLayerType(juce::var const& obj, LottieLayerType expected) -> void
-{
-    auto const& ty = obj["ty"];
-    if (ty.isUndefined()) { raise<InvalidArgument>("no layer type"); }
-
-    auto const type = static_cast<LottieLayerType>(static_cast<int>(ty));
-    if (type != expected) { raise<InvalidArgument>("no layer type"); }
-}
-
-[[nodiscard]] static auto parseLottieLayerNull(entt::registry& reg, juce::var const& obj) -> LottieLayer
-{
-    checkLayerType(obj, LottieLayerType::null);
-    auto const layer = reg.create();
-    parseLottieCommon(reg, layer, obj);
-    return { reg, layer };
-}
-
-[[nodiscard]] static auto parseLottieLayerShape(entt::registry& reg, juce::var const& obj) -> LottieLayer
-{
-    checkLayerType(obj, LottieLayerType::shape);
-    auto layer = LottieLayer { reg, reg.create() };
-    parseLottieCommon(reg, layer.id, obj);
-    layer.shapes = parseLottieShapes(reg, obj);
-    return layer;
-}
-
-[[nodiscard]] static auto parseLottieLayer(entt::registry& reg, juce::var const& obj) -> LottieLayer
-{
-    auto const& ty = obj["ty"];
-    if (ty.isUndefined()) { raise<InvalidArgument>("no layer type"); }
-
-    switch (static_cast<LottieLayerType>(static_cast<int>(ty))) {
-    case LottieLayerType::null: return parseLottieLayerNull(reg, obj);
-    case LottieLayerType::shape: return parseLottieLayerShape(reg, obj);
-    case LottieLayerType::precomposition:
-    case LottieLayerType::solidColor:
-    case LottieLayerType::image:
-    case LottieLayerType::text:
-    case LottieLayerType::audio:
-    case LottieLayerType::videoPlaceholder:
-    case LottieLayerType::imageSequence:
-    case LottieLayerType::video:
-    case LottieLayerType::imagePlaceholder:
-    case LottieLayerType::guide:
-    case LottieLayerType::adjustment:
-    case LottieLayerType::camera:
-    case LottieLayerType::light:
-    case LottieLayerType::data: break;
-    }
-
-    raise<InvalidArgument>("unhandled layer type");
-}
-
 [[nodiscard]] static auto parseLottieLayers(entt::registry& reg, juce::var const& obj) -> Vector<LottieLayer>
 {
     auto const* layersObj = obj["layers"].getArray();
     if (layersObj == nullptr) { raise<InvalidArgument>("no layers defined in model"); }
 
     auto layers = Vector<LottieLayer> {};
-    for (auto const& layerObj : *layersObj) { layers.push_back(parseLottieLayer(reg, layerObj)); }
+    for (auto const& layerObj : *layersObj) { layers.push_back(LottieLayer::parse(reg, layerObj)); }
     return layers;
 }
 

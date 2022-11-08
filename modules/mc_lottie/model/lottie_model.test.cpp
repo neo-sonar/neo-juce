@@ -38,10 +38,13 @@ TEST_CASE("lottie/model: LottieModel(bouncy_ball.json)", "[lottie]")
     REQUIRE(transform->scale.x == 100.0);
     REQUIRE(transform->scale.y == 100.0);
 
-    REQUIRE(layer.shapes.size() == 1);
-    REQUIRE(layer.shapes[0].type() == mc::LottieShapeType::group);
+    auto const shapeLayer = mc::tryGetComponent<mc::LottieLayerShape>(layer.registry, layer.id);
+    REQUIRE(shapeLayer.has_value());
 
-    auto const& shape = layer.shapes[0];
+    REQUIRE(shapeLayer->shapes.size() == 1);
+    REQUIRE(shapeLayer->shapes[0].type() == mc::LottieShapeType::group);
+
+    auto const& shape = shapeLayer->shapes[0];
     auto const group  = mc::tryGetComponent<mc::LottieShapeGroup>(shape.registry, shape.id);
     REQUIRE(group.has_value());
 }

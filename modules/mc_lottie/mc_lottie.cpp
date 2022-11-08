@@ -1,6 +1,7 @@
 #include "mc_lottie.hpp"
 
 #include "layer/lottie_layer.cpp"                 // NOLINT(bugprone-suspicious-include)
+#include "layer/lottie_layer_null.cpp"            // NOLINT(bugprone-suspicious-include)
 #include "layer/lottie_layer_shape.cpp"           // NOLINT(bugprone-suspicious-include)
 #include "model/lottie_model.cpp"                 // NOLINT(bugprone-suspicious-include)
 #include "shape/lottie_shape.cpp"                 // NOLINT(bugprone-suspicious-include)
