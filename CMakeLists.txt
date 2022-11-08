@@ -111,6 +111,7 @@ set(test_sources
     modules/mc_gui_basics/widgets/xy_pad.test.cpp
 
     modules/mc_lottie/model/lottie_model.test.cpp
+    modules/mc_lottie/property/lottie_color.test.cpp
     modules/mc_lottie/shape/lottie_shape_ellipse.test.cpp
     modules/mc_lottie/shape/lottie_shape_fill.test.cpp
     modules/mc_lottie/shape/lottie_shape_gradient_fill.test.cpp
