@@ -1,5 +1,6 @@
 #include <mc_lottie/mc_lottie.hpp>
 
+#include <catch2/catch_approx.hpp>
 #include <catch2/catch_test_macros.hpp>
 
 TEST_CASE("lottie/shape: LottieShapeFill::parse", "[lottie]")
@@ -27,6 +28,14 @@ TEST_CASE("lottie/shape: LottieShapeFill::parse", "[lottie]")
 
     auto reg       = entt::registry {};
     auto const obj = juce::JSON::parse(src);
-    REQUIRE_NOTHROW(mc::LottieShape::parse(reg, obj));
-    SUCCEED();
+
+    auto const shape = mc::LottieShape::parse(reg, obj);
+    REQUIRE(shape.type() == mc::LottieShapeType::fill);
+    REQUIRE(shape.name() == "Fill");
+
+    auto const color = mc::tryGetComponent<mc::StaticLottieColor>(reg, shape.id);
+    REQUIRE(color.has_value());
+    REQUIRE(color->value.red == 1.0);
+    REQUIRE(color->value.green == Catch::Approx(0.98));
+    REQUIRE(color->value.blue == Catch::Approx(0.28));
 }
