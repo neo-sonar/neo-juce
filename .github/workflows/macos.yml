@@ -19,7 +19,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew update
           brew install ninja conan
           conan config set general.revisions_enabled=1
 
