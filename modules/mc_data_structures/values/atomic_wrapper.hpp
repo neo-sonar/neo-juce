@@ -21,13 +21,13 @@ struct AtomicWrapper {
     Atomic<Type> value { Type() };
 };
 
-using CachedAtomicFloat = juce::CachedValue<AtomicWrapper<float>>;
-using CachedAtomicInt   = juce::CachedValue<AtomicWrapper<int>>;
-using CachedAtomicBool  = juce::CachedValue<AtomicWrapper<bool>>;
+template <typename Type>
+using CachedAtomic = juce::CachedValue<AtomicWrapper<Type>>;
 
-} // namespace mc
+using CachedAtomicFloat = CachedAtomic<float>;
+using CachedAtomicInt   = CachedAtomic<int>;
+using CachedAtomicBool  = CachedAtomic<bool>;
 
-namespace mc {
 template <typename Type>
 template <typename OtherType>
 AtomicWrapper<Type>::AtomicWrapper(OtherType const& other) // NOLINT(hicpp-explicit-conversions)

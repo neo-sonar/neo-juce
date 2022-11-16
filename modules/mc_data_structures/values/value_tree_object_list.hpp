@@ -2,312 +2,206 @@
 
 namespace mc {
 
-template <typename ObjectType, typename CriticalSectionType = juce::DummyCriticalSection>
-struct ValueTreeObjectList : public juce::ValueTree::Listener {
-    explicit ValueTreeObjectList(juce::ValueTree parentTree) : parent_(std::move(parentTree))
-    {
-        parent_.addListener(this);
-    }
+template <typename T>
+struct ValueTreeObjectList : juce::ValueTree::Listener {
+    explicit ValueTreeObjectList(juce::ValueTree parentTree);
+    ~ValueTreeObjectList() override;
 
-    ~ValueTreeObjectList() override // NOLINT
-    {
-        // must call freeObjects() in the subclass destructor!
-        jassert(_objects.empty());
-    }
+    ValueTreeObjectList(ValueTreeObjectList const&) = delete;
+    ValueTreeObjectList(ValueTreeObjectList&&)      = delete;
+
+    auto operator=(ValueTreeObjectList const&) -> ValueTreeObjectList& = delete;
+    auto operator=(ValueTreeObjectList&&) -> ValueTreeObjectList&      = delete;
 
     [[nodiscard]] virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
-    virtual auto makeObject(juce::ValueTree const&) -> ObjectType*                  = 0;
-    virtual void deleteObject(ObjectType*)                                          = 0;
+    [[nodiscard]] virtual auto createNewObject(juce::ValueTree const&) -> T*        = 0;
+    virtual auto deleteObject(T*) -> void                                           = 0;
+    virtual auto newObjectAdded(T*) -> void                                         = 0;
+    virtual auto objectRemoved(T*) -> void                                          = 0;
+    virtual auto objectOrderChanged() -> void                                       = 0;
 
-    virtual void objectAdded(ObjectType*)   = 0;
-    virtual void objectRemoved(ObjectType*) = 0;
-    virtual void objectOrderChanged()       = 0;
+    [[nodiscard]] auto empty() const noexcept { return isEmpty(objects); }
 
-    /// \brief Call in the sub-class when being created.
-    void rebuildObjects()
-    {
-        jassert(_objects.empty()); // must only call this method once at construction
+    [[nodiscard]] auto size() const noexcept { return objects.size(); }
 
-        for (auto const& v : parent_) {
-            if (isSuitableType(v)) {
-                auto* newObject = makeObject(v);
-                if (newObject != nullptr) { _objects.push_back(newObject); }
-            }
-        }
-    }
+    [[nodiscard]] auto begin() noexcept { return objects.begin(); }
 
-    /// \brief Call in the sub-class when being destroyed
-    void freeObjects()
-    {
-        parent_.removeListener(this);
-        deleteAllObjects();
-    }
+    [[nodiscard]] auto begin() const noexcept { return objects.begin(); }
 
-    [[nodiscard]] auto getObjects() -> Vector<ObjectType*>& { return _objects; }
-    [[nodiscard]] auto getObjects() const -> Vector<ObjectType*> const& { return _objects; }
-    [[nodiscard]] auto getValueTree() noexcept -> juce::ValueTree& { return parent_; }
+    [[nodiscard]] auto end() noexcept { return objects.end(); }
 
-protected:
-    using ScopedLockType = typename CriticalSectionType::ScopedLockType;
-    CriticalSectionType objectsMutex_;
-    Vector<ObjectType*> _objects {};
-    juce::ValueTree parent_ {};
+    [[nodiscard]] auto end() const noexcept { return objects.end(); }
 
-    void deleteAllObjects()
-    {
-        ScopedLockType lock(objectsMutex_);
-        ranges::for_each(_objects, [this](auto* obj) { deleteObject(obj); });
-        _objects.clear();
-    }
+    [[nodiscard]] auto cbegin() const noexcept { return objects.cbegin(); }
 
-    auto isChildTree(juce::ValueTree& v) const -> bool { return isSuitableType(v) && v.getParent() == parent_; }
+    [[nodiscard]] auto cend() const noexcept { return objects.cend(); }
 
-    [[nodiscard]] auto indexOf(juce::ValueTree const& v) const noexcept -> int
-    {
-        for (std::size_t i = 0; i < _objects.size(); ++i) {
-            if (_objects[i]->getValueTree() == v) { return static_cast<int>(i); }
-        }
+    [[nodiscard]] auto operator[](size_t index) noexcept -> T& { return *objects[static_cast<int>(index)]; }
 
-        return -1;
-    }
+    [[nodiscard]] auto operator[](size_t index) const noexcept -> T const& { return *objects[static_cast<int>(index)]; }
 
-private:
-    void valueTreeChildAdded(juce::ValueTree& /*parent*/, juce::ValueTree& tree) override
-    {
-        if (isChildTree(tree)) {
-            auto const index = parent_.indexOf(tree);
-            (void)index;
-            jassert(index >= 0);
+    auto rebuildObjects() -> void;
+    auto freeObjects() -> void;
 
-            ObjectType* newObject = makeObject(tree);
-            if (newObject != nullptr) {
-                {
-                    ScopedLockType lock(objectsMutex_);
-                    _objects.push_back(newObject);
-                    if (index != parent_.getNumChildren() - 1) { sortArray(); }
-                }
+    auto valueTreeChildAdded(juce::ValueTree& parentTree, juce::ValueTree& tree) -> void override;
+    auto valueTreeChildRemoved(juce::ValueTree& exParent, juce::ValueTree& tree, int index) -> void override;
+    auto valueTreeChildOrderChanged(juce::ValueTree& tree, int oldIndex, int newIndex) -> void override;
+    auto valueTreePropertyChanged(juce::ValueTree& tree, juce::Identifier const& property) -> void override;
+    auto valueTreeParentChanged(juce::ValueTree& tree) -> void override;
+    auto valueTreeRedirected(juce::ValueTree& tree) -> void override;
 
-                objectAdded(newObject);
-            } else {
-                jassertfalse;
-            }
-        }
-    }
+    auto compareElements(T* first, T* second) const -> int;
 
-    void valueTreeChildRemoved(juce::ValueTree& exParent, juce::ValueTree& tree, int /*id*/) override
-    {
-        if (parent_ == exParent && isSuitableType(tree)) {
-            auto const oldIndex = indexOf(tree);
-
-            if (oldIndex >= 0) {
-                ObjectType* o = nullptr;
-
-                {
-                    ScopedLockType const lock(objectsMutex_);
-                    o = _objects.back();
-                    _objects.pop_back();
-                }
-
-                objectRemoved(o);
-                deleteObject(o);
-            }
-        }
-    }
-
-    void valueTreeChildOrderChanged(juce::ValueTree& tree, int /*oldIndex*/, int /*newIndex*/) override
-    {
-        if (tree == parent_) {
-            {
-                ScopedLockType const lock(objectsMutex_);
-                sortArray();
-            }
-
-            objectOrderChanged();
-        }
-    }
-
-    void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/,
-        juce::Identifier const& /*property*/) override
-    {
-    }
-    void valueTreeParentChanged(juce::ValueTree& /*treeWhoseParentHasChanged*/) override { }
-
-    void valueTreeRedirected(juce::ValueTree& /*treeWhichHasBeenChanged*/) override
-    {
-        jassertfalse;
-    } // may need to add handling if this is hit
-
-    void sortArray()
-    {
-        auto compare = [this](auto* lhs, auto* rhs) { return compareElements(lhs, rhs); };
-        ranges::sort(_objects, compare);
-    }
-
-    auto compareElements(ObjectType* first, ObjectType* second) const -> int
-    {
-        auto const index1 = parent_.indexOf(first->getValueTree());
-        auto const index2 = parent_.indexOf(second->getValueTree());
-        return index1 - index2;
-    }
-
-    JUCE_LEAK_DETECTOR(ValueTreeObjectList) // NOLINT
-};
-
-template <typename ObjectType, typename CriticalSectionType = juce::DummyCriticalSection>
-struct ValueTreeObjectListV2 : juce::ValueTree::Listener {
-    explicit ValueTreeObjectListV2(juce::ValueTree parentTree) : parent(std::move(parentTree))
-    {
-        parent.addListener(this);
-    }
-
-    ~ValueTreeObjectListV2() override // NOLINT
-    {
-        jassert(objects.isEmpty()); // must call freeObjects() in the subclass destructor!
-    }
-
-    [[nodiscard]] inline auto size() const -> int { return objects.size(); }
-    [[nodiscard]] inline auto isEmpty() const noexcept -> bool { return size() == 0; }
-    auto operator[](int idx) const -> ObjectType* { return objects[idx]; }
-    auto at(int idx) -> ObjectType* { return objects[idx]; }
-    auto begin() -> ObjectType** { return objects.begin(); }
-    auto begin() const -> ObjectType* const* { return objects.begin(); }
-    auto end() -> ObjectType** { return objects.end(); }
-    auto end() const -> ObjectType* const* { return objects.end(); }
-
-    // call in the sub-class when being created
-    void rebuildObjects()
-    {
-        jassert(objects.isEmpty()); // must only call this method once at construction
-
-        for (auto const& v : parent) {
-            if (isSuitableType(v)) {
-                if (auto newObject = createNewObject(v)) { objects.add(newObject); }
-            }
-        }
-    }
-
-    // call in the sub-class when being destroyed
-    void freeObjects()
-    {
-        parent.removeListener(this);
-        deleteAllObjects();
-    }
-
-    //==============================================================================
-    [[nodiscard]] virtual auto isSuitableType(juce::ValueTree const&) const -> bool = 0;
-    virtual auto createNewObject(juce::ValueTree const&) -> ObjectType*             = 0;
-    virtual void deleteObject(ObjectType*)                                          = 0;
-
-    virtual void newObjectAdded(ObjectType*) = 0;
-    virtual void objectRemoved(ObjectType*)  = 0;
-    virtual void objectOrderChanged()        = 0;
-
-    //==============================================================================
-    void valueTreeChildAdded(juce::ValueTree& /*parentTree*/, juce::ValueTree& tree) override
-    {
-        if (isChildTree(tree)) {
-            auto index = parent.indexOf(tree);
-            juce::ignoreUnused(index);
-            jassert(index >= 0);
-
-            if (auto* newObject = createNewObject(tree)) {
-                {
-                    const ScopedLockType sl(arrayLock);
-
-                    if (index == parent.getNumChildren() - 1) {
-                        objects.add(newObject);
-                    } else {
-                        objects.addSorted(*this, newObject);
-                    }
-                }
-
-                newObjectAdded(newObject);
-            } else {
-                jassertfalse;
-            }
-        }
-    }
-
-    void valueTreeChildRemoved(juce::ValueTree& exParent,
-        juce::ValueTree& tree,
-        int /*indexFromWhichChildWasRemoved*/) override
-    {
-        if (parent == exParent && isSuitableType(tree)) {
-            auto oldIndex = indexOf(tree);
-
-            if (oldIndex >= 0) {
-                ObjectType* o = nullptr;
-
-                {
-                    const ScopedLockType sl(arrayLock);
-                    o = objects.removeAndReturn(oldIndex);
-                }
-
-                objectRemoved(o);
-                deleteObject(o);
-            }
-        }
-    }
-
-    void valueTreeChildOrderChanged(juce::ValueTree& tree, int /*oldIndex*/, int /*newIndex*/) override
-    {
-        if (tree == parent) {
-            {
-                const ScopedLockType sl(arrayLock);
-                sortArray();
-            }
-
-            objectOrderChanged();
-        }
-    }
-
-    void valueTreePropertyChanged(juce::ValueTree& /*treeWhosePropertyHasChanged*/,
-        juce::Identifier const& /*property*/) override
-    {
-    }
-    void valueTreeParentChanged(juce::ValueTree& /*treeWhoseParentHasChanged*/) override { }
-
-    void valueTreeRedirected(juce::ValueTree& /*treeWhichHasBeenChanged*/) override
-    {
-        jassertfalse;
-    } // may need to add handling if this is hit
-
-    juce::Array<ObjectType*> objects;
-    CriticalSectionType arrayLock;
-    using ScopedLockType = typename CriticalSectionType::ScopedLockType;
+    juce::Array<T*> objects;
 
 protected:
     juce::ValueTree parent;
 
-    void deleteAllObjects()
-    {
-        const ScopedLockType sl(arrayLock);
+    auto deleteAllObjects() -> void;
+    auto isChildTree(juce::ValueTree& v) const -> bool;
+    [[nodiscard]] auto indexOf(juce::ValueTree const& v) const noexcept -> int;
+    auto sortArray() -> void;
+};
 
-        while (objects.size() > 0) { deleteObject(objects.removeAndReturn(objects.size() - 1)); }
+template <typename T>
+ValueTreeObjectList<T>::ValueTreeObjectList(juce::ValueTree parentTree) : parent(std::move(parentTree))
+{
+    parent.addListener(this);
+}
+
+template <typename T>
+ValueTreeObjectList<T>::~ValueTreeObjectList()
+{
+    // must call freeObjects() in the subclass destructor!
+    jassert(size() == 0);
+}
+
+// call in the sub-class when being created
+template <typename T>
+void ValueTreeObjectList<T>::rebuildObjects()
+{
+    // must only call this method once at construction
+    jassert(size() == 0);
+
+    for (auto const& v : parent) {
+        if (isSuitableType(v)) {
+            if (T* newObject = createNewObject(v)) {
+                objects.add(newObject);
+                newObjectAdded(newObject);
+            }
+        }
     }
+}
 
-    auto isChildTree(juce::ValueTree& v) const -> bool { return isSuitableType(v) && v.getParent() == parent; }
+// call in the sub-class when being destroyed
+template <typename T>
+void ValueTreeObjectList<T>::freeObjects()
+{
+    parent.removeListener(this);
+    deleteAllObjects();
+}
 
-    [[nodiscard]] auto indexOf(juce::ValueTree const& v) const noexcept -> int
-    {
-        for (int i = 0; i < objects.size(); ++i) {
-            if (objects.getUnchecked(i)->state == v) { return i; }
+template <typename T>
+void ValueTreeObjectList<T>::valueTreeChildAdded(juce::ValueTree& /*parentTree*/, juce::ValueTree& tree)
+{
+    if (!isChildTree(tree)) { return; }
+
+    int const index = parent.indexOf(tree);
+    jassert(index >= 0);
+
+    if (auto* obj = createNewObject(tree); obj != nullptr) {
+        if (index == parent.getNumChildren() - 1) {
+            objects.add(obj);
+        } else {
+            objects.addSorted(*this, obj);
         }
 
-        return -1;
+        newObjectAdded(obj);
+    } else {
+        jassertfalse;
+    }
+}
+
+template <typename T>
+void ValueTreeObjectList<T>::valueTreeChildRemoved(juce::ValueTree& exParent, juce::ValueTree& tree, int /*index*/)
+{
+    if (parent == exParent && isSuitableType(tree)) {
+        int const oldIndex = indexOf(tree);
+
+        if (oldIndex >= 0) {
+            T* o = nullptr;
+            o    = objects.removeAndReturn(oldIndex);
+
+            objectRemoved(o);
+            deleteObject(o);
+        }
+    }
+}
+
+template <typename T>
+void ValueTreeObjectList<T>::valueTreeChildOrderChanged(juce::ValueTree& tree, int /*oldIndex*/, int /*newIndex*/)
+{
+    if (tree == parent) {
+        sortArray();
+        objectOrderChanged();
+    }
+}
+
+template <typename T>
+void ValueTreeObjectList<T>::valueTreePropertyChanged(juce::ValueTree& /*tree*/, juce::Identifier const& /*property*/)
+{
+}
+
+template <typename T>
+void ValueTreeObjectList<T>::valueTreeParentChanged(juce::ValueTree& /*tree*/)
+{
+}
+
+template <typename T>
+void ValueTreeObjectList<T>::valueTreeRedirected(juce::ValueTree& /*tree*/)
+{
+    // may need to add handling if this is hit
+    jassertfalse;
+}
+
+template <typename T>
+void ValueTreeObjectList<T>::deleteAllObjects()
+{
+    while (size() > 0) {
+        auto* obj = objects.removeAndReturn(size() - 1);
+        objectRemoved(obj);
+        deleteObject(obj);
+    }
+}
+
+template <typename T>
+auto ValueTreeObjectList<T>::isChildTree(juce::ValueTree& v) const -> bool
+{
+    return isSuitableType(v) && v.getParent() == parent;
+}
+
+template <typename T>
+auto ValueTreeObjectList<T>::indexOf(juce::ValueTree const& v) const noexcept -> int
+{
+    for (int i = 0; i < size(); ++i) {
+        if (objects.getUnchecked(i)->valueTree() == v) { return i; }
     }
 
-    void sortArray() { objects.sort(*this); }
+    return -1;
+}
 
-public:
-    auto compareElements(ObjectType* first, ObjectType* second) const -> int
-    {
-        int index1 = parent.indexOf(first->state);
-        int index2 = parent.indexOf(second->state);
-        return index1 - index2;
-    }
+template <typename T>
+void ValueTreeObjectList<T>::sortArray()
+{
+    objects.sort(*this);
+}
 
-    JUCE_LEAK_DETECTOR(ValueTreeObjectListV2) // NOLINT
-};
+template <typename T>
+auto ValueTreeObjectList<T>::compareElements(T* first, T* second) const -> int
+{
+    auto const index1 = parent.indexOf(first->valueTree());
+    auto const index2 = parent.indexOf(second->valueTree());
+    return index1 - index2;
+}
 
 } // namespace mc
