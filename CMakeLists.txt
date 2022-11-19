@@ -1,9 +1,11 @@
-cmake_minimum_required(VERSION 3.15)
-cmake_policy(VERSION 3.15)
+cmake_minimum_required(VERSION 3.21)
 project(mc-juce-dev VERSION 0.1.0)
+
+option(MC_BUILD_CONAN_CMAKE "Call conan from CMake. Does not work with ClangCL" ON)
 
 find_program(CCACHE ccache)
 if (CCACHE)
+    set(CMAKE_C_COMPILER_LAUNCHER ${CCACHE})
     set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
 endif ()
 
@@ -30,10 +32,13 @@ juce_disable_default_flags()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR})
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_BINARY_DIR})
-include(mcConan)
 include(mcCompilerOptions)
 include(mcCompilerWarnings)
 include(mcCodeCoverage)
+
+if(MC_BUILD_CONAN_CMAKE)
+    include(mcConan)
+endif()
 
 find_package(mc-core REQUIRED)
 find_package(mc-audio REQUIRED)
@@ -130,7 +135,7 @@ set(test_sources
     modules/mc_synth/wavetable/wavetable_oscillator.test.cpp
 )
 
-target_sources(mc-juce-dev_tests PRIVATE MainTest.cpp ${test_sources})
+target_sources(mc-juce-dev_tests PRIVATE main.test.cpp ${test_sources})
 set_source_files_properties(mc-juce-dev_tests ${test_sources} PROPERTIES UNITY_GROUP "tests")
 
 target_compile_definitions(mc-juce-dev_tests
@@ -170,6 +175,40 @@ target_link_libraries(mc-juce-dev_tests
         juce::juce_recommended_config_flags
 )
 
+find_package(benchmark)
+juce_add_console_app(mc-juce-dev_benchmarks PRODUCT_NAME "mc-juce-dev_benchmarks")
+target_sources(mc-juce-dev_benchmarks
+    PRIVATE
+        main.bench.cpp
+
+        modules/mc_synth/math/hermite_interpolation.bench.cpp
+        modules/mc_synth/wavetable/wavetable_oscillator.bench.cpp
+)
+
+target_compile_definitions(mc-juce-dev_benchmarks
+    PRIVATE
+        JUCE_WEB_BROWSER=0
+        JUCE_USE_OGGVORBIS=0
+        JUCE_DISABLE_JUCE_VERSION_PRINTING=1
+        _SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING=1
+)
+
+target_link_libraries(mc-juce-dev_benchmarks
+    PRIVATE
+        mc::mc_synth
+
+        mc-core::mc-core
+        mc-audio::mc-audio
+        benchmark::benchmark
+
+        mc::compiler_options
+        mc::compiler_warnings
+        mc::coverage
+
+        juce::juce_recommended_warning_flags
+        juce::juce_recommended_config_flags
+        juce::juce_recommended_lto_flags
+)
 
 message("------------------------------------------")
 message("PROJECT:          \t ${PROJECT_NAME}")
