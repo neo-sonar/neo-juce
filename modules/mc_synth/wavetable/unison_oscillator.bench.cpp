@@ -15,19 +15,31 @@ static auto makeBenchUnisonOscillator(std::int64_t unison = 1)
     return osc;
 }
 
-static auto UnisonOscillator_Float(benchmark::State& state) -> void
+template <typename T, size_t NumOsc>
+static auto makeBenchUnisonOscillatorV2(std::int64_t unison = 1)
+{
+    auto osc = mc::UnisonOscillatorV2<T, NumOsc> {};
+    osc.load(mc::makeSineWavetable<T>(2048U));
+    osc.frequency(T(440));
+    osc.detune(50);
+    osc.unison(static_cast<int>(unison));
+    osc.prepare(64);
+    return osc;
+    return osc;
+}
+
+static auto UnisonOscillator(benchmark::State& state) -> void
 {
     auto osc = makeBenchUnisonOscillator<float>(state.range(0));
     while (state.KeepRunning()) { benchmark::DoNotOptimize(osc.processSample()); }
 }
 
-BENCHMARK(UnisonOscillator_Float)->Arg(1)->Arg(2)->Arg(4);
+BENCHMARK(UnisonOscillator)->Arg(1)->Arg(2)->Arg(4)->Arg(6)->Arg(8);
 
-static auto UnisonOscillator_Double(benchmark::State& state) -> void
+static auto UnisonOscillatorV2(benchmark::State& state) -> void
 {
-    auto osc = makeBenchUnisonOscillator<double>(state.range(0));
+    auto osc = makeBenchUnisonOscillatorV2<float, 8>(state.range(0));
     while (state.KeepRunning()) { benchmark::DoNotOptimize(osc.processSample()); }
 }
 
-BENCHMARK(UnisonOscillator_Double)->Arg(1)->Arg(2)->Arg(4);
-;
+BENCHMARK(UnisonOscillatorV2)->Arg(1)->Arg(2)->Arg(4)->Arg(6)->Arg(8);

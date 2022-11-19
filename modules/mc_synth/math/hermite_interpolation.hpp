@@ -21,6 +21,27 @@ struct HermiteInterpolation {
 };
 
 template <typename T>
+struct HermiteInterpolation<xsimd::batch<T>> {
+
+    [[nodiscard]] constexpr auto operator()(Span<xsimd::batch<T> const, 4> val, xsimd::batch<T> offset) const noexcept
+        -> xsimd::batch<T>
+    {
+        auto const slope0 = (val[2] - val[0]) * static_cast<T>(0.5);
+        auto const slope1 = (val[3] - val[1]) * static_cast<T>(0.5);
+
+        auto const v    = val[1] - val[2];
+        auto const w    = slope0 + v;
+        auto const a    = w + v + slope1;
+        auto const bNeg = w + a;
+
+        auto const stage1 = xsimd::fms(a, offset, bNeg);
+        auto const stage2 = stage1 * offset * slope0;
+
+        return xsimd::fma(stage2, offset, val[1]);
+    }
+};
+
+template <typename T>
 [[nodiscard]] constexpr auto samplesForHermiteInterpolation(Span<T const> buf, size_t s1) noexcept -> Array<T, 4>
 {
     auto const size = buf.size();
