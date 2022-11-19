@@ -22,6 +22,10 @@ END_JUCE_MODULE_DECLARATION
 #include <mc_audio_formats/mc_audio_formats.hpp>
 #include <mc_dsp/mc_dsp.hpp>
 
+// clang-format off
+#include "math/frequency.hpp"
 #include "math/hermite_interpolation.hpp"
 #include "wavetable/wavetable.hpp"
 #include "wavetable/wavetable_oscillator.hpp"
+#include "wavetable/unison_oscillator.hpp"
+// clang-format on

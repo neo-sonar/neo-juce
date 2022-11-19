@@ -131,8 +131,9 @@ set(test_sources
     modules/mc_meters/level_meter/level_meter_source.test.cpp
 
     modules/mc_synth/math/hermite_interpolation.test.cpp
-    modules/mc_synth/wavetable/wavetable.test.cpp
+    modules/mc_synth/wavetable/unison_oscillator.test.cpp
     modules/mc_synth/wavetable/wavetable_oscillator.test.cpp
+    modules/mc_synth/wavetable/wavetable.test.cpp
 )
 
 target_sources(mc-juce-dev_tests PRIVATE main.test.cpp ${test_sources})
@@ -182,6 +183,7 @@ target_sources(mc-juce-dev_benchmarks
         main.bench.cpp
 
         modules/mc_synth/math/hermite_interpolation.bench.cpp
+        modules/mc_synth/wavetable/unison_oscillator.bench.cpp
         modules/mc_synth/wavetable/wavetable_oscillator.bench.cpp
 )
 

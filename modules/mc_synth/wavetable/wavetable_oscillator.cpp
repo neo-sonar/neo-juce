@@ -28,8 +28,8 @@ auto WavetableOscillator<T>::prepare(double sampleRate) -> void
 template <typename T>
 auto WavetableOscillator<T>::processSample() -> T
 {
-    // if (_wavetable == nullptr) { return 0; }
-    // if (empty(*_wavetable)) { return 0; }
+    if (_wavetable == nullptr) { return 0; }
+    if (empty(*_wavetable)) { return 0; }
 
     _phase += _deltaPhase;
     _phase -= std::floor(_phase);
