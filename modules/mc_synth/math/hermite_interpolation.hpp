@@ -51,4 +51,39 @@ template <typename T>
     return { buf[s1 - 1], buf[s1], buf[s1 + 1], buf[s1 + 2] };
 }
 
+template <typename T>
+[[nodiscard]] constexpr auto samplesForHermiteInterpolation(Span<T const> buf, xsimd::batch<int32_t> s1) noexcept
+    -> Array<xsimd::batch<T>, 4>
+{
+    auto const size = static_cast<int32_t>(buf.size());
+
+    auto const s1IsSizeMinus2 = s1 == size - 2;
+    auto const s1IsSizeMinus1 = s1 == size - 1;
+
+    auto index0 = s1 - 1;
+    auto index1 = s1;
+    auto index2 = s1 + 1;
+    auto index3 = s1 + 2;
+
+    // s1 == 0
+    index0 = xsimd::select(s1 == 0, xsimd::batch<int32_t> { size - 1 }, index0);
+
+    // s1 == size - 2
+    index0 = xsimd::select(s1IsSizeMinus2, xsimd::batch<int32_t> { size - 3 }, index0);
+    index2 = xsimd::select(s1IsSizeMinus2, xsimd::batch<int32_t> { size - 1 }, index2);
+    index3 = xsimd::select(s1IsSizeMinus2, xsimd::batch<int32_t> { 0 }, index3);
+
+    // s1 == size - 1
+    index0 = xsimd::select(s1IsSizeMinus1, xsimd::batch<int32_t> { size - 2 }, index0);
+    index2 = xsimd::select(s1IsSizeMinus1, xsimd::batch<int32_t> { 0 }, index2);
+    index3 = xsimd::select(s1IsSizeMinus1, xsimd::batch<int32_t> { 1 }, index3);
+
+    return Array<xsimd::batch<T>, 4> {
+        xsimd::batch<T>::gather(data(buf), index0),
+        xsimd::batch<T>::gather(data(buf), index1),
+        xsimd::batch<T>::gather(data(buf), index2),
+        xsimd::batch<T>::gather(data(buf), index3),
+    };
+}
+
 } // namespace mc

@@ -104,12 +104,13 @@ struct UnisonOscillatorV2 {
             auto const sampleOffset = scaledPhase - xsimd::to_float(sampleIndex);
 
             auto const table   = Span<T const> { *_wavetable }.subspan(0, _wavetable->period());
-            auto const samples = mc::Array<xsimd::batch<T>, 4> {
-                xsimd::batch<T>::gather(data(table), sampleIndex - 1),
-                xsimd::batch<T>::gather(data(table), sampleIndex + 0),
-                xsimd::batch<T>::gather(data(table), sampleIndex + 1),
-                xsimd::batch<T>::gather(data(table), sampleIndex + 2),
-            };
+            auto const samples = samplesForHermiteInterpolation<T>(table, sampleIndex);
+            // auto const samples = mc::Array<xsimd::batch<T>, 4> {
+            //     xsimd::batch<T>::gather(data(table), sampleIndex - 1),
+            //     xsimd::batch<T>::gather(data(table), sampleIndex + 0),
+            //     xsimd::batch<T>::gather(data(table), sampleIndex + 1),
+            //     xsimd::batch<T>::gather(data(table), sampleIndex + 2),
+            // };
 
             auto ip = HermiteInterpolation<xsimd::batch<T>> {};
             sum += xsimd::reduce_add(ip(samples, sampleOffset) * _gainCompensation[i]);
