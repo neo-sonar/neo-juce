@@ -178,14 +178,15 @@ target_link_libraries(mc-juce-dev_tests
 
 find_package(benchmark)
 juce_add_console_app(mc-juce-dev_benchmarks PRODUCT_NAME "mc-juce-dev_benchmarks")
-target_sources(mc-juce-dev_benchmarks
-    PRIVATE
-        main.bench.cpp
 
-        modules/mc_synth/math/hermite_interpolation.bench.cpp
-        modules/mc_synth/wavetable/unison_oscillator.bench.cpp
-        modules/mc_synth/wavetable/wavetable_oscillator.bench.cpp
+set(bench_sources
+    modules/mc_synth/math/hermite_interpolation.bench.cpp
+    modules/mc_synth/wavetable/unison_oscillator.bench.cpp
+    modules/mc_synth/wavetable/wavetable_oscillator.bench.cpp
 )
+
+target_sources(mc-juce-dev_benchmarks PRIVATE main.bench.cpp ${bench_sources})
+set_source_files_properties(mc-juce-dev_benchmarks ${bench_sources} PROPERTIES UNITY_GROUP "benchmarks")
 
 target_compile_definitions(mc-juce-dev_benchmarks
     PRIVATE
