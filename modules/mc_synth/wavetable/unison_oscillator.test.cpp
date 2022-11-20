@@ -15,6 +15,6 @@ TEMPLATE_TEST_CASE("synth/wavetable: unisonDetuneForVoice", "[synth]", float, do
     REQUIRE(unisonDetuneForVoice<T>(voices, 0) == Catch::Approx(T { -1 }));
     REQUIRE(unisonDetuneForVoice<T>(voices, voices - 1) == Catch::Approx(T { 1 }));
 
-    auto osc = mc::UnisonOscillatorV2<float, 16> {};
+    auto osc = mc::UnisonWavetableOsc<float, 16> {};
     juce::ignoreUnused(osc);
 }

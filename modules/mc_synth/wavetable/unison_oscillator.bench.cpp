@@ -16,9 +16,9 @@ static auto makeBenchUnisonOscillator(std::int64_t unison = 1)
 }
 
 template <typename T, size_t NumOsc>
-static auto makeBenchUnisonOscillatorV2(std::int64_t unison = 1)
+static auto makeBenchUnisonWavetableOsc(std::int64_t unison = 1)
 {
-    auto osc = mc::UnisonOscillatorV2<T, NumOsc> {};
+    auto osc = mc::UnisonWavetableOsc<T, NumOsc> {};
     osc.load(mc::makeSineWavetable<T>(2048U));
     osc.frequency(T(440));
     osc.detune(50);
@@ -36,10 +36,10 @@ static auto UnisonOscillator(benchmark::State& state) -> void
 
 BENCHMARK(UnisonOscillator)->Arg(1)->Arg(2)->Arg(4)->Arg(6)->Arg(8);
 
-static auto UnisonOscillatorV2(benchmark::State& state) -> void
+static auto UnisonWavetableOsc(benchmark::State& state) -> void
 {
-    auto osc = makeBenchUnisonOscillatorV2<float, 8>(state.range(0));
+    auto osc = makeBenchUnisonWavetableOsc<float, 8>(state.range(0));
     while (state.KeepRunning()) { benchmark::DoNotOptimize(osc.processSample()); }
 }
 
-BENCHMARK(UnisonOscillatorV2)->Arg(1)->Arg(2)->Arg(4)->Arg(6)->Arg(8);
+BENCHMARK(UnisonWavetableOsc)->Arg(1)->Arg(2)->Arg(4)->Arg(6)->Arg(8);
