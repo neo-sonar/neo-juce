@@ -162,6 +162,10 @@ auto UnisonWavetableOsc<T, MaxNumOscillators>::prepare(double sampleRate) -> voi
     frequency(_frequency);
 }
 
+#if JUCE_MSVC && JUCE_DEBUG
+    #pragma optimize("t", on)
+#endif
+
 template <typename T, size_t MaxNumOscillators>
 auto UnisonWavetableOsc<T, MaxNumOscillators>::processSample() -> T
 {
@@ -181,9 +185,12 @@ auto UnisonWavetableOsc<T, MaxNumOscillators>::processSample() -> T
 
         sum += xsimd::reduce_add(sample * _gainCompensation[i]);
     }
-
     return sum;
 }
+
+#if JUCE_MSVC && JUCE_DEBUG
+    #pragma optimize("", on)
+#endif
 
 template <typename T, size_t MaxNumOscillators>
 auto UnisonWavetableOsc<T, MaxNumOscillators>::reset(T phaseIn) -> void
