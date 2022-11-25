@@ -76,8 +76,8 @@ inline auto AirWindowsDeRez<T>::process(ProcessContext const& context) noexcept 
         lastSample = drySample;
         *out1      = inputSample;
 
-        *in1++;
-        *out1++;
+        ++in1;
+        ++out1;
     }
 }
 
