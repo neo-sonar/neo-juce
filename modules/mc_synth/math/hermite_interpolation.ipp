@@ -18,7 +18,7 @@ constexpr auto HermiteInterpolation<T>::operator()(Span<T const, 4> val, T offse
     auto const bNeg = w + a;
 
     auto const stage1 = a * offset - bNeg;
-    auto const stage2 = stage1 * offset * slope0;
+    auto const stage2 = stage1 * offset + slope0;
 
     return stage2 * offset + val[1];
 }
@@ -36,7 +36,7 @@ auto HermiteInterpolation<xsimd::batch<T>>::operator()(Span<xsimd::batch<T> cons
     auto const bNeg = w + a;
 
     auto const stage1 = xsimd::fms(a, offset, bNeg);
-    auto const stage2 = stage1 * offset * slope0;
+    auto const stage2 = xsimd::fma(stage1, offset, slope0);
 
     return xsimd::fma(stage2, offset, val[1]);
 }
