@@ -95,6 +95,7 @@ set(test_sources
     modules/mc_dsp/algorithm/down_sample.test.cpp
     modules/mc_dsp/clock/trigger_clock.test.cpp
     modules/mc_dsp/container/audio_block.test.cpp
+    modules/mc_dsp/fx/airwindows_derez.test.cpp
     modules/mc_dsp/fx/stereo_width.test.cpp
     modules/mc_dsp/units/bars.test.cpp
     modules/mc_dsp/units/bpm.test.cpp
@@ -186,6 +187,7 @@ set(bench_sources
 )
 
 target_sources(mc-juce-dev_benchmarks PRIVATE main.bench.cpp ${bench_sources})
+set_target_properties(mc-juce-dev_benchmarks PROPERTIES UNITY_BUILD_MODE GROUP)
 set_source_files_properties(mc-juce-dev_benchmarks ${bench_sources} PROPERTIES UNITY_GROUP "benchmarks")
 
 target_compile_definitions(mc-juce-dev_benchmarks

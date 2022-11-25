@@ -39,4 +39,5 @@ END_JUCE_MODULE_DECLARATION
 
 #include "clock/trigger_clock.hpp"
 
+#include "fx/airwindows_derez.hpp"
 #include "fx/stereo_width.hpp"
