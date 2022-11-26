@@ -52,7 +52,7 @@ include(CTest)
 find_package(Catch2 REQUIRED)
 include(Catch)
 
-juce_add_console_app(mc-juce-dev_tests PRODUCT_NAME "mc-juce-dev_tests" NEEDS_CURL TRUE)
+juce_add_console_app(mc-juce-dev_tests PRODUCT_NAME "mc-juce-dev_tests" NEEDS_CURL OFF)
 catch_discover_tests(mc-juce-dev_tests WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 set_target_properties(mc-juce-dev_tests PROPERTIES UNITY_BUILD_MODE GROUP)
 
@@ -144,6 +144,7 @@ target_compile_definitions(mc-juce-dev_tests
     PRIVATE
         JUCE_WEB_BROWSER=0
         JUCE_USE_OGGVORBIS=0
+        JUCE_USE_CURL=0
         JUCE_DISABLE_JUCE_VERSION_PRINTING=1
         _SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING=1
 )
@@ -178,7 +179,7 @@ target_link_libraries(mc-juce-dev_tests
 )
 
 find_package(benchmark)
-juce_add_console_app(mc-juce-dev_benchmarks PRODUCT_NAME "mc-juce-dev_benchmarks")
+juce_add_console_app(mc-juce-dev_benchmarks PRODUCT_NAME "mc-juce-dev_benchmarks" NEEDS_CURL OFF)
 
 set(bench_sources
     modules/mc_synth/math/hermite_interpolation.bench.cpp
@@ -194,6 +195,7 @@ target_compile_definitions(mc-juce-dev_benchmarks
     PRIVATE
         JUCE_WEB_BROWSER=0
         JUCE_USE_OGGVORBIS=0
+        JUCE_USE_CURL=0
         JUCE_DISABLE_JUCE_VERSION_PRINTING=1
         _SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING=1
 )

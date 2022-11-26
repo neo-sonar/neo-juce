@@ -12,7 +12,6 @@ static auto makeBenchUnisonOscillator(std::int64_t unison = 1)
     osc.unison(static_cast<int>(unison));
     osc.prepare(64);
     return osc;
-    return osc;
 }
 
 template <typename T, size_t NumOsc>
@@ -24,7 +23,6 @@ static auto makeBenchUnisonWavetableOsc(std::int64_t unison = 1)
     osc.detune(50);
     osc.unison(static_cast<int>(unison));
     osc.prepare(64);
-    return osc;
     return osc;
 }
 
