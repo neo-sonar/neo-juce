@@ -1,6 +1,6 @@
 #pragma once
 
-namespace {
+namespace mc {
 
 template <typename T>
 [[nodiscard]] constexpr auto hertzWithCentsOffset(T baseFrequencyHertz, T centsOffset) noexcept -> T
@@ -14,4 +14,4 @@ template <typename T>
     return hertzWithCentsOffset(baseFrequencyHertz, semitonesOffset * T(100));
 }
 
-} // namespace
+} // namespace mc

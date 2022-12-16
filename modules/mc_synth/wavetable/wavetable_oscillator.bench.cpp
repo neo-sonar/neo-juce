@@ -13,18 +13,18 @@ static auto makeBenchOscillator()
     return osc;
 }
 
-static auto WavetableOscillator_Float(benchmark::State& state) -> void
+static auto wavetableOscillatorFloat(benchmark::State& state) -> void
 {
     auto osc = makeBenchOscillator<float>();
     while (state.KeepRunning()) { benchmark::DoNotOptimize(osc.processSample()); }
 }
 
-BENCHMARK(WavetableOscillator_Float);
+BENCHMARK(wavetableOscillatorFloat);
 
-static auto WavetableOscillator_Double(benchmark::State& state) -> void
+static auto wavetableOscillatorDouble(benchmark::State& state) -> void
 {
     auto osc = makeBenchOscillator<double>();
     while (state.KeepRunning()) { benchmark::DoNotOptimize(osc.processSample()); }
 }
 
-BENCHMARK(WavetableOscillator_Double);
+BENCHMARK(wavetableOscillatorDouble);

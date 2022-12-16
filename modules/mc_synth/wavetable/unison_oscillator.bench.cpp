@@ -26,18 +26,18 @@ static auto makeBenchUnisonWavetableOsc(std::int64_t unison = 1)
     return osc;
 }
 
-static auto UnisonOscillator(benchmark::State& state) -> void
+static auto unisonOscillator(benchmark::State& state) -> void
 {
     auto osc = makeBenchUnisonOscillator<float>(state.range(0));
     while (state.KeepRunning()) { benchmark::DoNotOptimize(osc.processSample()); }
 }
 
-BENCHMARK(UnisonOscillator)->Arg(1)->Arg(2)->Arg(4)->Arg(6)->Arg(8);
+BENCHMARK(unisonOscillator)->Arg(1)->Arg(2)->Arg(4)->Arg(6)->Arg(8);
 
-static auto UnisonWavetableOsc(benchmark::State& state) -> void
+static auto unisonWavetableOsc(benchmark::State& state) -> void
 {
     auto osc = makeBenchUnisonWavetableOsc<float, 8>(state.range(0));
     while (state.KeepRunning()) { benchmark::DoNotOptimize(osc.processSample()); }
 }
 
-BENCHMARK(UnisonWavetableOsc)->Arg(1)->Arg(2)->Arg(4)->Arg(6)->Arg(8);
+BENCHMARK(unisonWavetableOsc)->Arg(1)->Arg(2)->Arg(4)->Arg(6)->Arg(8);
