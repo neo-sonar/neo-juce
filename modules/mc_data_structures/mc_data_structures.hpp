@@ -26,6 +26,7 @@ END_JUCE_MODULE_DECLARATION
 
 #include "values/atomic_wrapper.hpp"
 #include "values/constrainer_wrapper.hpp"
+#include "values/value_tree.hpp"
 #include "values/value_tree_attachment.hpp"
 #include "values/value_tree_object.hpp"
 #include "values/value_tree_object_list.hpp"

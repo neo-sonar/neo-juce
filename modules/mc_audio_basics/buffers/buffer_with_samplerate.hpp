@@ -8,7 +8,6 @@ struct BufferWithSampleRate {
     double sampleRate;
 };
 
-
 /// \relates BufferWithSampleRate
 [[nodiscard]] auto toVector(BufferWithSampleRate<float> const& buffer) -> Vector<float>;
 

@@ -63,7 +63,7 @@ private:
     void valueTreePropertyChanged(juce::ValueTree& tree, juce::Identifier const& property) override
     {
         if (property == _id) {
-            _lastValue = juce::VariantConverter<value_type>::fromVar(tree[property]);
+            _lastValue = fromVar<value_type>(tree[property]);
             if (juce::MessageManager::getInstance()->isThisTheMessageThread()) {
                 cancelPendingUpdate();
                 handleAsyncUpdate();
