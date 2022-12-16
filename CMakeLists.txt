@@ -167,6 +167,7 @@ target_link_libraries(mc-juce-dev_tests
         mc::mc_extension_pack
         mc::mc_graphics
         mc::mc_gui_basics
+        mc::mc_gui_extra
         mc::mc_lottie
         mc::mc_meters
 

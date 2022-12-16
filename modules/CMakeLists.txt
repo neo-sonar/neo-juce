@@ -11,6 +11,7 @@ juce_add_modules(ALIAS_NAMESPACE mc
     mc_extension_pack
     mc_graphics
     mc_gui_basics
+    mc_gui_extra
     mc_lottie
     mc_meters
     mc_synth
