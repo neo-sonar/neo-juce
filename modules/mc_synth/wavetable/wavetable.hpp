@@ -21,9 +21,11 @@ private:
     size_t _period;
 };
 
+/// \relates Wavetable
 template <typename T>
 [[nodiscard]] auto makeSineWavetable(size_t size) -> typename Wavetable<T>::Ptr;
 
+/// \relates Wavetable
 template <typename T>
 [[nodiscard]] auto loadWavetable(UniquePtr<juce::InputStream> stream) -> typename Wavetable<T>::Ptr;
 

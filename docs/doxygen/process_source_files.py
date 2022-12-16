@@ -27,7 +27,7 @@ def get_curly_brace_scope_end(string, start_pos):
 def remove_mc_namespaces(source):
     """Return a string of source code with any mc namespaces removed.
     """
-    namespace_regex = re.compile(r"\s+namespace\s+mc\s*\n\{")
+    namespace_regex = re.compile(r"\s+namespace\s+mc\s*\{")
 
     match = namespace_regex.search(source)
     while (match is not None):
