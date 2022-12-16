@@ -11,7 +11,7 @@ jobs:
         build_mode: ["Debug", "Release"]
         compiler: ["gcc", "clang"]
       fail-fast: false
-    name: ${{ matrix.compiler }} - ${{ matrix.cxx }} - ${{ matrix.build_mode }}
+    name: ${{ matrix.compiler }} - C++${{ matrix.cxx }} - ${{ matrix.build_mode }}
     steps:
       - name: Check out code
         uses: actions/checkout@v3

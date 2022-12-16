@@ -9,13 +9,13 @@ jobs:
         cxx: [17, 20]
         build:
           [
-            { "name": "asan", "flags": "MC_BUILD_ASAN=ON" },
-            { "name": "ubsan", "flags": "MC_BUILD_UBSAN=ON" },
-            { "name": "tsan", "flags": "MC_BUILD_TSAN=ON" },
+            { "name": "Address", "flags": "MC_BUILD_ASAN=ON" },
+            { "name": "Undefined Behavior", "flags": "MC_BUILD_UBSAN=ON" },
+            { "name": "Thread", "flags": "MC_BUILD_TSAN=ON" },
           ]
       fail-fast: false
     runs-on: macos-12
-    name: ${{ matrix.build.name }}
+    name: ${{ matrix.build.name }} - C++${{ matrix.cxx }}
     steps:
       - name: Check out code
         uses: actions/checkout@v3
