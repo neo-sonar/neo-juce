@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(mc-juce-dev VERSION 0.1.0)
+project(mc-juce-dev VERSION 0.1.0 LANGUAGES C CXX)
 
 option(MC_BUILD_CONAN_CMAKE "Call conan from CMake. Does not work with ClangCL" ON)
 
@@ -24,7 +24,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 include(FetchContent)
-FetchContent_Declare(JUCE GIT_REPOSITORY "https://github.com/juce-framework/JUCE" GIT_TAG "7.0.2")
+FetchContent_Declare(JUCE GIT_REPOSITORY "https://github.com/juce-framework/JUCE" GIT_TAG "7.0.3")
 FetchContent_MakeAvailable(JUCE)
 
 juce_disable_default_flags()
