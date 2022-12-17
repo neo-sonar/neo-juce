@@ -32,18 +32,18 @@ struct AirWindowsDeRez {
     auto process(ProcessContext const& context) noexcept -> void;
 
 private:
-    juce::dsp::ProcessSpec _spec;
+    juce::dsp::ProcessSpec _spec {};
 
     T _targetA {};
     T _targetB {};
     T _soften {};
 
-    T incrementFrequency {};
-    T incrementBitDepth {};
+    T _incrementFrequency {};
+    T _incrementBitDepth {};
 
-    T lastSample {};
-    T heldSample {};
-    T position {};
+    T _lastSample {};
+    T _heldSample {};
+    T _position {};
 };
 
 } // namespace mc::fx

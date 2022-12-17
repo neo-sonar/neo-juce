@@ -69,7 +69,6 @@ private:
                     samples += _samplesPerBlock - _fraction;
                     _fraction = leftover;
                 }
-                jassert(minMax.getStart() == minMax.getStart() && minMax.getEnd() == minMax.getEnd());
             }
         }
 
