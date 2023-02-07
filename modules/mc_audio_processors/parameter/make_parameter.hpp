@@ -4,7 +4,7 @@ namespace mc {
 template <typename ParamT, typename StringLike, typename... Args>
 auto makeParameter(StringLike&& id, Args&&... args)
 {
-    return std::make_unique<ParamT>(juce::ParameterID { std::forward<StringLike>(id) }, std::forward<Args>(args)...);
+    return std::make_unique<ParamT>(juce::ParameterID { std::forward<StringLike>(id), 1 }, std::forward<Args>(args)...);
 }
 
 template <typename StringLike, typename... Args>
