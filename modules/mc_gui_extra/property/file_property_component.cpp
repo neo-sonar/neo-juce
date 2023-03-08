@@ -2,10 +2,11 @@ namespace mc {
 FilePropertyComponent::FilePropertyComponent(juce::Value const& value,
     juce::String const& name,
     juce::String title,
-    juce::String pattern)
+    juce::String pattern,
+    bool selectDirectory)
     : ValuePropertyComponent { value, name }, _title { std::move(title) }, _pattern { std::move(pattern) }
 {
-    _container.browse.onClick = [this] { browseForFile(); };
+    _container.browse.onClick = [this, selectDirectory] { browseForFile(selectDirectory); };
     _container.clear.onClick  = [this] { this->value().setValue(""); };
 
     addAndMakeVisible(_container);
@@ -13,10 +14,11 @@ FilePropertyComponent::FilePropertyComponent(juce::Value const& value,
 
 void FilePropertyComponent::refresh() { _container.filename.setText(value().toString()); }
 
-auto FilePropertyComponent::browseForFile() -> void
+auto FilePropertyComponent::browseForFile(bool selectDirectory) -> void
 {
-    auto folderChooserFlags = juce::FileBrowserComponent::openMode;
-    _chooser                = makeUnique<juce::FileChooser>(_title, juce::File(value().toString()), _pattern);
+    auto folderChooserFlags
+        = selectDirectory ? juce::FileBrowserComponent::canSelectDirectories : juce::FileBrowserComponent::openMode;
+    _chooser = makeUnique<juce::FileChooser>(_title, juce::File(value().toString()), _pattern);
     _chooser->launchAsync(folderChooserFlags,
         [this](juce::FileChooser const&) { value().setValue(_chooser->getResult().getFullPathName()); });
 }

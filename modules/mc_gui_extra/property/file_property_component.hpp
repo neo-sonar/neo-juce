@@ -5,13 +5,14 @@ struct FilePropertyComponent final : ValuePropertyComponent {
     FilePropertyComponent(juce::Value const& value,
         juce::String const& name,
         juce::String title   = "Open",
-        juce::String pattern = "*.*");
+        juce::String pattern = "*.*",
+        bool selectDirectory = false);
     ~FilePropertyComponent() override = default;
 
     auto refresh() -> void override;
 
 private:
-    auto browseForFile() -> void;
+    auto browseForFile(bool selectDirectory) -> void;
 
     struct Container final : Component {
         Container();
