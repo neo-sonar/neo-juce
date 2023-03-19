@@ -6,15 +6,20 @@ struct DownSamplingAnalyzer final : juce::Timer, juce::ChangeBroadcaster {
     explicit DownSamplingAnalyzer(std::size_t downSampleFactor);
     ~DownSamplingAnalyzer() override = default;
 
-    void process(juce::AudioBuffer<float> const& buffer);
-    void process(juce::AudioBuffer<double> const& buffer);
+    auto prepare(juce::dsp::ProcessSpec const& spec) -> void;
+    auto process(juce::AudioBuffer<float> const& buffer) -> void;
+    auto reset() -> void;
 
     [[nodiscard]] auto buffer() const noexcept -> Span<float const>;
 
 private:
+    inline static constexpr auto ChunkSize = 128U;
+
     auto timerCallback() -> void override;
 
-    enum { ChunkSize = 64U };
+    juce::dsp::StateVariableTPTFilter<float> _filter;
+    juce::AudioBuffer<float> _filterBuffer;
+
     LockFreeQueue<StaticVector<float, ChunkSize>> _queue { 8U };
     std::size_t _downSampleFactor { 8U };
 

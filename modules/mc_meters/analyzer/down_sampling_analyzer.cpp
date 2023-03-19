@@ -37,28 +37,43 @@ DownSamplingAnalyzer::DownSamplingAnalyzer(std::size_t downSampleFactor) : _down
     startTimerHz(25);
 }
 
-auto DownSamplingAnalyzer::process(juce::AudioBuffer<float> const& buffer) -> void
+auto DownSamplingAnalyzer::prepare(juce::dsp::ProcessSpec const& spec) -> void
 {
-    processDownSamplingAnalyzer<decltype(_queue), juce::AudioBuffer<float>, ChunkSize>(
-        _queue, buffer, _downSampleFactor);
+    auto const cutoff = static_cast<float>(spec.sampleRate) / (static_cast<float>(_downSampleFactor * 2UL));
+    _filter.setCutoffFrequency(cutoff);
+    _filter.setType(juce::dsp::StateVariableTPTFilterType::lowpass);
+    _filter.prepare(spec);
+
+    _filterBuffer.setSize(static_cast<int>(spec.numChannels), static_cast<int>(spec.maximumBlockSize));
 }
 
-auto DownSamplingAnalyzer::process(juce::AudioBuffer<double> const& buffer) -> void
+auto DownSamplingAnalyzer::process(juce::AudioBuffer<float> const& buffer) -> void
 {
-    processDownSamplingAnalyzer<decltype(_queue), juce::AudioBuffer<double>, ChunkSize>(
-        _queue, buffer, _downSampleFactor);
+    _filterBuffer.setSize(buffer.getNumChannels(), buffer.getNumSamples());
+    auto inBlock  = juce::dsp::AudioBlock<float const> { buffer };
+    auto outBlock = juce::dsp::AudioBlock<float> { _filterBuffer };
+    _filter.process(juce::dsp::ProcessContextNonReplacing<float> { inBlock, outBlock });
+    processDownSamplingAnalyzer<decltype(_queue), juce::AudioBuffer<float>, ChunkSize>(
+        _queue, _filterBuffer, _downSampleFactor);
 }
+
+auto DownSamplingAnalyzer::reset() -> void { }
 
 auto DownSamplingAnalyzer::buffer() const noexcept -> Span<float const> { return _buffer; }
 
 auto DownSamplingAnalyzer::timerCallback() -> void
 {
-    auto chunk = StaticVector<float, ChunkSize> {};
-    if (_queue.try_dequeue(chunk)) {
+    auto newData = false;
+    for (auto i { 0U }; i < _queue.size_approx() + 1U; ++i) {
+        auto chunk = StaticVector<float, ChunkSize> {};
+        if (not _queue.try_dequeue(chunk)) { continue; }
+
         // Remove oldest elements & insert new
+        newData       = true;
         auto oldFirst = std::rotate(begin(_buffer), std::next(begin(_buffer), (int)chunk.size()), end(_buffer));
         ranges::copy(chunk, oldFirst);
-
+    }
+    if (newData) {
         // Notify UI elements
         sendChangeMessage();
     }
