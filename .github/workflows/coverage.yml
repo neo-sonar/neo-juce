@@ -23,7 +23,7 @@ jobs:
       - name: Install conan
         run: |
           sudo apt update -y
-          pip install conan
+          pip install -r requirements.txt
           conan config set general.revisions_enabled=1
 
       - name: Install JUCE dependencies
