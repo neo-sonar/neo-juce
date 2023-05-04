@@ -46,8 +46,8 @@ jobs:
         if: matrix.compiler == 'clang'
         run: |
           wget https://apt.llvm.org/llvm.sh
-          chmod +x llvm.sh
-          sudo ./llvm.sh 15 all
+          sudo chmod +x llvm.sh
+          sudo ./llvm.sh 16 all
 
       - name: Install conan
         run: |
@@ -75,8 +75,8 @@ jobs:
           -B build
           -D CMAKE_BUILD_TYPE=${{ matrix.build_mode }}
           -D CMAKE_CXX_STANDARD="${{ matrix.cxx }}"
-          -D CMAKE_C_COMPILER="clang-15"
-          -D CMAKE_CXX_COMPILER="clang++-15"
+          -D CMAKE_C_COMPILER="clang-16"
+          -D CMAKE_CXX_COMPILER="clang++-16"
           -D CMAKE_UNITY_BUILD=ON
           -D MC_BUILD_WERROR=ON
 

@@ -45,8 +45,8 @@ jobs:
       - name: Install LLVM
         run: |
           wget https://apt.llvm.org/llvm.sh
-          chmod +x llvm.sh
-          sudo ./llvm.sh 15 all
+          sudo chmod +x llvm.sh
+          sudo ./llvm.sh 16 all
 
       - name: Install conan
         run: |
@@ -62,8 +62,8 @@ jobs:
           -B build
           -G "Unix Makefiles"
           -D CMAKE_BUILD_TYPE=Release
-          -D CMAKE_C_COMPILER="clang-15"
-          -D CMAKE_CXX_COMPILER="clang++-15"
+          -D CMAKE_C_COMPILER="clang-16"
+          -D CMAKE_CXX_COMPILER="clang++-16"
           -D CMAKE_CXX_STANDARD=17
           -D MC_BUILD_WERROR=ON
 
@@ -71,6 +71,6 @@ jobs:
         run: >
           BUILD_DIR=build
           PYTHON_BIN=python3
-          CLANG_REPLACEMENTS_BIN=clang-apply-replacements-15
-          CLANG_TIDY_BIN=clang-tidy-15
+          CLANG_REPLACEMENTS_BIN=clang-apply-replacements-16
+          CLANG_TIDY_BIN=clang-tidy-16
           make tidy-check
