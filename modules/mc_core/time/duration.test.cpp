@@ -7,7 +7,7 @@
 
 TEST_CASE("core/time: VariantConverter<mc::Milliseconds>", "[core]")
 {
-    auto test = [](auto const& tc)  {
+    auto test = [](auto const& tc) {
         auto const var = juce::VariantConverter<mc::Milliseconds<double>>::toVar(tc);
         return juce::VariantConverter<mc::Milliseconds<double>>::fromVar(var);
     };
@@ -19,7 +19,7 @@ TEST_CASE("core/time: VariantConverter<mc::Milliseconds>", "[core]")
 
 TEST_CASE("core/time: VariantConverter<mc::Seconds>", "[core]")
 {
-    auto test = [](auto const& tc)  {
+    auto test = [](auto const& tc) {
         auto const var = juce::VariantConverter<mc::Seconds<double>>::toVar(tc);
         return juce::VariantConverter<mc::Seconds<double>>::fromVar(var);
     };
