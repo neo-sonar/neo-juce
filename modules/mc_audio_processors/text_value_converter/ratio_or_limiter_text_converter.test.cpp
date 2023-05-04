@@ -8,10 +8,10 @@ TEST_CASE("audio_processors/text_value_converter: RatioOrLimiterTextConverter", 
     SECTION("String -> float")
     {
         mc::RatioOrLimiterTextConverter const converter {};
-        REQUIRE(converter("1:100") == 100.0F);
-        REQUIRE(converter("1:1.0") == 1.0F);
-        REQUIRE(converter("1:14") == 14.F);
-        REQUIRE(converter("1:9.9") == 9.9F);
+        REQUIRE(converter("1:100") == Catch::Approx(100.0F));
+        REQUIRE(converter("1:1.0") == Catch::Approx(1.0F));
+        REQUIRE(converter("1:14") == Catch::Approx(14.F));
+        REQUIRE(converter("1:9.9") == Catch::Approx(9.9F));
     }
 
     SECTION("float -> String")

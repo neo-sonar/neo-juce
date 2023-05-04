@@ -8,9 +8,9 @@ TEST_CASE("audio_processors/text_value_converter: SecondsTextConverter", "[audio
     SECTION("String -> float")
     {
         mc::SecondsTextConverter const converter {};
-        REQUIRE(converter("100.0 s") == 100.0F);
-        REQUIRE(converter("0.00 s") == 0.0F);
-        REQUIRE(converter("14.30 s") == 14.3F);
+        REQUIRE(converter("100.0 s") == Catch::Approx(100.0F));
+        REQUIRE(converter("0.00 s") == Catch::Approx(0.0F));
+        REQUIRE(converter("14.30 s") == Catch::Approx(14.3F));
     }
 
     SECTION("float -> String")

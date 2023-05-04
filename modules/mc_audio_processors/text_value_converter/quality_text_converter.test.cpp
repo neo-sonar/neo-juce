@@ -8,8 +8,8 @@ TEST_CASE("audio_processors/text_value_converter: QualityTextConverter", "[audio
     SECTION("String -> float")
     {
         mc::QualityTextConverter const converter {};
-        REQUIRE(converter("1.2") == 1.2F);
-        REQUIRE(converter("0.0") == 0.0F);
+        REQUIRE(converter("1.2") == Catch::Approx(1.2F));
+        REQUIRE(converter("0.0") == Catch::Approx(0.0F));
     }
 
     SECTION("float -> String")

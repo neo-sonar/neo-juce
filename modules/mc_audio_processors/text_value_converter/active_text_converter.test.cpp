@@ -8,8 +8,8 @@ TEST_CASE("audio_processors/text_value_converter: ActiveTextConverter", "[audio_
     SECTION("String -> float")
     {
         mc::ActiveTextConverter const converter {};
-        REQUIRE(converter("active") == 1.0F);
-        REQUIRE(converter("bypassed") == 0.0F);
+        REQUIRE(converter("active") == Catch::Approx(1.0F));
+        REQUIRE(converter("bypassed") == Catch::Approx(0.0F));
     }
 
     SECTION("float -> String")

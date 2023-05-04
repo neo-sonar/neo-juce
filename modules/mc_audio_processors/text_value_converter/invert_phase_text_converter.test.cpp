@@ -8,8 +8,8 @@ TEST_CASE("audio_processors/text_value_converter: InvertPhaseTextConverter", "[a
     SECTION("String -> float")
     {
         mc::InvertPhaseTextConverter const converter {};
-        REQUIRE(converter("Normal") == 0.0F);
-        REQUIRE(converter("Inverted") == 1.0F);
+        REQUIRE(converter("Normal") == Catch::Approx(0.0F));
+        REQUIRE(converter("Inverted") == Catch::Approx(1.0F));
     }
 
     SECTION("float -> String")

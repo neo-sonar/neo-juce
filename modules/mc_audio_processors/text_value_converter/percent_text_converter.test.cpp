@@ -8,9 +8,9 @@ TEST_CASE("audio_processors/text_value_converter: PercentTextConverter", "[audio
     SECTION("String -> float")
     {
         mc::PercentTextConverter const converter {};
-        REQUIRE(converter("100.0 %") == 1.0F);
-        REQUIRE(converter("0.0 %") == 0.0F);
-        REQUIRE(converter("14.3 %") == 0.143F);
+        REQUIRE(converter("100.0 %") == Catch::Approx(1.0F));
+        REQUIRE(converter("0.0 %") == Catch::Approx(0.0F));
+        REQUIRE(converter("14.3 %") == Catch::Approx(0.143F));
     }
 
     SECTION("float -> String")
