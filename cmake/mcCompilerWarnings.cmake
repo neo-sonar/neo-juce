@@ -25,6 +25,7 @@ else ()
             -Wunreachable-code
             -Wunused-parameter
             -Wzero-as-null-pointer-constant
+            -Wno-float-equal
 
             $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:
                 -Wbool-conversion

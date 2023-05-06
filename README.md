@@ -23,6 +23,5 @@
 |     `mc_graphics`     |   [GPL/Commercial](https://juce.com/get-juce)    |
 |    `mc_gui_basics`    |   [GPL/Commercial](https://juce.com/get-juce)    |
 |    `mc_gui_extra`     |   [GPL/Commercial](https://juce.com/get-juce)    |
-|      `mc_lottie`      |   [GPL/Commercial](https://juce.com/get-juce)    |
 |      `mc_meters`      |   [GPL/Commercial](https://juce.com/get-juce)    |
 |      `mc_synth`       |   [GPL/Commercial](https://juce.com/get-juce)    |

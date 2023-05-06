@@ -42,7 +42,6 @@ endif()
 
 find_package(mc-core REQUIRED)
 find_package(mc-audio REQUIRED)
-find_package(EnTT REQUIRED)
 
 add_subdirectory(modules)
 
@@ -63,18 +62,8 @@ set(test_sources
 
     modules/mc_audio_processors/attachment/xypad_attachment.test.cpp
     modules/mc_audio_processors/parameter/audio_processor_value_tree_state.test.cpp
+    modules/mc_audio_processors/parameter/text_value_converter.test.cpp
     modules/mc_audio_processors/processors/buses_layout.test.cpp
-    modules/mc_audio_processors/text_value_converter/active_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/frequency_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/gain_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/invert_phase_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/milliseconds_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/percent_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/quality_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/ratio_or_gate_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/ratio_or_limiter_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/seconds_text_converter.test.cpp
-    modules/mc_audio_processors/text_value_converter/true_false_text_converter.test.cpp
 
     modules/mc_core/container/registry.test.cpp
     modules/mc_core/files/file.test.cpp
@@ -82,7 +71,6 @@ set(test_sources
     # modules/mc_core/javascript/json_utils.test.cpp
     modules/mc_core/math/normalisable_range.test.cpp
     modules/mc_core/math/range.test.cpp
-    modules/mc_core/math/default_range.test.cpp
     modules/mc_core/misc/result.test.cpp
     modules/mc_core/text/jformat.test.cpp
     modules/mc_core/time/duration.test.cpp
@@ -116,19 +104,6 @@ set(test_sources
     modules/mc_gui_basics/attachment/slider_attachment.test.cpp
     modules/mc_gui_basics/widgets/xy_pad.test.cpp
 
-    modules/mc_lottie/model/lottie_model.test.cpp
-    modules/mc_lottie/property/lottie_color.test.cpp
-    modules/mc_lottie/shape/lottie_shape_ellipse.test.cpp
-    modules/mc_lottie/shape/lottie_shape_fill.test.cpp
-    modules/mc_lottie/shape/lottie_shape_gradient_fill.test.cpp
-    modules/mc_lottie/shape/lottie_shape_gradient_stroke.test.cpp
-    modules/mc_lottie/shape/lottie_shape_group.test.cpp
-    modules/mc_lottie/shape/lottie_shape_path.test.cpp
-    modules/mc_lottie/shape/lottie_shape_rectangle.test.cpp
-    modules/mc_lottie/shape/lottie_shape_transform.test.cpp
-    modules/mc_lottie/shape/lottie_shape_trim.test.cpp
-    modules/mc_lottie/shape/lottie_shape.test.cpp
-
     modules/mc_meters/level_meter/level_meter_source.test.cpp
 
     modules/mc_synth/math/hermite_interpolation.test.cpp
@@ -154,7 +129,6 @@ target_link_libraries(mc-juce-dev_tests
         mc-core::mc-core
         mc-audio::mc-audio
 
-        EnTT::EnTT
         Catch2::Catch2
 
         mc::mc_audio_basics
@@ -168,54 +142,14 @@ target_link_libraries(mc-juce-dev_tests
         mc::mc_graphics
         mc::mc_gui_basics
         mc::mc_gui_extra
-        mc::mc_lottie
         mc::mc_meters
 
-        mc::compiler_options
-        mc::compiler_warnings
-        mc::coverage
-
         juce::juce_recommended_warning_flags
         juce::juce_recommended_config_flags
-)
-
-find_package(benchmark)
-juce_add_console_app(mc-juce-dev_benchmarks PRODUCT_NAME "mc-juce-dev_benchmarks" NEEDS_CURL OFF)
-
-set(bench_sources
-    modules/mc_synth/math/hermite_interpolation.bench.cpp
-    modules/mc_synth/wavetable/unison_oscillator.bench.cpp
-    modules/mc_synth/wavetable/wavetable_oscillator.bench.cpp
-)
-
-target_sources(mc-juce-dev_benchmarks PRIVATE main.bench.cpp ${bench_sources})
-set_target_properties(mc-juce-dev_benchmarks PROPERTIES UNITY_BUILD_MODE GROUP)
-set_source_files_properties(mc-juce-dev_benchmarks ${bench_sources} PROPERTIES UNITY_GROUP "benchmarks")
-
-target_compile_definitions(mc-juce-dev_benchmarks
-    PRIVATE
-        JUCE_WEB_BROWSER=0
-        JUCE_USE_OGGVORBIS=0
-        JUCE_USE_CURL=0
-        JUCE_DISABLE_JUCE_VERSION_PRINTING=1
-        _SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING=1
-)
-
-target_link_libraries(mc-juce-dev_benchmarks
-    PRIVATE
-        mc::mc_synth
-
-        mc-core::mc-core
-        mc-audio::mc-audio
-        benchmark::benchmark
 
         mc::compiler_options
         mc::compiler_warnings
         mc::coverage
-
-        juce::juce_recommended_warning_flags
-        juce::juce_recommended_config_flags
-        juce::juce_recommended_lto_flags
 )
 
 message("------------------------------------------")

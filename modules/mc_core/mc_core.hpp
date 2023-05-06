@@ -38,7 +38,6 @@ END_JUCE_MODULE_DECLARATION
 #include "files/file.hpp"
 #include "files/zip_file.hpp"
 #include "javascript/json_utils.hpp"
-#include "math/default_range.hpp"
 #include "math/normalisable_range.hpp"
 #include "math/range.hpp"
 #include "memory/memory_block.hpp"

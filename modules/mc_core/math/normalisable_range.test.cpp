@@ -2,6 +2,7 @@
 
 #include <mc_core/mc_core.hpp>
 
+#include <catch2/catch_approx.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
 TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::NormalisableRange>", "[core]", float, double)
@@ -12,10 +13,10 @@ TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::NormalisableRange>", "[cor
         auto const var      = juce::VariantConverter<juce::NormalisableRange<TestType>>::toVar(expected);
         auto const testCase = juce::VariantConverter<juce::NormalisableRange<TestType>>::fromVar(var);
 
-        REQUIRE(expected.start == testCase.start);
-        REQUIRE(expected.end == testCase.end);
-        REQUIRE(expected.interval == testCase.interval);
-        REQUIRE(expected.skew == testCase.skew);
+        REQUIRE(expected.start == Catch::Approx(testCase.start));
+        REQUIRE(expected.end == Catch::Approx(testCase.end));
+        REQUIRE(expected.interval == Catch::Approx(testCase.interval));
+        REQUIRE(expected.skew == Catch::Approx(testCase.skew));
         REQUIRE(expected.symmetricSkew == testCase.symmetricSkew);
     }
 
@@ -25,10 +26,10 @@ TEMPLATE_TEST_CASE("core/math: VariantConverter<juce::NormalisableRange>", "[cor
         auto const var      = juce::VariantConverter<juce::NormalisableRange<TestType>>::toVar(expected);
         auto const testCase = juce::VariantConverter<juce::NormalisableRange<TestType>>::fromVar(var);
 
-        REQUIRE(expected.start == testCase.start);
-        REQUIRE(expected.end == testCase.end);
-        REQUIRE(expected.interval == testCase.interval);
-        REQUIRE(expected.skew == testCase.skew);
+        REQUIRE(expected.start == Catch::Approx(testCase.start));
+        REQUIRE(expected.end == Catch::Approx(testCase.end));
+        REQUIRE(expected.interval == Catch::Approx(testCase.interval));
+        REQUIRE(expected.skew == Catch::Approx(testCase.skew));
         REQUIRE(expected.symmetricSkew == testCase.symmetricSkew);
     }
 }
