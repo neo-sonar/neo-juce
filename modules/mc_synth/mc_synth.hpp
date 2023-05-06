@@ -8,7 +8,7 @@ BEGIN_JUCE_MODULE_DECLARATION
     dependencies:       mc_audio_formats, mc_dsp
     website:            http://github.com/ModernCircuits/mc-juce
     license:            GPL/Commercial
-    minimumCppStandard: 17
+    minimumCppStandard: 20
 
 END_JUCE_MODULE_DECLARATION
 */

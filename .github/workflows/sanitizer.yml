@@ -6,7 +6,7 @@ jobs:
   sanitizer:
     strategy:
       matrix:
-        cxx: [17, 20]
+        cxx: [20]
         build:
           [
             { "name": "Address", "flags": "MC_BUILD_ASAN=ON" },

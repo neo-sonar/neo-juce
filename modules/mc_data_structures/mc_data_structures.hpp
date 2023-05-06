@@ -9,7 +9,7 @@ BEGIN_JUCE_MODULE_DECLARATION
     dependencies:       juce_data_structures, mc_core
     website:            http://github.com/ModernCircuits/mc-juce
     license:            GPL/Commercial
-    minimumCppStandard: 17
+    minimumCppStandard: 20
 
 END_JUCE_MODULE_DECLARATION
 */
