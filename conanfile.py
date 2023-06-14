@@ -25,7 +25,7 @@ class ModernCircuitsJuceModules(ConanFile):
         self.version = ver.strip()
 
     def requirements(self):
-        self.requires("mc-audio/0.12.0@modern-circuits/stable")
+        self.requires("mc-core/0.13.0@modern-circuits/stable")
 
     def build_requirements(self):
         self.test_requires("catch2/3.2.1")

@@ -8,13 +8,6 @@ auto channel(juce::dsp::AudioBlock<T> const& block, size_t index) -> Span<T>
 }
 
 template <typename T>
-auto addStereoFrame(juce::dsp::AudioBlock<T> const& block, size_t index, StereoFrame<T> frame) -> void
-{
-    block.addSample(0, static_cast<int>(index), frame.left);
-    block.addSample(1, static_cast<int>(index), frame.right);
-}
-
-template <typename T>
 auto rmsLevel(juce::dsp::AudioBlock<T> const& block) -> T
 {
     auto sum = T { 0 };

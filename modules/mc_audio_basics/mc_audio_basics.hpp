@@ -22,8 +22,6 @@ END_JUCE_MODULE_DECLARATION
     #define USE_MC_AUDIO_BASICS
 #endif
 
-#include <mc/audio.hpp>
-
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <mc_core/mc_core.hpp>
 

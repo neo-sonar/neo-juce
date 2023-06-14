@@ -41,7 +41,6 @@ if(MC_BUILD_CONAN_CMAKE)
 endif()
 
 find_package(mc-core REQUIRED)
-find_package(mc-audio REQUIRED)
 
 add_subdirectory(modules)
 
@@ -127,7 +126,6 @@ target_compile_definitions(mc-juce-dev_tests
 target_link_libraries(mc-juce-dev_tests
     PRIVATE
         mc-core::mc-core
-        mc-audio::mc-audio
 
         Catch2::Catch2
 
