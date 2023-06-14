@@ -18,7 +18,7 @@ struct AtomicWrapper {
     [[nodiscard]] operator juce::var() const noexcept; // NOLINT(hicpp-explicit-conversions)
     [[nodiscard]] operator Type() const noexcept;      // NOLINT(hicpp-explicit-conversions)
 
-    Atomic<Type> value { Type() };
+    std::atomic<Type> value { Type() };
 };
 
 template <typename Type>

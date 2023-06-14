@@ -16,8 +16,8 @@ struct Averager {
     [[nodiscard]] auto average() const -> Span<T const>;
 
 private:
-    Vector<Vector<T>> _history {};
-    Vector<T> _average {};
+    std::vector<std::vector<T>> _history {};
+    std::vector<T> _average {};
     std::size_t _writeIndex { 0 };
 };
 

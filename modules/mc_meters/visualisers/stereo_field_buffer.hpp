@@ -9,10 +9,10 @@ template <typename FloatType>
 struct StereoFieldBuffer {
 private:
     juce::AudioBuffer<FloatType> _sampleBuffer;
-    Atomic<int> _writePosition   = { 0 };
-    Vector<FloatType> _maxValues = { 180, 0.0 };
+    std::atomic<int> _writePosition   = { 0 };
+    std::vector<FloatType> _maxValues = { 180, 0.0 };
 
-    inline void computeDirection(Vector<float>& directions, const FloatType left, const FloatType right) const
+    inline void computeDirection(std::vector<float>& directions, const FloatType left, const FloatType right) const
     {
         if (left == 0) {
             directions[45] = std::max(directions[45], std::abs(right));
@@ -111,7 +111,7 @@ public:
 
     //  ==============================================================================
 
-    void getDirections(Vector<FloatType>& directions, int numSamples, int leftIdx, int rightIdx)
+    void getDirections(std::vector<FloatType>& directions, int numSamples, int leftIdx, int rightIdx)
     {
         jassert(directions.size() == 180);
         ranges::fill(directions, 0.0);

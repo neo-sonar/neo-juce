@@ -9,9 +9,9 @@ struct OutlineBuffer {
 private:
     struct ChannelData {
     private:
-        Vector<float> _minBuffer;
-        Vector<float> _maxBuffer;
-        Atomic<size_t> _writePointer { 0 };
+        std::vector<float> _minBuffer;
+        std::vector<float> _maxBuffer;
+        std::atomic<size_t> _writePointer { 0 };
         int _fraction        = 0;
         int _samplesPerBlock = 128;
 
@@ -108,7 +108,7 @@ private:
         }
     };
 
-    Vector<ChannelData> _channelDatas;
+    std::vector<ChannelData> _channelDatas;
     int _samplesPerBlock = 128;
 
     JUCE_LEAK_DETECTOR(OutlineBuffer) // NOLINT

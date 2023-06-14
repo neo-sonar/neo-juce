@@ -14,8 +14,8 @@ struct HistogramSource {
 private:
     double _sampleRate { 44'100.0 };
     juce::AudioBuffer<float> _summingBuffer;
-    Microseconds<double> _timeSinceLastSample { 0 };
-    Atomic<float> _lastValue { 0.0F };
+    std::chrono::duration<double, std::micro> _timeSinceLastSample { 0 };
+    std::atomic<float> _lastValue { 0.0F };
 };
 
 } // namespace mc

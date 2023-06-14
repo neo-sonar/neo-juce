@@ -39,7 +39,7 @@ auto ColorPropertyComponent::Container::mouseUp(juce::MouseEvent const& event) -
 {
     if (not event.mouseWasClicked()) { return; }
 
-    auto cs = makeUnique<juce::ColourSelector>();
+    auto cs = std::make_unique<juce::ColourSelector>();
     cs->setSize(300, 280);
     cs->setCurrentColour(fromVar<juce::Colour>(value), juce::dontSendNotification);
     cs->addChangeListener(this);

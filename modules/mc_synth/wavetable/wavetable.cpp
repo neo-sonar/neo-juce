@@ -1,12 +1,12 @@
 namespace mc {
 
 template <typename T>
-Wavetable<T>::Wavetable(Vector<T> table) : _data(std::move(table)), _period(_data.size())
+Wavetable<T>::Wavetable(std::vector<T> table) : _data(std::move(table)), _period(_data.size())
 {
 }
 
 template <typename T>
-Wavetable<T>::Wavetable(Vector<T> table, size_t period) : _data(std::move(table)), _period(period)
+Wavetable<T>::Wavetable(std::vector<T> table, size_t period) : _data(std::move(table)), _period(period)
 {
     jassert((this->size() % this->period()) == 0UL);
 }
@@ -40,7 +40,7 @@ auto makeSineWavetable(size_t size) -> typename Wavetable<T>::Ptr
 {
     auto const phaseDelta = juce::MathConstants<T>::twoPi / static_cast<T>(size - 1U);
 
-    auto table = Vector<T>(size);
+    auto table = std::vector<T>(size);
     auto phase = T(0);
 
     std::generate(begin(table), end(table), [&] {
@@ -49,15 +49,15 @@ auto makeSineWavetable(size_t size) -> typename Wavetable<T>::Ptr
         return value;
     });
 
-    return makeShared<Wavetable<T> const>(std::move(table));
+    return std::make_shared<Wavetable<T> const>(std::move(table));
 }
 
 template <typename T>
-auto loadWavetable(UniquePtr<juce::InputStream> stream) -> typename Wavetable<T>::Ptr
+auto loadWavetable(std::unique_ptr<juce::InputStream> stream) -> typename Wavetable<T>::Ptr
 {
     auto buffer = loadAudioFile(std::move(stream));
     if (not buffer.has_value()) { return {}; }
-    return makeShared<Wavetable<T> const>(toVector(*buffer));
+    return std::make_shared<Wavetable<T> const>(toVector(*buffer));
 }
 
 } // namespace mc

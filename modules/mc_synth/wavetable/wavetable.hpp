@@ -5,10 +5,10 @@ namespace mc {
 template <typename T>
 struct Wavetable {
     using SampleType = T;
-    using Ptr        = SharedPtr<Wavetable<T> const>;
+    using Ptr        = std::shared_ptr<Wavetable<T> const>;
 
-    explicit Wavetable(Vector<T> table);
-    Wavetable(Vector<T> table, size_t period);
+    explicit Wavetable(std::vector<T> table);
+    Wavetable(std::vector<T> table, size_t period);
 
     [[nodiscard]] auto empty() const noexcept -> bool;
     [[nodiscard]] auto size() const noexcept -> size_t;
@@ -17,7 +17,7 @@ struct Wavetable {
     [[nodiscard]] operator Span<T const>() const noexcept; // NOLINT(hicpp-explicit-conversions)
 
 private:
-    Vector<T> _data;
+    std::vector<T> _data;
     size_t _period;
 };
 
@@ -27,7 +27,7 @@ template <typename T>
 
 /// \relates Wavetable
 template <typename T>
-[[nodiscard]] auto loadWavetable(UniquePtr<juce::InputStream> stream) -> typename Wavetable<T>::Ptr;
+[[nodiscard]] auto loadWavetable(std::unique_ptr<juce::InputStream> stream) -> typename Wavetable<T>::Ptr;
 
 } // namespace mc
 

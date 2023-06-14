@@ -30,7 +30,7 @@ private:
     juce::String _title;
     juce::String _pattern;
 
-    UniquePtr<juce::FileChooser> _chooser;
+    std::unique_ptr<juce::FileChooser> _chooser;
 };
 
 } // namespace mc

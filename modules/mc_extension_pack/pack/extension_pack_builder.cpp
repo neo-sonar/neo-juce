@@ -2,7 +2,7 @@
 
 namespace mc {
 
-[[nodiscard]] static auto validate(FlatMap<String, AssetLoader> const& loaders) -> juce::Result
+[[nodiscard]] static auto validate(FlatMap<std::string, AssetLoader> const& loaders) -> juce::Result
 {
     if (loaders.empty()) { return fail("No loaders registered"); }
     for (auto const& [type, loader] : loaders) {
@@ -11,9 +11,9 @@ namespace mc {
     return juce::Result::ok();
 }
 
-[[nodiscard]] static auto loadAssetFilePaths(FlatMap<String, AssetLoader> const& loaders)
+[[nodiscard]] static auto loadAssetFilePaths(FlatMap<std::string, AssetLoader> const& loaders)
 {
-    auto files = FlatMap<String, Vector<juce::File>> {};
+    auto files = FlatMap<std::string, std::vector<juce::File>> {};
     for (auto const& [type, loader] : loaders) {
         files[type] = {};
         for (auto const& path : loader.paths) { files[type] = loader.searcher(path); }
@@ -21,7 +21,7 @@ namespace mc {
     return files;
 }
 
-[[nodiscard]] static auto validate(FlatMap<String, Vector<juce::File>> const& fileGroups) -> juce::Result
+[[nodiscard]] static auto validate(FlatMap<std::string, std::vector<juce::File>> const& fileGroups) -> juce::Result
 {
     if (fileGroups.empty()) { return fail("No fileGroups found with searchers"); }
     for (auto const& [type, files] : fileGroups) {
@@ -32,7 +32,7 @@ namespace mc {
 
 [[nodiscard]] static auto transformFileContent(juce::File const& srcFile,
     juce::File const& destDir,
-    std::function<Vector<Byte>(Span<Byte const>)> const& transformer) -> juce::Result
+    std::function<std::vector<Byte>(Span<Byte const>)> const& transformer) -> juce::Result
 {
     auto const destFile = destDir.getChildFile(srcFile.getFileName());
     if (not transformer) { return copyFile(srcFile, destFile); }

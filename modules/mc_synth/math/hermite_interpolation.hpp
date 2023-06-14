@@ -15,11 +15,11 @@ struct HermiteInterpolation<xsimd::batch<T>> {
 };
 
 template <typename T>
-[[nodiscard]] constexpr auto samplesForHermiteInterpolation(Span<T const> buf, size_t s1) noexcept -> Array<T, 4>;
+[[nodiscard]] constexpr auto samplesForHermiteInterpolation(Span<T const> buf, size_t s1) noexcept -> std::array<T, 4>;
 
 template <typename T>
 [[nodiscard]] auto samplesForHermiteInterpolation(Span<T const> buf, xsimd::batch<int32_t> s1) noexcept
-    -> Array<xsimd::batch<T>, 4>;
+    -> std::array<xsimd::batch<T>, 4>;
 
 } // namespace mc
 

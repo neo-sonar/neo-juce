@@ -3,10 +3,10 @@ namespace mc {
 auto loadAudioFile(void const* data, size_t size, juce::AudioFormatManager* formatManager)
     -> Optional<BufferWithSampleRate<float>>
 {
-    return loadAudioFile(makeUnique<juce::MemoryInputStream>(data, size, false), formatManager);
+    return loadAudioFile(std::make_unique<juce::MemoryInputStream>(data, size, false), formatManager);
 }
 
-auto loadAudioFile(UniquePtr<juce::InputStream> stream, juce::AudioFormatManager* formatManager)
+auto loadAudioFile(std::unique_ptr<juce::InputStream> stream, juce::AudioFormatManager* formatManager)
     -> Optional<BufferWithSampleRate<float>>
 {
     if (stream == nullptr) { return {}; }
@@ -17,7 +17,7 @@ auto loadAudioFile(UniquePtr<juce::InputStream> stream, juce::AudioFormatManager
         formatManager = &fallbackManager;
     }
 
-    auto reader = UniquePtr<juce::AudioFormatReader>(formatManager->createReaderFor(std::move(stream)));
+    auto reader = std::unique_ptr<juce::AudioFormatReader>(formatManager->createReaderFor(std::move(stream)));
     if (reader == nullptr) { return {}; }
 
     auto buffer = juce::AudioBuffer<float> {

@@ -3,9 +3,9 @@
 
 namespace mc {
 struct AssetLoader {
-    Vector<juce::File> paths;
-    std::function<Vector<juce::File>(juce::File const&)> searcher;
-    std::function<Vector<Byte>(Span<Byte const>)> transformer;
+    std::vector<juce::File> paths;
+    std::function<std::vector<juce::File>(juce::File const&)> searcher;
+    std::function<std::vector<Byte>(Span<Byte const>)> transformer;
 };
 
 [[nodiscard]] auto validate(AssetLoader const& loader) -> juce::Result;

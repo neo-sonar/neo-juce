@@ -20,7 +20,7 @@ struct RingBuffer {
     [[nodiscard]] auto operator[](size_type index) const noexcept -> float;
 
 private:
-    Vector<T> _buffer {};
+    std::vector<T> _buffer {};
     size_type _writePosition { 0 };
 };
 
@@ -52,7 +52,7 @@ auto RingBuffer<T>::clear() -> void
 template <typename T>
 auto RingBuffer<T>::resize(size_type size) -> void
 {
-    _buffer = Vector<T>(size);
+    _buffer = std::vector<T>(size);
     clear();
 }
 

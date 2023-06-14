@@ -58,7 +58,7 @@ auto WaveformSource::prepare(juce::dsp::ProcessSpec const& spec) -> void
 {
     _spec = spec;
     _channels.clear();
-    for (auto i { 0U }; i < spec.numChannels; ++i) { _channels.add(makeUnique<ChannelInfo>(*this, _numSamples)); }
+    for (auto i { 0U }; i < spec.numChannels; ++i) { _channels.add(std::make_unique<ChannelInfo>(*this, _numSamples)); }
     secondsToShow(_window);
 }
 

@@ -3,9 +3,9 @@
 #pragma once
 
 namespace mc::strings {
-inline auto split(juce::String const& str, char delimiter) -> Vector<juce::String>
+inline auto split(juce::String const& str, char delimiter) -> std::vector<juce::String>
 {
-    Vector<juce::String> tokens {};
+    std::vector<juce::String> tokens {};
     std::string token {};
     std::istringstream tokenStream(str.toStdString());
     while (std::getline(tokenStream, token, delimiter)) { tokens.emplace_back(token); }

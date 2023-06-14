@@ -28,7 +28,7 @@ private:
     T _detune { 0 };
     T _gainCompensation { 1 };
 
-    Vector<WavetableOscillator<T>> _oscs {};
+    std::vector<WavetableOscillator<T>> _oscs {};
     typename Wavetable<T>::Ptr _wavetable;
     juce::Random _rndm;
 };
@@ -63,9 +63,9 @@ private:
 
     int _numOscillators { 0 };
 
-    Array<xsimd::batch<T>, numBatches> _phase {};
-    Array<xsimd::batch<T>, numBatches> _deltaPhase {};
-    Array<xsimd::batch<T>, numBatches> _gainCompensation {};
+    std::array<xsimd::batch<T>, numBatches> _phase {};
+    std::array<xsimd::batch<T>, numBatches> _deltaPhase {};
+    std::array<xsimd::batch<T>, numBatches> _gainCompensation {};
 
     T _sampleRate { 44'100.0 };
     T _frequency { 440 };

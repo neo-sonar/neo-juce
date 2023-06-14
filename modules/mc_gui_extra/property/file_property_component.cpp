@@ -18,7 +18,7 @@ auto FilePropertyComponent::browseForFile(bool selectDirectory) -> void
 {
     auto folderChooserFlags
         = selectDirectory ? juce::FileBrowserComponent::canSelectDirectories : juce::FileBrowserComponent::openMode;
-    _chooser = makeUnique<juce::FileChooser>(_title, juce::File(value().toString()), _pattern);
+    _chooser = std::make_unique<juce::FileChooser>(_title, juce::File(value().toString()), _pattern);
     _chooser->launchAsync(folderChooserFlags,
         [this](juce::FileChooser const&) { value().setValue(_chooser->getResult().getFullPathName()); });
 }

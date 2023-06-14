@@ -33,8 +33,8 @@ private:
         WaveformSource& owner;
         juce::Array<juce::Range<float>> levels;
         juce::Range<float> value;
-        Atomic<int> nextSample { 0 };
-        Atomic<int> subSample { 0 };
+        std::atomic<int> nextSample { 0 };
+        std::atomic<int> subSample { 0 };
     };
 
     void numBlocksToShow(int newNumSamples);

@@ -29,7 +29,7 @@ template <typename T>
 auto WavetableOscillator<T>::processSample() -> T
 {
     if (_wavetable == nullptr) { return 0; }
-    if (empty(*_wavetable)) { return 0; }
+    if (_wavetable->empty()) { return 0; }
 
     _phase += _deltaPhase;
     _phase -= std::floor(_phase);
@@ -41,7 +41,7 @@ auto WavetableOscillator<T>::processSample() -> T
     // auto const table   = morphed(*_wavetable, std::clamp(_morph, T(0), T(1)));
     auto const table   = Span<T const> { *_wavetable }.subspan(0, _wavetable->period());
     auto const samples = samplesForHermiteInterpolation<T>(table, sampleIndex);
-    // auto const samples = mc::Array<T, 4> {
+    // auto const samples = std::array<T, 4> {
     //     table[sampleIndex - 1U],
     //     table[sampleIndex],
     //     table[sampleIndex + 1U],

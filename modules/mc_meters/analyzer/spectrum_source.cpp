@@ -49,7 +49,7 @@ auto SpectrumSource::makePath(juce::Rectangle<float> bounds) -> juce::Path
     auto const maxFrequency = static_cast<float>(_spec.sampleRate) / 2.0F;
 
     auto const size = static_cast<int>(_fft.getSize() / 2 + 1);
-    auto average    = Vector<float>((size_t)size, 0.0F);
+    auto average    = std::vector<float>((size_t)size, 0.0F);
 
     {
         auto const lock = std::unique_lock { _renderMutex };
@@ -132,9 +132,9 @@ auto SpectrumSource::runTransform() -> void
     _fft.performRealOnlyForwardTransform(data(_fftBuffer), true);
 
     auto const numBins       = static_cast<std::size_t>(_fft.getSize()) / 2UL + 1UL;
-    auto const* coefficients = reinterpret_cast<juce::dsp::Complex<float> const*>(data(_fftBuffer)); // NOLINT
-    auto const bins          = Span<Complex<float> const> { coefficients, numBins };
-    auto amplitudes          = Vector<float>(numBins, 0.0F);
+    auto const* coefficients = reinterpret_cast<std::complex<float> const*>(data(_fftBuffer)); // NOLINT
+    auto const bins          = Span<std::complex<float> const> { coefficients, numBins };
+    auto amplitudes          = std::vector<float>(numBins, 0.0F);
     for (std::size_t i { 0 }; i < numBins; ++i) { amplitudes[i] = std::abs(bins[i]) / static_cast<float>(numBins); }
 
     {

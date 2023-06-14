@@ -42,7 +42,7 @@ auto HermiteInterpolation<xsimd::batch<T>>::operator()(Span<xsimd::batch<T> cons
 }
 
 template <typename T>
-constexpr auto samplesForHermiteInterpolation(Span<T const> buf, size_t s1) noexcept -> Array<T, 4>
+constexpr auto samplesForHermiteInterpolation(Span<T const> buf, size_t s1) noexcept -> std::array<T, 4>
 {
     auto const size = buf.size();
     if (s1 == 0) { return { buf[0], buf[0], buf[1], buf[2] }; }
@@ -52,7 +52,7 @@ constexpr auto samplesForHermiteInterpolation(Span<T const> buf, size_t s1) noex
 }
 
 template <typename T>
-auto samplesForHermiteInterpolation(Span<T const> buf, xsimd::batch<int32_t> s1) noexcept -> Array<xsimd::batch<T>, 4>
+auto samplesForHermiteInterpolation(Span<T const> buf, xsimd::batch<int32_t> s1) noexcept -> std::array<xsimd::batch<T>, 4>
 {
     auto const size = static_cast<int32_t>(buf.size());
 
@@ -77,7 +77,7 @@ auto samplesForHermiteInterpolation(Span<T const> buf, xsimd::batch<int32_t> s1)
     index2 = xsimd::select(s1IsSizeMinus1, xsimd::batch<int32_t> { 0 }, index2);
     index3 = xsimd::select(s1IsSizeMinus1, xsimd::batch<int32_t> { 1 }, index3);
 
-    return Array<xsimd::batch<T>, 4> {
+    return std::array<xsimd::batch<T>, 4> {
         xsimd::batch<T>::gather(data(buf), index0),
         xsimd::batch<T>::gather(data(buf), index1),
         xsimd::batch<T>::gather(data(buf), index2),

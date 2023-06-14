@@ -5,7 +5,7 @@ namespace mc {
 
 struct ExtensionPackSpecs {
     int version;
-    Vector<String> assetTypes;
+    std::vector<std::string> assetTypes;
 };
 
 } // namespace mc

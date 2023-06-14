@@ -12,8 +12,8 @@ auto hasMagicHeader(juce::File const& file, Span<char const> header) -> bool
 
 auto hasMagicHeader(juce::InputStream& in, Span<char const> header) -> bool
 {
-    auto heapBuffer  = Vector<char> {};
-    auto stackBuffer = Array<char, 256> {};
+    auto heapBuffer  = std::vector<char> {};
+    auto stackBuffer = std::array<char, 256> {};
     auto buffer      = Span<char> { stackBuffer };
 
     if (buffer.size() < header.size()) {

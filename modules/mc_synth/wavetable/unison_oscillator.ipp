@@ -48,7 +48,7 @@ template <typename T>
 auto UnisonOscillator<T>::detune(T detuneInCents) -> void
 {
     _detune = detuneInCents;
-    for (auto i { 0 }; i < mc::ssize(_oscs); ++i) {
+    for (auto i { 0 }; i < static_cast<int>(_oscs.size()); ++i) {
         auto const cents = _detune * unisonDetuneForVoice<T>(static_cast<int>(size(_oscs)), i);
         _oscs[(size_t)i].frequency(hertzWithCentsOffset(_frequency, cents));
     }
@@ -132,7 +132,7 @@ auto UnisonWavetableOsc<T, MaxNumOscillators>::unison(int numOscillators) -> voi
     // improvisiert, aber funktioniert
     auto const gain = 1 / ((static_cast<T>(numOscillators - 1) * T(0.1)) + 1);
     for (size_t i { 0 }; i < size(_gainCompensation); ++i) {
-        auto gains = Array<T, xsimd::batch<T>::size> {};
+        auto gains = std::array<T, xsimd::batch<T>::size> {};
         for (auto& g : gains) { g = static_cast<int>(i) < numOscillators ? gain : T {}; }
         _gainCompensation[i] = xsimd::batch<T>::load_unaligned(data(gains));
     }
@@ -143,7 +143,7 @@ auto UnisonWavetableOsc<T, MaxNumOscillators>::detune(T detuneInCents) -> void
 {
     _detune = detuneInCents;
 
-    auto frequencies = Array<T, maxNumOscillators> {};
+    auto frequencies = std::array<T, maxNumOscillators> {};
     for (auto i { 0 }; i < _numOscillators; ++i) {
         auto const cents         = _detune * unisonDetuneForVoice<T>(_numOscillators, i);
         frequencies[(size_t)(i)] = hertzWithCentsOffset(_frequency, cents);

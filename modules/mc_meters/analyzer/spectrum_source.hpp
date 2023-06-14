@@ -37,8 +37,8 @@ private:
 
     juce::dsp::FFT _fft;
     juce::dsp::WindowingFunction<float> _windowing;
-    Vector<float> _monoBuffer;
-    Vector<float> _fftBuffer {};
+    std::vector<float> _monoBuffer;
+    std::vector<float> _fftBuffer {};
 
     Averager<float> _averager;
     std::mutex mutable _renderMutex {};
@@ -46,8 +46,8 @@ private:
     LockFreeQueue<StaticVector<float, maxSubBlockSize>> _queue;
     int _numSamplesDequeued { 0 };
 
-    Atomic<bool> _shouldExit { false };
-    UniquePtr<std::thread> _thread { nullptr };
+    std::atomic<bool> _shouldExit { false };
+    std::unique_ptr<std::thread> _thread { nullptr };
 };
 
 template <typename ProcessContext>

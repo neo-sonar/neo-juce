@@ -5,7 +5,7 @@ namespace mc {
 
 struct ExtensionPackBuilder {
     ExtensionPackSpecs spec;
-    FlatMap<String, AssetLoader> loaders;
+    FlatMap<std::string, AssetLoader> loaders;
 };
 
 [[nodiscard]] auto build(ExtensionPackBuilder const& builder) -> juce::Result;

@@ -85,8 +85,8 @@ auto XYPad::mouseDrag(juce::MouseEvent const& event) -> void
     if (!_isDragging) { startDragging(); }
 
     auto p = juce::Point<int> {};
-    p.x    = clamp<int>(event.x, _bounds.getX(), _bounds.getRight());
-    p.y    = clamp<int>(event.y, _bounds.getY(), _bounds.getBottom());
+    p.x    = std::clamp<int>(event.x, _bounds.getX(), _bounds.getRight());
+    p.y    = std::clamp<int>(event.y, _bounds.getY(), _bounds.getBottom());
     setValueX(getValueFromPixel(p.x, true));
     setValueY(getValueFromPixel(p.y, false));
 }

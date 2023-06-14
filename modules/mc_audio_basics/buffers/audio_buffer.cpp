@@ -3,11 +3,11 @@
 namespace mc {
 
 template <typename T>
-auto toVector(juce::AudioBuffer<T> const& buffer) -> Vector<T>
+auto toVector(juce::AudioBuffer<T> const& buffer) -> std::vector<T>
 {
     jassert(buffer.getNumChannels() == 1);
 
-    auto vector      = Vector<T>(static_cast<size_t>(buffer.getNumSamples()));
+    auto vector      = std::vector<T>(static_cast<size_t>(buffer.getNumSamples()));
     auto const first = buffer.getReadPointer(0);
     auto const last  = first + buffer.getNumSamples();
     std::copy(first, last, begin(vector));

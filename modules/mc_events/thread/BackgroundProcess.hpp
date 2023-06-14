@@ -37,9 +37,9 @@ private:
     juce::ListenerList<Listener> _listeners {};
     ThreadSafeQueue<juce::String> _queue {};
     juce::ThreadPool* _threadPool { nullptr };
-    Atomic<bool> _processHasStarted { false };
-    Atomic<bool> _processHasFinished { false };
-    Atomic<uint32_t> _processExitCode { 0 };
+    std::atomic<bool> _processHasStarted { false };
+    std::atomic<bool> _processHasFinished { false };
+    std::atomic<uint32_t> _processExitCode { 0 };
 };
 
 } // namespace mc

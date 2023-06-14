@@ -116,17 +116,17 @@ private:
         auto levels(juce::int64 time, float newMax, float newRms, juce::int64 newHoldMSecs) -> void;
         auto rmsSize(size_t numBlocks) -> void;
 
-        Atomic<float> max;
-        Atomic<float> maxOverall;
-        Atomic<bool> clip;
-        Atomic<float> reduction;
+        std::atomic<float> max;
+        std::atomic<float> maxOverall;
+        std::atomic<bool> clip;
+        std::atomic<float> reduction;
 
     private:
         auto pushRMS(float newRMS) -> void;
 
-        Atomic<juce::int64> _hold;
-        Vector<double> _rmsHistory;
-        Atomic<double> _rmsSum;
+        std::atomic<juce::int64> _hold;
+        std::vector<double> _rmsHistory;
+        std::atomic<double> _rmsSum;
         size_t _rmsPtr { 0 };
     };
 
@@ -140,9 +140,9 @@ private:
 
     static constexpr float infinity = -100.0F;
 
-    Vector<ChannelData> _levels;
+    std::vector<ChannelData> _levels;
     juce::int64 _holdMSecs { 500 };
-    Atomic<juce::int64> _lastMeasurement;
+    std::atomic<juce::int64> _lastMeasurement;
     Seconds<float> _rmsWindow { 0.3F };
     bool _newDataFlag = true;
     bool _suspended { false };

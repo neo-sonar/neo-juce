@@ -4,7 +4,7 @@
 
 namespace mc::strings {
 
-[[nodiscard]] auto split(juce::String const& str, char delimiter) -> Vector<juce::String>;
+[[nodiscard]] auto split(juce::String const& str, char delimiter) -> std::vector<juce::String>;
 
 template <typename T>
 [[nodiscard]] auto toValue(juce::String const& str) -> T;

@@ -2,13 +2,13 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-static constexpr auto const TestHeader = mc::Array<char, 8> { 'T', 'E', 'S', 'T', 'P', 'A', 'C', 'K' };
+static constexpr auto const TestHeader = std::array<char, 8> { 'T', 'E', 'S', 'T', 'P', 'A', 'C', 'K' };
 
 TEST_CASE("extension_pack/file: hasMagicHeader(Span<char const>)", "[extension_pack]") // NOLINT
 {
     using namespace mc;
 
-    auto const zeros = Array<char, 12> {};
+    auto const zeros = std::array<char, 12> {};
     REQUIRE_FALSE(hasMagicHeader(zeros, TestHeader));
     REQUIRE_FALSE(hasMagicHeader(Span<char const> {}, TestHeader));
     REQUIRE(hasMagicHeader(TestHeader, TestHeader));
@@ -21,7 +21,7 @@ TEST_CASE("extension_pack/file: hasMagicHeader(juce::InputStream)", "[extension_
     SECTION("content to small")
     {
         auto out         = juce::MemoryOutputStream {};
-        auto const dummy = Array<char, 4> { 0, 1, 2, 3 };
+        auto const dummy = std::array<char, 4> { 0, 1, 2, 3 };
         REQUIRE(out.write(dummy.data(), dummy.size()));
         REQUIRE_FALSE(hasMagicHeader(makeSpan(out), TestHeader));
 
@@ -56,7 +56,7 @@ TEST_CASE("extension_pack/file: hasMagicHeader(juce::File)", "[extension_pack]")
         auto out = file.createOutputStream();
         REQUIRE(out != nullptr);
 
-        auto const dummy = Array<char, 4> { 0, 1, 2, 3 };
+        auto const dummy = std::array<char, 4> { 0, 1, 2, 3 };
         REQUIRE(out->write(dummy.data(), dummy.size()));
         out.reset(nullptr); // flush to disk
 
@@ -80,7 +80,7 @@ TEST_CASE("extension_pack/file: hasMagicHeader(juce::File)", "[extension_pack]")
     SECTION("long magic header")
     {
         auto const longHeader = [] {
-            auto arr = Array<char, 1024> {};
+            auto arr = std::array<char, 1024> {};
             ranges::fill(arr, 42);
             return arr;
         }();

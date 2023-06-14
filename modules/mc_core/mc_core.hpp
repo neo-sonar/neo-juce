@@ -24,7 +24,18 @@ END_JUCE_MODULE_DECLARATION
 
 #include <juce_core/juce_core.h>
 
-#include <mc/core.hpp>
+#include <mc/core/bitset.hpp>
+#include <mc/core/cassert.hpp>
+#include <mc/core/cstddef.hpp>
+#include <mc/core/format.hpp>
+#include <mc/core/map.hpp>
+#include <mc/core/queue.hpp>
+#include <mc/core/random.hpp>
+#include <mc/core/ranges.hpp>
+#include <mc/core/scope.hpp>
+#include <mc/core/span.hpp>
+#include <mc/core/units.hpp>
+#include <mc/core/vector.hpp>
 
 #include "text/jformat.hpp"
 #include "text/string.hpp"

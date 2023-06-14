@@ -20,7 +20,7 @@ TEMPLATE_TEST_CASE("synth/wavetable: loadWavetable", "[synth]", float) // NOLINT
 {
     using namespace mc;
 
-    auto stream     = makeUnique<juce::MemoryInputStream>(nullptr, 0, false);
+    auto stream     = std::make_unique<juce::MemoryInputStream>(nullptr, 0, false);
     auto const null = loadWavetable<TestType>(std::move(stream));
     REQUIRE(null == nullptr);
 }

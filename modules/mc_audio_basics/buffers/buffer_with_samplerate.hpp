@@ -9,9 +9,9 @@ struct BufferWithSampleRate {
 };
 
 /// \relates BufferWithSampleRate
-[[nodiscard]] auto toVector(BufferWithSampleRate<float> const& buffer) -> Vector<float>;
+[[nodiscard]] auto toVector(BufferWithSampleRate<float> const& buffer) -> std::vector<float>;
 
 /// \relates BufferWithSampleRate
-[[nodiscard]] auto toVector(BufferWithSampleRate<double> const& buffer) -> Vector<double>;
+[[nodiscard]] auto toVector(BufferWithSampleRate<double> const& buffer) -> std::vector<double>;
 
 } // namespace mc
