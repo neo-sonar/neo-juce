@@ -16,7 +16,7 @@ auto rmsLevel(juce::dsp::AudioBlock<T> const& block) -> T
         sum += ranges::accumulate(ch, T { 0 });
     }
 
-    return sqrt(sum / static_cast<T>(block.getNumSamples() * block.getNumChannels()));
+    return std::sqrt(sum / static_cast<T>(block.getNumSamples() * block.getNumChannels()));
 }
 
 } // namespace mc
