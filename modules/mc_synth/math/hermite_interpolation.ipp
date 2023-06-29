@@ -7,7 +7,7 @@ namespace mc {
 #endif
 
 template <typename T>
-constexpr auto HermiteInterpolation<T>::operator()(Span<T const, 4> val, T offset) const noexcept -> T
+constexpr auto HermiteInterpolation<T>::operator()(std::span<T const, 4> val, T offset) const noexcept -> T
 {
     auto const slope0 = (val[2] - val[0]) * static_cast<T>(0.5);
     auto const slope1 = (val[3] - val[1]) * static_cast<T>(0.5);
@@ -24,7 +24,7 @@ constexpr auto HermiteInterpolation<T>::operator()(Span<T const, 4> val, T offse
 }
 
 template <typename T>
-constexpr auto samplesForHermiteInterpolation(Span<T const> buf, size_t s1) noexcept -> std::array<T, 4>
+constexpr auto samplesForHermiteInterpolation(std::span<T const> buf, size_t s1) noexcept -> std::array<T, 4>
 {
     auto const size = buf.size();
     if (s1 == 0) { return { buf[0], buf[0], buf[1], buf[2] }; }

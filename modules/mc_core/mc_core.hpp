@@ -35,6 +35,7 @@ END_JUCE_MODULE_DECLARATION
 #include <bitset>
 #include <optional>
 #include <queue>
+#include <span>
 
 #include "text/jformat.hpp"
 #include "text/string.hpp"

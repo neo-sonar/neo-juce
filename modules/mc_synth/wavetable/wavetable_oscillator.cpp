@@ -39,7 +39,7 @@ auto WavetableOscillator<T>::processSample() -> T
     auto const sampleOffset = scaledPhase - static_cast<T>(sampleIndex);
 
     // auto const table   = morphed(*_wavetable, std::clamp(_morph, T(0), T(1)));
-    auto const table   = Span<T const> { *_wavetable }.subspan(0, _wavetable->period());
+    auto const table   = std::span<T const> { *_wavetable }.subspan(0, _wavetable->period());
     auto const samples = samplesForHermiteInterpolation<T>(table, sampleIndex);
     // auto const samples = std::array<T, 4> {
     //     table[sampleIndex - 1U],

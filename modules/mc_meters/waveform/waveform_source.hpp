@@ -8,7 +8,7 @@ struct WaveformSource {
 
     auto secondsToShow(Seconds<float> seconds) -> void;
 
-    [[nodiscard]] auto levels(int channel) const -> Span<juce::Range<float> const>;
+    [[nodiscard]] auto levels(int channel) const -> std::span<juce::Range<float> const>;
     [[nodiscard]] auto numChannels() const -> int;
 
     void makeChannelPath(juce::Path& path, int channel) const;

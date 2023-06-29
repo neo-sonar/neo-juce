@@ -62,7 +62,7 @@ auto WaveformSource::prepare(juce::dsp::ProcessSpec const& spec) -> void
     secondsToShow(_window);
 }
 
-auto WaveformSource::levels(int channel) const -> Span<juce::Range<float> const>
+auto WaveformSource::levels(int channel) const -> std::span<juce::Range<float> const>
 {
     return { _channels[channel]->levels.begin(), static_cast<std::size_t>(_channels[channel]->levels.size()) };
 }

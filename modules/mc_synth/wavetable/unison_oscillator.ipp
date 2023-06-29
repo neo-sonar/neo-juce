@@ -179,7 +179,7 @@ auto UnisonOscillator<T>::frequency(T newFrequency) -> void
 //         auto const sampleIndex  = xsimd::to_int(scaledPhase);
 //         auto const sampleOffset = scaledPhase - xsimd::to_float(sampleIndex);
 
-//         auto const table   = Span<T const> { *_wavetable }.subspan(0, _wavetable->period());
+//         auto const table   = std::span<T const> { *_wavetable }.subspan(0, _wavetable->period());
 //         auto const samples = samplesForHermiteInterpolation<T>(table, sampleIndex);
 //         auto const sample  = HermiteInterpolation<xsimd::batch<T>> {}(samples, sampleOffset);
 

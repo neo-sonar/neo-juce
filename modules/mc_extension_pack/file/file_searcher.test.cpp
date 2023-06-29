@@ -30,13 +30,13 @@ TEST_CASE("extension_pack/file: FileSearcher", "[extension_pack]") // NOLINT
 
 static constexpr auto const TestHeader = std::array<char, 8> { 'T', 'E', 'S', 'T', 'P', 'A', 'C', 'K' };
 
-TEST_CASE("extension_pack/file: hasMagicHeader(Span<char const>)", "[extension_pack]") // NOLINT
+TEST_CASE("extension_pack/file: hasMagicHeader(std::span<char const>)", "[extension_pack]") // NOLINT
 {
     using namespace mc;
 
     auto const zeros = std::array<char, 12> {};
     REQUIRE_FALSE(hasMagicHeader(zeros, TestHeader));
-    REQUIRE_FALSE(hasMagicHeader(Span<char const> {}, TestHeader));
+    REQUIRE_FALSE(hasMagicHeader(std::span<char const> {}, TestHeader));
     REQUIRE(hasMagicHeader(TestHeader, TestHeader));
 }
 

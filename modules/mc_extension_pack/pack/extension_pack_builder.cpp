@@ -34,7 +34,7 @@ namespace {
 
 [[nodiscard]] auto transformFileContent(juce::File const& srcFile,
     juce::File const& destDir,
-    std::function<std::vector<std::byte>(Span<std::byte const>)> const& transformer) -> juce::Result
+    std::function<std::vector<std::byte>(std::span<std::byte const>)> const& transformer) -> juce::Result
 {
     auto const destFile = destDir.getChildFile(srcFile.getFileName());
     if (not transformer) { return copyFile(srcFile, destFile); }

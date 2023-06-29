@@ -8,10 +8,10 @@ template <typename T>
 [[nodiscard]] auto toVector(juce::AudioBuffer<T> const& buffer) -> std::vector<T>;
 
 template <typename T>
-[[nodiscard]] auto channel(juce::AudioBuffer<T>& buffer, size_t index) -> Span<T>;
+[[nodiscard]] auto channel(juce::AudioBuffer<T>& buffer, size_t index) -> std::span<T>;
 
 template <typename T>
-[[nodiscard]] auto channel(juce::AudioBuffer<T> const& buffer, size_t index) -> Span<T const>;
+[[nodiscard]] auto channel(juce::AudioBuffer<T> const& buffer, size_t index) -> std::span<T const>;
 
 } // namespace mc
 

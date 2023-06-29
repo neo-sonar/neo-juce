@@ -14,7 +14,7 @@ struct Wavetable {
     [[nodiscard]] auto size() const noexcept -> size_t;
     [[nodiscard]] auto period() const noexcept -> size_t;
 
-    [[nodiscard]] operator Span<T const>() const noexcept; // NOLINT(hicpp-explicit-conversions)
+    [[nodiscard]] operator std::span<T const>() const noexcept; // NOLINT(hicpp-explicit-conversions)
 
 private:
     std::vector<T> _data;

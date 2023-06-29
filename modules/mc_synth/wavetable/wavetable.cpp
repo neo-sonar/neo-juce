@@ -30,7 +30,7 @@ auto Wavetable<T>::empty() const noexcept -> bool
 }
 
 template <typename T>
-Wavetable<T>::operator Span<T const>() const noexcept
+Wavetable<T>::operator std::span<T const>() const noexcept
 {
     return { _data.data(), _data.size() };
 }

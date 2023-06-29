@@ -6,7 +6,7 @@ auto OscilloscopeSource::process(juce::AudioBuffer<float> const& buffer) -> void
 
 auto OscilloscopeSource::reset() -> void { _source.reset(); }
 
-auto OscilloscopeSource::currentScope() const noexcept -> Span<float const> { return _source.buffer(); }
+auto OscilloscopeSource::currentScope() const noexcept -> std::span<float const> { return _source.buffer(); }
 
 auto OscilloscopeSource::addChangeListener(juce::ChangeListener* l) -> void { _source.addChangeListener(l); }
 

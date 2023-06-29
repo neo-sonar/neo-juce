@@ -2,7 +2,7 @@
 
 namespace mc {
 template <typename T>
-static auto rmsError(Span<T const> lhs, Span<T const> rhs) -> T
+static auto rmsError(std::span<T const> lhs, std::span<T const> rhs) -> T
 {
     if (lhs.size() != rhs.size()) { throw std::invalid_argument { "signals must have the same size" }; }
 

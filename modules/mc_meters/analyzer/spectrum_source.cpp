@@ -137,7 +137,7 @@ auto SpectrumSource::runTransform() -> void
 
     auto const numBins       = static_cast<std::size_t>(_fft.getSize()) / 2UL + 1UL;
     auto const* coefficients = reinterpret_cast<std::complex<float> const*>(data(_fftBuffer)); // NOLINT
-    auto const bins          = Span<std::complex<float> const> { coefficients, numBins };
+    auto const bins          = std::span<std::complex<float> const> { coefficients, numBins };
     auto amplitudes          = std::vector<float>(numBins, 0.0F);
     for (std::size_t i { 0 }; i < numBins; ++i) { amplitudes[i] = std::abs(bins[i]) / static_cast<float>(numBins); }
 

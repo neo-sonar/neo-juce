@@ -12,8 +12,8 @@ struct Averager {
     auto resize(size_t numWindows, size_t windowSize) -> void;
     auto clear() -> void;
 
-    auto push(Span<T const> buffer) -> void;
-    [[nodiscard]] auto average() const -> Span<T const>;
+    auto push(std::span<T const> buffer) -> void;
+    [[nodiscard]] auto average() const -> std::span<T const>;
 
 private:
     std::vector<std::vector<T>> _history {};
@@ -43,7 +43,7 @@ auto Averager<T>::clear() -> void
 }
 
 template <typename T>
-auto Averager<T>::push(Span<T const> buffer) -> void
+auto Averager<T>::push(std::span<T const> buffer) -> void
 {
     // Copy input
     auto& dest = _history[_writeIndex];
@@ -58,7 +58,7 @@ auto Averager<T>::push(Span<T const> buffer) -> void
 }
 
 template <typename T>
-auto Averager<T>::average() const -> Span<T const>
+auto Averager<T>::average() const -> std::span<T const>
 {
     return _average;
 }

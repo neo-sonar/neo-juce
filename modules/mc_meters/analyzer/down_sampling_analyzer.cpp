@@ -59,7 +59,7 @@ auto DownSamplingAnalyzer::process(juce::AudioBuffer<float> const& buffer) -> vo
 
 auto DownSamplingAnalyzer::reset() -> void { }
 
-auto DownSamplingAnalyzer::buffer() const noexcept -> Span<float const> { return _buffer; }
+auto DownSamplingAnalyzer::buffer() const noexcept -> std::span<float const> { return _buffer; }
 
 auto DownSamplingAnalyzer::timerCallback() -> void
 {

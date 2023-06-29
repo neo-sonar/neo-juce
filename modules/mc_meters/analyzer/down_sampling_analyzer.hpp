@@ -10,7 +10,7 @@ struct DownSamplingAnalyzer final : juce::Timer, juce::ChangeBroadcaster {
     auto process(juce::AudioBuffer<float> const& buffer) -> void;
     auto reset() -> void;
 
-    [[nodiscard]] auto buffer() const noexcept -> Span<float const>;
+    [[nodiscard]] auto buffer() const noexcept -> std::span<float const>;
 
 private:
     inline static constexpr auto chunkSize = 128U;

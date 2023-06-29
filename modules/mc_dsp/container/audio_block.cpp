@@ -1,7 +1,7 @@
 namespace mc {
 
 template <typename T>
-auto channel(juce::dsp::AudioBlock<T> const& block, size_t index) -> Span<T>
+auto channel(juce::dsp::AudioBlock<T> const& block, size_t index) -> std::span<T>
 {
     jassert(block.getNumChannels() > index);
     return { block.getChannelPointer(index), static_cast<size_t>(block.getNumSamples()) };
