@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.23)
 project(mc-juce-dev VERSION 0.1.0 LANGUAGES C CXX)
 
 option(MC_BUILD_CONAN_CMAKE "Call conan from CMake. Does not work with ClangCL" ON)
