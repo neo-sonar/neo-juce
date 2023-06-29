@@ -33,7 +33,7 @@ class ModernCircuitsJuceModules(ConanFile):
             self.requires("boost/1.82.0")
 
     def build_requirements(self):
-        self.test_requires("catch2/3.2.1")
+        self.test_requires("catch2/3.3.2")
 
     def config_options(self):
         self.options["boost"].header_only = True
