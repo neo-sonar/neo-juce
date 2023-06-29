@@ -2,7 +2,7 @@
 
 namespace mc {
 LevelMeterSource::ChannelData::ChannelData(const size_t rmsWindow)
-    : max(), maxOverall(), clip(false), reduction(1.0F), _hold(0), _rmsHistory((size_t)rmsWindow, 0.0), _rmsSum(0.0)
+    : clip(false), reduction(1.0F), _hold(0), _rmsHistory((size_t)rmsWindow, 0.0), _rmsSum(0.0)
 
 {
 }

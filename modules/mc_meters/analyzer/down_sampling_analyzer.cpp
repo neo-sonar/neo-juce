@@ -53,7 +53,7 @@ auto DownSamplingAnalyzer::process(juce::AudioBuffer<float> const& buffer) -> vo
     auto inBlock  = juce::dsp::AudioBlock<float const> { buffer };
     auto outBlock = juce::dsp::AudioBlock<float> { _filterBuffer };
     _filter.process(juce::dsp::ProcessContextNonReplacing<float> { inBlock, outBlock });
-    processDownSamplingAnalyzer<decltype(_queue), juce::AudioBuffer<float>, ChunkSize>(
+    processDownSamplingAnalyzer<decltype(_queue), juce::AudioBuffer<float>, chunkSize>(
         _queue, _filterBuffer, _downSampleFactor);
 }
 
@@ -65,7 +65,7 @@ auto DownSamplingAnalyzer::timerCallback() -> void
 {
     auto newData = false;
     for (auto i { 0U }; i < _queue.size_approx() + 1U; ++i) {
-        auto chunk = StaticVector<float, ChunkSize> {};
+        auto chunk = StaticVector<float, chunkSize> {};
         if (not _queue.try_dequeue(chunk)) { continue; }
 
         // Remove oldest elements & insert new

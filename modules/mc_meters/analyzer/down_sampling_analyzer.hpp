@@ -13,14 +13,14 @@ struct DownSamplingAnalyzer final : juce::Timer, juce::ChangeBroadcaster {
     [[nodiscard]] auto buffer() const noexcept -> Span<float const>;
 
 private:
-    inline static constexpr auto ChunkSize = 128U;
+    inline static constexpr auto chunkSize = 128U;
 
     auto timerCallback() -> void override;
 
     juce::dsp::StateVariableTPTFilter<float> _filter;
     juce::AudioBuffer<float> _filterBuffer;
 
-    LockFreeQueue<StaticVector<float, ChunkSize>> _queue { 8U };
+    LockFreeQueue<StaticVector<float, chunkSize>> _queue { 8U };
     std::size_t _downSampleFactor { 8U };
 
     std::vector<float> _buffer;

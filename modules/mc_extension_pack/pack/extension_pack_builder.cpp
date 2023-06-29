@@ -2,7 +2,9 @@
 
 namespace mc {
 
-[[nodiscard]] static auto validate(FlatMap<std::string, AssetLoader> const& loaders) -> juce::Result
+namespace {
+
+[[nodiscard]] auto validate(FlatMap<std::string, AssetLoader> const& loaders) -> juce::Result
 {
     if (loaders.empty()) { return fail("No loaders registered"); }
     for (auto const& [type, loader] : loaders) {
@@ -11,7 +13,7 @@ namespace mc {
     return juce::Result::ok();
 }
 
-[[nodiscard]] static auto loadAssetFilePaths(FlatMap<std::string, AssetLoader> const& loaders)
+[[nodiscard]] auto loadAssetFilePaths(FlatMap<std::string, AssetLoader> const& loaders)
 {
     auto files = FlatMap<std::string, std::vector<juce::File>> {};
     for (auto const& [type, loader] : loaders) {
@@ -21,7 +23,7 @@ namespace mc {
     return files;
 }
 
-[[nodiscard]] static auto validate(FlatMap<std::string, std::vector<juce::File>> const& fileGroups) -> juce::Result
+[[nodiscard]] auto validate(FlatMap<std::string, std::vector<juce::File>> const& fileGroups) -> juce::Result
 {
     if (fileGroups.empty()) { return fail("No fileGroups found with searchers"); }
     for (auto const& [type, files] : fileGroups) {
@@ -30,7 +32,7 @@ namespace mc {
     return juce::Result::ok();
 }
 
-[[nodiscard]] static auto transformFileContent(juce::File const& srcFile,
+[[nodiscard]] auto transformFileContent(juce::File const& srcFile,
     juce::File const& destDir,
     std::function<std::vector<std::byte>(Span<std::byte const>)> const& transformer) -> juce::Result
 {
@@ -49,6 +51,8 @@ namespace mc {
 
     return juce::Result::ok();
 }
+
+} // namespace
 
 auto build(ExtensionPackBuilder const& builder) -> juce::Result
 {

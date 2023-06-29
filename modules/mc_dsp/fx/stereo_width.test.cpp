@@ -3,8 +3,9 @@
 #include <catch2/catch_approx.hpp>
 #include <catch2/catch_template_test_macros.hpp>
 
+namespace {
 template <typename FloatType>
-static auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<FloatType>
+auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<FloatType>
 {
     std::random_device rd;
     std::mt19937 e2(rd());
@@ -18,6 +19,7 @@ static auto createNoiseBuffer(int channels, int size) -> juce::AudioBuffer<Float
 
     return buffer;
 }
+} // namespace
 
 // NOLINTNEXTLINE
 #define REQUIRE_FOR_NANS(buffer)                                                                                       \

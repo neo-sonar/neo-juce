@@ -4,6 +4,7 @@ Checks: >
 
   bugprone-*,
   -bugprone-macro-parentheses,
+  -bugprone-unchecked-optional-access,
 
   cert-*,
   -cert-oop54-cpp,
@@ -14,7 +15,9 @@ Checks: >
   concurrency-*,
 
   cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-do-while,
   -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-avoid-const-or-ref-data-members,
   -cppcoreguidelines-special-member-functions,
   -cppcoreguidelines-pro-bounds-pointer-arithmetic,
 

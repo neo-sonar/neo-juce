@@ -1,18 +1,22 @@
 namespace mc {
 
-static auto frequencyToX(float minFreq, float maxFreq, float freq, float width)
+namespace {
+
+[[nodiscard]] auto frequencyToX(float minFreq, float maxFreq, float freq, float width)
 {
     auto const logMinFreq = std::log10(minFreq);
     auto const diff       = std::log10(freq) - logMinFreq;
     return diff * width / (std::log10(maxFreq) - logMinFreq);
 }
 
-static auto amplitudeToY(float amplitude, const juce::Rectangle<float> bounds) -> float
+[[nodiscard]] auto amplitudeToY(float amplitude, const juce::Rectangle<float> bounds) -> float
 {
     auto const infinity = -60.0F;
     auto const dB       = juce::Decibels::gainToDecibels(amplitude, infinity);
     return juce::jmap(dB, infinity, 0.0F, bounds.getBottom(), bounds.getY());
 }
+
+} // namespace
 
 SpectrumSource::SpectrumSource(juce::TimeSliceThread& worker, int fftOrder)
     : _worker { worker }
