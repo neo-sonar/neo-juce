@@ -4,10 +4,10 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: macos-13
     strategy:
       matrix:
-        cxx: [20]
+        cxx: [20, 23]
         build_mode: ["Debug", "Release"]
       fail-fast: false
     name: C++${{ matrix.cxx }} - ${{ matrix.build_mode }}
