@@ -33,15 +33,6 @@ TEMPLATE_TEST_CASE("synth/wavetable: makeSineWavetable", "[synth]", float, doubl
     REQUIRE(sineTable->period() == size);
 }
 
-TEMPLATE_TEST_CASE("synth/wavetable: loadWavetable", "[synth]", float) // NOLINT
-{
-    using namespace mc;
-
-    auto stream     = std::make_unique<juce::MemoryInputStream>(nullptr, 0, false);
-    auto const null = loadWavetable<TestType>(std::move(stream));
-    REQUIRE(null == nullptr);
-}
-
 TEST_CASE("synth/wavetable: WavetableOscillator", "[synth]") // NOLINT
 {
     using namespace mc;

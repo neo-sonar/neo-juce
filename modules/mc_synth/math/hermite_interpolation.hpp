@@ -8,7 +8,8 @@ struct HermiteInterpolation {
 };
 
 template <typename T>
-[[nodiscard]] constexpr auto samplesForHermiteInterpolation(std::span<T const> buf, size_t s1) noexcept -> std::array<T, 4>;
+[[nodiscard]] constexpr auto samplesForHermiteInterpolation(std::span<T const> buf, size_t s1) noexcept
+    -> std::array<T, 4>;
 
 } // namespace mc
 
