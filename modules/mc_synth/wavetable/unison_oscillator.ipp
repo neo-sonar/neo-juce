@@ -104,98 +104,98 @@ auto UnisonOscillator<T>::frequency(T newFrequency) -> void
     detune(_detune);
 }
 
-template <typename T, size_t MaxNumOscillators>
-UnisonWavetableOsc<T, MaxNumOscillators>::UnisonWavetableOsc() : _wavetable { makeSineWavetable<T>(2048) }
-{
-    unison(1);
-}
+// template <typename T, size_t MaxNumOscillators>
+// UnisonWavetableOsc<T, MaxNumOscillators>::UnisonWavetableOsc() : _wavetable { makeSineWavetable<T>(2048) }
+// {
+//     unison(1);
+// }
 
-template <typename T, size_t MaxNumOscillators>
-auto UnisonWavetableOsc<T, MaxNumOscillators>::load(typename Wavetable<T>::Ptr wavetable) -> void
-{
-    _wavetable = std::move(wavetable);
-}
+// template <typename T, size_t MaxNumOscillators>
+// auto UnisonWavetableOsc<T, MaxNumOscillators>::load(typename Wavetable<T>::Ptr wavetable) -> void
+// {
+//     _wavetable = std::move(wavetable);
+// }
 
-template <typename T, size_t MaxNumOscillators>
-auto UnisonWavetableOsc<T, MaxNumOscillators>::frequency(T newFrequency) -> void
-{
-    _frequency = newFrequency;
-    detune(_detune);
-}
+// template <typename T, size_t MaxNumOscillators>
+// auto UnisonWavetableOsc<T, MaxNumOscillators>::frequency(T newFrequency) -> void
+// {
+//     _frequency = newFrequency;
+//     detune(_detune);
+// }
 
-template <typename T, size_t MaxNumOscillators>
-auto UnisonWavetableOsc<T, MaxNumOscillators>::unison(int numOscillators) -> void
-{
-    _numOscillators = numOscillators;
-    detune(_detune);
+// template <typename T, size_t MaxNumOscillators>
+// auto UnisonWavetableOsc<T, MaxNumOscillators>::unison(int numOscillators) -> void
+// {
+//     _numOscillators = numOscillators;
+//     detune(_detune);
 
-    // improvisiert, aber funktioniert
-    auto const gain = 1 / ((static_cast<T>(numOscillators - 1) * T(0.1)) + 1);
-    for (size_t i { 0 }; i < size(_gainCompensation); ++i) {
-        auto gains = std::array<T, xsimd::batch<T>::size> {};
-        for (auto& g : gains) { g = static_cast<int>(i) < numOscillators ? gain : T {}; }
-        _gainCompensation[i] = xsimd::batch<T>::load_unaligned(data(gains));
-    }
-}
+//     // improvisiert, aber funktioniert
+//     auto const gain = 1 / ((static_cast<T>(numOscillators - 1) * T(0.1)) + 1);
+//     for (size_t i { 0 }; i < size(_gainCompensation); ++i) {
+//         auto gains = std::array<T, xsimd::batch<T>::size> {};
+//         for (auto& g : gains) { g = static_cast<int>(i) < numOscillators ? gain : T {}; }
+//         _gainCompensation[i] = xsimd::batch<T>::load_unaligned(data(gains));
+//     }
+// }
 
-template <typename T, size_t MaxNumOscillators>
-auto UnisonWavetableOsc<T, MaxNumOscillators>::detune(T detuneInCents) -> void
-{
-    _detune = detuneInCents;
+// template <typename T, size_t MaxNumOscillators>
+// auto UnisonWavetableOsc<T, MaxNumOscillators>::detune(T detuneInCents) -> void
+// {
+//     _detune = detuneInCents;
 
-    auto frequencies = std::array<T, maxNumOscillators> {};
-    for (auto i { 0 }; i < _numOscillators; ++i) {
-        auto const cents         = _detune * unisonDetuneForVoice<T>(_numOscillators, i);
-        frequencies[(size_t)(i)] = hertzWithCentsOffset(_frequency, cents);
-    }
+//     auto frequencies = std::array<T, maxNumOscillators> {};
+//     for (auto i { 0 }; i < _numOscillators; ++i) {
+//         auto const cents         = _detune * unisonDetuneForVoice<T>(_numOscillators, i);
+//         frequencies[(size_t)(i)] = hertzWithCentsOffset(_frequency, cents);
+//     }
 
-    for (size_t i { 0 }; i < size(_deltaPhase); ++i) {
-        auto const* ptr = data(frequencies) + i * xsimd::batch<T>::size;
-        _deltaPhase[i]  = xsimd::batch<T>::load_unaligned(ptr) / _sampleRate;
-    }
-}
+//     for (size_t i { 0 }; i < size(_deltaPhase); ++i) {
+//         auto const* ptr = data(frequencies) + i * xsimd::batch<T>::size;
+//         _deltaPhase[i]  = xsimd::batch<T>::load_unaligned(ptr) / _sampleRate;
+//     }
+// }
 
-template <typename T, size_t MaxNumOscillators>
-auto UnisonWavetableOsc<T, MaxNumOscillators>::prepare(double sampleRate) -> void
-{
-    _sampleRate = static_cast<T>(sampleRate);
-    frequency(_frequency);
-}
+// template <typename T, size_t MaxNumOscillators>
+// auto UnisonWavetableOsc<T, MaxNumOscillators>::prepare(double sampleRate) -> void
+// {
+//     _sampleRate = static_cast<T>(sampleRate);
+//     frequency(_frequency);
+// }
 
-#if JUCE_MSVC && JUCE_DEBUG
-    #pragma optimize("t", on)
-#endif
+// #if JUCE_MSVC && JUCE_DEBUG
+//     #pragma optimize("t", on)
+// #endif
 
-template <typename T, size_t MaxNumOscillators>
-auto UnisonWavetableOsc<T, MaxNumOscillators>::processSample() -> T
-{
-    auto sum = T {};
+// template <typename T, size_t MaxNumOscillators>
+// auto UnisonWavetableOsc<T, MaxNumOscillators>::processSample() -> T
+// {
+//     auto sum = T {};
 
-    for (size_t i { 0 }; i < size(_deltaPhase); ++i) {
-        _phase[i] += _deltaPhase[i];
-        _phase[i] -= xsimd::floor(_phase[i]);
+//     for (size_t i { 0 }; i < size(_deltaPhase); ++i) {
+//         _phase[i] += _deltaPhase[i];
+//         _phase[i] -= xsimd::floor(_phase[i]);
 
-        auto const scaledPhase  = _phase[i] * static_cast<T>(_wavetable->period());
-        auto const sampleIndex  = xsimd::to_int(scaledPhase);
-        auto const sampleOffset = scaledPhase - xsimd::to_float(sampleIndex);
+//         auto const scaledPhase  = _phase[i] * static_cast<T>(_wavetable->period());
+//         auto const sampleIndex  = xsimd::to_int(scaledPhase);
+//         auto const sampleOffset = scaledPhase - xsimd::to_float(sampleIndex);
 
-        auto const table   = Span<T const> { *_wavetable }.subspan(0, _wavetable->period());
-        auto const samples = samplesForHermiteInterpolation<T>(table, sampleIndex);
-        auto const sample  = HermiteInterpolation<xsimd::batch<T>> {}(samples, sampleOffset);
+//         auto const table   = Span<T const> { *_wavetable }.subspan(0, _wavetable->period());
+//         auto const samples = samplesForHermiteInterpolation<T>(table, sampleIndex);
+//         auto const sample  = HermiteInterpolation<xsimd::batch<T>> {}(samples, sampleOffset);
 
-        sum += xsimd::reduce_add(sample * _gainCompensation[i]);
-    }
-    return sum;
-}
+//         sum += xsimd::reduce_add(sample * _gainCompensation[i]);
+//     }
+//     return sum;
+// }
 
-#if JUCE_MSVC && JUCE_DEBUG
-    #pragma optimize("", on)
-#endif
+// #if JUCE_MSVC && JUCE_DEBUG
+//     #pragma optimize("", on)
+// #endif
 
-template <typename T, size_t MaxNumOscillators>
-auto UnisonWavetableOsc<T, MaxNumOscillators>::reset(T phaseIn) -> void
-{
-    for (auto& phase : _phase) { phase = phaseIn; }
-}
+// template <typename T, size_t MaxNumOscillators>
+// auto UnisonWavetableOsc<T, MaxNumOscillators>::reset(T phaseIn) -> void
+// {
+//     for (auto& phase : _phase) { phase = phaseIn; }
+// }
 
 } // namespace mc

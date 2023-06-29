@@ -22,8 +22,6 @@ END_JUCE_MODULE_DECLARATION
 #include <mc_audio_formats/mc_audio_formats.hpp>
 #include <mc_dsp/mc_dsp.hpp>
 
-#include <xsimd/xsimd.hpp>
-
 // clang-format off
 #include "math/frequency.hpp"
 #include "math/hermite_interpolation.hpp"

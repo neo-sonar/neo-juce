@@ -28,7 +28,6 @@ class ModernCircuitsJuceModules(ConanFile):
         self.requires("concurrentqueue/1.0.3")
         self.requires("fmt/9.1.0")
         self.requires("range-v3/0.12.0")
-        self.requires("xsimd/10.0.0")
 
         if self.settings.os != "Emscripten":
             self.requires("boost/1.81.0")

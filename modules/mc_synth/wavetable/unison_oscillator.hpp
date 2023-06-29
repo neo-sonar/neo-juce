@@ -39,38 +39,38 @@ template <typename T>
 template <typename T>
 [[nodiscard]] constexpr auto unisonDetuneForVoiceUnsafe(int voices, int index) noexcept -> T;
 
-template <typename T, size_t MaxNumOscillators>
-struct UnisonWavetableOsc {
-    using SampleType                        = T;
-    static constexpr auto maxNumOscillators = MaxNumOscillators;
+// template <typename T, size_t MaxNumOscillators>
+// struct UnisonWavetableOsc {
+//     using SampleType                        = T;
+//     static constexpr auto maxNumOscillators = MaxNumOscillators;
 
-    UnisonWavetableOsc();
+//     UnisonWavetableOsc();
 
-    auto load(typename Wavetable<T>::Ptr wavetable) -> void;
+//     auto load(typename Wavetable<T>::Ptr wavetable) -> void;
 
-    auto frequency(T newFrequency) -> void;
-    auto unison(int numOscillators) -> void;
-    auto detune(T detuneInCents) -> void;
+//     auto frequency(T newFrequency) -> void;
+//     auto unison(int numOscillators) -> void;
+//     auto detune(T detuneInCents) -> void;
 
-    auto prepare(double sampleRate) -> void;
-    auto processSample() -> T;
-    auto reset(T phaseIn = 0) -> void;
+//     auto prepare(double sampleRate) -> void;
+//     auto processSample() -> T;
+//     auto reset(T phaseIn = 0) -> void;
 
-private:
-    static constexpr auto numBatches = std::max<size_t>(1, maxNumOscillators / xsimd::batch<T>::size);
+// private:
+//     static constexpr auto numBatches = std::max<size_t>(1, maxNumOscillators / xsimd::batch<T>::size);
 
-    typename Wavetable<T>::Ptr _wavetable;
+//     typename Wavetable<T>::Ptr _wavetable;
 
-    int _numOscillators { 0 };
+//     int _numOscillators { 0 };
 
-    std::array<xsimd::batch<T>, numBatches> _phase {};
-    std::array<xsimd::batch<T>, numBatches> _deltaPhase {};
-    std::array<xsimd::batch<T>, numBatches> _gainCompensation {};
+//     std::array<xsimd::batch<T>, numBatches> _phase {};
+//     std::array<xsimd::batch<T>, numBatches> _deltaPhase {};
+//     std::array<xsimd::batch<T>, numBatches> _gainCompensation {};
 
-    T _sampleRate { 44'100.0 };
-    T _frequency { 440 };
-    T _detune { 0 };
-};
+//     T _sampleRate { 44'100.0 };
+//     T _frequency { 440 };
+//     T _detune { 0 };
+// };
 
 } // namespace mc
 
