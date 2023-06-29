@@ -38,3 +38,18 @@ TEST_CASE("dsp/algorithm: downSample", "[dsp]")
     REQUIRE(mc::downSample(input.data(), input.size(), output.data(), 2U) == 4U);
     REQUIRE(ranges::all_of(output, Equals<float> { 1.0F }));
 }
+
+TEST_CASE("dsp/algorithm: Averager", "[dsp]")
+{
+    using namespace mc;
+
+    auto averager = Averager<float> { 2, 4 };
+    REQUIRE(ranges::equal(averager.average(), std::array<float, 4> { 0.0F, 0.0F, 0.0F, 0.0F }));
+
+    auto const ones = std::array<float, 4> { 1.0F, 1.0F, 1.0F, 1.0F };
+    averager.push(ones);
+    REQUIRE(ranges::equal(averager.average(), std::array<float, 4> { 0.5F, 0.5F, 0.5F, 0.5F }));
+
+    averager.push(ones);
+    REQUIRE(ranges::equal(averager.average(), ones));
+}

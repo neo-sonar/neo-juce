@@ -61,27 +61,22 @@ set(test_sources
     modules/mc_audio_basics/buffers/audio_buffer.test.cpp
 
     modules/mc_audio_processors/attachment/xypad_attachment.test.cpp
-    modules/mc_audio_processors/parameter/audio_processor_value_tree_state.test.cpp
     modules/mc_audio_processors/parameter/text_value_converter.test.cpp
     modules/mc_audio_processors/processors/buses_layout.test.cpp
 
     modules/mc_core/container/registry.test.cpp
     modules/mc_core/files/file.test.cpp
-    modules/mc_core/files/zip_file.test.cpp
     # modules/mc_core/javascript/json_utils.test.cpp
     modules/mc_core/math/range.test.cpp
     modules/mc_core/misc/result.test.cpp
     modules/mc_core/text/jformat.test.cpp
     modules/mc_core/time/time.test.cpp
 
-    modules/mc_data_structures/values/atomic_wrapper.test.cpp
     modules/mc_data_structures/values/constrainer_wrapper.test.cpp
 
-    modules/mc_dsp/algorithm/averager.test.cpp
     modules/mc_dsp/algorithm/down_sample.test.cpp
     modules/mc_dsp/clock/trigger_clock.test.cpp
     modules/mc_dsp/container/audio_block.test.cpp
-    modules/mc_dsp/fx/airwindows_derez.test.cpp
     modules/mc_dsp/fx/stereo_width.test.cpp
     modules/mc_dsp/units/units.test.cpp
 

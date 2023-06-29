@@ -42,3 +42,10 @@ TEST_CASE("core/files: copyFile", "[core]")
     auto const testFile = makeFile("test_data/midi/130bpm_drum_beat.mid");
     REQUIRE(copyFile(juce::File {}, testFile).failed()); // src invalid
 }
+
+TEST_CASE("core/files: isZipFile", "[core]")
+{
+    auto cwd = juce::File::getCurrentWorkingDirectory();
+    REQUIRE(mc::isZipFile(cwd.getChildFile("test_data/zip/one_file.zip")));
+    REQUIRE_FALSE(mc::isZipFile(cwd.getChildFile("test_data/img/red_256x256.jpg")));
+}
