@@ -2,6 +2,41 @@
 
 #pragma once
 
+
+namespace mc {
+
+/// \brief Duration.
+template <typename T, typename R>
+using Duration = std::chrono::duration<T, R>;
+
+/// \brief Duration in microseconds.
+template <typename T>
+using Microseconds = Duration<T, std::micro>;
+
+/// \brief Duration in milliseconds.
+template <typename T>
+using Milliseconds = Duration<T, std::milli>;
+
+/// \brief Duration in seconds.
+template <typename T>
+using Seconds = Duration<T, std::ratio<1>>;
+
+/// \brief Converts a duration to milliseconds.
+template <typename T, typename R>
+[[nodiscard]] constexpr auto toMilliseconds(Duration<T, R> const& d) noexcept
+{
+    return std::chrono::duration_cast<Milliseconds<T>>(d);
+}
+
+/// \brief Converts a duration to seconds.
+template <typename T, typename R>
+[[nodiscard]] constexpr auto toSeconds(Duration<T, R> const& d) noexcept
+{
+    return std::chrono::duration_cast<Seconds<T>>(d);
+}
+
+} // namespace mc
+
 /// \internal
 template <typename T, typename R>
 struct juce::VariantConverter<std::chrono::duration<T, R>> {
