@@ -2,7 +2,6 @@
 
 #pragma once
 
-
 namespace mc {
 
 /// \brief Duration.
