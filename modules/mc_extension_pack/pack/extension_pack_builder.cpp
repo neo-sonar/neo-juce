@@ -32,7 +32,7 @@ namespace mc {
 
 [[nodiscard]] static auto transformFileContent(juce::File const& srcFile,
     juce::File const& destDir,
-    std::function<std::vector<Byte>(Span<Byte const>)> const& transformer) -> juce::Result
+    std::function<std::vector<std::byte>(Span<std::byte const>)> const& transformer) -> juce::Result
 {
     auto const destFile = destDir.getChildFile(srcFile.getFileName());
     if (not transformer) { return copyFile(srcFile, destFile); }
@@ -59,7 +59,7 @@ auto build(ExtensionPackBuilder const& builder) -> juce::Result
 
     auto const workDir = makeTemporaryDirectory("builder_tmp");
     if (not workDir.isDirectory()) { return fail("failed to create tmp work dir: {}", workDir); }
-    SCOPE_EXIT { workDir.deleteRecursively(); };
+    // SCOPE_EXIT { workDir.deleteRecursively(); }; // TODO(reenable)
 
     for (auto const& [type, group] : assetFilesGroups) {
         auto const& transformer = builder.loaders.at(type).transformer;

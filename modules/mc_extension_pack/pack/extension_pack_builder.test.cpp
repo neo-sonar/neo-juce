@@ -30,7 +30,7 @@ TEST_CASE("extension_pack/pack: build(AssetLoader)", "[extension_pack]") // NOLI
         builder.loaders["midi"] = AssetLoader {
             { makeFile("test_data/midi") },
             FileSearcher { "*.mid", false },
-            [](auto input) { return std::vector<mc::Byte>(begin(input), end(input)); },
+            [](auto input) { return std::vector<std::byte>(begin(input), end(input)); },
         };
         REQUIRE_FALSE(build(builder).failed());
     }

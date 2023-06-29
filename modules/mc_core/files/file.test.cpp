@@ -6,12 +6,12 @@
 
 TEST_CASE("core/files: format(juce::File)", "[core]")
 {
-    REQUIRE(mc::format("{}", juce::File {}).empty());
+    REQUIRE(fmt::format("{}", juce::File {}).empty());
 
     // Can't run on Windows, since the CI runners use a different root
     // drive letter then most workstation installs. (C:\ vs. D:\)
-#if not defined(MC_PLATFORM_WINDOWS)
-    REQUIRE(mc::format("{}", juce::File { "/foo/bar/baz.txt" }) == "/foo/bar/baz.txt");
+#ifndef JUCE_WINDOWS
+    REQUIRE(fmt::format("{}", juce::File { "/foo/bar/baz.txt" }) == "/foo/bar/baz.txt");
 #endif
 }
 

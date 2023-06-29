@@ -1,13 +1,13 @@
 namespace mc {
 
 auto loadAudioFile(void const* data, size_t size, juce::AudioFormatManager* formatManager)
-    -> Optional<BufferWithSampleRate<float>>
+    -> std::optional<BufferWithSampleRate<float>>
 {
     return loadAudioFile(std::make_unique<juce::MemoryInputStream>(data, size, false), formatManager);
 }
 
 auto loadAudioFile(std::unique_ptr<juce::InputStream> stream, juce::AudioFormatManager* formatManager)
-    -> Optional<BufferWithSampleRate<float>>
+    -> std::optional<BufferWithSampleRate<float>>
 {
     if (stream == nullptr) { return {}; }
 

@@ -40,7 +40,11 @@ if(MC_BUILD_CONAN_CMAKE)
     include(mcConan)
 endif()
 
-find_package(mc-core REQUIRED)
+find_package(Boost 1.78 REQUIRED COMPONENTS boost)
+find_package(concurrentqueue REQUIRED)
+find_package(fmt REQUIRED)
+find_package(range-v3 REQUIRED)
+find_package(xsimd REQUIRED)
 
 add_subdirectory(modules)
 
@@ -125,7 +129,11 @@ target_compile_definitions(mc-juce-dev_tests
 
 target_link_libraries(mc-juce-dev_tests
     PRIVATE
-        mc-core::mc-core
+        Boost::headers
+        concurrentqueue::concurrentqueue
+        fmt::fmt
+        range-v3::range-v3
+        xsimd
 
         Catch2::Catch2
 

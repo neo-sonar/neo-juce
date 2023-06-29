@@ -25,10 +25,19 @@ class ModernCircuitsJuceModules(ConanFile):
         self.version = ver.strip()
 
     def requirements(self):
-        self.requires("mc-core/0.13.0@modern-circuits/stable")
+        self.requires("concurrentqueue/1.0.3")
+        self.requires("fmt/9.1.0")
+        self.requires("range-v3/0.12.0")
+        self.requires("xsimd/10.0.0")
+
+        if self.settings.os != "Emscripten":
+            self.requires("boost/1.81.0")
 
     def build_requirements(self):
         self.test_requires("catch2/3.2.1")
+
+    def config_options(self):
+        self.options["boost"].header_only = True
 
     def imports(self):
         self.copy("license*", dst="licenses", folder=True, ignore_case=True)

@@ -5,7 +5,7 @@ namespace mc {
 struct AssetLoader {
     std::vector<juce::File> paths;
     std::function<std::vector<juce::File>(juce::File const&)> searcher;
-    std::function<std::vector<Byte>(Span<Byte const>)> transformer;
+    std::function<std::vector<std::byte>(Span<std::byte const>)> transformer;
 };
 
 [[nodiscard]] auto validate(AssetLoader const& loader) -> juce::Result;

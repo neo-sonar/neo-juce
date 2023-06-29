@@ -5,7 +5,7 @@
 
 TEST_CASE("core/text: format", "[core]")
 {
-    REQUIRE(mc::format("{0}test{0}{1}", 143, juce::String { "foo" }) == "143test143foo");
+    REQUIRE(fmt::format("{0}test{0}{1}", 143, juce::String { "foo" }) == "143test143foo");
 }
 
 TEST_CASE("core/text: jformat", "[core]")

@@ -30,12 +30,12 @@ auto copyFile(juce::File const& src, juce::File const& dest) -> juce::Result
     return juce::Result::ok();
 }
 
-auto loadFileAsBytes(juce::File const& file) -> std::vector<Byte>
+auto loadFileAsBytes(juce::File const& file) -> std::vector<std::byte>
 {
     auto input = file.createInputStream();
     if (input == nullptr) { return {}; }
 
-    auto bytes = std::vector<Byte>(static_cast<size_t>(input->getTotalLength()));
+    auto bytes = std::vector<std::byte>(static_cast<size_t>(input->getTotalLength()));
     if (static_cast<size_t>(input->read(bytes.data(), (int)bytes.size())) != bytes.size()) { return {}; }
     return bytes;
 }
