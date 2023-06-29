@@ -127,9 +127,7 @@ TEST_CASE("audio_processors/text_value_converter: QualityTextConverter", "[audio
         REQUIRE(converter(0.24F) == "0.2");
         REQUIRE(converter(9.99F) == "10.0");
     }
-
 }
-
 
 TEST_CASE("audio_processors/text_value_converter: RatioOrGateTextConverter", "[audio_processors]")
 {
@@ -191,8 +189,6 @@ TEST_CASE("audio_processors/text_value_converter: SecondsTextConverter", "[audio
         REQUIRE(converter(14.3F) == "14.30 s");
     }
 }
-
-
 
 TEST_CASE("audio_processors/parameter: TrueFalseTextConverter", "[audio_processors]")
 {

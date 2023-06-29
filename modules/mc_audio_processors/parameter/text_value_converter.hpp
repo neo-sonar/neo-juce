@@ -96,7 +96,6 @@ struct QualityTextConverter {
     [[nodiscard]] auto operator()(juce::String const& text) const -> float { return text.getFloatValue(); }
 };
 
-
 struct RatioOrGateTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
@@ -113,7 +112,6 @@ struct RatioOrGateTextConverter {
     }
 };
 
-
 struct RatioOrLimiterTextConverter {
     [[nodiscard]] auto operator()(float value, int maxStringLength = 0) const -> juce::String
     {
@@ -126,7 +124,6 @@ struct RatioOrLimiterTextConverter {
 
     [[nodiscard]] auto operator()(juce::String const& text) const -> float { return text.substring(2).getFloatValue(); }
 };
-
 
 /// \brief Text & float converter for durations based on seconds.
 struct SecondsTextConverter {
