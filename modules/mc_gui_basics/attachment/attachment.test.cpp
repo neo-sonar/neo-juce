@@ -29,3 +29,17 @@ TEST_CASE("gui_basics/attachment: SliderValueTreeAttachment", "[gui_basics]")
     REQUIRE(slider.getValue() == Catch::Approx(3.2F));
     slider.stoppedDragging();
 }
+
+TEST_CASE("gui_basics/attachment: LabelValueTreeAttachment", "[gui_basics]")
+{
+    auto const id = juce::String { "test" };
+    juce::UndoManager um {};
+    juce::ValueTree valueTree { "test_plugin" };
+    valueTree.setProperty(id, "test", &um);
+
+    juce::Label label { "label", "label" };
+    REQUIRE(label.getText() == juce::String { "label" });
+
+    mc::LabelValueTreeAttachment<juce::String> const attachment { valueTree, id, label, &um };
+    REQUIRE(label.getText() == juce::String { "test" });
+}

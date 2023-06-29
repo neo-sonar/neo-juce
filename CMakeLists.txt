@@ -59,8 +59,6 @@ set_target_properties(mc-juce-dev_tests PROPERTIES UNITY_BUILD_MODE GROUP)
 
 set(test_sources
     modules/mc_audio_basics/buffers/audio_buffer.test.cpp
-    modules/mc_audio_basics/buffers/audio_buffers.test.cpp
-    modules/mc_audio_basics/buffers/buffer_with_samplerate.test.cpp
 
     modules/mc_audio_processors/attachment/xypad_attachment.test.cpp
     modules/mc_audio_processors/parameter/audio_processor_value_tree_state.test.cpp
@@ -71,11 +69,9 @@ set(test_sources
     modules/mc_core/files/file.test.cpp
     modules/mc_core/files/zip_file.test.cpp
     # modules/mc_core/javascript/json_utils.test.cpp
-    modules/mc_core/math/normalisable_range.test.cpp
     modules/mc_core/math/range.test.cpp
     modules/mc_core/misc/result.test.cpp
     modules/mc_core/text/jformat.test.cpp
-    modules/mc_core/time/duration.test.cpp
     modules/mc_core/time/time.test.cpp
 
     modules/mc_data_structures/values/atomic_wrapper.test.cpp
@@ -87,31 +83,22 @@ set(test_sources
     modules/mc_dsp/container/audio_block.test.cpp
     modules/mc_dsp/fx/airwindows_derez.test.cpp
     modules/mc_dsp/fx/stereo_width.test.cpp
-    modules/mc_dsp/units/bars.test.cpp
-    modules/mc_dsp/units/bpm.test.cpp
-    modules/mc_dsp/units/sample_count.test.cpp
+    modules/mc_dsp/units/units.test.cpp
 
     modules/mc_extension_pack/file/file_searcher.test.cpp
-    modules/mc_extension_pack/file/has_magic_header.test.cpp
-    modules/mc_extension_pack/pack/asset_loader.test.cpp
     modules/mc_extension_pack/pack/extension_pack_builder.test.cpp
 
     modules/mc_graphics/color/color.test.cpp
-    modules/mc_graphics/geometry/line.test.cpp
-    modules/mc_graphics/geometry/point.test.cpp
-    modules/mc_graphics/geometry/rectangle.test.cpp
+    modules/mc_graphics/geometry/geometry.test.cpp
     modules/mc_graphics/images/image.test.cpp
 
-    modules/mc_gui_basics/attachment/label_attachment.test.cpp
-    modules/mc_gui_basics/attachment/slider_attachment.test.cpp
+    modules/mc_gui_basics/attachment/attachment.test.cpp
     modules/mc_gui_basics/widgets/xy_pad.test.cpp
 
     modules/mc_meters/level_meter/level_meter_source.test.cpp
 
     modules/mc_synth/math/hermite_interpolation.test.cpp
-    modules/mc_synth/wavetable/unison_oscillator.test.cpp
     modules/mc_synth/wavetable/wavetable_oscillator.test.cpp
-    modules/mc_synth/wavetable/wavetable.test.cpp
 )
 
 target_sources(mc-juce-dev_tests PRIVATE main.test.cpp ${test_sources})

@@ -1,7 +1,25 @@
 #include <mc_dsp/mc_dsp.hpp>
 
 #include <catch2/catch_approx.hpp>
-#include <catch2/catch_template_test_macros.hpp>
+#include <catch2/catch_test_macros.hpp>
+
+TEST_CASE("dsp/units: barsToSamples", "[dsp]")
+{
+    REQUIRE(mc::barsToSamples(1.0, 240.0, 44'100.0) == Catch::Approx(44'100.0));
+    REQUIRE(mc::barsToSamples(1.0, 120.0, 44'100.0) == Catch::Approx(88'200.0));
+    REQUIRE(mc::barsToSamples(1.0, 120.0, 88'200.0) == Catch::Approx(176'400.0));
+
+    REQUIRE(mc::barsToSamples(2.0, 120.0, 44'100.0) == Catch::Approx(176'400.0));
+    REQUIRE(mc::barsToSamples(1.0 / 16.0, 240.0, 44'100.0) == Catch::Approx(2756.25));
+    REQUIRE(mc::barsToSamples(1.0 / 8.0, 240.0, 44'100.0) == Catch::Approx(5512.5));
+}
+
+TEST_CASE("dsp/units: barsToSeconds", "[dsp]")
+{
+    REQUIRE(mc::barsToSeconds(120.0, 2.0, 1.0) == mc::Seconds<double> { 4.0 });
+    REQUIRE(mc::barsToSeconds(120.0, 1.0, 1.0) == mc::Seconds<double> { 2.0 });
+    REQUIRE(mc::barsToSeconds(120.0, 1.0, 4.0) == mc::Seconds<double> { 0.5 });
+}
 
 TEST_CASE("dsp/units: samplesToMicroseconds", "[dsp]")
 {
@@ -64,4 +82,13 @@ TEST_CASE("dsp/units: toSampleCount(Seconds)", "[dsp]")
     REQUIRE(mc::toSampleCount(mc::Seconds<double> { 1 }, 96'000.0) == Catch::Approx(96'000));
     REQUIRE(mc::toSampleCount(mc::Seconds<double> { 0.5 }, 44'100.0) == Catch::Approx(22'050));
     REQUIRE(mc::toSampleCount(mc::Seconds<double> { 0.25 }, 44'100.0) == Catch::Approx(11'025));
+}
+
+TEMPLATE_TEST_CASE("dsp/units: bpmToHertz", "[dsp]", float, double)
+{
+    REQUIRE(mc::bpmToHertz(TestType(12.0)) == Catch::Approx(TestType(0.2)));
+    REQUIRE(mc::bpmToHertz(TestType(60.0)) == Catch::Approx(TestType(1.0)));
+    REQUIRE(mc::bpmToHertz(TestType(150.0)) == Catch::Approx(TestType(2.5)));
+    REQUIRE(mc::bpmToHertz(TestType(120.0)) == Catch::Approx(TestType(2.0)));
+    REQUIRE(mc::bpmToHertz(TestType(240.0)) == Catch::Approx(TestType(4.0)));
 }
