@@ -57,7 +57,7 @@ private:
     template <typename Callback>
     void callIfValueChanged(value_type newValue, Callback&& callback)
     {
-        if (getValue() != newValue) { callback(newValue); }
+        if (juce::exactlyEqual(getValue(), newValue)) { callback(newValue); }
     }
 
     void valueTreePropertyChanged(juce::ValueTree& tree, juce::Identifier const& property) override
