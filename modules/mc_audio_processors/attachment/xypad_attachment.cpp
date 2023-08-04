@@ -34,11 +34,11 @@ auto XYPadAttachment::xypadChanged(XYPad* pad, juce::Point<float> position) -> v
     if (_ignoreCallbacks) { return; }
 
     if (_isDragging) {
-        if (_lastPosition.x != position.x) { _attachmentX.setValueAsPartOfGesture(position.x); }
-        if (_lastPosition.y != position.y) { _attachmentY.setValueAsPartOfGesture(position.y); }
+        if (not juce::exactlyEqual(_lastPosition.x, position.x)) { _attachmentX.setValueAsPartOfGesture(position.x); }
+        if (not juce::exactlyEqual(_lastPosition.y, position.y)) { _attachmentY.setValueAsPartOfGesture(position.y); }
     } else {
-        if (_lastPosition.x != position.x) { _attachmentX.setValueAsCompleteGesture(position.x); }
-        if (_lastPosition.y != position.y) { _attachmentY.setValueAsCompleteGesture(position.y); }
+        if (not juce::exactlyEqual(_lastPosition.x, position.x)) { _attachmentX.setValueAsCompleteGesture(position.x); }
+        if (not juce::exactlyEqual(_lastPosition.y, position.y)) { _attachmentY.setValueAsCompleteGesture(position.y); }
     }
 
     _lastPosition = position;

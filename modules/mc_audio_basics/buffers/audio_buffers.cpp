@@ -73,7 +73,7 @@ template <typename FloatT>
     auto const numSamples  = buffer.getNumSamples();
     for (auto ch = 0; ch < numChannels; ++ch) {
         for (auto i = 0; i < numSamples; ++i) {
-            if (buffer.getSample(ch, i) != value) { return false; }
+            if (not juce::exactlyEqual(buffer.getSample(ch, i), value)) { return false; }
         }
     }
     return true;
@@ -89,7 +89,7 @@ template <typename FloatT>
         auto* l = lhs.getReadPointer(ch);
         auto* r = rhs.getReadPointer(ch);
         for (int i = 0; i < lhs.getNumSamples(); ++i) {
-            if (l[i] != r[i]) { return false; }
+            if (not juce::exactlyEqual(l[i], r[i])) { return false; }
         }
     }
     return true;
