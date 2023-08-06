@@ -30,21 +30,19 @@ SpectrumSource::SpectrumSource(juce::TimeSliceThread& worker, int fftOrder)
 
 SpectrumSource::~SpectrumSource() { reset(); }
 
-auto SpectrumSource::prepare(juce::dsp::ProcessSpec const& spec) -> void
-{
-    reset();
+auto SpectrumSource::getSampleRate() const noexcept -> double { return _spec.sampleRate; }
 
-    _spec = spec;
-    _averager.resize(3, static_cast<std::size_t>(_fft.getSize()) / 2UL + 1UL);
-    _shouldExit.store(false);
-    _worker.addTimeSliceClient(this);
-}
-
-auto SpectrumSource::reset() -> void
+auto SpectrumSource::getCurrentAverage() -> std::vector<float>
 {
-    _shouldExit.store(true);
-    _worker.removeTimeSliceClient(this);
-    _averager.clear();
+    auto const size = static_cast<std::size_t>(_fft.getSize() / 2 + 1);
+    auto average    = std::vector<float>(size, 0.0F);
+
+    {
+        auto const lock = std::unique_lock { _renderMutex };
+        ranges::copy(_averager.average(), ranges::begin(average));
+    }
+
+    return average;
 }
 
 auto SpectrumSource::makePath(juce::Rectangle<float> bounds) -> juce::Path
@@ -52,13 +50,8 @@ auto SpectrumSource::makePath(juce::Rectangle<float> bounds) -> juce::Path
     auto const minFrequency = 20.0F;
     auto const maxFrequency = static_cast<float>(_spec.sampleRate) / 2.0F;
 
-    auto const size = static_cast<int>(_fft.getSize() / 2 + 1);
-    auto average    = std::vector<float>((size_t)size, 0.0F);
-
-    {
-        auto const lock = std::unique_lock { _renderMutex };
-        ranges::copy(_averager.average(), ranges::begin(average));
-    }
+    auto const average = getCurrentAverage();
+    auto const size    = static_cast<int>(average.size());
 
     auto p = juce::Path {};
     p.preallocateSpace(8 + size * 3);
@@ -81,6 +74,23 @@ auto SpectrumSource::makePath(juce::Rectangle<float> bounds) -> juce::Path
     return p;
 }
 
+auto SpectrumSource::prepare(juce::dsp::ProcessSpec const& spec) -> void
+{
+    reset();
+
+    _spec = spec;
+    _averager.resize(3, static_cast<std::size_t>(_fft.getSize()) / 2UL + 1UL);
+    _shouldExit.store(false);
+    _worker.addTimeSliceClient(this);
+}
+
+auto SpectrumSource::reset() -> void
+{
+    _shouldExit.store(true);
+    _worker.removeTimeSliceClient(this);
+    _averager.clear();
+}
+
 auto SpectrumSource::useTimeSlice() -> int
 {
     dequeueBuffers();
@@ -90,19 +100,20 @@ auto SpectrumSource::useTimeSlice() -> int
 
 auto SpectrumSource::processInternal(juce::dsp::AudioBlock<float> const& block) -> void
 {
-    auto samplesRemaining = block.getNumSamples();
+    auto const numSamples = static_cast<int>(block.getNumSamples());
+    auto samplesRemaining = numSamples;
 
     while (true) {
         if (samplesRemaining <= 0) { return; }
-        auto const nextBlockSize = std::min(maxSubBlockSize, samplesRemaining);
+        auto const nextBlockSize = std::min(static_cast<int>(maxSubBlockSize), samplesRemaining);
 
         auto subBuffer = StaticVector<float, maxSubBlockSize> {};
-        for (std::size_t j = 0; j < nextBlockSize; ++j) {
+        for (auto j = 0; j < nextBlockSize; ++j) {
 
-            auto sample      = 0.0F;
-            auto const index = block.getNumSamples() - samplesRemaining + j;
-            for (std::size_t ch = 0; ch < block.getNumChannels(); ++ch) { sample += channel(block, ch)[index]; }
-            subBuffer.push_back(sample / (float)block.getNumChannels());
+            auto sum         = 0.0F;
+            auto const index = static_cast<std::size_t>(numSamples - samplesRemaining + j);
+            for (std::size_t ch = 0; ch < block.getNumChannels(); ++ch) { sum += channel(block, ch)[index]; }
+            subBuffer.push_back(sum / static_cast<float>(block.getNumChannels()));
         }
 
         samplesRemaining -= nextBlockSize;
@@ -112,18 +123,20 @@ auto SpectrumSource::processInternal(juce::dsp::AudioBlock<float> const& block) 
 
 auto SpectrumSource::dequeueBuffers() -> void
 {
-    auto block = StaticVector<float, maxSubBlockSize> {};
-    if (!_queue.try_dequeue(block)) { return; }
+    for (auto j { 0 }; j < 4; ++j) {
+        auto block = StaticVector<float, maxSubBlockSize> {};
+        if (!_queue.try_dequeue(block)) { return; }
 
-    auto start = static_cast<std::size_t>(_numSamplesDequeued);
-    for (auto i { 0U }; i < block.size(); ++i) {
-        if (_numSamplesDequeued == _fft.getSize()) {
-            runTransform();
-            _numSamplesDequeued = 0;
-            start               = 0U;
+        auto start = static_cast<std::size_t>(_numSamplesDequeued);
+        for (auto i { 0U }; i < block.size(); ++i) {
+            if (_numSamplesDequeued == _fft.getSize()) {
+                runTransform();
+                _numSamplesDequeued = 0;
+                start               = 0U;
+            }
+            _monoBuffer[start + i] = block[i];
+            ++_numSamplesDequeued;
         }
-        _monoBuffer[start + i] = block[i];
-        ++_numSamplesDequeued;
     }
 }
 

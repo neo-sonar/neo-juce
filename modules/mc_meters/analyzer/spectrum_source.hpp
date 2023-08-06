@@ -14,14 +14,16 @@ struct SpectrumSource : juce::ChangeBroadcaster, juce::TimeSliceClient {
     SpectrumSource(SpectrumSource&& other)                    = delete;
     auto operator=(SpectrumSource&& other) -> SpectrumSource& = delete;
 
+    [[nodiscard]] auto getSampleRate() const noexcept -> double;
+    [[nodiscard]] auto getCurrentAverage() -> std::vector<float>;
+    [[nodiscard]] auto makePath(juce::Rectangle<float> bounds) -> juce::Path;
+
     auto prepare(juce::dsp::ProcessSpec const& spec) -> void;
 
     template <typename ProcessContext>
     auto process(ProcessContext const& context) -> void;
 
     auto reset() -> void;
-
-    auto makePath(juce::Rectangle<float> bounds) -> juce::Path;
 
 private:
     auto useTimeSlice() -> int override;
@@ -30,7 +32,7 @@ private:
     auto runTransform() -> void;
     auto dequeueBuffers() -> void;
 
-    static constexpr auto maxSubBlockSize = std::size_t { 32 };
+    static constexpr auto maxSubBlockSize = std::size_t { 512 };
 
     juce::TimeSliceThread& _worker;
     juce::dsp::ProcessSpec _spec {};
@@ -47,7 +49,6 @@ private:
     int _numSamplesDequeued { 0 };
 
     std::atomic<bool> _shouldExit { false };
-    std::unique_ptr<std::thread> _thread { nullptr };
 };
 
 template <typename ProcessContext>
