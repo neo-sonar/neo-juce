@@ -51,7 +51,11 @@ auto AtomicWrapper<Type>::operator=(AtomicWrapper<Type> const& other) noexcept -
 template <typename Type>
 auto AtomicWrapper<Type>::operator==(AtomicWrapper<Type> const& other) const noexcept -> bool
 {
-    return value.load() == other.value.load();
+    if constexpr (std::floating_point<Type>) {
+        return juce::exactlyEqual(value.load(), other.value.load());
+    } else {
+        return value.load() == other.value.load();
+    }
 }
 
 template <typename Type>

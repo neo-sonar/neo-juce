@@ -101,7 +101,7 @@ struct RatioOrGateTextConverter {
     {
         juce::ignoreUnused(maxStringLength);
 
-        if (value == 21.F) { return "Gate"; }
+        if (value >= 21.F) { return "Gate"; }
         if (value < 10.F) { return juce::String(value, 1) + ":1"; }
         return juce::String(static_cast<int>(value)) + ":1";
     }

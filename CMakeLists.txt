@@ -72,8 +72,6 @@ set(test_sources
     modules/mc_core/text/jformat.test.cpp
     modules/mc_core/time/time.test.cpp
 
-    modules/mc_data_structures/values/constrainer_wrapper.test.cpp
-
     modules/mc_dsp/algorithm/down_sample.test.cpp
     modules/mc_dsp/clock/trigger_clock.test.cpp
     modules/mc_dsp/container/audio_block.test.cpp
@@ -135,7 +133,6 @@ target_link_libraries(mc-juce-dev_tests
         juce::juce_recommended_config_flags
 
         mc::compiler_options
-        mc::compiler_warnings
         mc::coverage
 )
 

@@ -8,8 +8,8 @@ TEST_CASE("gui_basics/widget: XYPad", "[gui_basics]")
     SECTION("default")
     {
         mc::XYPad const pad {};
-        REQUIRE(pad.getValueX() == 0);
-        REQUIRE(pad.getValueY() == 0);
+        REQUIRE(pad.getValueX() == Catch::Approx(0.0));
+        REQUIRE(pad.getValueY() == Catch::Approx(0.0));
     }
 
     SECTION("setX")
@@ -29,10 +29,10 @@ TEST_CASE("gui_basics/widget: XYPad", "[gui_basics]")
     {
         mc::XYPad pad {};
         pad.setYRange(juce::NormalisableRange<float> { 100.0F, 15'000.0F, 1.0F });
-        REQUIRE(pad.getValueY() == 100.0F);
-        REQUIRE(pad.getNormalizedY() == 0.0F);
+        REQUIRE(pad.getValueY() == Catch::Approx(100.0));
+        REQUIRE(pad.getNormalizedY() == Catch::Approx(0.0));
         pad.setValueY(3244.0F);
-        REQUIRE(pad.getValueY() == 3244.0F);
+        REQUIRE(pad.getValueY() == Catch::Approx(3244.0));
         pad.setNormalizedY(0.5F);
         REQUIRE(pad.getValueY() == Catch::Approx(7550.0F));
         REQUIRE(pad.getNormalizedY() == Catch::Approx(0.5F));

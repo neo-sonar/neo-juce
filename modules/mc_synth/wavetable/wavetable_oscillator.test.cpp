@@ -10,7 +10,7 @@ TEMPLATE_TEST_CASE("synth/wavetable: unisonDetuneForVoice", "[synth]", float, do
     using namespace mc;
     using T = TestType;
 
-    REQUIRE(unisonDetuneForVoice<T>(1, 0) == T { 0 });
+    REQUIRE(unisonDetuneForVoice<T>(1, 0) == Catch::Approx(0));
 
     auto voices = GENERATE(2, 3, 4, 5, 6, 7, 8);
     REQUIRE(unisonDetuneForVoice<T>(voices, 0) == Catch::Approx(T { -1 }));
@@ -38,7 +38,7 @@ TEST_CASE("synth/wavetable: WavetableOscillator", "[synth]") // NOLINT
     using namespace mc;
 
     auto osc = WavetableOscillator<float> {};
-    REQUIRE(osc.processSample() == 0.0F);
+    REQUIRE(osc.processSample() == Catch::Approx(0));
 }
 
 TEMPLATE_TEST_CASE("synth/wavetable: WavetableOscillator(Sine)", "[synth]", float, double) // NOLINT
