@@ -129,6 +129,7 @@ target_link_libraries(mc-juce-dev_tests
         mc::mc_gui_basics
         mc::mc_gui_extra
         mc::mc_meters
+        mc::mc_synth
 
         juce::juce_recommended_warning_flags
         juce::juce_recommended_config_flags
