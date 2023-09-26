@@ -8,22 +8,17 @@ on:
 
 jobs:
   check:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out code
         uses: actions/checkout@v3
         with:
           lfs: true
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install pre-commit
 
       - name: Check Pre-Commit Hooks
-        run: make check
+        run: pre-commit run --all-files
