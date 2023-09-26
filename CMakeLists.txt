@@ -53,9 +53,8 @@ include(CTest)
 find_package(Catch2 REQUIRED)
 include(Catch)
 
-juce_add_console_app(mc-juce-dev_tests PRODUCT_NAME "mc-juce-dev_tests" NEEDS_CURL OFF)
-catch_discover_tests(mc-juce-dev_tests WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-set_target_properties(mc-juce-dev_tests PROPERTIES UNITY_BUILD_MODE GROUP)
+juce_add_console_app(mc_juce_tests PRODUCT_NAME "mc_juce_tests" NEEDS_CURL OFF)
+catch_discover_tests(mc_juce_tests WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 set(test_sources
     modules/mc_audio_basics/buffers/audio_buffer.test.cpp
@@ -94,10 +93,11 @@ set(test_sources
     modules/mc_synth/wavetable/wavetable_oscillator.test.cpp
 )
 
-target_sources(mc-juce-dev_tests PRIVATE main.test.cpp ${test_sources})
-set_source_files_properties(mc-juce-dev_tests ${test_sources} PROPERTIES UNITY_GROUP "tests")
+target_sources(mc_juce_tests PRIVATE main.test.cpp ${test_sources})
+set_target_properties(mc_juce_tests PROPERTIES UNITY_BUILD_MODE GROUP)
+set_source_files_properties(mc_juce_tests ${test_sources} PROPERTIES UNITY_GROUP "src")
 
-target_compile_definitions(mc-juce-dev_tests
+target_compile_definitions(mc_juce_tests
     PRIVATE
         JUCE_WEB_BROWSER=0
         JUCE_USE_OGGVORBIS=0
@@ -106,7 +106,7 @@ target_compile_definitions(mc-juce-dev_tests
         _SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING=1
 )
 
-target_link_libraries(mc-juce-dev_tests
+target_link_libraries(mc_juce_tests
     PRIVATE
         Boost::headers
         concurrentqueue::concurrentqueue
