@@ -54,43 +54,43 @@ juce_add_console_app(mc_juce_tests PRODUCT_NAME "mc_juce_tests" NEEDS_CURL OFF)
 catch_discover_tests(mc_juce_tests WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 set(test_sources
-    modules/mc_audio_basics/buffers/audio_buffer.test.cpp
+    modules/mc_audio_basics/buffers/audio_buffer_test.cpp
 
-    modules/mc_audio_processors/attachment/xypad_attachment.test.cpp
-    modules/mc_audio_processors/parameter/text_value_converter.test.cpp
-    modules/mc_audio_processors/processors/buses_layout.test.cpp
+    modules/mc_audio_processors/attachment/xypad_attachment_test.cpp
+    modules/mc_audio_processors/parameter/text_value_converter_test.cpp
+    modules/mc_audio_processors/processors/buses_layout_test.cpp
 
-    modules/mc_core/container/registry.test.cpp
-    modules/mc_core/files/file.test.cpp
-    # modules/mc_core/javascript/json_utils.test.cpp
-    modules/mc_core/math/range.test.cpp
-    modules/mc_core/misc/result.test.cpp
-    modules/mc_core/text/jformat.test.cpp
-    modules/mc_core/time/time.test.cpp
+    modules/mc_core/container/registry_test.cpp
+    modules/mc_core/files/file_test.cpp
+    # modules/mc_core/javascript/json_utils_test.cpp
+    modules/mc_core/math/range_test.cpp
+    modules/mc_core/misc/result_test.cpp
+    modules/mc_core/text/jformat_test.cpp
+    modules/mc_core/time/time_test.cpp
 
-    modules/mc_dsp/algorithm/down_sample.test.cpp
-    modules/mc_dsp/clock/trigger_clock.test.cpp
-    modules/mc_dsp/container/audio_block.test.cpp
-    modules/mc_dsp/fx/stereo_width.test.cpp
-    modules/mc_dsp/units/units.test.cpp
+    modules/mc_dsp/algorithm/down_sample_test.cpp
+    modules/mc_dsp/clock/trigger_clock_test.cpp
+    modules/mc_dsp/container/audio_block_test.cpp
+    modules/mc_dsp/fx/stereo_width_test.cpp
+    modules/mc_dsp/units/units_test.cpp
 
-    modules/mc_extension_pack/file/file_searcher.test.cpp
-    modules/mc_extension_pack/pack/extension_pack_builder.test.cpp
+    modules/mc_extension_pack/file/file_searcher_test.cpp
+    modules/mc_extension_pack/pack/extension_pack_builder_test.cpp
 
-    modules/mc_graphics/color/color.test.cpp
-    modules/mc_graphics/geometry/geometry.test.cpp
-    modules/mc_graphics/images/image.test.cpp
+    modules/mc_graphics/color/color_test.cpp
+    modules/mc_graphics/geometry/geometry_test.cpp
+    modules/mc_graphics/images/image_test.cpp
 
-    modules/mc_gui_basics/attachment/attachment.test.cpp
-    modules/mc_gui_basics/widgets/xy_pad.test.cpp
+    modules/mc_gui_basics/attachment/attachment_test.cpp
+    modules/mc_gui_basics/widgets/xy_pad_test.cpp
 
-    modules/mc_meters/level_meter/level_meter_source.test.cpp
+    modules/mc_meters/level_meter/level_meter_source_test.cpp
 
-    modules/mc_synth/math/hermite_interpolation.test.cpp
-    modules/mc_synth/wavetable/wavetable_oscillator.test.cpp
+    modules/mc_synth/math/hermite_interpolation_test.cpp
+    modules/mc_synth/wavetable/wavetable_oscillator_test.cpp
 )
 
-target_sources(mc_juce_tests PRIVATE main.test.cpp ${test_sources})
+target_sources(mc_juce_tests PRIVATE main_test.cpp ${test_sources})
 set_target_properties(mc_juce_tests PROPERTIES UNITY_BUILD_MODE GROUP)
 set_source_files_properties(mc_juce_tests ${test_sources} PROPERTIES UNITY_GROUP "src")
 
