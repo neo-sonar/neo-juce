@@ -61,12 +61,16 @@ jobs:
         if: ${{ matrix.name != 'macOS-ARM64' }}
         uses: hendrikmuhs/ccache-action@main
         with:
-          key: v3-${{ matrix.name }}-Release
+          key: v3-${{ matrix.name }}-Debug
 
       - name: CMake configure
         shell: bash
-        run: cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+        run: cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
 
       - name: CMake build
         shell: bash
-        run: cmake --build build --config Release --target all
+        run: cmake --build build --config Debug --target all
+
+      - name: CTest
+        shell: bash
+        run: ctest --test-dir build -C Debug --output-on-failure
