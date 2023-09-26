@@ -24,7 +24,7 @@ auto processDownSamplingAnalyzer(Queue& queue, Buffer const& buffer, std::size_t
         // We use transform instead of copy, so that we can explicitly
         // cast the value to the type required by the queue chunks.
         // i.e. float <-> double conversion.
-        ranges::transform(f, l, ranges::begin(chunk), [](T x) { return static_cast<float>(x); });
+        std::ranges::transform(f, l, std::ranges::begin(chunk), [](T x) { return static_cast<float>(x); });
 
         queue.try_enqueue(chunk);
     }
@@ -71,7 +71,7 @@ auto DownSamplingAnalyzer::timerCallback() -> void
         // Remove oldest elements & insert new
         newData       = true;
         auto oldFirst = std::rotate(begin(_buffer), std::next(begin(_buffer), (int)chunk.size()), end(_buffer));
-        ranges::copy(chunk, oldFirst);
+        std::ranges::copy(chunk, oldFirst);
     }
     if (newData) {
         // Notify UI elements

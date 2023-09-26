@@ -13,7 +13,7 @@ auto rmsLevel(juce::dsp::AudioBlock<T> const& block) -> T
     auto sum = T { 0 };
     for (auto i { 0UL }; i < block.getNumChannels(); ++i) {
         auto const ch = channel(block, i);
-        sum += ranges::accumulate(ch, T { 0 });
+        sum += std::accumulate(ch.begin(), ch.end(), T { 0 });
     }
 
     return std::sqrt(sum / static_cast<T>(block.getNumSamples() * block.getNumChannels()));

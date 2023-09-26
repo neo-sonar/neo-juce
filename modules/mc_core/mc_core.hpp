@@ -30,12 +30,15 @@ END_JUCE_MODULE_DECLARATION
 #include <fmt/os.h>
 #include <fmt/ostream.h>
 #include <moodycamel/concurrentqueue.h>
-#include <range/v3/all.hpp>
 
 #include <bitset>
+#include <concepts>
 #include <optional>
 #include <queue>
+#include <random>
+#include <ranges>
 #include <span>
+#include <variant>
 
 #include "text/jformat.hpp"
 #include "text/string.hpp"

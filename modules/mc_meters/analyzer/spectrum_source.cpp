@@ -39,7 +39,7 @@ auto SpectrumSource::getCurrentAverage() -> std::vector<float>
 
     {
         auto const lock = std::unique_lock { _renderMutex };
-        ranges::copy(_averager.average(), ranges::begin(average));
+        std::ranges::copy(_averager.average(), std::ranges::begin(average));
     }
 
     return average;

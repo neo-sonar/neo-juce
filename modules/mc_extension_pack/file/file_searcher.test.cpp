@@ -107,7 +107,7 @@ TEST_CASE("extension_pack/file: hasMagicHeader(juce::File)", "[extension_pack]")
     {
         auto const longHeader = [] {
             auto arr = std::array<char, 1024> {};
-            ranges::fill(arr, 42);
+            std::ranges::fill(arr, 42);
             return arr;
         }();
 

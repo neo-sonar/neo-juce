@@ -38,8 +38,8 @@ auto Averager<T>::resize(size_t numWindows, size_t windowSize) -> void
 template <typename T>
 auto Averager<T>::clear() -> void
 {
-    ranges::fill(_average, T {});
-    for (auto& buf : _history) { ranges::fill(buf, T {}); }
+    std::ranges::fill(_average, T {});
+    for (auto& buf : _history) { std::ranges::fill(buf, T {}); }
 }
 
 template <typename T>
@@ -47,14 +47,16 @@ auto Averager<T>::push(std::span<T const> buffer) -> void
 {
     // Copy input
     auto& dest = _history[_writeIndex];
-    ranges::copy(buffer, ranges::begin(dest));
+    std::ranges::copy(buffer, std::ranges::begin(dest));
     _writeIndex = (_writeIndex + 1) % _history.size();
 
     // Calculate average
-    ranges::fill(_average, T {});
-    for (auto const& buf : _history) { ranges::transform(_average, buf, ranges::begin(_average), std::plus {}); }
+    std::ranges::fill(_average, T {});
+    for (auto const& buf : _history) {
+        std::ranges::transform(_average, buf, std::ranges::begin(_average), std::plus {});
+    }
     auto const scale = [n = static_cast<T>(_history.size())](auto v) { return v / n; };
-    ranges::transform(_average, ranges::begin(_average), scale);
+    std::ranges::transform(_average, std::ranges::begin(_average), scale);
 }
 
 template <typename T>

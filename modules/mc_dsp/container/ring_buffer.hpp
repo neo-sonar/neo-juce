@@ -46,7 +46,7 @@ auto RingBuffer<T>::operator[](size_type index) const noexcept -> float
 template <typename T>
 auto RingBuffer<T>::clear() -> void
 {
-    ranges::fill(_buffer, T {});
+    std::ranges::fill(_buffer, T {});
 }
 
 template <typename T>

@@ -13,9 +13,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-if(NOT "${CMAKE_CXX_STANDARD}")
-    set(CMAKE_CXX_STANDARD 20)
-endif()
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -43,7 +41,6 @@ endif()
 find_package(Boost 1.78 REQUIRED COMPONENTS boost)
 find_package(concurrentqueue REQUIRED)
 find_package(fmt REQUIRED)
-find_package(range-v3 REQUIRED)
 
 add_subdirectory(modules)
 
@@ -103,7 +100,6 @@ target_compile_definitions(mc_juce_tests
         JUCE_USE_OGGVORBIS=0
         JUCE_USE_CURL=0
         JUCE_DISABLE_JUCE_VERSION_PRINTING=1
-        _SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING=1
 )
 
 target_link_libraries(mc_juce_tests
@@ -111,7 +107,6 @@ target_link_libraries(mc_juce_tests
         Boost::headers
         concurrentqueue::concurrentqueue
         fmt::fmt
-        range-v3::range-v3
 
         Catch2::Catch2
 

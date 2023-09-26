@@ -114,7 +114,7 @@ public:
     void getDirections(std::vector<FloatType>& directions, int numSamples, int leftIdx, int rightIdx)
     {
         jassert(directions.size() == 180);
-        ranges::fill(directions, 0.0);
+        std::ranges::fill(directions, 0.0);
         auto pos = _writePosition.load();
 
         if (pos >= numSamples) {
