@@ -101,7 +101,7 @@ template <typename T>
 template <typename F>
 auto Registry<T>::forID(ticket_type ticket, F f) const -> bool
 {
-    jassert(ticket < _id && "ID must be in range for this registry");
+    jassert(ticket < _id);
 
     auto compare = [](auto const& a, auto const& b) { return a.first < b; };
     auto p       = std::lower_bound(begin(_map), end(_map), ticket, compare);
@@ -126,7 +126,7 @@ auto Registry<T>::append(T element) -> ticket_type
 template <typename T>
 auto Registry<T>::erase(size_type id) -> void
 {
-    jassert(id < _id && "ID must be in range for this registry");
+    jassert(id < _id);
 
     auto compare = [](auto const& a, auto const& b) { return a.first < b; };
     auto p       = std::lower_bound(begin(_map), end(_map), id, compare);

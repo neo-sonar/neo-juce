@@ -13,8 +13,7 @@ public:
     {
     }
 
-    [[nodiscard]] constexpr auto operator()(T actual) const noexcept(noexcept(_expected == actual))
-        -> decltype(_expected == actual)
+    [[nodiscard]] constexpr auto operator()(T actual) const -> decltype(juce::exactlyEqual(_expected, actual))
     {
         return juce::exactlyEqual(_expected, actual);
     }
