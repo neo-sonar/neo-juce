@@ -26,14 +26,14 @@ class ModernCircuitsJuceModules(ConanFile):
 
     def requirements(self):
         self.requires("concurrentqueue/1.0.4")
-        self.requires("fmt/9.1.0")
+        self.requires("fmt/10.1.1")
         self.requires("range-v3/0.12.0")
 
         if self.settings.os != "Emscripten":
-            self.requires("boost/1.82.0")
+            self.requires("boost/1.83.0")
 
     def build_requirements(self):
-        self.test_requires("catch2/3.3.2")
+        self.test_requires("catch2/3.4.0")
 
     def config_options(self):
         self.options["boost"].header_only = True
