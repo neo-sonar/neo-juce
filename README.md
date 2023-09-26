@@ -1,7 +1,6 @@
-# Modern Circuit - JUCE Modules
+# JUCE Extra
 
-[![Clang-Tidy](https://github.com/ModernCircuits/mc-juce/actions/workflows/clang-tidy.yml/badge.svg)](https://github.com/ModernCircuits/mc-juce/actions/workflows/clang-tidy.yml)
-[![Coverage](https://github.com/ModernCircuits/mc-juce/actions/workflows/coverage.yml/badge.svg)](https://github.com/ModernCircuits/mc-juce/actions/workflows/coverage.yml)
+[![Test](https://github.com/ModernCircuits/mc-juce/actions/workflows/test.yml/badge.svg)](https://github.com/ModernCircuits/mc-juce/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/ModernCircuits/mc-juce/branch/main/graph/badge.svg?token=C8L2H8A9HL)](https://codecov.io/gh/ModernCircuits/mc-juce)
 
 ## License
