@@ -92,6 +92,7 @@ jobs:
           key: mc-juce-test-${{ matrix.name }}
 
       - name: CMake configure
+        if: runner.os != 'Windows'
         shell: bash
         run: >
           cmake
@@ -102,9 +103,21 @@ jobs:
           -D CMAKE_UNITY_BUILD=ON
           ${{ matrix.cmake_flags }}
 
+      - name: CMake configure
+        if: runner.os == 'Windows'
+        shell: bash
+        run: >
+          cmake
+          -S .
+          -B build
+          -G "Visual Studio 17 2022"
+          -D CMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -D CMAKE_UNITY_BUILD=ON
+          ${{ matrix.cmake_flags }}
+
       - name: CMake build
         shell: bash
-        run: cmake --build build
+        run: cmake --build build --config ${{ matrix.build_type }}
 
       - name: CTest
         shell: bash
