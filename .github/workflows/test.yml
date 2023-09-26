@@ -1,6 +1,10 @@
-name: Build
+name: Test
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -20,17 +24,17 @@ jobs:
         include:
           - name: Linux
             os: ubuntu-22.04
-            build_type: Debug
+            build_type: Release
             cmake_flags: ""
 
           - name: macOS
             os: macos-13
-            build_type: Debug
-            cmake_flags: '-D CMAKE_OSX_ARCHITECTURES="arm64;x86_64"'
+            build_type: Release
+            cmake_flags: ""
 
           - name: Windows
             os: windows-latest
-            build_type: Debug
+            build_type: Release
             cmake_flags: ""
 
           - name: Coverage
@@ -85,7 +89,7 @@ jobs:
       - name: Install ccache
         uses: hendrikmuhs/ccache-action@main
         with:
-          key: perceptual-convolution-build-${{ matrix.name }}
+          key: mc-juce-test-${{ matrix.name }}
 
       - name: CMake configure
         shell: bash
