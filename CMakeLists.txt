@@ -83,7 +83,7 @@ set(test_sources
     modules/neo_synth/wavetable/wavetable_oscillator_test.cpp
 )
 
-target_sources(neo_juce_tests PRIVATE main_test.cpp ${test_sources})
+target_sources(neo_juce_tests PRIVATE main.cpp ${test_sources})
 set_target_properties(neo_juce_tests PROPERTIES UNITY_BUILD_MODE GROUP)
 set_source_files_properties(neo_juce_tests ${test_sources} PROPERTIES UNITY_GROUP "src")
 
