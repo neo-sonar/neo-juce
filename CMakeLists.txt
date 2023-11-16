@@ -68,6 +68,7 @@ set(test_sources
     modules/neo_gui_basics/attachment/attachment_test.cpp
     modules/neo_gui_basics/widgets/xy_pad_test.cpp
 
+    modules/neo_meters/analyzer/spectrum_source_test.cpp
     modules/neo_meters/level_meter/level_meter_source_test.cpp
     modules/neo_meters/waveform/waveform_source_test.cpp
 
