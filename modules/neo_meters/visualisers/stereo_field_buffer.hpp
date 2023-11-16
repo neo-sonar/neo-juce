@@ -12,7 +12,7 @@ private:
     std::atomic<int> _writePosition   = { 0 };
     std::vector<FloatType> _maxValues = { 180, 0.0 };
 
-    inline void computeDirection(std::vector<float>& directions, const FloatType left, const FloatType right) const
+    inline void computeDirection(std::vector<float>& directions, FloatType const left, FloatType const right) const
     {
         if (left == 0) {
             directions[45] = std::max(directions[45], std::abs(right));
@@ -21,8 +21,8 @@ private:
     }
 
     [[nodiscard]] inline auto computePosition(juce::Rectangle<FloatType> const& b,
-        const FloatType left,
-        const FloatType right) const -> juce::Point<FloatType>
+        FloatType const left,
+        FloatType const right) const -> juce::Point<FloatType>
     {
         return juce::Point<FloatType>(b.getCentreX() + FloatType(0.5) * b.getWidth() * (right - left),
             b.getCentreY() + FloatType(0.5) * b.getHeight() * (left + right));
@@ -69,7 +69,7 @@ public:
     //  ==============================================================================
 
     [[nodiscard]] auto
-    getOscilloscope(int const numSamples, const juce::Rectangle<FloatType> bounds, int leftIdx, int rightIdx) const
+    getOscilloscope(int const numSamples, juce::Rectangle<FloatType> const bounds, int leftIdx, int rightIdx) const
         -> juce::Path
     {
         juce::Path curve;

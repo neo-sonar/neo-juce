@@ -5,8 +5,8 @@
 
 ## License
 
-|        Module         |                     License                      |
-| :-------------------: | :----------------------------------------------: |
+|         Module         |                     License                      |
+| :--------------------: | :----------------------------------------------: |
 |   `neo_audio_basics`   | [BSL-1.0](https://www.boost.org/LICENSE_1_0.txt) |
 |  `neo_audio_formats`   |   [GPL/Commercial](https://juce.com/get-juce)    |
 | `neo_audio_processors` |   [GPL/Commercial](https://juce.com/get-juce)    |

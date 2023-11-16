@@ -11,7 +11,7 @@ struct TestProcessor final : juce::AudioProcessor {
     }
     ~TestProcessor() override = default;
 
-    auto getName() const -> const juce::String override { return "Test"; }
+    auto getName() const -> juce::String const override { return "Test"; }
 
     auto prepareToPlay(double /*sampleRate*/, int /*samplesPerBlock*/) -> void override { }
     auto processBlock(juce::AudioBuffer<float>& /*buffer*/, juce::MidiBuffer& /*midiMessages*/) -> void override { }
@@ -31,7 +31,7 @@ struct TestProcessor final : juce::AudioProcessor {
     auto getNumPrograms() -> int override { return 0; }
     auto getCurrentProgram() -> int override { return 0; }
     void setCurrentProgram(int /*index*/) override { }
-    auto getProgramName(int /*index*/) -> const juce::String override { return ""; }
+    auto getProgramName(int /*index*/) -> juce::String const override { return ""; }
     void changeProgramName(int /*index*/, juce::String const& /*newName*/) override { }
 
     auto getStateInformation(juce::MemoryBlock& /*destData*/) -> void override { }

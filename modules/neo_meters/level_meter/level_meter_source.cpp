@@ -1,7 +1,7 @@
 #pragma once
 
 namespace neo {
-LevelMeterSource::ChannelData::ChannelData(const size_t rmsWindow)
+LevelMeterSource::ChannelData::ChannelData(size_t const rmsWindow)
     : clip(false), reduction(1.0F), _hold(0), _rmsHistory((size_t)rmsWindow, 0.0), _rmsSum(0.0)
 
 {
@@ -57,7 +57,7 @@ auto LevelMeterSource::ChannelData::levels(juce::int64 time, float newMax, float
     pushRMS(std::min(1.0F, newRms));
 }
 
-auto LevelMeterSource::ChannelData::rmsSize(const size_t numBlocks) -> void
+auto LevelMeterSource::ChannelData::rmsSize(size_t const numBlocks) -> void
 {
     _rmsHistory.assign(numBlocks, 0.0);
     _rmsSum = 0.0;
@@ -120,7 +120,7 @@ auto LevelMeterSource::reductionLevel(int channel, float const reduction) -> voi
     _levels[size_t(channel)].reduction = reduction;
 }
 
-auto LevelMeterSource::setMaxHoldMS(const juce::int64 millis) -> void { _holdMSecs = millis; }
+auto LevelMeterSource::setMaxHoldMS(juce::int64 const millis) -> void { _holdMSecs = millis; }
 
 auto LevelMeterSource::reductionLevel(int channel) const -> float
 {

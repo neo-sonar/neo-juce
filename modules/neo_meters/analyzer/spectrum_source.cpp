@@ -9,7 +9,7 @@ namespace {
     return diff * width / (std::log10(maxFreq) - logMinFreq);
 }
 
-[[nodiscard]] auto amplitudeToY(float amplitude, const juce::Rectangle<float> bounds) -> float
+[[nodiscard]] auto amplitudeToY(float amplitude, juce::Rectangle<float> const bounds) -> float
 {
     auto const infinity = -60.0F;
     auto const dB       = juce::Decibels::gainToDecibels(amplitude, infinity);
