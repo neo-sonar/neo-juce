@@ -22,9 +22,3 @@ repos:
     rev: v17.0.4
     hooks:
       - id: clang-format
-
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 3.0.0
-    hooks:
-      - id: shellcheck
-      - id: shfmt

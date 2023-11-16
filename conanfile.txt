@@ -10,4 +10,3 @@ boost/*:header_only=True
 [generators]
 CMakeDeps
 CMakeToolchain
-
