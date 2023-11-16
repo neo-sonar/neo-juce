@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CMAKE_BUILD_PARALLEL_LEVEL: 3
+  CMAKE_GENERATOR: Ninja
   HOMEBREW_NO_INSTALL_CLEANUP: 1
 
 jobs:
@@ -82,9 +82,8 @@ jobs:
 
       - name: Install conan
         run: |
-          pip3 install --force-reinstall -v "conan==1.59.0"
-          conan config init
-          conan config set general.revisions_enabled=1
+          pip3 install --upgrade conan
+          conan profile detect -f
 
       - name: Install ccache
         uses: hendrikmuhs/ccache-action@main
@@ -101,6 +100,7 @@ jobs:
           -G Ninja
           -D CMAKE_BUILD_TYPE=${{ matrix.build_type }}
           -D CMAKE_UNITY_BUILD=ON
+          -D CMAKE_PROJECT_TOP_LEVEL_INCLUDES="external/cmake-conan/conan_provider.cmake"
           ${{ matrix.cmake_flags }}
 
       - name: CMake configure
@@ -113,6 +113,7 @@ jobs:
           -G "Visual Studio 17 2022"
           -D CMAKE_BUILD_TYPE=${{ matrix.build_type }}
           -D CMAKE_UNITY_BUILD=ON
+          -D CMAKE_PROJECT_TOP_LEVEL_INCLUDES="external/cmake-conan/conan_provider.cmake"
           ${{ matrix.cmake_flags }}
 
       - name: CMake build

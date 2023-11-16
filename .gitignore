@@ -12,3 +12,4 @@ assets
 docs/doxygen/doc
 /out
 /venv
+/CMakeUserPresets.json
