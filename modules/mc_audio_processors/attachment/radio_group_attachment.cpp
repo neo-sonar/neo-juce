@@ -1,3 +1,0 @@
-namespace mc {
-
-} // namespace mc

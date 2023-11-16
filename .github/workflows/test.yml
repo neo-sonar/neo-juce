@@ -89,7 +89,7 @@ jobs:
       - name: Install ccache
         uses: hendrikmuhs/ccache-action@main
         with:
-          key: mc-juce-test-${{ matrix.name }}
+          key: neo-juce-test-${{ matrix.name }}
 
       - name: CMake configure
         if: runner.os != 'Windows'

@@ -1,17 +1,17 @@
-project(mc-juce VERSION 0.1.0)
+project(neo-juce VERSION 0.1.0)
 
-juce_add_modules(ALIAS_NAMESPACE mc
-    mc_audio_basics
-    mc_audio_formats
-    mc_audio_processors
-    mc_core
-    mc_data_structures
-    mc_dsp
-    mc_events
-    mc_extension_pack
-    mc_graphics
-    mc_gui_basics
-    mc_gui_extra
-    mc_meters
-    mc_synth
+juce_add_modules(ALIAS_NAMESPACE neo
+    neo_audio_basics
+    neo_audio_formats
+    neo_audio_processors
+    neo_core
+    neo_data_structures
+    neo_dsp
+    neo_events
+    neo_extension_pack
+    neo_graphics
+    neo_gui_basics
+    neo_gui_extra
+    neo_meters
+    neo_synth
 )

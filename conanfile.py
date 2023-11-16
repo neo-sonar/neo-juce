@@ -9,10 +9,10 @@ from conan.tools.files import load
 required_conan_version = ">=1.50.0"
 
 
-class ModernCircuitsJuceModules(ConanFile):
-    name = "mc-juce"
-    url = "https://github.com/ModernCircuits/mc-juce"
-    description = "Modern Circuits JUCE Modules"
+class NeoSonarJuceModules(ConanFile):
+    name = "neo-juce"
+    url = "https://github.com/neo-sonar/neo-juce"
+    description = "neo-sonar JUCE Modules"
     license = "BSL-1.0"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake_find_package", "markdown"
