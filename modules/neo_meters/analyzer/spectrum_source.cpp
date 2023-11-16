@@ -34,7 +34,7 @@ auto SpectrumSource::getSampleRate() const noexcept -> double { return _spec.sam
 
 auto SpectrumSource::getCurrentAverage() -> std::vector<float>
 {
-    auto const size = static_cast<std::size_t>(_fft.getSize() / 2 + 1);
+    auto const size = static_cast<std::size_t>(_fft.getSize()) / 2 + 1;
     auto average    = std::vector<float>(size, 0.0F);
 
     {
@@ -111,8 +111,10 @@ auto SpectrumSource::processInternal(juce::dsp::AudioBlock<float> const& block) 
         for (auto j = 0; j < nextBlockSize; ++j) {
 
             auto sum         = 0.0F;
-            auto const index = static_cast<std::size_t>(numSamples - samplesRemaining + j);
-            for (std::size_t ch = 0; ch < block.getNumChannels(); ++ch) { sum += channel(block, ch)[index]; }
+            auto const index = numSamples - samplesRemaining + j;
+            for (std::size_t ch = 0; ch < block.getNumChannels(); ++ch) {
+                sum += channel(block, ch)[static_cast<std::size_t>(index)];
+            }
             subBuffer.push_back(sum / static_cast<float>(block.getNumChannels()));
         }
 

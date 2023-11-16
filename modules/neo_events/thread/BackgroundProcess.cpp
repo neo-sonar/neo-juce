@@ -55,7 +55,9 @@ auto BackgroundProcess::timerCallback() -> void
 
     auto output = _queue.pop();
     while (output.has_value()) {
-        _listeners.call([this, s = output.value()](Listener& l) { l.backgroundProcessOutputReceived(this, s); });
+        // Probably a bug in clang-tidy. Value is checked in line above.
+        // NOLINTNEXTLINE(bugprone-unchecked-optional-access)
+        _listeners.call([this, out = *output](Listener& l) { l.backgroundProcessOutputReceived(this, out); });
         output = _queue.pop();
     }
 }

@@ -107,8 +107,8 @@ auto Registry<T>::forID(ticket_type ticket, F f) const -> bool
     auto p       = std::lower_bound(begin(_map), end(_map), ticket, compare);
     if (p == end(_map) || p->first != ticket) { return false; }
 
-    if (p->second) {
-        f(*p->second);
+    if (auto& val = p->second; val) {
+        f(*val);
         return true;
     }
 
