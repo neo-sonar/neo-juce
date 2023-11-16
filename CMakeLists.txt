@@ -69,6 +69,7 @@ set(test_sources
     modules/neo_gui_basics/widgets/xy_pad_test.cpp
 
     modules/neo_meters/level_meter/level_meter_source_test.cpp
+    modules/neo_meters/waveform/waveform_source_test.cpp
 
     modules/neo_synth/math/hermite_interpolation_test.cpp
     modules/neo_synth/wavetable/wavetable_oscillator_test.cpp
