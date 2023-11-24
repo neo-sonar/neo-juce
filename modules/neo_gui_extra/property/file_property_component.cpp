@@ -16,11 +16,13 @@ void FilePropertyComponent::refresh() { _container.filename.setText(value().toSt
 
 auto FilePropertyComponent::browseForFile(bool selectDirectory) -> void
 {
-    auto folderChooserFlags
-        = selectDirectory ? juce::FileBrowserComponent::canSelectDirectories : juce::FileBrowserComponent::openMode;
+    auto const dir          = juce::FileBrowserComponent::canSelectDirectories;
+    auto const file         = juce::FileBrowserComponent::canSelectFiles;
+    auto const chooserFlags = (selectDirectory ? dir : file) | juce::FileBrowserComponent::openMode;
+    auto const callback     = [this](auto const&) { value().setValue(_chooser->getResult().getFullPathName()); };
+
     _chooser = std::make_unique<juce::FileChooser>(_title, juce::File(value().toString()), _pattern);
-    _chooser->launchAsync(folderChooserFlags,
-        [this](juce::FileChooser const&) { value().setValue(_chooser->getResult().getFullPathName()); });
+    _chooser->launchAsync(chooserFlags, callback);
 }
 
 FilePropertyComponent::Container::Container()
